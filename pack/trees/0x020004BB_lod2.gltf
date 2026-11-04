@@ -1,0 +1,233 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3
+    },
+    {
+     "material": 1,
+     "attributes": {
+      "POSITION": 4,
+      "NORMAL": 5,
+      "TEXCOORD_0": 6
+     },
+     "indices": 7
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Stalk",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.2,
+     0.05,
+     0.05,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   },
+   "normalTexture": {
+    "index": 1,
+    "scale": 1.3
+   }
+  },
+  {
+   "name": "Blades",
+   "doubleSided": true,
+   "alphaMode": "MASK",
+   "alphaCutoff": 0.4,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 2
+    },
+    "baseColorFactor": [
+     0.14,
+     0.42,
+     0.1,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_PalmBark.png"
+  },
+  {
+   "uri": "Gen_Grit_Normal.png"
+  },
+  {
+   "uri": "Gen_Mottled.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  },
+  {
+   "source": 1
+  },
+  {
+   "source": 2
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x020004BB_lod2.bin",
+   "byteLength": 2944
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 240,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 240,
+   "byteLength": 240,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 480,
+   "byteLength": 160,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 640,
+   "byteLength": 288,
+   "target": 34963
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 928,
+   "byteLength": 540,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 1468,
+   "byteLength": 540,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 2008,
+   "byteLength": 360,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 2368,
+   "byteLength": 576,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 20,
+   "type": "VEC3",
+   "min": [
+    -0.14882251620292664,
+    -0.3022816777229309,
+    -0.14883996546268463
+   ],
+   "max": [
+    0.14882251620292664,
+    1.2939164638519287,
+    0.14883996546268463
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 20,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 20,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5125,
+   "count": 72,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5126,
+   "count": 45,
+   "type": "VEC3",
+   "min": [
+    -0.2601509690284729,
+    0.4050000011920929,
+    -0.30591779947280884
+   ],
+   "max": [
+    0.32958120107650757,
+    1.4850000143051147,
+    0.3300802409648895
+   ]
+  },
+  {
+   "bufferView": 5,
+   "componentType": 5126,
+   "count": 45,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 6,
+   "componentType": 5126,
+   "count": 45,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 7,
+   "componentType": 5125,
+   "count": 144,
+   "type": "SCALAR"
+  }
+ ]
+}

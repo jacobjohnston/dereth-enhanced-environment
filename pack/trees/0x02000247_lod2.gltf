@@ -1,0 +1,266 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "cactus.py"
+ },
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "scene": 0,
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3,
+     "material": 0
+    },
+    {
+     "attributes": {
+      "POSITION": 4,
+      "NORMAL": 5,
+      "TEXCOORD_0": 6
+     },
+     "indices": 7,
+     "material": 1
+    },
+    {
+     "attributes": {
+      "POSITION": 8,
+      "NORMAL": 9,
+      "TEXCOORD_0": 10
+     },
+     "indices": 11,
+     "material": 2
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Skin",
+   "pbrMetallicRoughness": {
+    "metallicFactor": 0.0,
+    "roughnessFactor": 0.75,
+    "baseColorTexture": {
+     "index": 0
+    }
+   }
+  },
+  {
+   "name": "Skin",
+   "pbrMetallicRoughness": {
+    "metallicFactor": 0.0,
+    "roughnessFactor": 0.75,
+    "baseColorTexture": {
+     "index": 0
+    }
+   }
+  },
+  {
+   "name": "Skin",
+   "pbrMetallicRoughness": {
+    "metallicFactor": 0.0,
+    "roughnessFactor": 0.75,
+    "baseColorTexture": {
+     "index": 0
+    }
+   }
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_Cactus.png"
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x02000247_lod2.bin",
+   "byteLength": 39792
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 3600
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 3600,
+   "byteLength": 3600
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 7200,
+   "byteLength": 2400
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 9600,
+   "byteLength": 6384
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 15984,
+   "byteLength": 2700
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 18684,
+   "byteLength": 2700
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 21384,
+   "byteLength": 1800
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 23184,
+   "byteLength": 4704
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 27888,
+   "byteLength": 2700
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 30588,
+   "byteLength": 2700
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 33288,
+   "byteLength": 1800
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 35088,
+   "byteLength": 4704
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 300,
+   "type": "VEC3",
+   "min": [
+    -0.5020815134048462,
+    -1.9500000476837158,
+    -0.5146216154098511
+   ],
+   "max": [
+    0.5324738025665283,
+    5.089999675750732,
+    0.5976113080978394
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 300,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 300,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5125,
+   "count": 1596,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5126,
+   "count": 225,
+   "type": "VEC3",
+   "min": [
+    -0.014894991181790829,
+    1.3988240957260132,
+    -0.31392279267311096
+   ],
+   "max": [
+    1.3368782997131348,
+    2.804331064224243,
+    0.45344993472099304
+   ]
+  },
+  {
+   "bufferView": 5,
+   "componentType": 5126,
+   "count": 225,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 6,
+   "componentType": 5126,
+   "count": 225,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 7,
+   "componentType": 5125,
+   "count": 1176,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 8,
+   "componentType": 5126,
+   "count": 225,
+   "type": "VEC3",
+   "min": [
+    -1.0955278873443604,
+    3.2780675888061523,
+    -0.3906053602695465
+   ],
+   "max": [
+    0.07520323246717453,
+    4.55725622177124,
+    0.35351696610450745
+   ]
+  },
+  {
+   "bufferView": 9,
+   "componentType": 5126,
+   "count": 225,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 10,
+   "componentType": 5126,
+   "count": 225,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 11,
+   "componentType": 5125,
+   "count": 1176,
+   "type": "SCALAR"
+  }
+ ]
+}

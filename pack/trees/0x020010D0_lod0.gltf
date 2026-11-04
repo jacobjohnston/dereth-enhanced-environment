@@ -1,0 +1,141 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Twigs",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.62,
+     0.43,
+     0.32,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   },
+   "normalTexture": {
+    "index": 1,
+    "scale": 1.3
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_Stem.png"
+  },
+  {
+   "uri": "Gen_Grit_Normal.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  },
+  {
+   "source": 1
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x020010D0_lod0.bin",
+   "byteLength": 410048
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 107328,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 107328,
+   "byteLength": 107328,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 214656,
+   "byteLength": 71552,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 286208,
+   "byteLength": 123840,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 8944,
+   "type": "VEC3",
+   "min": [
+    -2.098651170730591,
+    -0.12814931571483612,
+    -2.0856454372406006
+   ],
+   "max": [
+    2.479541778564453,
+    1.8167588710784912,
+    2.1056482791900635
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 8944,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 8944,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5125,
+   "count": 30960,
+   "type": "SCALAR"
+  }
+ ]
+}

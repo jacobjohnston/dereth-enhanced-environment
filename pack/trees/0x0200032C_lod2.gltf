@@ -1,0 +1,266 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "cactus.py"
+ },
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "scene": 0,
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3,
+     "material": 0
+    },
+    {
+     "attributes": {
+      "POSITION": 4,
+      "NORMAL": 5,
+      "TEXCOORD_0": 6
+     },
+     "indices": 7,
+     "material": 1
+    },
+    {
+     "attributes": {
+      "POSITION": 8,
+      "NORMAL": 9,
+      "TEXCOORD_0": 10
+     },
+     "indices": 11,
+     "material": 2
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Skin",
+   "pbrMetallicRoughness": {
+    "metallicFactor": 0.0,
+    "roughnessFactor": 0.75,
+    "baseColorTexture": {
+     "index": 0
+    }
+   }
+  },
+  {
+   "name": "Skin",
+   "pbrMetallicRoughness": {
+    "metallicFactor": 0.0,
+    "roughnessFactor": 0.75,
+    "baseColorTexture": {
+     "index": 0
+    }
+   }
+  },
+  {
+   "name": "Skin",
+   "pbrMetallicRoughness": {
+    "metallicFactor": 0.0,
+    "roughnessFactor": 0.75,
+    "baseColorTexture": {
+     "index": 0
+    }
+   }
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_Cactus.png"
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x0200032C_lod2.bin",
+   "byteLength": 47136
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 4680
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 4680,
+   "byteLength": 4680
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 9360,
+   "byteLength": 3120
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 12480,
+   "byteLength": 8400
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 20880,
+   "byteLength": 2880
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 23760,
+   "byteLength": 2880
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 26640,
+   "byteLength": 1920
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 28560,
+   "byteLength": 5040
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 33600,
+   "byteLength": 3060
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 36660,
+   "byteLength": 3060
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 39720,
+   "byteLength": 2040
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 41760,
+   "byteLength": 5376
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 390,
+   "type": "VEC3",
+   "min": [
+    -0.8662213087081909,
+    -1.997999906539917,
+    -1.0993785858154297
+   ],
+   "max": [
+    0.911471426486969,
+    9.241999626159668,
+    0.5731378793716431
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 390,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 390,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5125,
+   "count": 2100,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5126,
+   "count": 240,
+   "type": "VEC3",
+   "min": [
+    -2.543562889099121,
+    1.8982595205307007,
+    -0.6695827841758728
+   ],
+   "max": [
+    0.01425082329660654,
+    4.132602691650391,
+    0.6563888788223267
+   ]
+  },
+  {
+   "bufferView": 5,
+   "componentType": 5126,
+   "count": 240,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 6,
+   "componentType": 5126,
+   "count": 240,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 7,
+   "componentType": 5125,
+   "count": 1260,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 8,
+   "componentType": 5126,
+   "count": 255,
+   "type": "VEC3",
+   "min": [
+    0.001913023879751563,
+    3.7387239933013916,
+    -0.7607476711273193
+   ],
+   "max": [
+    2.9534976482391357,
+    6.896146774291992,
+    0.2230140119791031
+   ]
+  },
+  {
+   "bufferView": 9,
+   "componentType": 5126,
+   "count": 255,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 10,
+   "componentType": 5126,
+   "count": 255,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 11,
+   "componentType": 5125,
+   "count": 1344,
+   "type": "SCALAR"
+  }
+ ]
+}

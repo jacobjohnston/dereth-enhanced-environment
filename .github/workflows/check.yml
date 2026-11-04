@@ -1,0 +1,23 @@
+# Checks every pull request's pack against build.py's provenance rules: who made each entry, with
+# what and under which license, and that every file it names is there. It needs none of the LFS
+# files, so it downloads none.
+name: check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Check the pack's provenance
+        run: python3 build.py --provenance-only

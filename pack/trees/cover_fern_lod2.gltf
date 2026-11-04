@@ -1,0 +1,146 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2,
+      "COLOR_0": 3
+     },
+     "indices": 4
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Leaves",
+   "doubleSided": true,
+   "alphaMode": "MASK",
+   "alphaCutoff": 0.25,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     1,
+     1,
+     0.8,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Plant_Leaves.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "cover_fern_lod2.bin",
+   "byteLength": 5040
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 972,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 972,
+   "byteLength": 972,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 1944,
+   "byteLength": 648,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 2592,
+   "byteLength": 1296,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 3888,
+   "byteLength": 1152,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 81,
+   "type": "VEC3",
+   "min": [
+    -0.4044237732887268,
+    0.025963779538869858,
+    -0.42283669114112854
+   ],
+   "max": [
+    0.4016614854335785,
+    0.38999998569488525,
+    0.12818123400211334
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 81,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 81,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5126,
+   "count": 81,
+   "type": "VEC4"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5125,
+   "count": 288,
+   "type": "SCALAR"
+  }
+ ]
+}

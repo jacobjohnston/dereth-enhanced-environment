@@ -1,0 +1,110 @@
+# Builds enhanced-environment.dat on every push to main that changes the pack, and publishes it as a
+# release tagged with its version (release.py version), with its changelog in the release's notes and
+# a CHANGELOG.md of every release beside the .dat. A push that packs into the same file as the last
+# release publishes nothing.
+name: release
+
+on:
+  push:
+    branches: [main]
+    paths: ['pack/**', 'build.py', 'release.py', 'DERETH_REPO', 'DERETH_REV', 'VERSION', '.github/workflows/release.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One release at a time, in the order the pushes came.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # The whole history and its tags: the version counts commits, and the changelog compares
+          # with the last release's tag.
+          fetch-depth: 0
+          lfs: false
+
+      # The pack's pictures and buffers come through Git LFS. They are kept between runs, so a run
+      # downloads only what changed, which keeps within LFS's monthly download allowance.
+      - name: List the LFS files
+        run: git lfs ls-files --long | cut -d ' ' -f1 | sort > .lfs-files
+      - name: The LFS files from earlier runs
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .git/lfs
+          key: lfs-${{ hashFiles('.lfs-files') }}
+          restore-keys: lfs-
+      - name: Fetch the LFS files
+        run: git lfs pull
+
+      - name: Install the build inputs
+        # ALSA and pkg-config, which dereth's crates need to build on Linux.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libasound2-dev pkg-config
+      - name: Install dereth's Rust version
+        run: |
+          repo=$(cat DERETH_REPO); rev=$(cat DERETH_REV)
+          toolchain=$(curl -fsSL "${repo/github.com/raw.githubusercontent.com}/$rev/Cargo.toml" \
+            | sed -n 's/^rust-version *= *"\(.*\)"/\1/p')
+          test -n "$toolchain"
+          rustup toolchain install "$toolchain" --profile minimal
+          rustup default "$toolchain"
+      - name: dereth-art from earlier runs
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .tools
+          key: dereth-art-${{ runner.os }}-${{ hashFiles('DERETH_REPO', 'DERETH_REV') }}
+
+      - name: Build and check the pack
+        run: |
+          python3 build.py
+          python3 build.py --check
+          (cd dist && sha256sum enhanced-environment.dat > enhanced-environment.dat.sha256)
+
+      - name: Work out the version and the last release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(python3 release.py version)
+          previous=$(gh release list --limit 1 --exclude-drafts --exclude-pre-releases --json tagName --jq '.[0].tagName // ""')
+          mkdir -p previous
+          if [ -n "$previous" ]; then
+            gh release download "$previous" --dir previous --pattern 'enhanced-environment.dat.sha256' --pattern 'CHANGELOG.md' || true
+          fi
+          publish=true
+          if git rev-parse -q --verify "refs/tags/v$version" > /dev/null; then
+            echo "v$version is already released."; publish=false
+          elif [ -f previous/enhanced-environment.dat.sha256 ] && \
+               [ "$(cut -d ' ' -f1 previous/enhanced-environment.dat.sha256)" = "$(cut -d ' ' -f1 dist/enhanced-environment.dat.sha256)" ]; then
+            echo "The pack is the same as $previous's."; publish=false
+          fi
+          {
+            echo "version=$version"
+            echo "previous=${previous:--}"
+            echo "publish=$publish"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Write the changelog
+        if: steps.release.outputs.publish == 'true'
+        run: |
+          python3 release.py notes "${{ steps.release.outputs.previous }}" dist/notes.md
+          python3 release.py changelog dist/notes.md previous/CHANGELOG.md dist/CHANGELOG.md
+          cat dist/notes.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish the release
+        if: steps.release.outputs.publish == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          gh release create "v$VERSION" \
+            dist/enhanced-environment.dat dist/enhanced-environment.dat.sha256 dist/CHANGELOG.md \
+            --title "Enhanced Environment $VERSION" --notes-file dist/notes.md --target "$GITHUB_SHA"

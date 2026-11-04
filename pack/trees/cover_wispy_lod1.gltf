@@ -1,0 +1,146 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2,
+      "COLOR_0": 3
+     },
+     "indices": 4
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Grass",
+   "doubleSided": true,
+   "alphaMode": "MASK",
+   "alphaCutoff": 0.25,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.62,
+     0.68,
+     0.42,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Plant_Grass.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "cover_wispy_lod1.bin",
+   "byteLength": 18528
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 3744,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 3744,
+   "byteLength": 3744,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 7488,
+   "byteLength": 2496,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 9984,
+   "byteLength": 4992,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 14976,
+   "byteLength": 3552,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 312,
+   "type": "VEC3",
+   "min": [
+    -0.30952897667884827,
+    -0.029999999329447746,
+    -0.26859256625175476
+   ],
+   "max": [
+    0.3353145122528076,
+    0.6700000166893005,
+    0.299966424703598
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 312,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 312,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5126,
+   "count": 312,
+   "type": "VEC4"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5125,
+   "count": 888,
+   "type": "SCALAR"
+  }
+ ]
+}

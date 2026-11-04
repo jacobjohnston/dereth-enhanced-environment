@@ -1,0 +1,129 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "boulders.py"
+ },
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "scene": 0,
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3,
+     "material": 0
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Rock",
+   "pbrMetallicRoughness": {
+    "metallicFactor": 0.0,
+    "roughnessFactor": 0.9,
+    "baseColorTexture": {
+     "index": 0
+    }
+   },
+   "normalTexture": {
+    "index": 1
+   }
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  },
+  {
+   "source": 1
+  }
+ ],
+ "images": [
+  {
+   "uri": "../materials/0x05000FF3_albedo.png"
+  },
+  {
+   "uri": "../materials/0x05000FF3_normal.png"
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x01004628_lod2.bin",
+   "byteLength": 22800
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 4896
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 4896,
+   "byteLength": 4896
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 9792,
+   "byteLength": 3264
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 13056,
+   "byteLength": 9744
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 408,
+   "type": "VEC3",
+   "min": [
+    -0.5521567463874817,
+    0.016406329348683357,
+    -0.7071486711502075
+   ],
+   "max": [
+    0.6535539627075195,
+    0.3741452097892761,
+    0.7100533843040466
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 408,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 408,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5125,
+   "count": 2436,
+   "type": "SCALAR"
+  }
+ ]
+}

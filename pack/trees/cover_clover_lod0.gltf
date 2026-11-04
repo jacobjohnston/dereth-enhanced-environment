@@ -1,0 +1,146 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2,
+      "COLOR_0": 3
+     },
+     "indices": 4
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Leaves",
+   "doubleSided": true,
+   "alphaMode": "MASK",
+   "alphaCutoff": 0.25,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.85,
+     0.95,
+     0.6,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Plant_Leaves.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "cover_clover_lod0.bin",
+   "byteLength": 17364
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 3204,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 3204,
+   "byteLength": 3204,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 6408,
+   "byteLength": 2136,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 8544,
+   "byteLength": 4272,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 12816,
+   "byteLength": 4548,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 267,
+   "type": "VEC3",
+   "min": [
+    -0.09653400629758835,
+    -0.029999999329447746,
+    -0.07678967714309692
+   ],
+   "max": [
+    0.056500572711229324,
+    0.1899999976158142,
+    0.07001744210720062
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 267,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 267,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5126,
+   "count": 267,
+   "type": "VEC4"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5125,
+   "count": 1137,
+   "type": "SCALAR"
+  }
+ ]
+}

@@ -1,0 +1,242 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3
+    },
+    {
+     "material": 1,
+     "attributes": {
+      "POSITION": 4,
+      "NORMAL": 5,
+      "TEXCOORD_0": 6,
+      "COLOR_0": 7
+     },
+     "indices": 8
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Heap",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.48360000000000003,
+     0.3844,
+     0.22319999999999998,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   },
+   "normalTexture": {
+    "index": 1,
+    "scale": 1.3
+   }
+  },
+  {
+   "name": "Straw",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.78,
+     0.62,
+     0.36,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   },
+   "normalTexture": {
+    "index": 1,
+    "scale": 1.3
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_Straw.png"
+  },
+  {
+   "uri": "Gen_Grit_Normal.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  },
+  {
+   "source": 1
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x0100069A_lod3.bin",
+   "byteLength": 120048
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 648,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 648,
+   "byteLength": 648,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 1296,
+   "byteLength": 432,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 1728,
+   "byteLength": 960,
+   "target": 34963
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 2688,
+   "byteLength": 23472,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 26160,
+   "byteLength": 23472,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 49632,
+   "byteLength": 15648,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 65280,
+   "byteLength": 31296,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 96576,
+   "byteLength": 23472,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 54,
+   "type": "VEC3",
+   "min": [
+    -0.6931779384613037,
+    -0.029999999329447746,
+    -0.6713319420814514
+   ],
+   "max": [
+    0.7062620520591736,
+    0.30000001192092896,
+    0.7281080484390259
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 54,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 54,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5125,
+   "count": 240,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5126,
+   "count": 1956,
+   "type": "VEC3",
+   "min": [
+    -1.0327264070510864,
+    -0.010516642592847347,
+    -1.0681235790252686
+   ],
+   "max": [
+    1.2343380451202393,
+    0.317596435546875,
+    1.1304622888565063
+   ]
+  },
+  {
+   "bufferView": 5,
+   "componentType": 5126,
+   "count": 1956,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 6,
+   "componentType": 5126,
+   "count": 1956,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 7,
+   "componentType": 5126,
+   "count": 1956,
+   "type": "VEC4"
+  },
+  {
+   "bufferView": 8,
+   "componentType": 5125,
+   "count": 5868,
+   "type": "SCALAR"
+  }
+ ]
+}

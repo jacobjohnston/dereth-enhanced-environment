@@ -1,0 +1,141 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Twigs",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.82,
+     0.07,
+     0.09,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   },
+   "normalTexture": {
+    "index": 1,
+    "scale": 1.3
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_Stem.png"
+  },
+  {
+   "uri": "Gen_Grit_Normal.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  },
+  {
+   "source": 1
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x020010CC_lod2.bin",
+   "byteLength": 36400
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 9600,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 9600,
+   "byteLength": 9600,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 19200,
+   "byteLength": 6400,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 25600,
+   "byteLength": 10800,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 800,
+   "type": "VEC3",
+   "min": [
+    -0.42515280842781067,
+    -0.12782633304595947,
+    -0.4853695034980774
+   ],
+   "max": [
+    0.46976983547210693,
+    1.8062719106674194,
+    0.45368528366088867
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 800,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 800,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5125,
+   "count": 2700,
+   "type": "SCALAR"
+  }
+ ]
+}

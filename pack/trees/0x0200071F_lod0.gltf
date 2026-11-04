@@ -1,0 +1,144 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2,
+      "COLOR_0": 3
+     },
+     "indices": 4
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Wood",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_Char.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x0200071F_lod0.bin",
+   "byteLength": 80448
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 15024,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 15024,
+   "byteLength": 15024,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 30048,
+   "byteLength": 10016,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 40064,
+   "byteLength": 20032,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 60096,
+   "byteLength": 20352,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5126,
+   "count": 1252,
+   "type": "VEC3",
+   "min": [
+    -2.405498504638672,
+    -1.8359999656677246,
+    -3.2681326866149902
+   ],
+   "max": [
+    2.713625431060791,
+    11.515183448791504,
+    3.375593900680542
+   ]
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5126,
+   "count": 1252,
+   "type": "VEC3"
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 1252,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5126,
+   "count": 1252,
+   "type": "VEC4"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5125,
+   "count": 5088,
+   "type": "SCALAR"
+  }
+ ]
+}

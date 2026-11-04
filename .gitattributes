@@ -1,0 +1,4 @@
+# The pack's pictures and buffers through Git LFS.
+*.png filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.dat filter=lfs diff=lfs merge=lfs -text
