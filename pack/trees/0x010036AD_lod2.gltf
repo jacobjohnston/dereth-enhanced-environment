@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "boulders.py"
+  "generator": "boulders.py, quantised by quantise.py"
  },
  "scenes": [
   {
@@ -13,7 +13,17 @@
  "scene": 0,
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    1.3276598984375596,
+    0.97405144572258,
+    0.8827849626541138
+   ],
+   "scale": [
+    1.665202647447586,
+    1.665202647447586,
+    1.665202647447586
+   ]
   }
  ],
  "meshes": [
@@ -65,53 +75,61 @@
  "buffers": [
   {
    "uri": "0x010036AD_lod2.bin",
-   "byteLength": 5104
+   "byteLength": 2920
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 1104
+   "byteLength": 736,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 736,
+   "byteLength": 368,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 1104,
-   "byteLength": 1104
+   "byteLength": 736,
+   "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 2208,
-   "byteLength": 736
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 2944,
-   "byteLength": 2160
+   "byteOffset": 1840,
+   "byteLength": 1080,
+   "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 92,
    "type": "VEC3",
    "min": [
-    -0.02760685794055462,
-    -0.6911512017250061,
-    -0.5797214508056641
+    -26668,
+    -32767,
+    -28778
    ],
    "max": [
-    2.682926654815674,
-    2.639254093170166,
-    2.3452913761138916
-   ]
+    26668,
+    32767,
+    28778
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 92,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -121,9 +139,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 540,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

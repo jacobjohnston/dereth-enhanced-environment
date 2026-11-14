@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs"
+  "generator": "gen_pack.mjs, quantised by quantise.py"
  },
  "scene": 0,
  "scenes": [
@@ -13,7 +13,17 @@
  ],
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.04314112663269043,
+    0.7624817863106728,
+    0.03807147592306137
+   ],
+   "scale": [
+    0.8967240080237389,
+    0.8967240080237389,
+    0.8967240080237389
+   ]
   }
  ],
  "meshes": [
@@ -73,57 +83,61 @@
  "buffers": [
   {
    "uri": "0x020010C4_lod3.bin",
-   "byteLength": 4368
+   "byteLength": 2568
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 1152,
-   "target": 34962
+   "byteLength": 768,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 768,
+   "byteLength": 384,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 1152,
-   "byteLength": 1152,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 2304,
    "byteLength": 768,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 3072,
-   "byteLength": 1296,
+   "byteOffset": 1920,
+   "byteLength": 648,
    "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 96,
    "type": "VEC3",
    "min": [
-    -0.3450094163417816,
-    -0.1342422217130661,
-    -0.16854025423526764
+    -14183,
+    -32767,
+    -7550
    ],
    "max": [
-    0.4312916696071625,
-    1.6592057943344116,
-    0.24468320608139038
-   ]
+    14183,
+    32767,
+    7550
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 96,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -133,9 +147,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 324,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

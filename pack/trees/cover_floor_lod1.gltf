@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs"
+  "generator": "gen_pack.mjs, quantised by quantise.py"
  },
  "scene": 0,
  "scenes": [
@@ -13,7 +13,17 @@
  ],
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    -0.008141908794641495,
+    0.12000000569969416,
+    -0.01518932543694973
+   ],
+   "scale": [
+    0.1500000050291419,
+    0.1500000050291419,
+    0.1500000050291419
+   ]
   }
  ],
  "meshes": [
@@ -66,81 +76,90 @@
  "buffers": [
   {
    "uri": "cover_floor_lod1.bin",
-   "byteLength": 6156
+   "byteLength": 3078
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 1224,
-   "target": 34962
+   "byteLength": 816,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 816,
+   "byteLength": 408,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 1224,
-   "byteLength": 1224,
+   "byteLength": 408,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 2448,
+   "byteOffset": 1632,
    "byteLength": 816,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 3264,
-   "byteLength": 1632,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 4896,
-   "byteLength": 1260,
+   "byteOffset": 2448,
+   "byteLength": 630,
    "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 102,
    "type": "VEC3",
    "min": [
-    -0.07997334748506546,
-    -0.029999999329447746,
-    -0.08836977928876877
+    -15691,
+    -32767,
+    -15986
    ],
    "max": [
-    0.06368952989578247,
-    0.27000001072883606,
-    0.05799112841486931
-   ]
+    15691,
+    32767,
+    15986
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 102,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
-   "componentType": 5126,
+   "componentType": 5123,
    "count": 102,
-   "type": "VEC2"
+   "type": "VEC2",
+   "normalized": true
   },
   {
    "bufferView": 3,
-   "componentType": 5126,
+   "componentType": 5123,
    "count": 102,
-   "type": "VEC4"
+   "type": "VEC4",
+   "normalized": true
   },
   {
    "bufferView": 4,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 315,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "boulders.py"
+  "generator": "boulders.py, quantised by quantise.py"
  },
  "scenes": [
   {
@@ -13,7 +13,17 @@
  "scene": 0,
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.03040456771850586,
+    1.1648709774017334,
+    0.8428216576576233
+   ],
+   "scale": [
+    3.042788028717041,
+    3.042788028717041,
+    3.042788028717041
+   ]
   }
  ],
  "meshes": [
@@ -65,53 +75,61 @@
  "buffers": [
   {
    "uri": "0x010036AD_lod0.bin",
-   "byteLength": 169360
+   "byteLength": 96784
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 36312
+   "byteLength": 24208,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 24208,
+   "byteLength": 12104,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 36312,
-   "byteLength": 36312
+   "byteLength": 24208,
+   "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 72624,
-   "byteLength": 24208
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 96832,
-   "byteLength": 72528
+   "byteOffset": 60520,
+   "byteLength": 36264,
+   "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 3026,
    "type": "VEC3",
    "min": [
-    -3.012383460998535,
-    -1.1082994937896729,
-    -1.2171050310134888
+    -32767,
+    -24479,
+    -22183
    ],
    "max": [
-    3.073192596435547,
-    3.4380414485931396,
-    2.9027483463287354
-   ]
+    32767,
+    24479,
+    22183
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 3026,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -121,9 +139,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 18132,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

@@ -1,1 +1,255 @@
-{"asset": {"version": "2.0", "generator": "gen_pack.mjs"}, "scene": 0, "scenes": [{"nodes": [0]}], "nodes": [{"mesh": 0}], "meshes": [{"primitives": [{"material": 0, "attributes": {"POSITION": 0, "NORMAL": 1, "TEXCOORD_0": 2}, "indices": 3}, {"material": 1, "attributes": {"POSITION": 4, "NORMAL": 5, "TEXCOORD_0": 6}, "indices": 7}]}], "materials": [{"name": "Trunk", "doubleSided": true, "pbrMetallicRoughness": {"baseColorTexture": {"index": 0}, "baseColorFactor": [1, 1, 1, 1], "metallicFactor": 0, "roughnessFactor": 1}, "normalTexture": {"index": 1, "scale": 1.3}}, {"name": "Fronds", "doubleSided": true, "alphaMode": "MASK", "alphaCutoff": 0.25, "pbrMetallicRoughness": {"baseColorTexture": {"index": 2}, "baseColorFactor": [0.62, 0.8, 0.4, 1], "metallicFactor": 0, "roughnessFactor": 1}}], "images": [{"uri": "Gen_PalmBark.png"}, {"uri": "Gen_Grit_Normal.png"}, {"uri": "Plant_Leaves.png"}], "textures": [{"source": 0}, {"source": 1}, {"source": 2}], "buffers": [{"uri": "0x020004B1_lod3.bin", "byteLength": 6040}], "bufferViews": [{"buffer": 0, "byteOffset": 0, "byteLength": 960, "target": 34962}, {"buffer": 0, "byteOffset": 960, "byteLength": 960, "target": 34962}, {"buffer": 0, "byteOffset": 1920, "byteLength": 640, "target": 34962}, {"buffer": 0, "byteOffset": 2560, "byteLength": 1368, "target": 34963}, {"buffer": 0, "byteOffset": 3928, "byteLength": 576, "target": 34962}, {"buffer": 0, "byteOffset": 4504, "byteLength": 576, "target": 34962}, {"buffer": 0, "byteOffset": 5080, "byteLength": 384, "target": 34962}, {"buffer": 0, "byteOffset": 5464, "byteLength": 576, "target": 34963}], "accessors": [{"bufferView": 0, "componentType": 5126, "count": 80, "type": "VEC3", "min": [-0.41531076662291705, -1.100000023841858, -0.7351756691932678], "max": [0.34215940907988146, 9.131113052368164, 0.31679688783151605]}, {"bufferView": 1, "componentType": 5126, "count": 80, "type": "VEC3"}, {"bufferView": 2, "componentType": 5126, "count": 80, "type": "VEC2"}, {"bufferView": 3, "componentType": 5125, "count": 342, "type": "SCALAR"}, {"bufferView": 4, "componentType": 5126, "count": 48, "type": "VEC3", "min": [-2.809823513031006, 6.823606014251709, -2.9660205841064453], "max": [2.678086519241333, 9.456328392028809, 2.1372129917144775]}, {"bufferView": 5, "componentType": 5126, "count": 48, "type": "VEC3"}, {"bufferView": 6, "componentType": 5126, "count": 48, "type": "VEC2"}, {"bufferView": 7, "componentType": 5125, "count": 144, "type": "SCALAR"}]}
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs, quantised by quantise.py"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0,
+   "translation": [
+    -0.06586849689483643,
+    4.178164184093475,
+    -0.4144037961959839
+   ],
+   "scale": [
+    5.278164207935333,
+    5.278164207935333,
+    5.278164207935333
+   ]
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3
+    },
+    {
+     "material": 1,
+     "attributes": {
+      "POSITION": 4,
+      "NORMAL": 5,
+      "TEXCOORD_0": 6
+     },
+     "indices": 7
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Trunk",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   },
+   "normalTexture": {
+    "index": 1,
+    "scale": 1.3
+   }
+  },
+  {
+   "name": "Fronds",
+   "doubleSided": true,
+   "alphaMode": "MASK",
+   "alphaCutoff": 0.25,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 2
+    },
+    "baseColorFactor": [
+     0.62,
+     0.8,
+     0.4,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_PalmBark.png"
+  },
+  {
+   "uri": "Gen_Grit_Normal.png"
+  },
+  {
+   "uri": "Plant_Leaves.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  },
+  {
+   "source": 1
+  },
+  {
+   "source": 2
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x020004B1_lod3.bin",
+   "byteLength": 3340
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 640,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 640,
+   "byteLength": 320,
+   "target": 34962,
+   "byteStride": 4
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 960,
+   "byteLength": 640,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 1600,
+   "byteLength": 684,
+   "target": 34963
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 2284,
+   "byteLength": 384,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 2668,
+   "byteLength": 192,
+   "target": 34962,
+   "byteStride": 4
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 2860,
+   "byteLength": 192,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 3052,
+   "byteLength": 288,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5122,
+   "count": 80,
+   "type": "VEC3",
+   "min": [
+    -2169,
+    -32767,
+    -1991
+   ],
+   "max": [
+    2533,
+    30748,
+    4539
+   ],
+   "normalized": true
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5120,
+   "count": 80,
+   "type": "VEC3",
+   "normalized": true
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 80,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5123,
+   "count": 342,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5122,
+   "count": 48,
+   "type": "VEC3",
+   "min": [
+    -17035,
+    16423,
+    -15841
+   ],
+   "max": [
+    17035,
+    32767,
+    15841
+   ],
+   "normalized": true
+  },
+  {
+   "bufferView": 5,
+   "componentType": 5120,
+   "count": 48,
+   "type": "VEC3",
+   "normalized": true
+  },
+  {
+   "bufferView": 6,
+   "componentType": 5123,
+   "count": 48,
+   "type": "VEC2",
+   "normalized": true
+  },
+  {
+   "bufferView": 7,
+   "componentType": 5123,
+   "count": 144,
+   "type": "SCALAR"
+  }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
+ ]
+}

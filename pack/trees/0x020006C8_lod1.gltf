@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "boulders.py"
+  "generator": "boulders.py, quantised by quantise.py"
  },
  "scenes": [
   {
@@ -13,7 +13,17 @@
  "scene": 0,
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.6436291933059692,
+    2.8299290165305138,
+    -0.21818268299102783
+   ],
+   "scale": [
+    3.1205438375473022,
+    3.1205438375473022,
+    3.1205438375473022
+   ]
   }
  ],
  "meshes": [
@@ -65,53 +75,61 @@
  "buffers": [
   {
    "uri": "0x020006C8_lod1.bin",
-   "byteLength": 46544
+   "byteLength": 26600
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 9984
+   "byteLength": 6656,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 6656,
+   "byteLength": 3328,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 9984,
-   "byteLength": 9984
+   "byteLength": 6656,
+   "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 19968,
-   "byteLength": 6656
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 26624,
-   "byteLength": 19920
+   "byteOffset": 16640,
+   "byteLength": 9960,
+   "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 832,
    "type": "VEC3",
    "min": [
-    -2.476914644241333,
-    0.16029195487499237,
-    -2.6762735843658447
+    -32767,
+    -28032,
+    -25811
    ],
    "max": [
-    3.7641730308532715,
-    5.499566078186035,
-    2.239908218383789
-   ]
+    32767,
+    28032,
+    25811
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 832,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -121,9 +139,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 4980,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

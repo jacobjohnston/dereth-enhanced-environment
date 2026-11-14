@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs"
+  "generator": "gen_pack.mjs, quantised by quantise.py"
  },
  "scene": 0,
  "scenes": [
@@ -13,7 +13,17 @@
  ],
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.027822881937026978,
+    0.8393194526433945,
+    0.00044149160385131836
+   ],
+   "scale": [
+    0.9666237980127335,
+    0.9666237980127335,
+    0.9666237980127335
+   ]
   }
  ],
  "meshes": [
@@ -73,57 +83,61 @@
  "buffers": [
   {
    "uri": "0x020010C6_lod0.bin",
-   "byteLength": 262240
+   "byteLength": 154000
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 68640,
-   "target": 34962
+   "byteLength": 45760,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 45760,
+   "byteLength": 22880,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 68640,
-   "byteLength": 68640,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 137280,
    "byteLength": 45760,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 183040,
-   "byteLength": 79200,
+   "byteOffset": 114400,
+   "byteLength": 39600,
    "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 5720,
    "type": "VEC3",
    "min": [
-    -0.6873371601104736,
-    -0.127304345369339,
-    -0.7464485168457031
+    -24243,
+    -32767,
+    -25318
    ],
    "max": [
-    0.7429829239845276,
-    1.805943250656128,
-    0.7473315000534058
-   ]
+    24243,
+    32767,
+    25318
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 5720,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -133,9 +147,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 19800,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

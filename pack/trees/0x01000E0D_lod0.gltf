@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "boulders.py"
+  "generator": "boulders.py, quantised by quantise.py"
  },
  "scenes": [
   {
@@ -13,7 +13,17 @@
  "scene": 0,
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.03906726837158203,
+    4.16734604537487,
+    1.0628001689910889
+   ],
+   "scale": [
+    8.745719194412231,
+    8.745719194412231,
+    8.745719194412231
+   ]
   }
  ],
  "meshes": [
@@ -65,53 +75,61 @@
  "buffers": [
   {
    "uri": "0x01000E0D_lod0.bin",
-   "byteLength": 191472
+   "byteLength": 109416
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 41040
+   "byteLength": 27360,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 27360,
+   "byteLength": 13680,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 41040,
-   "byteLength": 41040
+   "byteLength": 27360,
+   "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 82080,
-   "byteLength": 27360
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 109440,
-   "byteLength": 82032
+   "byteOffset": 68400,
+   "byteLength": 41016,
+   "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 3420,
    "type": "VEC3",
    "min": [
-    -7.06572151184082,
-    -0.35742178559303284,
-    -7.682919025421143
+    -26619,
+    -16953,
+    -32767
    ],
    "max": [
-    7.143856048583984,
-    8.692113876342773,
-    9.80851936340332
-   ]
+    26619,
+    16953,
+    32767
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 3420,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -121,9 +139,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 20508,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

@@ -1,1 +1,162 @@
-{"asset": {"version": "2.0", "generator": "gen_pack.mjs"}, "scene": 0, "scenes": [{"nodes": [0]}], "nodes": [{"mesh": 0}], "meshes": [{"primitives": [{"material": 0, "attributes": {"POSITION": 0, "NORMAL": 1, "TEXCOORD_0": 2, "COLOR_0": 3}, "indices": 4}]}], "materials": [{"name": "Wood", "doubleSided": true, "pbrMetallicRoughness": {"baseColorTexture": {"index": 0}, "baseColorFactor": [1, 1, 1, 1], "metallicFactor": 0, "roughnessFactor": 1}}], "images": [{"uri": "Gen_Char.png"}], "textures": [{"source": 0}], "buffers": [{"uri": "0x02000AB6_lod1.bin", "byteLength": 24024}], "bufferViews": [{"buffer": 0, "byteOffset": 0, "byteLength": 4512, "target": 34962}, {"buffer": 0, "byteOffset": 4512, "byteLength": 4512, "target": 34962}, {"buffer": 0, "byteOffset": 9024, "byteLength": 3008, "target": 34962}, {"buffer": 0, "byteOffset": 12032, "byteLength": 6016, "target": 34962}, {"buffer": 0, "byteOffset": 18048, "byteLength": 5976, "target": 34963}], "accessors": [{"bufferView": 0, "componentType": 5126, "count": 376, "type": "VEC3", "min": [-7.368907928466797, -2.9070000648498535, -5.781330108642578], "max": [6.9955735206604, 26.605205535888672, 4.960326671600342]}, {"bufferView": 1, "componentType": 5126, "count": 376, "type": "VEC3"}, {"bufferView": 2, "componentType": 5126, "count": 376, "type": "VEC2"}, {"bufferView": 3, "componentType": 5126, "count": 376, "type": "VEC4"}, {"bufferView": 4, "componentType": 5125, "count": 1494, "type": "SCALAR"}]}
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs, quantised by quantise.py"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0,
+   "translation": [
+    -0.18666720390319824,
+    11.84910273551941,
+    -0.41050171852111816
+   ],
+   "scale": [
+    14.756102800369263,
+    14.756102800369263,
+    14.756102800369263
+   ]
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2,
+      "COLOR_0": 3
+     },
+     "indices": 4
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Wood",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_Char.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x02000AB6_lod1.bin",
+   "byteLength": 13516
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 3008,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 3008,
+   "byteLength": 1504,
+   "target": 34962,
+   "byteStride": 4
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 4512,
+   "byteLength": 3008,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 7520,
+   "byteLength": 3008,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 10528,
+   "byteLength": 2988,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5122,
+   "count": 376,
+   "type": "VEC3",
+   "min": [
+    -15949,
+    -32767,
+    -11926
+   ],
+   "max": [
+    15949,
+    32767,
+    11926
+   ],
+   "normalized": true
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5120,
+   "count": 376,
+   "type": "VEC3",
+   "normalized": true
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 376,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5123,
+   "count": 376,
+   "type": "VEC4",
+   "normalized": true
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5123,
+   "count": 1494,
+   "type": "SCALAR"
+  }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
+ ]
+}

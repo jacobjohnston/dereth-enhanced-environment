@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "boulders.py"
+  "generator": "boulders.py, quantised by quantise.py"
  },
  "scenes": [
   {
@@ -13,7 +13,17 @@
  "scene": 0,
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.720765233039856,
+    2.7288641408085823,
+    -0.060483574867248535
+   ],
+   "scale": [
+    3.560689330101013,
+    3.560689330101013,
+    3.560689330101013
+   ]
   }
  ],
  "meshes": [
@@ -65,53 +75,61 @@
  "buffers": [
   {
    "uri": "0x020006C8_lod0.bin",
-   "byteLength": 236496
+   "byteLength": 135144
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 50688
+   "byteLength": 33792,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 33792,
+   "byteLength": 16896,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 50688,
-   "byteLength": 50688
+   "byteLength": 33792,
+   "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 101376,
-   "byteLength": 33792
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 135168,
-   "byteLength": 101328
+   "byteOffset": 84480,
+   "byteLength": 50664,
+   "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 4224,
    "type": "VEC3",
    "min": [
-    -2.8399240970611572,
-    -0.15725480020046234,
-    -3.112241744995117
+    -32767,
+    -26559,
+    -28084
    ],
    "max": [
-    4.281454563140869,
-    5.614983081817627,
-    2.99127459526062
-   ]
+    32767,
+    26559,
+    28084
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 4224,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -121,9 +139,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 25332,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

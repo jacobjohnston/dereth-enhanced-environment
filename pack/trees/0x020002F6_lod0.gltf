@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs"
+  "generator": "gen_pack.mjs, quantised by quantise.py"
  },
  "scene": 0,
  "scenes": [
@@ -13,7 +13,17 @@
  ],
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    -0.19451522827148438,
+    1.6910465955734253,
+    -0.3062443733215332
+   ],
+   "scale": [
+    4.584558486938477,
+    4.584558486938477,
+    4.584558486938477
+   ]
   }
  ],
  "meshes": [
@@ -137,173 +147,187 @@
  "buffers": [
   {
    "uri": "0x020002F6_lod0.bin",
-   "byteLength": 695584
+   "byteLength": 348336
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 75972,
-   "target": 34962
+   "byteLength": 50648,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 50648,
+   "byteLength": 25324,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 75972,
-   "byteLength": 75972,
+   "byteLength": 25324,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 151944,
-   "byteLength": 50648,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 202592,
-   "byteLength": 106560,
+   "byteOffset": 101296,
+   "byteLength": 53280,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 309152,
-   "byteLength": 119808,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 428960,
-   "byteLength": 119808,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 548768,
+   "byteOffset": 154576,
    "byteLength": 79872,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 234448,
+   "byteLength": 39936,
+   "target": 34962,
+   "byteStride": 4
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 274384,
+   "byteLength": 39936,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 628640,
-   "byteLength": 59904,
+   "byteOffset": 314320,
+   "byteLength": 29952,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 688544,
-   "byteLength": 1632,
-   "target": 34962
+   "byteOffset": 344272,
+   "byteLength": 1088,
+   "target": 34962,
+   "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 690176,
-   "byteLength": 1632,
-   "target": 34962
+   "byteOffset": 345360,
+   "byteLength": 544,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 691808,
+   "byteOffset": 345904,
    "byteLength": 1088,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 692896,
-   "byteLength": 2688,
+   "byteOffset": 346992,
+   "byteLength": 1344,
    "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 6331,
    "type": "VEC3",
    "min": [
-    -3.782021999359131,
-    -0.6043251752853394,
-    -4.149983882904053
+    -25641,
+    -16406,
+    -27472
    ],
    "max": [
-    3.588251829147339,
-    3.502448558807373,
-    3.4598982334136963
-   ]
+    27036,
+    12947,
+    26918
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 6331,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
-   "componentType": 5126,
+   "componentType": 5123,
    "count": 6331,
-   "type": "VEC2"
+   "type": "VEC2",
+   "normalized": true
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 26640,
    "type": "SCALAR"
   },
   {
    "bufferView": 4,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 9984,
    "type": "VEC3",
    "min": [
-    -4.5099568367004395,
-    -0.41960063576698303,
-    -4.89080286026001
+    -30844,
+    -15085,
+    -32767
    ],
    "max": [
-    4.120926380157471,
-    4.160000324249268,
-    4.278314113616943
-   ]
+    30844,
+    17646,
+    32767
+   ],
+   "normalized": true
   },
   {
    "bufferView": 5,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 9984,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 6,
-   "componentType": 5126,
+   "componentType": 5123,
    "count": 9984,
-   "type": "VEC2"
+   "type": "VEC2",
+   "normalized": true
   },
   {
    "bufferView": 7,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 14976,
    "type": "SCALAR"
   },
   {
    "bufferView": 8,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 136,
    "type": "VEC3",
    "min": [
-    -0.2948422133922577,
-    -0.777907133102417,
-    -0.32817262411117554
+    -717,
+    -17646,
+    -157
    ],
    "max": [
-    0.3224320113658905,
-    0.3733954429626465,
-    0.31040504574775696
-   ]
+    3695,
+    -9418,
+    4407
+   ],
+   "normalized": true
   },
   {
    "bufferView": 9,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 136,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 10,
@@ -313,9 +337,12 @@
   },
   {
    "bufferView": 11,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 672,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

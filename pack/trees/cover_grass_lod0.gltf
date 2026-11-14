@@ -1,1 +1,165 @@
-{"asset": {"version": "2.0", "generator": "gen_pack.mjs, clumped by clump_cover.py"}, "scene": 0, "scenes": [{"nodes": [0]}], "nodes": [{"mesh": 0}], "meshes": [{"primitives": [{"material": 0, "attributes": {"POSITION": 0, "NORMAL": 1, "TEXCOORD_0": 2, "COLOR_0": 3}, "indices": 4}]}], "materials": [{"name": "Grass", "doubleSided": true, "alphaMode": "MASK", "alphaCutoff": 0.25, "pbrMetallicRoughness": {"baseColorTexture": {"index": 0}, "baseColorFactor": [0.62, 0.68, 0.42, 1], "metallicFactor": 0, "roughnessFactor": 1}}], "images": [{"uri": "Plant_Grass.png"}], "textures": [{"source": 0}], "buffers": [{"uri": "cover_grass_lod0.bin", "byteLength": 38208}], "bufferViews": [{"buffer": 0, "byteOffset": 0, "byteLength": 7584, "target": 34962}, {"buffer": 0, "byteOffset": 7584, "byteLength": 7584, "target": 34962}, {"buffer": 0, "byteOffset": 15168, "byteLength": 5056, "target": 34962}, {"buffer": 0, "byteOffset": 20224, "byteLength": 10112, "target": 34962}, {"buffer": 0, "byteOffset": 30336, "byteLength": 7872, "target": 34963}], "accessors": [{"bufferView": 0, "componentType": 5126, "count": 632, "type": "VEC3", "min": [-0.3342523049646966, -0.029999999329447746, -0.20536947943501446], "max": [0.23187540400899623, 0.4699999988079071, 0.22695166596633515]}, {"bufferView": 1, "componentType": 5126, "count": 632, "type": "VEC3"}, {"bufferView": 2, "componentType": 5126, "count": 632, "type": "VEC2"}, {"bufferView": 3, "componentType": 5126, "count": 632, "type": "VEC4"}, {"bufferView": 4, "componentType": 5125, "count": 1968, "type": "SCALAR"}]}
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs, clumped by clump_cover.py, quantised by quantise.py"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0,
+   "translation": [
+    -0.05118844658136368,
+    0.21999999973922968,
+    0.010791093111038208
+   ],
+   "scale": [
+    0.2830638512969017,
+    0.2830638512969017,
+    0.2830638512969017
+   ]
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2,
+      "COLOR_0": 3
+     },
+     "indices": 4
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Grass",
+   "doubleSided": true,
+   "alphaMode": "MASK",
+   "alphaCutoff": 0.25,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.8,
+     0.66,
+     0.34,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Plant_Grass.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "cover_grass_lod0.bin",
+   "byteLength": 19104
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 5056,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 5056,
+   "byteLength": 2528,
+   "target": 34962,
+   "byteStride": 4
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 7584,
+   "byteLength": 2528,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 10112,
+   "byteLength": 5056,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 15168,
+   "byteLength": 3936,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5122,
+   "count": 632,
+   "type": "VEC3",
+   "min": [
+    -32767,
+    -28940,
+    -25022
+   ],
+   "max": [
+    32767,
+    28940,
+    25022
+   ],
+   "normalized": true
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5120,
+   "count": 632,
+   "type": "VEC3",
+   "normalized": true
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5123,
+   "count": 632,
+   "type": "VEC2",
+   "normalized": true
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5123,
+   "count": 632,
+   "type": "VEC4",
+   "normalized": true
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5123,
+   "count": 1968,
+   "type": "SCALAR"
+  }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
+ ]
+}

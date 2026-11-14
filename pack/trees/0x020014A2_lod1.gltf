@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "boulders.py"
+  "generator": "boulders.py, quantised by quantise.py"
  },
  "scenes": [
   {
@@ -13,7 +13,17 @@
  "scene": 0,
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    -0.19401276111602783,
+    1.4632163047790527,
+    0.07005047798156738
+   ],
+   "scale": [
+    2.2307188510894775,
+    2.2307188510894775,
+    2.2307188510894775
+   ]
   }
  ],
  "meshes": [
@@ -65,65 +75,77 @@
  "buffers": [
   {
    "uri": "0x020014A2_lod1.bin",
-   "byteLength": 46768
+   "byteLength": 23384
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 10032
+   "byteLength": 6688,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 6688,
+   "byteLength": 3344,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 10032,
-   "byteLength": 10032
+   "byteLength": 3344,
+   "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 20064,
-   "byteLength": 6688
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 26752,
-   "byteLength": 20016
+   "byteOffset": 13376,
+   "byteLength": 10008,
+   "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 836,
    "type": "VEC3",
    "min": [
-    -1.914621114730835,
-    -0.7675025463104248,
-    -1.9528942108154297
+    -25274,
+    -32767,
+    -29715
    ],
    "max": [
-    1.5265955924987793,
-    3.6939351558685303,
-    2.0929951667785645
-   ]
+    25274,
+    32767,
+    29715
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 836,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 836,
-   "type": "VEC2"
+   "type": "VEC2",
+   "normalized": true
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 5004,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "boulders.py"
+  "generator": "boulders.py, quantised by quantise.py"
  },
  "scenes": [
   {
@@ -13,7 +13,17 @@
  "scene": 0,
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.17480409145355225,
+    1.1447285413742065,
+    0.7318771481513977
+   ],
+   "scale": [
+    3.046167016029358,
+    3.046167016029358,
+    3.046167016029358
+   ]
   }
  ],
  "meshes": [
@@ -65,53 +75,61 @@
  "buffers": [
   {
    "uri": "0x01003A6B_lod0.bin",
-   "byteLength": 167120
+   "byteLength": 95504
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 35832
+   "byteLength": 23888,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 23888,
+   "byteLength": 11944,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 35832,
-   "byteLength": 35832
+   "byteLength": 23888,
+   "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 71664,
-   "byteLength": 23888
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 95552,
-   "byteLength": 71568
+   "byteOffset": 59720,
+   "byteLength": 35784,
+   "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 2986,
    "type": "VEC3",
    "min": [
-    -2.8713629245758057,
-    -1.026444435119629,
-    -1.4211665391921997
+    -32767,
+    -23355,
+    -23160
    ],
    "max": [
-    3.22097110748291,
-    3.315901517868042,
-    2.884920835494995
-   ]
+    32767,
+    23355,
+    23160
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 2986,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -121,9 +139,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 17892,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

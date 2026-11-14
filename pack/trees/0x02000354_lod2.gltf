@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs"
+  "generator": "gen_pack.mjs, quantised by quantise.py"
  },
  "scene": 0,
  "scenes": [
@@ -13,7 +13,17 @@
  ],
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.0129660964012146,
+    0.21078703925013542,
+    0.0
+   ],
+   "scale": [
+    0.42346733808517456,
+    0.42346733808517456,
+    0.42346733808517456
+   ]
   }
  ],
  "meshes": [
@@ -73,57 +83,61 @@
  "buffers": [
   {
    "uri": "0x02000354_lod2.bin",
-   "byteLength": 39016
+   "byteLength": 22708
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 9600,
-   "target": 34962
+   "byteLength": 6400,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 6400,
+   "byteLength": 3200,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 9600,
-   "byteLength": 9600,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 19200,
    "byteLength": 6400,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 25600,
-   "byteLength": 13416,
+   "byteOffset": 16000,
+   "byteLength": 6708,
    "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 800,
    "type": "VEC3",
    "min": [
-    -0.4040678143501282,
-    0.11836128681898117,
-    -0.42346733808517456
+    -32269,
+    -7152,
+    -32767
    ],
    "max": [
-    0.4300000071525574,
-    0.3032127916812897,
-    0.42346733808517456
-   ]
+    32269,
+    7152,
+    32767
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 800,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -133,9 +147,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 3354,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

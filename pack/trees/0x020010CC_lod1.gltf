@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs"
+  "generator": "gen_pack.mjs, quantised by quantise.py"
  },
  "scene": 0,
  "scenes": [
@@ -13,7 +13,17 @@
  ],
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.006915390491485596,
+    0.813037171959877,
+    0.07913732528686523
+   ],
+   "scale": [
+    0.9428001493215561,
+    0.9428001493215561,
+    0.9428001493215561
+   ]
   }
  ],
  "meshes": [
@@ -73,57 +83,61 @@
  "buffers": [
   {
    "uri": "0x020010CC_lod1.bin",
-   "byteLength": 219328
+   "byteLength": 128800
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 57408,
-   "target": 34962
+   "byteLength": 38272,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 38272,
+   "byteLength": 19136,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 57408,
-   "byteLength": 57408,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 114816,
    "byteLength": 38272,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 153088,
-   "byteLength": 66240,
+   "byteOffset": 95680,
+   "byteLength": 33120,
    "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 4784,
    "type": "VEC3",
    "min": [
-    -0.6389868259429932,
-    -0.12976297736167908,
-    -0.6350278258323669
+    -22448,
+    -32767,
+    -24821
    ],
    "max": [
-    0.6528176069259644,
-    1.755837321281433,
-    0.7933024764060974
-   ]
+    22448,
+    32767,
+    24821
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 4784,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -133,9 +147,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 16560,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

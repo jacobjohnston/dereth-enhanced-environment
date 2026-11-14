@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs"
+  "generator": "gen_pack.mjs, quantised by quantise.py"
  },
  "scene": 0,
  "scenes": [
@@ -13,7 +13,17 @@
  ],
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.0018976330757141113,
+    0.7647478505969048,
+    -0.018211066722869873
+   ],
+   "scale": [
+    0.8942123726010323,
+    0.8942123726010323,
+    0.8942123726010323
+   ]
   }
  ],
  "meshes": [
@@ -73,57 +83,61 @@
  "buffers": [
   {
    "uri": "0x020010C4_lod2.bin",
-   "byteLength": 8008
+   "byteLength": 4708
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 2112,
-   "target": 34962
+   "byteLength": 1408,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 1408,
+   "byteLength": 704,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 2112,
-   "byteLength": 2112,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 4224,
    "byteLength": 1408,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 5632,
-   "byteLength": 2376,
+   "byteOffset": 3520,
+   "byteLength": 1188,
    "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 176,
    "type": "VEC3",
    "min": [
-    -0.44955509901046753,
-    -0.1294645220041275,
-    -0.3975977301597595
+    -16543,
+    -32767,
+    -13902
    ],
    "max": [
-    0.45335036516189575,
-    1.658960223197937,
-    0.3611755967140198
-   ]
+    16543,
+    32767,
+    13902
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 176,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -133,9 +147,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 594,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }

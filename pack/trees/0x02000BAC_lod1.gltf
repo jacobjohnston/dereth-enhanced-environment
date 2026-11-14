@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs"
+  "generator": "gen_pack.mjs, quantised by quantise.py"
  },
  "scene": 0,
  "scenes": [
@@ -13,7 +13,17 @@
  ],
  "nodes": [
   {
-   "mesh": 0
+   "mesh": 0,
+   "translation": [
+    0.05586642026901245,
+    1.5172764956951141,
+    -0.17949163913726807
+   ],
+   "scale": [
+    2.317276507616043,
+    2.317276507616043,
+    2.317276507616043
+   ]
   }
  ],
  "meshes": [
@@ -73,57 +83,61 @@
  "buffers": [
   {
    "uri": "0x02000BAC_lod1.bin",
-   "byteLength": 25952
+   "byteLength": 15104
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 6384,
-   "target": 34962
+   "byteLength": 4256,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 4256,
+   "byteLength": 2128,
+   "target": 34962,
+   "byteStride": 4
   },
   {
    "buffer": 0,
    "byteOffset": 6384,
-   "byteLength": 6384,
-   "target": 34962
-  },
-  {
-   "buffer": 0,
-   "byteOffset": 12768,
    "byteLength": 4256,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 17024,
-   "byteLength": 8928,
+   "byteOffset": 10640,
+   "byteLength": 4464,
    "target": 34963
   }
  ],
  "accessors": [
   {
    "bufferView": 0,
-   "componentType": 5126,
+   "componentType": 5122,
    "count": 532,
    "type": "VEC3",
    "min": [
-    -1.4098124504089355,
-    -0.800000011920929,
-    -1.766637921333313
+    -20725,
+    -32767,
+    -22443
    ],
    "max": [
-    1.5215452909469604,
-    3.8345530033111572,
-    1.4076546430587769
-   ]
+    20725,
+    32767,
+    22443
+   ],
+   "normalized": true
   },
   {
    "bufferView": 1,
-   "componentType": 5126,
+   "componentType": 5120,
    "count": 532,
-   "type": "VEC3"
+   "type": "VEC3",
+   "normalized": true
   },
   {
    "bufferView": 2,
@@ -133,9 +147,12 @@
   },
   {
    "bufferView": 3,
-   "componentType": 5125,
+   "componentType": 5123,
    "count": 2232,
    "type": "SCALAR"
   }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
  ]
 }
