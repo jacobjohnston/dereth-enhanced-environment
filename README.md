@@ -12,18 +12,61 @@ materials and moons. The client draws them in place of the game's own when Enhan
 
 | Assets | Scripts | Folder |
 |---|---|---|
-| Shaped models: plants, mushrooms, corals, palms, snags, embers and hay | `shapes.mjs`, `gen_pack.mjs`, `reshape.mjs`, `fit_trunks.py` | `pack/trees/` |
-| Trees and bushes | `gen_pack.mjs`, `fit_trunks.py` | `pack/trees/` |
+| Shaped models: plants, mushrooms, corals, palms, snags, embers and hay | `shapes.mjs`, `gen_pack.mjs`, `reshape.mjs`, `fit_trunks.py`, `foliage.py` | `pack/trees/` |
+| Trees and bushes | `gen_pack.mjs`, `fit_trunks.py`, `foliage.py` | `pack/trees/` |
 | Boulders and rocks | `boulders.py` | `pack/trees/` |
 | Cactuses | `cactus.py` | `pack/trees/` |
-| Ground cover | `gen_pack.mjs`, `clump_cover.py` | `pack/trees/` |
+| Ground cover | `gen_pack.mjs`, then `clump_cover.py`, then `foliage.py` | `pack/trees/` |
 | Relief materials for walls, floors, roofs, rock and wood | `relief.py`, `masonry.py`, `recipes.py`, `split.py`, `fallback.py` | `pack/materials/` |
 | Rock materials | `rockgen.py` | `pack/materials/` |
 | Ice | `ice.py` | `pack/materials/` |
 | Fine-detail grit tiles | `grit.py` | `pack/grit/` |
 | Obsidian ground | `obsidian.py` | `pack/ground/` |
+| Launch (1999) ground: twenty grounds coloured as the 1999 files' own | `ground.py` | `pack/ground/launch/` |
 | Moons | `moons.py` | `pack/sky/` |
 | Lights | By hand | `pack/manifest.toml` |
+
+Every model then goes through `quantise.py`, last of all, after the scripts above. It stores
+positions, normals, picture coordinates, colours and indices as smaller integers, and moves no
+point more than a millimetre. A second run changes nothing. The scripts above read and write the
+models as floats, so run `quantise.py pack` again after any of them.
+
+Each model and material names the fingerprint of the original record it was made from, so a client
+drawing an older era's files draws it only where that era's record is the same. Run
+`pyreal-art fingerprint pack --dat-dir <your end-of-retail files>` after any of the scripts above.
+It writes the fingerprint of each entry that has none, read from your own files. A fingerprint is
+a fact about the original, as an id or a size is: a short hash of a picture's light and dark, or of
+a model's part sizes. The plants (`gen_pack.mjs`) say `draws_on = "any"`, so every era draws them.
+
+The Launch grounds (`ground.py`) are made from noise and shapes alone. Only their colours are
+measured from the 1999 pictures, into `tables/ground-1999.tsv`, and each names its 1999 picture's
+fingerprint, so a world draws it only where its region lays that picture. To make them again:
+
+```bash
+pyreal-art pictures <the 1999 ground pictures> --dat-dir <the 1999 files> --out <folder>
+python3 generators/ground.py measure <folder> tables/ground-1999.tsv
+python3 generators/ground.py make tables/ground-1999.tsv pack
+```
+
+The materials for the 1999 and 2005 files are in `materials/1999/` and `materials/2005/`. They are
+made from those files' own pictures where no material made from end of retail's pictures matches
+them. `tables/eras.tsv` lists those pictures. To make them again:
+
+```bash
+pyreal-art pictures <a list of the era's pictures in tables/eras.tsv> --dat-dir <that era's files> --out <folder>
+python3 generators/relief.py <folder> pack --survey <pictures.tsv> --into 2005
+```
+
+`--into` names the era, and the run replaces that era's materials alone. The older eras' ground
+pictures are among them, marked `ground:<recipe>` in `tables/eras.tsv`: their maps are 512 texels,
+with a fine grain from the ground recipes (grass, soil, sand, snow, stony) laid over each
+picture's own forms. Each material names its
+picture's fingerprint, which `pyreal-art pictures` writes beside the pictures.
+
+End of retail's own ground is made the same way, in `materials/eor/`: the survey sees only what
+models draw, so the terrain pictures no surveyed material covers are listed in `tables/eras.tsv`
+as era `eor`, each standing for itself with the recipe 2005's same picture takes. Make them with
+`--into eor` from end of retail's files, with no `--survey`.
 
 Every script is in `generators/`. Each one describes its own use at the top of the file.
 
@@ -46,13 +89,19 @@ original game as an author. It also refuses any file in `pack/` that no entry na
 python3 build.py                     # checks the pack, then writes dist/enhanced-environment.dat
 python3 build.py --check             # says whether dist/enhanced-environment.dat is what pack/ packs into
 python3 build.py --provenance-only   # runs the checks alone
-python3 build.py --dereth <checkout> # packs with dereth-art from a local dereth checkout
+python3 build.py --layout 2          # writes each record compressed with zstd
 ```
 
-Packing needs Python 3 and a Rust toolchain. On its first run, `build.py` installs `dereth-art`
-into `.tools/`. It takes `dereth-art` from the repository in `DERETH_REPO` at the commit in
-`DERETH_REV`. The same `pack/` always packs into the same bytes. `--check` therefore shows that a
-release matches this repository exactly. Packing reads none of the player's game files.
+Packing needs Python 3 and a Rust toolchain. `build.py` builds `ee-pack`, the packer in `packer/`,
+with `cargo build --release --locked`, then packs with it. `packer/rust-toolchain.toml` names the
+Rust version, and `packer/Cargo.lock` the version of every crate. The packer is Pyreal's own
+packing code, copied into this repository: it reads the pack as the client reads it, and writes
+the same file Pyreal's `pyreal-art pack` writes, byte for byte. It needs nothing else of Pyreal.
+
+`--layout` picks how each record is stored. Layout 1, the default, stores it as it is. Layout 2
+stores it compressed with zstd where that is shorter, which is how Pyreal carries its base pack.
+The same `pack/` always packs into the same bytes. `--check` therefore shows that a release
+matches this repository exactly. Packing reads none of the player's game files.
 
 The generators need Node 20 or newer, Python 3 with numpy and scipy, and ImageMagick (`magick`).
 Some generators read the player's own pictures or meshes of the original game, as `dereth-art`
@@ -72,7 +121,8 @@ writes them.
 | `tables/` | The measurements and recipes the generators read. |
 | `licenses/` | The licenses of the outside work used here. |
 | `docs/` | The README's screenshot. |
-| `build.py`, `DERETH_REPO`, `DERETH_REV` | The pack's checks and build, and the dereth repository and commit it packs with. |
+| `build.py` | The pack's checks and build. |
+| `packer/` | The packer, `ee-pack`, which `build.py` builds and runs. |
 | `release.py`, `VERSION` | The release's version and changelog. |
 | `.github/workflows/` | The release on every push to `main`, and the pull request check. |
 
@@ -99,7 +149,9 @@ each one in its
 GitHub builds and releases the pack on every push to `main` that changes it
 (`.github/workflows/release.yml`). The workflow packs `pack/` and checks the result with
 `build.py --check`. It publishes a release when the pack differs from the last release's file.
-Each release carries `enhanced-environment.dat`, its `.sha256` and `CHANGELOG.md`.
+Each release carries `enhanced-environment.dat`, its `.sha256` and `CHANGELOG.md`. It also carries
+`enhanced-environment.dat.xz`, the same file compressed with xz for a smaller download, and its
+`.sha256`. `xz -d enhanced-environment.dat.xz` or 7-Zip gives back the `.dat`.
 
 The version is `VERSION`'s major and minor numbers, then the count of commits since `VERSION` last
 changed. `python3 release.py version` prints it. A hand edit to `VERSION` starts a new minor or
@@ -117,5 +169,6 @@ The client opens a release's `.dat` with `--art-pack` or from the launcher's Lib
 ## License
 
 This repository is dedicated to the public domain under [CC0 1.0](LICENSE). Anyone may use it for
-any purpose, with or without credit. The outside work above keeps its own license. ambientCG's and
+any purpose, with or without credit. The packer in `packer/` is copied from Pyreal and is MIT, as
+Pyreal is (`packer/LICENSE`). The outside work above keeps its own license. ambientCG's and
 Quaternius's work is CC0. EZ-Tree's work is MIT (`licenses/EZ-Tree-MIT.txt`).
