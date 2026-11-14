@@ -4,9 +4,13 @@
 import os, subprocess, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from masonry import blur
+from masonry import blur, survey
 from recipes import classify
 SRC, FILE = sys.argv[1:3]
+def kind_of(L, a, px):
+    """A band's recipe: stones where its pieces between joints cover it, else as a whole picture's."""
+    s, cover, pieces = survey(L, px)
+    return 'masonry' if s > 0.62 and pieces >= 4 and cover > 0.08 else classify(L, a, px)
 def read(path, side=128):
     raw = subprocess.run(['magick', path, '-virtual-pixel', 'tile', '-filter', 'Catrom', '-distort', 'Resize', f'{side}x{side}!', '-depth', '8', 'rgba:-'], capture_output=True, check=True).stdout
     return np.frombuffer(raw, np.uint8).reshape(side, side, 4).astype(np.float32) / 255
@@ -49,7 +53,7 @@ for line in open(FILE):
         for x0, x1 in zip(cols, cols[1:]):
             # A thin band is moulding or trim: its painted shading is its shape.
             thin = min(y1 - y0, x1 - x0) < 22
-            name = 'design' if thin else classify(L[y0:y1, x0:x1], a[y0:y1, x0:x1], 1.0)
+            name = 'design' if thin else kind_of(L[y0:y1, x0:x1], a[y0:y1, x0:x1], 1.0)
             rects.append(f'{x0 / 128:.3f},{y0 / 128:.3f},{(x1 - x0) / 128:.3f},{(y1 - y0) / 128:.3f},{name}')
     parts += rects
     out.append('\t'.join(parts) + '\n')

@@ -1,13 +1,13 @@
 # Builds enhanced-environment.dat on every push to main that changes the pack, and publishes it as a
 # release tagged with its version (release.py version), with its changelog in the release's notes and
-# a CHANGELOG.md of every release beside the .dat. A push that packs into the same file as the last
-# release publishes nothing.
+# a CHANGELOG.md of every release beside the .dat, and the .dat compressed for a smaller download. A
+# push that packs into the same file as the last release publishes nothing.
 name: release
 
 on:
   push:
     branches: [main]
-    paths: ['pack/**', 'build.py', 'release.py', 'DERETH_REPO', 'DERETH_REV', 'VERSION', '.github/workflows/release.yml']
+    paths: ['pack/**', 'packer/**', 'build.py', 'release.py', 'VERSION', '.github/workflows/release.yml']
   workflow_dispatch:
 
 permissions:
@@ -43,30 +43,24 @@ jobs:
       - name: Fetch the LFS files
         run: git lfs pull
 
-      - name: Install the build inputs
-        # ALSA and pkg-config, which dereth's crates need to build on Linux.
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libasound2-dev pkg-config
-      - name: Install dereth's Rust version
-        run: |
-          repo=$(cat DERETH_REPO); rev=$(cat DERETH_REV)
-          toolchain=$(curl -fsSL "${repo/github.com/raw.githubusercontent.com}/$rev/Cargo.toml" \
-            | sed -n 's/^rust-version *= *"\(.*\)"/\1/p')
-          test -n "$toolchain"
-          rustup toolchain install "$toolchain" --profile minimal
-          rustup default "$toolchain"
-      - name: dereth-art from earlier runs
+      - name: Install the packer's Rust version
+        # The version packer/rust-toolchain.toml names, which cargo takes in packer/.
+        working-directory: packer
+        run: rustup toolchain install
+      - name: The packer from earlier runs
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          path: .tools
-          key: dereth-art-${{ runner.os }}-${{ hashFiles('DERETH_REPO', 'DERETH_REV') }}
+          path: packer/target
+          key: packer-${{ runner.os }}-${{ hashFiles('packer/Cargo.lock', 'packer/rust-toolchain.toml', 'packer/src/**') }}
+          restore-keys: packer-${{ runner.os }}-
 
       - name: Build and check the pack
         run: |
           python3 build.py
           python3 build.py --check
-          (cd dist && sha256sum enhanced-environment.dat > enhanced-environment.dat.sha256)
+          python3 release.py compress
+          (cd dist && sha256sum enhanced-environment.dat > enhanced-environment.dat.sha256 \
+            && sha256sum enhanced-environment.dat.xz > enhanced-environment.dat.xz.sha256)
 
       - name: Work out the version and the last release
         id: release
@@ -106,5 +100,6 @@ jobs:
           VERSION: ${{ steps.release.outputs.version }}
         run: |
           gh release create "v$VERSION" \
-            dist/enhanced-environment.dat dist/enhanced-environment.dat.sha256 dist/CHANGELOG.md \
+            dist/enhanced-environment.dat dist/enhanced-environment.dat.sha256 \
+            dist/enhanced-environment.dat.xz dist/enhanced-environment.dat.xz.sha256 dist/CHANGELOG.md \
             --title "Enhanced Environment $VERSION" --notes-file dist/notes.md --target "$GITHUB_SHA"

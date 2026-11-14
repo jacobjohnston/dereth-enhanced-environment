@@ -1,5 +1,5 @@
-# Writes the pictures of a black, glassy ground: planes of broken volcanic glass, each its own tilt,
-# their edges bright and their faces rippled as a glass breaks. obsidian.py <folder>
+# Writes the pictures of a dark violet volcanic ground: planes of broken glass, gently tilted and
+# worn matte, their edges bright, under the retail picture's violet cloud. obsidian.py <folder>
 import os, subprocess, sys
 import numpy as np
 OUT = sys.argv[1]; os.makedirs(OUT, exist_ok=True)
@@ -27,10 +27,10 @@ for k in range(K):
     second = np.where(nearer, best, np.minimum(second, d))
     who = np.where(nearer, k, who); best = np.where(nearer, d, best)
 edge = np.sqrt(second) - np.sqrt(best)
-tx, ty = rng.uniform(-0.28, 0.28, K).astype(np.float32), rng.uniform(-0.28, 0.28, K).astype(np.float32)
+tx, ty = rng.uniform(-0.10, 0.10, K).astype(np.float32), rng.uniform(-0.10, 0.10, K).astype(np.float32)
 # Curved shell-shaped ripples on each face, centred on its own seed.
 r = np.sqrt(best) * 90 + rng.uniform(0, 6, K)[who]
-ripple = np.sin(r) * np.exp(-np.sqrt(best) * 9) * 0.08
+ripple = np.sin(r) * np.exp(-np.sqrt(best) * 9) * 0.03
 gx = np.cos(rng.uniform(0, 6.28, K))[who] * ripple
 gy = np.sin(rng.uniform(0, 6.28, K))[who] * ripple
 fine = blur(rng.standard_normal((N, N)).astype(np.float32), 1.0)
@@ -44,12 +44,17 @@ nx *= 1 - 0.5 * rim; ny *= 1 - 0.5 * rim
 l = np.sqrt(nx * nx + ny * ny + 1)
 one = np.ones((N, N), np.float32)
 write(f'{OUT}/obsidian_normal.png', np.dstack([nx / l / 2 + 0.5, ny / l / 2 + 0.5, 1 / l / 2 + 0.5, one]))
-# Very nearly black, a little cold, with a rare smoky band and chipped rims catching a pale grey.
+# Near-black glass, a little cold, with a rare smoky band and chipped rims catching a pale grey.
 smoke = blur(rng.standard_normal((N, N)).astype(np.float32), 40); smoke = smoke / smoke.std()
 band = np.clip(0.5 + 0.25 * np.sin((xw * 3 + yw * 5 + smoke * 0.2) * 12), 0, 1)
 g = 0.012 + 0.012 * band + 0.05 * rim ** 2 + rng.uniform(0, 0.006, K)[who]
-write(f'{OUT}/obsidian_albedo.png', np.dstack([g * 0.92, g * 0.95, g * 1.15, one]))
-rough = np.clip(0.06 + 0.05 * band + 0.6 * rim ** 2 + 0.03 * np.abs(fine), 0, 1)
+glass = np.dstack([g * 0.92, g * 0.95, g * 1.15])
+# The retail picture's violet cloud: its sRGB mean and spread, the spread leaning violet.
+cloud = sum(blur(rng.standard_normal((N, N)).astype(np.float32), s) * w for s, w in ((1.5, 0.5), (6, 1), (16, 1.4), (40, 1.2), (90, 0.8)))
+cloud = cloud / cloud.std()
+violet = np.array([0.092, 0.067, 0.108]) + np.array([0.98, 0.79, 1.24]) * 0.037 * cloud[..., None] * (1 - 0.4 * rim[..., None]) + 0.04 * rim[..., None] ** 2
+write(f'{OUT}/obsidian_albedo.png', np.dstack([glass * 0.15 + violet * 0.85, one]))
+rough = np.clip(0.45 + 0.05 * band + 0.051 * np.clip(cloud, -2, 2) + 0.6 * rim ** 2 + 0.03 * np.abs(fine), 0, 1)
 write(f'{OUT}/obsidian_roughness.png', np.dstack([rough, rough, rough, one]))
 h = np.clip(0.5 + 0.4 * (np.minimum(edge, 0.05) / 0.05 - 0.5) + ripple, 0, 1)
 write(f'{OUT}/obsidian_height.png', np.dstack([h, h, h, one]))

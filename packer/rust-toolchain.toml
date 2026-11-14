@@ -1,0 +1,4 @@
+# Pyreal's rust-version.
+[toolchain]
+channel = "1.98"
+profile = "minimal"

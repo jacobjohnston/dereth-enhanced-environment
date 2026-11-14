@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-# The release's version and its changelog, worked out from git.
+# The release's version and its changelog, worked out from git, and its compressed download.
 #   python3 release.py version                       the version of HEAD: VERSION's major.minor, then
 #                                                    the commits since VERSION last changed
+#   python3 release.py compress                      dist/enhanced-environment.dat.xz, the .dat
+#                                                    compressed with xz (`xz -d` restores it)
 #   python3 release.py notes <previous tag> <out>    what changed since the previous release
 #   python3 release.py changelog <notes> <old> <out> the notes above the previous CHANGELOG.md
 # <previous tag> may be '-' for the first release, and <old> '-' when there is no changelog yet.
-import hashlib, json, os, re, subprocess, sys
+import hashlib, json, lzma, os, re, shutil, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MANIFEST = 'pack/manifest.toml'
 DAT = os.path.join(HERE, 'dist', 'enhanced-environment.dat')
+XZ = DAT + '.xz'
 # How many entries a kind lists by name before it only counts the rest.
 LISTED = 25
 # What each kind of entry is called, one and many.
@@ -87,10 +90,18 @@ def notes(previous, out):
     if os.path.isfile(DAT):
         digest = hashlib.sha256(open(DAT, 'rb').read()).hexdigest()
         lines += [f'`enhanced-environment.dat`: {os.path.getsize(DAT) // 2 ** 20} MB, SHA-256 `{digest}`', '']
+    if os.path.isfile(XZ):
+        lines += [f'`enhanced-environment.dat.xz`: {os.path.getsize(XZ) // 2 ** 20} MB, the same file compressed', '']
     open(out, 'w').write('\n'.join(lines))
 
 
 HEADING = '# Changelog\n\nEvery release of the Enhanced Environment pack, newest first.\n\n'
+
+
+def compress():
+    # xz's strongest preset: 8% smaller than zstd -19 --long, and it decodes in seconds.
+    with open(DAT, 'rb') as src, lzma.open(XZ, 'wb', preset=9 | lzma.PRESET_EXTREME) as out:
+        shutil.copyfileobj(src, out, 2 ** 20)
 
 
 def changelog(new, old, out):
@@ -107,5 +118,7 @@ if __name__ == '__main__':
         notes(*args)
     elif command == 'changelog':
         changelog(*args)
+    elif command == 'compress':
+        compress()
     else:
         sys.exit(f'unknown command {command}')

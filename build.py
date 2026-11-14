@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-# Packs pack/ into dist/enhanced-environment.dat with dereth-art, after checking that everything in it
-# says who made it, with what and under which license, and that none of it is the original game's art.
-#   python3 build.py [--dereth <checkout>] [--check] [--provenance-only]
-# --dereth: pack with dereth-art from a local dereth checkout instead of DERETH_REPO at DERETH_REV.
+# Packs pack/ into dist/enhanced-environment.dat with ee-pack (packer/), after checking that everything
+# in it says who made it, with what and under which license, and that none of it is the original game's art.
+#   python3 build.py [--check] [--provenance-only] [--layout N]
 # --check: say whether dist/enhanced-environment.dat is what pack/ packs into, and write nothing.
+# --layout: 1, each record stored as it is (the default), or 2, each compressed with zstd.
 import json, os, re, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PACK = os.path.join(HERE, 'pack')
+PACKER = os.path.join(HERE, 'packer')
 OUT = os.path.join(HERE, 'dist', 'enhanced-environment.dat')
 
 # What an entry's tool must name: a generator in generators/, or a hand.
@@ -98,27 +99,22 @@ def unsynced(folder):
         subprocess.run(['xattr', '-w', 'com.apple.fileprovider.ignore#P', '1', folder], capture_output=True)
 
 
-def dereth_art(checkout):
-    """The command that runs dereth-art: from `checkout`, or installed from DERETH_REPO at DERETH_REV."""
-    if checkout:
-        return ['cargo', 'run', '--release', '--quiet', '--manifest-path',
-                os.path.join(checkout, 'Cargo.toml'), '-p', 'dereth-art', '--']
-    repo = open(os.path.join(HERE, 'DERETH_REPO')).read().strip()
-    rev = open(os.path.join(HERE, 'DERETH_REV')).read().strip()
-    tools = os.path.join(HERE, '.tools')
-    unsynced(tools)
-    exe = os.path.join(tools, 'bin', 'dereth-art')
-    stamp = os.path.join(tools, 'DERETH_REV')
-    wanted = f'{repo} {rev}'
-    if not (os.path.isfile(exe) and os.path.isfile(stamp) and open(stamp).read().strip() == wanted):
-        subprocess.run(['cargo', 'install', '--locked', '--git', repo, '--rev', rev, '--root', tools,
-                        '--force', 'dereth-art'], check=True)
-        open(stamp, 'w').write(wanted + '\n')
-    return [exe]
+def packer():
+    """The packer, built from packer/ in release when it is not already."""
+    unsynced(os.path.join(PACKER, 'target'))
+    # Run in packer/, so rustup takes the toolchain packer/rust-toolchain.toml names.
+    built = subprocess.run(['cargo', 'build', '--release', '--locked', '--manifest-path',
+                            os.path.join(PACKER, 'Cargo.toml'), '--message-format=json-render-diagnostics'],
+                           cwd=PACKER, stdout=subprocess.PIPE, check=True, text=True)
+    for line in built.stdout.splitlines():
+        message = json.loads(line)
+        if message.get('reason') == 'compiler-artifact' and message.get('executable'):
+            return message['executable']
+    sys.exit('build.py: cargo built no ee-pack')
 
 
 def main(args):
-    checkout = args[args.index('--dereth') + 1] if '--dereth' in args else None
+    layout = args[args.index('--layout') + 1] if '--layout' in args else '1'
     why = provenance()
     if why:
         print('The pack is not shipped as it stands:', *why, sep='\n  ', flush=True)
@@ -127,7 +123,7 @@ def main(args):
     if '--provenance-only' in args:
         return 0
     unsynced(os.path.dirname(OUT))
-    command = dereth_art(checkout) + ['pack', PACK, '--out', OUT] + (['--check'] if '--check' in args else [])
+    command = [packer(), PACK, '--out', OUT, '--layout', layout] + (['--check'] if '--check' in args else [])
     return subprocess.run(command).returncode
 
 

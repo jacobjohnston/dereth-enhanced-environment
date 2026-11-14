@@ -2,6 +2,8 @@
 // and ground cover from the Quaternius Stylized Nature MegaKit.
 // Bundle with esbuild, `--alias:eztree=<EZ-Tree repo>/src/lib`, then run:
 //   node <bundle> <pack folder> <picture folder> <kit glTF folder>
+// Afterward run clump_cover.py (see COVER), then foliage.py <pack folder>, which finishes the
+// pictures copied here.
 import fs from 'node:fs';
 import path from 'node:path';
 import { Tree } from 'eztree/index.js';
@@ -205,7 +207,8 @@ const TREE_LEVELS = [
   { detail: { sectionStride: 8, segmentFactor: 0.25, leafStride: 9, leafScale: 3.0, billboard: 'single' } },
 ];
 
-const GREENS = [0.62, 0.68, 0.42, 1];
+// The grass's tint: over foliage.py's grass picture, the original game's olive grassland.
+const GREENS = [0.8, 0.66, 0.34, 1];
 // Each kind of ground cover. Grounds: 1 Grassland, 3 LushGrass, 4 Marsh, 9 PatchyGrassland,
 // 21 forestfloor, 28 Moss, 29 DarkMoss. Afterward `clump_cover.py <pack> grass 4 3 2` makes each
 // grass plant a clump of tufts.
@@ -766,7 +769,8 @@ let manifest = '[pack]\nname = "Enhanced Environment Models"\nformat = 2\n';
 // How much the wind moves each maker's shapes; rigid things stand still.
 const WIND = { hayPile: 0, emberBed: 0, mushroom: 0, cactus: 0, pod: 0, crystal: 0, snag: 0, coral: 0.2, anemone: 0.15, gnarl: 0.3 };
 const treeEntry = (id, files, credit = CREDITS.tree, foliage = true, wind = 1) => {
-  manifest += `\n[[model]]\nid = "${id}"\nfoliage = ${foliage}\nwind = ${wind}\n${credit}`;
+  // Every era draws the plants, whatever shape its own files give them.
+  manifest += `\n[[model]]\nid = "${id}"\ndraws_on = "any"\nfoliage = ${foliage}\nwind = ${wind}\n${credit}`;
   files.forEach((file, i) => {
     manifest += `\n[[model.lod]]\nfile = "trees/${file}.gltf"\n`;
     if (TREE_LEVELS[i].distance) manifest += `distance = ${TREE_LEVELS[i].distance}.0\n`;
