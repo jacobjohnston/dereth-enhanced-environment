@@ -198,6 +198,9 @@ pub struct ManifestMaterial {
     pub damp: f32,
     /// A picture of where it is wet, in its red: white as wet as [`Self::damp`] says, black dry.
     pub damp_map: Option<String>,
+    /// A picture of where it is a metal, in its red: white metal, black not. A material that names
+    /// one is a metal ([`Matter::metal`]) only where the picture says.
+    pub metal_map: Option<String>,
     /// Whether it is wet on floors too, not only on walls.
     pub damp_floors: bool,
     /// Whether a film of slime lies on it where it is damp.
@@ -842,7 +845,8 @@ fn material(t: &toml::Table) -> Result<ManifestMaterial, ManifestError> {
     let draws_on = draws_on(t)?;
     let palettes = palettes_of(t.get("palettes"))?;
     let matter = Matter {
-        metal: flag("metal")?.then_some(number("brighten", 0.1, 20.0)?.unwrap_or(1.0)),
+        metal: (flag("metal")? || t.contains_key("metal_map"))
+            .then_some(number("brighten", 0.1, 20.0)?.unwrap_or(1.0)),
         gloss: number("gloss", 0.0, 1.0)?,
         clear: number("clear", 0.0, 1.0)?,
         refraction: number("refraction", 1.0, 3.0)?.unwrap_or(1.31),
@@ -859,6 +863,7 @@ fn material(t: &toml::Table) -> Result<ManifestMaterial, ManifestError> {
         keep_retail_picture: flag("keep_retail_picture")?,
         damp,
         damp_map: picture("damp_map")?,
+        metal_map: picture("metal_map")?,
         damp_floors: flag("damp_floors")?,
         slime: flag("slime")?,
         ice: flag("ice")?,

@@ -1,13 +1,17 @@
 # One line for each retail picture relief.py works on. A blank line and a line starting # are skipped.
-# id, the material it is (masonry flagstone wood roof thatch plaster rock metal design organic flat mixed),
+# id, the material it is (masonry flagstone wood roof thatch plaster rock metal design organic books flat mixed),
 # the recipe it is shaped by now (none: no relief), how damp it is, and the rest of its line, each
-# word a setting: flip (pale mortar), or a rectangle x,y,w,h,recipe in parts of the picture.
+# word a setting: flip (pale mortar), noflip (never), grid (a flagstone's slabs laid in a plain grid
+# of straight joints), side=N (the maps' longer side, in texels), or a rectangle x,y,w,h,recipe in
+# parts of the picture.
 # id	material	recipe	damp	settings
+0x05000AD1	design	design	0	repeat=0.244	repeatv=0.306
 0x05000C3A	masonry	masonry	0	repeat=4.000	repeatv=4.000
 0x05000D1E	flat	none	0	repeat=8.413	repeatv=8.409
 0x05000D32	flat	none	0	repeat=1.139	repeatv=1.041
 0x05000D9B	mixed	mixed	0	repeat=2.750	repeatv=2.500	0.000,0.000,1.000,0.164,design	0.000,0.164,1.000,0.172,rock	0.000,0.336,0.109,0.234,design	0.109,0.336,0.367,0.234,wood	0.477,0.336,0.414,0.234,wood	0.891,0.336,0.109,0.234,design	0.000,0.570,1.000,0.133,design	0.000,0.703,1.000,0.141,design	0.000,0.844,1.000,0.156,design
 0x05000DFA	rock	rock	0	repeat=8.000	repeatv=8.000
+0x05000DFB	books	pages	0	repeat=0.268	repeatv=0.062
 0x05000EA3	flat	none	0	repeat=1.900	repeatv=2.700
 0x05000FF3	rock	rock	0	repeat=3.075	repeatv=2.255
 0x050011EC	mixed	mixed	0	repeat=2.900	repeatv=2.571	0.000,0.000,1.000,0.430,wood	0.000,0.430,1.000,0.570,rock
@@ -103,7 +107,7 @@
 0x0500262D	design	design	0	repeat=2.805	repeatv=5.099
 0x0500262E	mixed	mixed	0.85	repeat=1.667	repeatv=1.500	0.000,0.000,1.000,0.367,rock	0.000,0.367,0.234,0.344,rock	0.234,0.367,0.492,0.344,rock	0.727,0.367,0.273,0.344,rock	0.000,0.711,1.000,0.109,design	0.000,0.820,1.000,0.180,wood
 0x0500262F	mixed	mixed	0.85	repeat=1.667	repeatv=1.500	0.000,0.000,0.281,0.586,wood	0.281,0.000,0.438,0.586,rock	0.719,0.000,0.281,0.586,rock	0.000,0.586,1.000,0.148,design	0.000,0.734,1.000,0.266,wood
-0x05002630	flagstone	flagstone	0	repeat=3.333	repeatv=3.333
+0x05002630	flagstone	flagstone	0	repeat=3.333	repeatv=3.333	grid
 0x05002631	mixed	mixed	0	repeat=3.000	repeatv=3.000	0.000,0.000,0.109,0.750,design	0.109,0.000,0.141,0.750,design	0.250,0.000,0.133,0.750,design	0.383,0.000,0.273,0.750,rock	0.656,0.000,0.133,0.750,design	0.789,0.000,0.211,0.750,rock	0.000,0.750,1.000,0.250,rock
 0x05002632	flagstone	flagstone	0	repeat=1.500	repeatv=2.201
 0x05002633	rock	rock	0	repeat=3.333	repeatv=3.333
@@ -257,7 +261,7 @@
 0x050026F4	mixed	mixed	0.85	repeat=5.000	repeatv=6.000	0.000,0.000,1.000,0.664,rock	0.000,0.664,1.000,0.109,design	0.000,0.773,1.000,0.117,design	0.000,0.891,1.000,0.109,design
 0x050026F5	masonry	masonry	0.85	repeat=1.667	repeatv=1.500
 0x050026F6	masonry	masonry	0.85	repeat=1.667	repeatv=1.500
-0x050026F7	flagstone	flagstone	0	repeat=3.333	repeatv=3.333
+0x050026F7	flagstone	flagstone	0	repeat=3.333	repeatv=3.333	grid
 0x050026F8	plaster	plaster	0	repeat=3.333	repeatv=3.333
 0x050026F9	masonry	masonry	0.85	repeat=5.000	repeatv=6.000
 0x050026FA	masonry	masonry	0.85	repeat=2.000	repeatv=3.000
@@ -295,7 +299,7 @@
 0x05002724	flagstone	flagstone	0	repeat=3.333	repeatv=3.333
 0x05002725	flagstone	flagstone	0	repeat=3.333	repeatv=3.333
 0x05002726	flagstone	flagstone	0	repeat=5.000	repeatv=6.000
-0x05002727	flagstone	flagstone	0	repeat=3.333	repeatv=3.333
+0x05002727	flagstone	flagstone	0	repeat=3.333	repeatv=3.333	grid
 0x05002728	masonry	masonry	0	repeat=3.333	repeatv=3.333
 0x05002729	flagstone	flagstone	0	repeat=5.000	repeatv=4.000
 0x0500272B	flagstone	flagstone	0	repeat=11.995	repeatv=6.100
@@ -394,7 +398,7 @@
 0x05002796	masonry	masonry	0.85	repeat=2.000	repeatv=3.000
 0x05002797	flagstone	flagstone	0	repeat=3.333	repeatv=3.333
 0x05002798	mixed	mixed	0.85	repeat=1.667	repeatv=1.500	0.000,0.000,1.000,0.133,design	0.000,0.133,1.000,0.672,masonry	0.000,0.805,1.000,0.195,rock
-0x05002799	flagstone	flagstone	0	repeat=3.333	repeatv=3.333
+0x05002799	flagstone	flagstone	0	repeat=3.333	repeatv=3.333	grid
 0x0500279A	mixed	mixed	0.85	repeat=1.667	repeatv=1.500	0.000,0.000,1.000,0.109,design	0.000,0.109,1.000,0.594,masonry	0.000,0.703,1.000,0.125,design	0.000,0.828,1.000,0.172,rock
 0x0500279B	mixed	mixed	0	repeat=3.333	repeatv=3.333	0.000,0.000,1.000,1.000,rock
 0x0500279C	organic	organic	0.85	repeat=5.000	repeatv=5.000
@@ -635,17 +639,17 @@
 0x050028D9	wood	wood	0	repeat=2.246	repeatv=2.000
 0x050028DA	wood	wood	0	repeat=3.000	repeatv=4.622
 0x050028DB	flagstone	flagstone	0	repeat=2.000	repeatv=2.000
-0x050028DC	flagstone	flagstone	0	repeat=1.000	repeatv=1.000
+0x050028DC	flagstone	flagstone	0	repeat=1.000	repeatv=1.000	grid
 0x050028DD	mixed	mixed	0	repeat=2.000	repeatv=3.500	0.000,0.000,1.000,0.625,rock	0.000,0.625,1.000,0.375,wood
 0x050028DE	masonry	masonry	0.85	repeat=8.900	repeatv=8.114
-0x050028DF	flagstone	flagstone	0	repeat=3.000	repeatv=3.000
+0x050028DF	flagstone	flagstone	0	repeat=3.000	repeatv=3.000	grid
 0x050028E2	plaster	plaster	0	repeat=4.055	repeatv=3.000
 0x050028E3	design	design	0	repeat=1.500	repeatv=8.000
 0x050028E4	roof	roof	0	repeat=8.659	repeatv=8.139
 0x050028E5	mixed	mixed	0	repeat=2.000	repeatv=3.275	0.000,0.000,1.000,0.516,rock	0.000,0.516,1.000,0.133,design	0.000,0.648,1.000,0.117,design	0.000,0.766,0.492,0.234,rock	0.492,0.766,0.508,0.234,rock
 0x050028E6	mixed	mixed	0	repeat=1.845	repeatv=9.637	0.000,0.000,1.000,0.656,wood	0.000,0.656,1.000,0.109,design	0.000,0.766,1.000,0.234,wood
 0x050028E7	wood	wood	0	repeat=1.280	repeatv=0.753
-0x050028E8	flagstone	flagstone	0	repeat=1.000	repeatv=1.000
+0x050028E8	flagstone	flagstone	0	repeat=1.000	repeatv=1.000	grid
 0x050028E9	plaster	plaster	0	repeat=3.000	repeatv=3.000
 0x050028EA	mixed	mixed	0	repeat=9.960	repeatv=16.833	0.000,0.000,1.000,0.211,rock	0.000,0.211,1.000,0.109,design	0.000,0.320,1.000,0.156,design	0.000,0.477,1.000,0.172,wood	0.000,0.648,1.000,0.352,rock
 0x050028EB	plaster	plaster	0	repeat=3.000	repeatv=3.000
@@ -728,7 +732,7 @@
 0x0500295E	masonry	masonry	0	repeat=3.000	repeatv=5.000
 0x0500295F	mixed	mixed	0	repeat=2.600	repeatv=4.000	0.000,0.000,1.000,0.125,design	0.000,0.125,0.164,0.359,design	0.164,0.125,0.664,0.359,wood	0.828,0.125,0.172,0.359,wood	0.000,0.484,1.000,0.117,design	0.000,0.602,0.125,0.242,design	0.125,0.602,0.438,0.242,wood	0.562,0.602,0.203,0.242,rock	0.766,0.602,0.109,0.242,design	0.875,0.602,0.125,0.242,design	0.000,0.844,1.000,0.156,design
 0x05002960	mixed	mixed	0	repeat=2.800	repeatv=3.400	0.000,0.000,1.000,0.195,wood	0.000,0.195,0.172,0.695,wood	0.172,0.195,0.656,0.695,wood	0.828,0.195,0.172,0.695,wood	0.000,0.891,1.000,0.109,design
-0x05002961	flagstone	flagstone	0	repeat=2.500	repeatv=2.500
+0x05002961	flagstone	flagstone	0	repeat=2.500	repeatv=2.500	grid
 0x05002962	masonry	masonry	0	repeat=4.000	repeatv=6.000
 0x05002963	masonry	masonry	0	repeat=1.245	repeatv=1.000
 0x05002964	design	design	0	repeat=6.000	repeatv=9.000
@@ -790,7 +794,7 @@
 0x05002A09	wood	wood	0	repeat=4.000	repeatv=4.000
 0x05002A0A	mixed	mixed	0.85	repeat=4.000	repeatv=4.000	0.000,0.000,1.000,0.156,design	0.000,0.156,1.000,0.492,plaster	0.000,0.648,1.000,0.180,wood	0.000,0.828,1.000,0.172,rock
 0x05002A0B	masonry	masonry	0.85	repeat=4.330	repeatv=4.000
-0x05002A0C	flagstone	flagstone	0	repeat=4.000	repeatv=4.000
+0x05002A0C	flagstone	flagstone	0	repeat=4.000	repeatv=4.000	grid
 0x05002A0D	mixed	mixed	0	repeat=9.000	repeatv=4.000	0.000,0.000,0.781,0.250,wood	0.781,0.000,0.219,0.250,rock	0.000,0.250,0.727,0.750,wood	0.727,0.250,0.273,0.750,rock
 0x05002A0E	flat	none	0	repeat=15.675	repeatv=16.231
 0x05002A0F	flat	none	0	repeat=3.562	repeatv=5.457
@@ -908,7 +912,7 @@
 0x05002E3C	rock	rock	0.85	repeat=5.000	repeatv=4.000
 0x05002E92	mixed	mixed	0	repeat=2.362	repeatv=2.336	0.000,0.000,1.000,0.141,design	0.000,0.141,1.000,0.125,design	0.000,0.266,0.250,0.453,rock	0.250,0.266,0.492,0.453,rock	0.742,0.266,0.258,0.453,rock	0.000,0.719,0.109,0.281,design	0.109,0.719,0.141,0.281,design	0.250,0.719,0.266,0.281,rock	0.516,0.719,0.164,0.281,design	0.680,0.719,0.141,0.281,design	0.820,0.719,0.180,0.281,rock
 0x05002EA7	masonry	masonry	0.85	repeat=5.000	repeatv=6.000
-0x05002EA8	flagstone	flagstone	0	repeat=3.333	repeatv=3.333
+0x05002EA8	flagstone	flagstone	0	repeat=3.333	repeatv=3.333	grid
 0x05002EA9	masonry	masonry	0.85	repeat=1.667	repeatv=1.500
 0x05002EAA	masonry	masonry	0.85	repeat=1.667	repeatv=1.500
 0x05002EAB	mixed	mixed	0	repeat=3.333	repeatv=3.333	0.000,0.000,1.000,1.000,rock
@@ -955,7 +959,7 @@
 0x05003318	wood	wood	0	repeat=3.879	repeatv=6.000
 0x0500271B	wood	wood	0	repeat=9.384	repeatv=0.200
 0x05000E80	rock	rock	0	repeat=6.327	repeatv=6.182
-0x05000B15	design	design	0	repeat=1.649	repeatv=2.000
+0x05000B15	mixed	mixed	0	repeat=1.649	repeatv=2.000	side=256	noflip	0.000,0.000,1.000,0.0625,wood	0.000,0.0625,0.125,0.8672,wood	0.875,0.0625,0.125,0.8672,wood	0.125,0.0625,0.750,0.2578,books	0.125,0.3203,0.750,0.0625,wood	0.125,0.3828,0.750,0.2422,books	0.125,0.6250,0.750,0.0547,wood	0.125,0.6797,0.750,0.2500,books	0.000,0.9297,1.000,0.0703,wood
 0x05002756	rock	rock	0	repeat=6.596	repeatv=8.288
 0x050026AE	rock	rock	0	repeat=2.885	repeatv=3.991
 0x050019F8	rock	rock	0	repeat=1.649	repeatv=2.000
@@ -1002,7 +1006,7 @@
 0x050010F7	rock	rock	0	repeat=2.856	repeatv=0.799
 0x0500138C	design	design	0	repeat=0.800	repeatv=1.587
 0x050027EE	design	design	0	repeat=0.649	repeatv=0.650
-0x050010F8	flagstone	flagstone	0	repeat=1.758	repeatv=0.329
+0x050010F8	flagstone	flagstone	0	repeat=1.758	repeatv=0.329	grid
 0x05000EE3	metal	metal	0	repeat=0.924	repeatv=0.550
 0x05002501	rock	rock	0.85	repeat=0.675	repeatv=1.001
 0x05002EC9	plaster	plaster	0	repeat=10.400	repeatv=3.980

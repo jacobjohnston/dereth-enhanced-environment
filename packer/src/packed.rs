@@ -18,8 +18,8 @@
 //! as stored, and the SHA-256 of its bytes; then the SHA-256 of all that.
 //!
 //! **A file** is keyed by its path in the pack. **Pictures** are keyed by how they are made, a
-//! `:` between the parts ([`model_key`], [`ground_key`], [`material_key`], [`grit_key`],
-//! [`moon_key`], [`card_key`]). A pictures record holds a count, then each picture: its width and
+//! `:` between the parts ([`model_key`], [`ground_key`], [`material_key`], [`metal_key`],
+//! [`grit_key`], [`moon_key`], [`card_key`]). A pictures record holds a count, then each picture: its width and
 //! height, whether it holds color (1) or data (0), its blocks (0 for four bytes a texel, 4 for
 //! BC4, 5 for BC5, 7 for BC7) and its level count, then each level, largest first, as its length
 //! and its bytes.
@@ -289,6 +289,12 @@ pub fn material_key(entry: &ManifestMaterial) -> String {
         Some(map) => format!("{key}:{map}"),
         None => key,
     }
+}
+
+/// What a packed pack keeps a material's metal map under, whichever materials share it.
+#[must_use]
+pub fn metal_key(path: &str) -> String {
+    format!("metal:{path}")
 }
 
 /// What a packed pack keeps a grit picture under, whichever materials share it.

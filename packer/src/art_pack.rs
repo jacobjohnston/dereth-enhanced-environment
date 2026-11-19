@@ -547,6 +547,25 @@ pub fn open(
             )),
         }
     }
+    // The metal maps, one each however many materials share it.
+    let mut metal_seen: HashSet<&str> = HashSet::new();
+    for entry in &named {
+        let Some(path) = entry.metal_map.as_deref() else {
+            continue;
+        };
+        if !metal_seen.insert(path) {
+            continue;
+        }
+        let made = reader
+            .for_picture(path)
+            .and_then(|bytes| materials::metal(&bytes, path));
+        match made {
+            Ok(image) => {
+                recorded.insert(packed::metal_key(path), vec![image]);
+            }
+            Err(e) => problems.push(format!("metal map {path}: {e}")),
+        }
+    }
     // The grit pictures, one each however many materials share it.
     let mut grit_seen: HashSet<&str> = HashSet::new();
     for entry in named {

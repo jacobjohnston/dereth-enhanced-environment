@@ -2,14 +2,14 @@
 # (relief.py --into <era> --stands-for this table), because no material made from end of retail's
 # pictures matches them (docs/ERAS.md in Pyreal). One line each, tab-separated:
 # era, the picture, the end-of-retail picture it stands for, why (moved: Throne of Destiny gave
-# its surfaces that other picture; repainted: the picture under the same id is other art; ground:
-# a picture of the era's 3D-card ground, which no material covers; room: a picture the era's
-# rooms draw that no material covered in any era), and whether it takes that picture's recipe
-# (recipe), is shaped by the recipe it looks to want (classify), or is ground shaped by the named
-# recipe (ground:<recipe>). Facts about ids alone, worked out by the era survey from the
-# player's own files. Era eor is end of retail's own ground pictures that no surveyed material
-# covers (the survey sees what models draw, not the land): each stands for itself and takes the
-# recipe 2005's same picture takes.
+# its surfaces that other picture; repainted: the picture under the same id is other art; room: a
+# picture the era's rooms draw that no material covered in any era; ground: a ground picture no
+# material covers), and whether it takes that picture's recipe (recipe), is shaped by the recipe
+# it looks to want (classify), or is ground shaped by the named recipe (ground:<recipe>). Facts
+# about ids alone, worked out by the era survey from the player's own files. Era eor is end of
+# retail's own ground pictures that no surveyed material covers (the survey sees what models
+# draw, not the land): each stands for itself. The older eras lay end of retail's ground, so
+# they have none of their own.
 2005	0x05000002	0x05002685	moved	recipe
 2005	0x05000003	0x05002679	moved	recipe
 2005	0x0500000C	0x05002BC3	moved	classify
@@ -832,26 +832,6 @@
 1999	0x05001468	0x05001468	repainted	ground:snow
 1999	0x050014B7	0x05001A90	moved	classify
 1999	0x050014B8	0x05001A8E	moved	recipe
-2005	0x05001456	0x05001456	ground	ground:grass
-2005	0x05001457	0x05001457	ground	ground:grass
-2005	0x05001458	0x05001458	ground	ground:flagstone
-2005	0x05001459	0x05001459	ground	ground:grass
-2005	0x0500145A	0x0500145A	ground	ground:stony
-2005	0x0500145B	0x0500145B	ground	ground:soil
-2005	0x0500145C	0x0500145C	ground	ground:stony
-2005	0x0500145E	0x0500145E	ground	ground:soil
-2005	0x0500145F	0x0500145F	ground	ground:sand
-2005	0x05001462	0x05001462	ground	ground:soil
-2005	0x05001464	0x05001464	ground	ground:snow
-2005	0x05001465	0x05001465	ground	ground:soil
-2005	0x05001466	0x05001466	ground	ground:soil
-2005	0x05001467	0x05001467	ground	ground:soil
-2005	0x0500181F	0x0500181F	ground	ground:stony
-2005	0x05001827	0x05001827	ground	ground:soil
-2005	0x05001924	0x05001924	ground	ground:stony
-2005	0x05001C3A	0x05001C3A	ground	ground:grass
-2005	0x05001C3B	0x05001C3B	ground	ground:grass
-2005	0x05001C3C	0x05001C3C	ground	ground:soil
 2005	0x0500031F	0x0500031F	room	classify
 2005	0x05000324	0x05000324	room	classify
 2005	0x05000325	0x05000325	room	classify

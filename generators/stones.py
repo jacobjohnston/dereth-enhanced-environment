@@ -5,6 +5,9 @@ import numpy as np
 from scipy import ndimage
 from masonry import blur
 
+# How far out of the picture's light and dark a grid's joints stand, the whole way along (z-score).
+GRID_PLAIN = 3.0
+
 def unit(a):
     return a / (a.std() + 1e-6)
 
@@ -37,7 +40,7 @@ def inside(mask, px):
     """How far each texel of `mask` lies from its edge, in map texels, as the picture repeats."""
     return wrapped(ndimage.distance_transform_edt, mask, int(40 * px) + 8).astype(np.float32)
 
-def mortar(L, px, size, edges=None, courses=False, straight=False):
+def mortar(L, px, size, edges=None, courses=False, straight=False, grid=False):
     """The mortar: what is darker than the stones about it, at the threshold that leaves the most
     of the picture in whole stones. Its stones' labels, and how well it read as stones (0 to 1)."""
     h, w = L.shape
@@ -63,7 +66,9 @@ def mortar(L, px, size, edges=None, courses=False, straight=False):
         score -= 1.5 * max(0, cov - 0.42) + 1.5 * max(0, 0.05 - cov)
         tried.append((score, j, cells, good))
     score, j, cells, good = max(tried, key=lambda t: t[0])
-    laid = coursed(L, px, size, wrapped(lambda a: ndimage.binary_dilation(a, iterations=max(1, int(1.2 * px))), j, 8)) if courses else None
+    laid = gridded(L, px, size) if grid else None
+    if laid is None and courses:
+        laid = coursed(L, px, size, wrapped(lambda a: ndimage.binary_dilation(a, iterations=max(1, int(1.2 * px))), j, 8))
     if laid is not None:
         # The courses' straight joints, with what of the found mortar runs along them.
         # A wall's joints run straight as its courses do; a floor's keep what runs along them.
@@ -165,12 +170,41 @@ def coursed(L, px, size, found):
         return None
     return j
 
-def stones(L, px, rng, flat=False, edges=None, size=None, courses=False):
+def gridded(L, px, size):
+    """Slabs laid in a grid: joints straight across and straight up the whole picture, each standing
+    far out of the picture's light and dark, pale or dark; None where it has no such grid."""
+    h, w = L.shape
+    z = unit(blur(L, size * px) - blur(L, 0.7 * px))
+    best = None
+    for sign in (1, -1):
+        j = np.zeros((h, w), bool)
+        plain = []
+        for axis, n in ((1, h), (0, w)):
+            prof = (sign * z).mean(axis)
+            r = (prof - np.median(prof)) / (prof.std() + 1e-6)
+            # Each joint as wide as it stands out at all, where it stands far out somewhere.
+            lines = [(at, k) for at, k in runs(r > 1.0) if k <= 10 * px
+                     and r[(at + np.arange(k)) % n].max() > GRID_PLAIN]
+            if not lines or len(lines) * 8 * px > n:
+                break
+            plain.append(float(np.mean([r[(at + np.arange(k)) % n].max() for at, k in lines])))
+            for at, k in lines:
+                if axis == 1:
+                    j[(at + np.arange(k)) % n] = True
+                else:
+                    j[:, (at + np.arange(k)) % n] = True
+        else:
+            if 0.02 < float(j.mean()) < 0.4 and (best is None or min(plain) > best[0]):
+                best = (min(plain), j)
+    return None if best is None else best[1]
+
+def stones(L, px, rng, flat=False, edges=None, size=None, courses=False, grid=False):
     """The picture as stones in mortar: height (1 the highest face), the depth of its whole range in
-    retail texels, occlusion, the mortar, and how well it read as stones (0 to 1)."""
+    retail texels, occlusion, the mortar, and how well it read as stones (0 to 1). `grid`: slabs laid
+    in a grid ([`gridded`]), where the picture has one."""
     h, w = L.shape
     size = size or float(np.clip(min(h, w) / px / 14, 4, 14))
-    j, chip, cells, found = mortar(L, px, size, edges, courses, not flat)
+    j, chip, cells, found = mortar(L, px, size, edges, courses, not flat, grid)
     if not flat:
         return wall(L, px, rng, j, chip, cells, found)
     d = inside(~(j | chip), px)

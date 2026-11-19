@@ -187,7 +187,9 @@ def make(job):
         hgt, depth, o, r, fine = mixed(settings, Lb, px, rng)
     else:
         # What is pale on flesh stands proud, however thin.
-        hgt, depth, o, r, *fine = SHAPES[recipe](L if recipe == 'organic' else Lb, px, rng)
+        # Slabs in a plain grid, whose joints the stones' own blotches would hide (0x050026F7).
+        grid = dict(grid=True) if 'grid' in settings else {}
+        hgt, depth, o, r, *fine = SHAPES[recipe](L if recipe == 'organic' else Lb, px, rng, **grid)
         fine = fine[0] if fine else 0
     r = r * one
     if not flat:
@@ -282,7 +284,12 @@ def main(args):
             f = line.rstrip('\n').split('\t')
             if line.strip() and not line.startswith('#') and f[0] == era:
                 stands[f[1]] = (f[2], f[4])
+        # Only another generator's material for this era's own picture keeps it (arms.py's 2005 blade).
         taken = set()
+        for b in kept:
+            other = b.startswith('[[material]]') and not re.search(rf'^tool = "{TOOL}"$', b, re.M)
+            m = re.search(r'^texture = (.*)$', b, re.M) if other and re.search(where, b, re.M) else None
+            taken.update(re.findall(r'0x[0-9A-Fa-f]{8}', m.group(1)) if m else [])
     def job(p):
         id = os.path.basename(p)[:-4]
         if era:

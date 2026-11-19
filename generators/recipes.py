@@ -5,6 +5,9 @@
 import numpy as np
 from masonry import blur, cells_of, joints_of, survey, thatch_height
 from stones import inside, labels, stones, unit
+# books: what is calm (of the median), a book's widest half (texels), what is dark, how plain a
+# side is, a spine's front, how far books stand out of line, their roughness, depth and how far in.
+BOOK_CALM, BOOK_WIDE, BOOK_DARK, BOOK_SIDE, BOOK_FRONT, BOOK_STAGGER, BOOK_ROUGH, BOOK_DEPTH, BOOK_SINK = 0.35, 4, 0.5, 1.2, 0.82, 0.05, 0.62, 5.0, 0.6
 def dir_blur(a, s, axis):
     h, w = a.shape
     f = np.fft.fftfreq(h)[:, None] if axis == 0 else np.fft.rfftfreq(w)[None, :]
@@ -33,8 +36,8 @@ def thin_joints(L, px):
 def size_of(L, px):
     """How much larger than a 128-texel picture's this one's features stand, in its own texels."""
     return float(np.clip(min(L.shape) / px / 128, 0.5, 4)) ** 0.75
-def built(L, px, rng, edges, flat):
-    h, depth, occ, j, found, *detail = stones(L, px, rng, flat=flat, edges=edges, courses=True)
+def built(L, px, rng, edges, flat, grid=False):
+    h, depth, occ, j, found, *detail = stones(L, px, rng, flat=flat, edges=edges, courses=True, grid=grid)
     if found < 0.45:
         return None
     # Mortar is rougher than the faces, and a dark face rougher than a pale one.
@@ -45,8 +48,8 @@ def masonry(L, px, rng, edges=None):
     if made is None:
         return plaster(L, px, rng) if float((L - blur(L, 8 * px)).std()) < 0.075 else rock(L, px, rng)
     return made
-def flagstone(L, px, rng, edges=None):
-    made = built(L, px, rng, edges, True)
+def flagstone(L, px, rng, edges=None, grid=False):
+    made = built(L, px, rng, edges, True, grid)
     return rock(L, px, rng) if made is None else made
 def wood(L, px, rng, edges=None):
     axis, plain = grain_axis(L)
@@ -218,8 +221,77 @@ def stony(L, px, rng, edges=None):
     # Broken rock: sharp-edged facets and grit.
     facets = -np.abs(speckle(L.shape, 6, rng)) * 0.6 - np.abs(speckle(L.shape, 2.2, rng)) * 0.3
     return laid(L, px, facets + 0.06 * speckle(L.shape, 1, rng), 1.6, 0.9, 0.9)
+def books(L, px, rng, edges=None):
+    # Books standing in a row: each spine rounded, the gaps between them deep, the dark space over
+    # them deeper still, and all a little back from the shelf that holds them.
+    from scipy import ndimage
+    # Smoothed up the row, so a spine's painted bands and lettering do not break it.
+    soft = dir_blur(blur(L, 0.4 * px), 1.2 * px, 0)
+    dark = soft < BOOK_DARK * float(np.median(soft))
+    lab, n = ndimage.label(dark)
+    if n:
+        size = ndimage.sum(np.ones_like(soft), lab, np.arange(1, n + 1))
+        dark &= np.r_[False, size >= (2 * px) ** 2 * 2][lab]
+    # Where two books meet with no gap between: a line darker than the spines on either side.
+    valley = unit(dir_blur(dir_blur(soft, 1.5 * px, 1) - soft, 1.5 * px, 0)) > BOOK_SIDE
+    # The back of the case: dark, and calm across, where a row of spines is never calm.
+    busy = blur((soft - dir_blur(soft, 2 * px, 1)) ** 2, 1.5 * px)
+    calm = (busy < BOOK_CALM * float(np.median(busy))) & (soft < float(np.median(soft)))
+    # Their outline eased, so the tops of the books run straight rather than ragged.
+    j = (blur((dark | calm).astype(np.float32), 0.8 * px) > 0.5) | valley
+    if edges is not None:
+        j = j | edges
+    # Across the row only: a spine rounds from side to side, not from its top down.
+    d = ndimage.distance_transform_edt(~j, sampling=(8, 1)).astype(np.float32)
+    lab, n = ndimage.label(~j)
+    idx = np.arange(1, n + 1)
+    r = np.ones(n + 1, np.float32)
+    if n:
+        r[1:] = np.maximum(ndimage.maximum(d, lab, idx).astype(np.float32), 1)
+        # Wider than a book: the back of the case where it is dark, else books laid flat, which
+        # round from top to bottom instead.
+        wide = np.r_[False, r[1:] > BOOK_WIDE * px][lab]
+        shade = np.r_[1.0, ndimage.mean(soft, lab, idx)][lab]
+        back = wide & (shade < float(np.percentile(soft, 40)))
+        j = j | back
+        flat = wide & ~back
+        dv = ndimage.distance_transform_edt(~j, sampling=(1, 8)).astype(np.float32)
+        lab, n = ndimage.label(~j)
+        idx = np.arange(1, n + 1)
+        d = np.where(flat, dv, d)
+        r = np.ones(n + 1, np.float32)
+        if n:
+            r[1:] = np.maximum(ndimage.maximum(d, lab, idx).astype(np.float32), 1)
+    t = np.clip(d / r[lab], 0, 1)
+    off = rng.uniform(-BOOK_STAGGER, BOOK_STAGGER, n + 1).astype(np.float32)
+    # Bands and lettering stand a little off the spine.
+    bands = np.clip(unit(blur(L, 0.4 * px) - blur(L, 2 * px)), -1, 2.5)
+    spine = BOOK_FRONT - 0.2 + 0.2 * np.sqrt(1 - (1 - t) ** 2) + off[lab] + 0.012 * bands
+    back = inside(j & ~valley, px)
+    gap = 0.32 - 0.26 * np.clip(back / (2 * px), 0, 1)
+    # Eased up the row, where the picture's texels would leave a spine's outline wavering.
+    hgt = blur(dir_blur(np.where(j, gap, spine), 1.0 * px, 0).astype(np.float32), 0.5 * px)
+    hgt = 1 - BOOK_SINK * (1 - hgt)
+    rough = np.where(j, 0.95, BOOK_ROUGH - 0.12 * np.clip(bands - 1, 0, 1))
+    # Light reaches little of the case behind them.
+    occ = crevices(hgt, 1.5 * px, 0.8) * (0.4 + 0.6 * np.clip((1 - (1 - hgt) / BOOK_SINK) / BOOK_FRONT, 0, 1))
+    return hgt, BOOK_DEPTH * size_of(L, px), occ, np.clip(rough, 0, 1)
+def pages(L, px, rng, edges=None):
+    # The leaves of a book seen edge-on, between the edges of its covers, which stand proud: the
+    # picture's bands of leaves, and finer lines than its texels between them.
+    axis = 1 if L.shape[1] >= L.shape[0] else 0
+    along = dir_blur(L, 6 * px, axis)
+    cover = along < 0.5 * float(np.median(along))
+    leaves = np.clip(unit(along - blur(along, 1.5 * px)), -2, 2)
+    n = L.shape[1 - axis]
+    lines = rng.standard_normal(n).astype(np.float32)
+    lines = lines[None, :] if axis == 0 else lines[:, None]
+    hgt = np.where(cover, 1.0, 0.72 + 0.05 * leaves + 0.03 * lines) * np.ones_like(L)
+    hgt = blur(hgt.astype(np.float32), 0.3 * px)
+    return hgt, 0.8 * size_of(L, px), crevices(hgt, 1.2 * px, 0.4), np.where(cover, 0.7, 0.9)
 RECIPES = dict(grass=grass, soil=soil, sand=sand, snow=snow, stony=stony, organic=organic, masonry=masonry, flagstone=flagstone, wood=wood, roof=roof, thatch=thatch,
-               plaster=plaster, rock=rock, metal=metal, design=design, surface=surface, cutout=cutout)
+               plaster=plaster, rock=rock, metal=metal, design=design, surface=surface, cutout=cutout,
+               books=books, pages=pages)
 def classify(L, a, px, floor=False):
     """Which recipe a picture tables/recipes.tsv does not list looks to want. Never stones: a stone
     finder takes too much else for them (planks, scales, cloth), and wrong mortar is worse than none."""

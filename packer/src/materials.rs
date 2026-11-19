@@ -67,6 +67,22 @@ fn bent(v: u8, scale: f32) -> f32 {
     (f32::from(v) / 255.0 * 2.0 - 1.0) * scale
 }
 
+/// A material's metal map from its file, its red with its levels, in BC4.
+pub(super) fn metal(bytes: &[u8], path: &str) -> Result<Image, String> {
+    let (w, h, mut rgba) = images::decode_png(bytes).map_err(|e| format!("{path}: {e}"))?;
+    if w == 0 || h == 0 {
+        return Err(format!("{path}: an empty picture"));
+    }
+    for px in rgba.as_chunks_mut::<4>().0 {
+        *px = [px[0], px[0], px[0], 255];
+    }
+    let (w, h, rgba) = images::to_whole_blocks(w, h, rgba);
+    Ok(images::compressed(
+        images::with_levels(w, h, rgba, false, None),
+        BlockFormat::Bc4,
+    ))
+}
+
 /// A grit picture from its file, with its levels, in BC7: its smaller levels average to no bend and
 /// no speckle, so it fades with distance rather than shimmers.
 pub(super) fn grit(bytes: &[u8], path: &str) -> Result<Image, String> {

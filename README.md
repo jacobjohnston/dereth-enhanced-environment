@@ -17,12 +17,13 @@ materials and moons. The client draws them in place of the game's own when Enhan
 | Boulders and rocks | `boulders.py` | `pack/trees/` |
 | Cactuses | `cactus.py` | `pack/trees/` |
 | Ground cover | `gen_pack.mjs`, then `clump_cover.py`, then `foliage.py` | `pack/trees/` |
-| Relief materials for walls, floors, roofs, rock and wood | `relief.py`, `masonry.py`, `recipes.py`, `split.py`, `fallback.py` | `pack/materials/` |
+| Relief materials for walls, floors, roofs, rock, wood and books | `relief.py`, `masonry.py`, `recipes.py`, `split.py`, `fallback.py` | `pack/materials/` |
 | Rock materials | `rockgen.py` | `pack/materials/` |
 | Ice | `ice.py` | `pack/materials/` |
+| Iron that shines: the doors' iron leaves and frames, and the iron bands and hinges on wood, each with a metal map where wood and iron share a picture | `iron.py`, with `relief.py` | `pack/materials/` |
+| Arms and armour that shine: blades, mace heads, gilt guards, grips, the heater shield and the Training Academy's two suits of plate, each with a metal map where steel or gold share a picture with leather | `arms.py`, with `relief.py` | `pack/materials/` |
 | Fine-detail grit tiles | `grit.py` | `pack/grit/` |
 | Obsidian ground | `obsidian.py` | `pack/ground/` |
-| Launch (1999) ground: twenty grounds coloured as the 1999 files' own | `ground.py` | `pack/ground/launch/` |
 | Moons | `moons.py` | `pack/sky/` |
 | Lights | By hand | `pack/manifest.toml` |
 
@@ -38,16 +39,6 @@ It writes the fingerprint of each entry that has none, read from your own files.
 a fact about the original, as an id or a size is: a short hash of a picture's light and dark, or of
 a model's part sizes. The plants (`gen_pack.mjs`) say `draws_on = "any"`, so every era draws them.
 
-The Launch grounds (`ground.py`) are made from noise and shapes alone. Only their colours are
-measured from the 1999 pictures, into `tables/ground-1999.tsv`, and each names its 1999 picture's
-fingerprint, so a world draws it only where its region lays that picture. To make them again:
-
-```bash
-pyreal-art pictures <the 1999 ground pictures> --dat-dir <the 1999 files> --out <folder>
-python3 generators/ground.py measure <folder> tables/ground-1999.tsv
-python3 generators/ground.py make tables/ground-1999.tsv pack
-```
-
 The materials for the 1999 and 2005 files are in `materials/1999/` and `materials/2005/`. They are
 made from those files' own pictures where no material made from end of retail's pictures matches
 them. `tables/eras.tsv` lists those pictures. To make them again:
@@ -57,16 +48,16 @@ pyreal-art pictures <a list of the era's pictures in tables/eras.tsv> --dat-dir 
 python3 generators/relief.py <folder> pack --survey <pictures.tsv> --into 2005
 ```
 
-`--into` names the era, and the run replaces that era's materials alone. The older eras' ground
-pictures are among them, marked `ground:<recipe>` in `tables/eras.tsv`: their maps are 512 texels,
-with a fine grain from the ground recipes (grass, soil, sand, snow, stony) laid over each
-picture's own forms. Each material names its
+`--into` names the era, and the run replaces that era's materials alone. Each material names its
 picture's fingerprint, which `pyreal-art pictures` writes beside the pictures.
 
 End of retail's own ground is made the same way, in `materials/eor/`: the survey sees only what
 models draw, so the terrain pictures no surveyed material covers are listed in `tables/eras.tsv`
-as era `eor`, each standing for itself with the recipe 2005's same picture takes. Make them with
-`--into eor` from end of retail's files, with no `--survey`.
+as era `eor`, marked `ground:<recipe>`. Their maps are 512 texels, with a fine grain from the
+ground recipes (grass, soil, sand, snow, stony) laid over each picture's own forms. Make them with
+`--into eor` from end of retail's files, with no `--survey`. The 1999 and 2005 worlds lay end of
+retail's ground pictures, toned toward 1999 by the client's Ground Coloring, so they take these
+too and have no ground of their own.
 
 Every script is in `generators/`. Each one describes its own use at the top of the file.
 
