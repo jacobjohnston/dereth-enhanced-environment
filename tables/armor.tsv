@@ -5,8 +5,9 @@
 # skin (entries under 192) is always skin. Kinds: quilt, leather, padding, stud, fitting, chain, plate,
 # metal (a stud where a clump is small, a fitting where large), mail (chain where busy, plate where
 # smooth), mailscale (scales where busy, plate where smooth), scale, chitin (glossy, not metal), fur. bright=
-# takes all for the whole picture; cool=kind takes what the default palette paints bluish grey. depth=K
-# scales its relief.
+# takes all for the whole picture; cool=kind takes what the default palette paints bluish grey (cool=kind:N also closes gaps N texels wide); like=kind:ID
+# or like=kind:ID:x,y,w,h takes what looks like that picture (or that part of it) in colour and busyness: an
+# untinted suit's chain by its own chain. depth=K scales its relief.
 # Studded leather: quilted diamonds, studs and the fittings tinted with them.
 0x05000262	studded	1393-1488=quilt	1491-1584=metal
 0x05000266	studded	1393-1488=quilt	1491-1584=metal
@@ -305,3 +306,191 @@
 0x05002227	feet	all=leather	1088-1280=plate
 0x05002228	feet	all=leather
 0x05002229	feet	all=leather	324-1280=fitting
+0x05001A44	olthoi-plain	all=chitin cool=padding
+0x05001A46	olthoi-plain	all=chitin cool=padding
+0x05001A47	olthoi-plain	all=chitin cool=padding
+0x05001A48	olthoi-plain	all=chitin cool=padding
+0x05001C46	olthoi-plain	all=chitin cool=padding
+0x0500217D	olthoi-plain	all=chitin cool=padding
+0x0500217E	olthoi-plain	all=chitin cool=padding
+0x05002181	olthoi-plain	all=chitin cool=padding
+0x05002185	olthoi-plain	all=chitin cool=padding
+0x0500218A	olthoi-plain	all=chitin cool=padding
+0x0500218B	olthoi-plain	all=chitin cool=padding
+0x05002DCE	olthoi-plain	all=chitin cool=padding
+0x05002DCF	olthoi-plain	all=chitin cool=padding
+0x05002DD1	olthoi-plain	all=chitin cool=padding
+0x05002DD2	olthoi-plain	all=chitin cool=padding
+0x05002DD5	olthoi-plain	all=chitin cool=padding
+0x05002DD6	olthoi-plain	all=chitin cool=padding
+0x05002DD7	olthoi-plain	all=chitin cool=padding
+0x05002DD8	olthoi-plain	all=chitin cool=padding
+0x050032A8	o-yoroi	all=plate cool=padding:4
+0x050032A9	o-yoroi	all=plate cool=padding:4
+0x050032AA	o-yoroi	all=plate cool=padding:4
+0x050032AD	o-yoroi	all=plate cool=padding:4
+0x050032B3	o-yoroi	all=plate cool=padding:4
+0x050032B4	o-yoroi	all=plate cool=padding:4
+0x050032B8	o-yoroi	all=plate cool=padding:4
+0x050032B9	o-yoroi	all=plate cool=padding:4
+0x050032BA	o-yoroi	all=plate cool=padding:4
+0x050032BB	o-yoroi	all=plate cool=padding:4
+0x050032BC	o-yoroi	all=plate cool=padding:4
+0x050032BD	o-yoroi	all=plate cool=padding:4
+0x050032C0	o-yoroi	all=plate cool=padding:4
+0x050032C1	o-yoroi	all=plate cool=padding:4
+0x050032C2	o-yoroi	all=plate cool=padding:4
+0x050032EB	o-yoroi	all=plate cool=padding:4
+0x05002DE1	celestial-hand	all=padding
+0x05002E3D	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E3E	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E3F	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E41	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E42	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E43	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E44	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E45	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E47	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E48	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E49	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E4A	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E4B	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002E4C	celestial-hand	all=plate like=chain:0x05002E4A
+0x05002DE2	eldrytch-web	all=padding
+0x05002E58	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E59	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E5A	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E5B	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E5C	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E5D	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E5E	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E5F	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E60	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E61	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E62	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E63	eldrytch-web	all=fur
+0x05002E64	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002E65	eldrytch-web	all=plate like=chain:0x05002E61
+0x05002DB8	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DB9	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DBA	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DBB	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DBC	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DD9	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DDA	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DDB	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DE4	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DE5	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DE6	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DE7	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05002DE8	perfect-light	all=plate like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x0500257F	noble	all=plate cool=padding
+0x05002580	noble	all=plate cool=padding
+0x05002581	noble	all=plate cool=padding
+0x05002582	noble	all=plate cool=padding
+0x05002583	noble	all=plate cool=padding
+0x05002584	noble	all=plate cool=padding
+0x05002585	noble	all=plate cool=padding
+0x05002586	noble	all=plate cool=padding
+0x05002587	noble	all=plate cool=padding
+0x05002588	noble	all=plate cool=padding
+0x05002589	noble	all=plate cool=padding
+0x05002CBB	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002DE3	radiant-blood	all=padding
+0x05002E4D	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E4E	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E4F	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E50	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E51	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E52	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E53	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E54	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E55	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E56	radiant-blood	all=plate like=chain:0x05002CBB
+0x05002E57	radiant-blood	all=plate like=chain:0x05002CBB
+0x0500217C	fine-olthoi	all=chitin cool=padding
+0x0500217F	fine-olthoi	all=chitin cool=padding
+0x05002180	fine-olthoi	all=chitin cool=padding
+0x05002183	fine-olthoi	all=chitin cool=padding
+0x05002184	fine-olthoi	all=chitin cool=padding
+0x05002186	fine-olthoi	all=chitin cool=padding
+0x05002187	fine-olthoi	all=chitin cool=padding
+0x05002188	fine-olthoi	all=chitin cool=padding
+0x05002189	fine-olthoi	all=chitin cool=padding
+0x050020CD	auroric-exarch	all=plate cool=padding
+0x050020CE	auroric-exarch	all=plate cool=padding
+0x050020CF	auroric-exarch	all=plate cool=padding
+0x050020D0	auroric-exarch	all=plate cool=padding
+0x050020D1	auroric-exarch	all=plate cool=padding
+0x050020D2	auroric-exarch	all=plate cool=padding
+0x050020D3	auroric-exarch	all=plate cool=padding
+0x050020D4	auroric-exarch	all=plate cool=padding
+0x050020D5	auroric-exarch	all=plate cool=padding
+0x050020D9	auroric-exarch	all=plate cool=padding
+0x050020DA	auroric-exarch	all=plate cool=padding
+0x05002B3B	leikotha	all=mailscale cool=padding
+0x05002B3D	leikotha	all=mailscale cool=padding
+0x05002B40	leikotha	all=mailscale cool=padding
+0x05002B42	leikotha	all=mailscale cool=padding
+0x05002B44	leikotha	all=mailscale cool=padding
+0x05002B45	leikotha	all=mailscale cool=padding
+0x05002B47	leikotha	all=mailscale cool=padding
+0x05002B49	leikotha	all=mailscale cool=padding
+0x05002388	ancient-armored	all=plate like=chain:0x050025AB
+0x0500242C	ancient-armored	all=plate like=chain:0x050025AB
+0x050024DB	ancient-armored	all=plate like=chain:0x050025AB
+0x050024DC	ancient-armored	all=plate like=chain:0x050025AB
+0x050024DD	ancient-armored	all=plate like=chain:0x050025AB
+0x050025A9	ancient-armored	all=plate like=chain:0x050025AB
+0x050025AA	ancient-armored	all=plate like=chain:0x050025AB
+0x050025AB	ancient-armored	all=plate like=chain:0x050025AB
+0x050025AC	ancient-armored	all=plate like=chain:0x050025AB
+0x05002B28	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x05002B3E	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x05002B3F	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x05002B41	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x05002B43	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x05002B46	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x05002B48	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x05002B4A	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x05002B4B	gelidite	all=plate like=chain:0x05002B41:0.1,0.82,0.4,0.15
+0x050032FC	prismatic-shadow	all=plate
+0x050032FD	prismatic-shadow	all=plate
+0x050032FE	prismatic-shadow	all=plate
+0x050032FF	prismatic-shadow	all=plate
+0x05003300	prismatic-shadow	all=plate
+0x05003301	prismatic-shadow	all=plate
+0x05003302	prismatic-shadow	all=plate
+0x05003303	prismatic-shadow	all=plate
+0x05003304	prismatic-shadow	all=plate
+0x05002CA3	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CA7	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CA8	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CA9	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CAC	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CAD	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CAE	ancient-relic	all=plate like=chain:0x05002CA9
+0x05001B35	exarch-plate	all=plate
+0x05001B36	exarch-plate	all=plate
+0x05001B37	exarch-plate	all=plate
+0x05001B38	exarch-plate	all=plate
+0x05001B39	exarch-plate	all=plate
+0x05001B3A	exarch-plate	all=plate
+0x05001B3B	exarch-plate	all=plate
+0x05002C4A	prismatic-celdon	all=plate like=chain:0x05002C50:0,0.8,1,0.2
+0x05002C4B	prismatic-celdon	all=plate like=chain:0x05002C50:0,0.8,1,0.2
+0x05002C4C	prismatic-celdon	all=plate like=chain:0x05002C50:0,0.8,1,0.2
+0x05002C4D	prismatic-celdon	all=plate like=chain:0x05002C50:0,0.8,1,0.2
+0x05002C4E	prismatic-celdon	all=plate like=chain:0x05002C50:0,0.8,1,0.2
+0x05002C4F	prismatic-celdon	all=plate like=chain:0x05002C50:0,0.8,1,0.2
+0x05002C50	prismatic-celdon	all=plate like=chain:0x05002C50:0,0.8,1,0.2
+0x05001B2E	thaumaturgic-plate	all=plate
+0x05001B2F	thaumaturgic-plate	all=plate
+0x05001B30	thaumaturgic-plate	all=plate
+0x05001B31	thaumaturgic-plate	all=plate
+0x05001B32	thaumaturgic-plate	all=plate
+0x05001B33	thaumaturgic-plate	all=plate
+0x05001B34	thaumaturgic-plate	all=plate
+0x050020D6	auroric-exarch	all=plate cool=padding
+0x050020D7	auroric-exarch	all=plate cool=padding
+0x050020D8	auroric-exarch	all=plate cool=padding

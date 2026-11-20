@@ -14804,6 +14804,8 @@ texture = "0x05001C46"
 fingerprint = "picture 128x128 6e2591c790d5b5c1"
 base_color = "materials/0x05001C46_fallback.png"
 keep_retail_picture = true
+metal_map = "materials/0x05001C46_metal.png"
+brighten = 1
 normal = "materials/0x05001C46_normal.png"
 roughness = "materials/0x05001C46_roughness.png"
 occlusion = "materials/0x05001C46_occlusion.png"
@@ -14811,8 +14813,8 @@ height = "materials/0x05001C46_height.png"
 damp = 0.0
 grit = "grit/clay.png"
 grit_repeat = [1, 1]
-author = "Worked out from the player's own picture by relief.py"
-tool = "relief.py"
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
 license = "CC0-1.0"
 
 [[material]]
@@ -40840,15 +40842,17 @@ texture = "0x05002B28"
 fingerprint = "picture 256x256 1e0ff0f2e2e8cf00"
 base_color = "materials/0x05002B28_fallback.png"
 keep_retail_picture = true
+metal_map = "materials/0x05002B28_metal.png"
+brighten = 2.2
 normal = "materials/0x05002B28_normal.png"
 roughness = "materials/0x05002B28_roughness.png"
 occlusion = "materials/0x05002B28_occlusion.png"
 height = "materials/0x05002B28_height.png"
 damp = 0.0
-grit = "grit/clay.png"
+grit = "grit/metal.png"
 grit_repeat = [1, 1]
-author = "Worked out from the player's own picture by relief.py"
-tool = "relief.py"
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
 license = "CC0-1.0"
 
 [[material]]
@@ -72185,6 +72189,3354 @@ occlusion = "materials/0x05002229_occlusion.png"
 height = "materials/0x05002229_height.png"
 damp = 0.0
 grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001A44"
+fingerprint = "picture 128x256 1818381838bd99c3"
+base_color = "materials/0x05001A44_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001A44_metal.png"
+brighten = 1
+normal = "materials/0x05001A44_normal.png"
+roughness = "materials/0x05001A44_roughness.png"
+occlusion = "materials/0x05001A44_occlusion.png"
+height = "materials/0x05001A44_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001A46"
+fingerprint = "picture 128x128 018fb9f9f9f3f7e7"
+base_color = "materials/0x05001A46_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001A46_metal.png"
+brighten = 1
+normal = "materials/0x05001A46_normal.png"
+roughness = "materials/0x05001A46_roughness.png"
+occlusion = "materials/0x05001A46_occlusion.png"
+height = "materials/0x05001A46_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001A47"
+fingerprint = "picture 64x128 1f67b19c1c3c7921"
+base_color = "materials/0x05001A47_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001A47_metal.png"
+brighten = 1
+normal = "materials/0x05001A47_normal.png"
+roughness = "materials/0x05001A47_roughness.png"
+occlusion = "materials/0x05001A47_occlusion.png"
+height = "materials/0x05001A47_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001A48"
+fingerprint = "picture 128x256 1f353733251f87e0"
+base_color = "materials/0x05001A48_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001A48_metal.png"
+brighten = 1
+normal = "materials/0x05001A48_normal.png"
+roughness = "materials/0x05001A48_roughness.png"
+occlusion = "materials/0x05001A48_occlusion.png"
+height = "materials/0x05001A48_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x0500217D"
+fingerprint = "picture 128x256 18888000e3fba7ff"
+base_color = "materials/0x0500217D_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x0500217D_metal.png"
+brighten = 1
+normal = "materials/0x0500217D_normal.png"
+roughness = "materials/0x0500217D_roughness.png"
+occlusion = "materials/0x0500217D_occlusion.png"
+height = "materials/0x0500217D_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x0500217E"
+fingerprint = "picture 128x128 c0e4ac2ebfbf3e18"
+base_color = "materials/0x0500217E_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x0500217E_metal.png"
+brighten = 1
+normal = "materials/0x0500217E_normal.png"
+roughness = "materials/0x0500217E_roughness.png"
+occlusion = "materials/0x0500217E_occlusion.png"
+height = "materials/0x0500217E_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002181"
+fingerprint = "picture 256x128 7d7662083999f8fc"
+base_color = "materials/0x05002181_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002181_metal.png"
+brighten = 1
+normal = "materials/0x05002181_normal.png"
+roughness = "materials/0x05002181_roughness.png"
+occlusion = "materials/0x05002181_occlusion.png"
+height = "materials/0x05002181_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002185"
+fingerprint = "picture 256x256 00000020ffffffff"
+base_color = "materials/0x05002185_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002185_metal.png"
+brighten = 1
+normal = "materials/0x05002185_normal.png"
+roughness = "materials/0x05002185_roughness.png"
+occlusion = "materials/0x05002185_occlusion.png"
+height = "materials/0x05002185_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x0500218A"
+fingerprint = "picture 256x128 85012387878b37fe"
+base_color = "materials/0x0500218A_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x0500218A_metal.png"
+brighten = 1
+normal = "materials/0x0500218A_normal.png"
+roughness = "materials/0x0500218A_roughness.png"
+occlusion = "materials/0x0500218A_occlusion.png"
+height = "materials/0x0500218A_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x0500218B"
+fingerprint = "picture 128x128 0081bfbfbf3f1f00"
+base_color = "materials/0x0500218B_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x0500218B_metal.png"
+brighten = 1
+normal = "materials/0x0500218B_normal.png"
+roughness = "materials/0x0500218B_roughness.png"
+occlusion = "materials/0x0500218B_occlusion.png"
+height = "materials/0x0500218B_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DCE"
+fingerprint = "picture 128x256 4446428f0383bf80"
+base_color = "materials/0x05002DCE_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DCE_metal.png"
+brighten = 1
+normal = "materials/0x05002DCE_normal.png"
+roughness = "materials/0x05002DCE_roughness.png"
+occlusion = "materials/0x05002DCE_occlusion.png"
+height = "materials/0x05002DCE_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DCF"
+fingerprint = "picture 128x256 0f0d0d0e1a387804"
+base_color = "materials/0x05002DCF_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DCF_metal.png"
+brighten = 1
+normal = "materials/0x05002DCF_normal.png"
+roughness = "materials/0x05002DCF_roughness.png"
+occlusion = "materials/0x05002DCF_occlusion.png"
+height = "materials/0x05002DCF_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DD1"
+fingerprint = "picture 64x128 7e183c58183c7e7e"
+base_color = "materials/0x05002DD1_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DD1_metal.png"
+brighten = 1
+normal = "materials/0x05002DD1_normal.png"
+roughness = "materials/0x05002DD1_roughness.png"
+occlusion = "materials/0x05002DD1_occlusion.png"
+height = "materials/0x05002DD1_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DD2"
+fingerprint = "picture 128x256 7e380000f0fdfeff"
+base_color = "materials/0x05002DD2_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DD2_metal.png"
+brighten = 1
+normal = "materials/0x05002DD2_normal.png"
+roughness = "materials/0x05002DD2_roughness.png"
+occlusion = "materials/0x05002DD2_occlusion.png"
+height = "materials/0x05002DD2_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DD5"
+fingerprint = "picture 128x256 1f0f0707536b83ff"
+base_color = "materials/0x05002DD5_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DD5_metal.png"
+brighten = 1
+normal = "materials/0x05002DD5_normal.png"
+roughness = "materials/0x05002DD5_roughness.png"
+occlusion = "materials/0x05002DD5_occlusion.png"
+height = "materials/0x05002DD5_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DD6"
+fingerprint = "picture 128x128 8001fe9ea6036373"
+base_color = "materials/0x05002DD6_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DD6_metal.png"
+brighten = 1
+normal = "materials/0x05002DD6_normal.png"
+roughness = "materials/0x05002DD6_roughness.png"
+occlusion = "materials/0x05002DD6_occlusion.png"
+height = "materials/0x05002DD6_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DD7"
+fingerprint = "picture 128x256 1f0f0707516983ff"
+base_color = "materials/0x05002DD7_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DD7_metal.png"
+brighten = 1
+normal = "materials/0x05002DD7_normal.png"
+roughness = "materials/0x05002DD7_roughness.png"
+occlusion = "materials/0x05002DD7_occlusion.png"
+height = "materials/0x05002DD7_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DD8"
+fingerprint = "picture 256x256 e7e7e7e70000007e"
+base_color = "materials/0x05002DD8_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DD8_metal.png"
+brighten = 1
+normal = "materials/0x05002DD8_normal.png"
+roughness = "materials/0x05002DD8_roughness.png"
+occlusion = "materials/0x05002DD8_occlusion.png"
+height = "materials/0x05002DD8_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032A8"
+fingerprint = "picture 512x512 e0e0f0f0f0f8f0f1"
+base_color = "materials/0x050032A8_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032A8_metal.png"
+brighten = 2
+normal = "materials/0x050032A8_normal.png"
+roughness = "materials/0x050032A8_roughness.png"
+occlusion = "materials/0x050032A8_occlusion.png"
+height = "materials/0x050032A8_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032A9"
+fingerprint = "picture 512x512 e0e0e0f0f0f8f0f1"
+base_color = "materials/0x050032A9_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032A9_metal.png"
+brighten = 2
+normal = "materials/0x050032A9_normal.png"
+roughness = "materials/0x050032A9_roughness.png"
+occlusion = "materials/0x050032A9_occlusion.png"
+height = "materials/0x050032A9_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032AA"
+fingerprint = "picture 256x256 183e7e3c6e3c7e24"
+base_color = "materials/0x050032AA_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032AA_metal.png"
+brighten = 2
+normal = "materials/0x050032AA_normal.png"
+roughness = "materials/0x050032AA_roughness.png"
+occlusion = "materials/0x050032AA_occlusion.png"
+height = "materials/0x050032AA_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032AD"
+fingerprint = "picture 512x512 7f7f7f7f7f00007f"
+base_color = "materials/0x050032AD_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032AD_metal.png"
+brighten = 2
+normal = "materials/0x050032AD_normal.png"
+roughness = "materials/0x050032AD_roughness.png"
+occlusion = "materials/0x050032AD_occlusion.png"
+height = "materials/0x050032AD_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032B3"
+fingerprint = "picture 128x256 fd9800b8000000ff"
+base_color = "materials/0x050032B3_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032B3_metal.png"
+brighten = 2
+normal = "materials/0x050032B3_normal.png"
+roughness = "materials/0x050032B3_roughness.png"
+occlusion = "materials/0x050032B3_occlusion.png"
+height = "materials/0x050032B3_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032B4"
+fingerprint = "picture 256x256 ffff7f1f09090f9f"
+base_color = "materials/0x050032B4_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032B4_metal.png"
+brighten = 2
+normal = "materials/0x050032B4_normal.png"
+roughness = "materials/0x050032B4_roughness.png"
+occlusion = "materials/0x050032B4_occlusion.png"
+height = "materials/0x050032B4_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032B8"
+fingerprint = "picture 256x256 ff204060e0f0f9ff"
+base_color = "materials/0x050032B8_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032B8_metal.png"
+brighten = 2
+normal = "materials/0x050032B8_normal.png"
+roughness = "materials/0x050032B8_roughness.png"
+occlusion = "materials/0x050032B8_occlusion.png"
+height = "materials/0x050032B8_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032B9"
+fingerprint = "picture 256x256 00040c1d5d5f5ddd"
+base_color = "materials/0x050032B9_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032B9_metal.png"
+brighten = 2
+normal = "materials/0x050032B9_normal.png"
+roughness = "materials/0x050032B9_roughness.png"
+occlusion = "materials/0x050032B9_occlusion.png"
+height = "materials/0x050032B9_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032BA"
+fingerprint = "picture 256x256 005affffffffffff"
+base_color = "materials/0x050032BA_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032BA_metal.png"
+brighten = 2
+normal = "materials/0x050032BA_normal.png"
+roughness = "materials/0x050032BA_roughness.png"
+occlusion = "materials/0x050032BA_occlusion.png"
+height = "materials/0x050032BA_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032BB"
+fingerprint = "picture 256x256 0f0f0f0f0f1f1f1f"
+base_color = "materials/0x050032BB_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032BB_metal.png"
+brighten = 2
+normal = "materials/0x050032BB_normal.png"
+roughness = "materials/0x050032BB_roughness.png"
+occlusion = "materials/0x050032BB_occlusion.png"
+height = "materials/0x050032BB_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032BC"
+fingerprint = "picture 256x256 c1818181ffff81c3"
+base_color = "materials/0x050032BC_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032BC_metal.png"
+brighten = 2
+normal = "materials/0x050032BC_normal.png"
+roughness = "materials/0x050032BC_roughness.png"
+occlusion = "materials/0x050032BC_occlusion.png"
+height = "materials/0x050032BC_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032BD"
+fingerprint = "picture 256x256 6060607076f060ff"
+base_color = "materials/0x050032BD_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032BD_metal.png"
+brighten = 2
+normal = "materials/0x050032BD_normal.png"
+roughness = "materials/0x050032BD_roughness.png"
+occlusion = "materials/0x050032BD_occlusion.png"
+height = "materials/0x050032BD_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032C0"
+fingerprint = "picture 128x128 3c193939393d1b81"
+base_color = "materials/0x050032C0_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032C0_metal.png"
+brighten = 2
+normal = "materials/0x050032C0_normal.png"
+roughness = "materials/0x050032C0_roughness.png"
+occlusion = "materials/0x050032C0_occlusion.png"
+height = "materials/0x050032C0_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032C1"
+fingerprint = "picture 256x256 000a0c1e1f1f1e1e"
+base_color = "materials/0x050032C1_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032C1_metal.png"
+brighten = 2
+normal = "materials/0x050032C1_normal.png"
+roughness = "materials/0x050032C1_roughness.png"
+occlusion = "materials/0x050032C1_occlusion.png"
+height = "materials/0x050032C1_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032C2"
+fingerprint = "picture 128x128 3c193939393d1b81"
+base_color = "materials/0x050032C2_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032C2_metal.png"
+brighten = 2
+normal = "materials/0x050032C2_normal.png"
+roughness = "materials/0x050032C2_roughness.png"
+occlusion = "materials/0x050032C2_occlusion.png"
+height = "materials/0x050032C2_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032EB"
+fingerprint = "picture 512x512 2f0700008099dbff"
+base_color = "materials/0x050032EB_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032EB_metal.png"
+brighten = 2
+normal = "materials/0x050032EB_normal.png"
+roughness = "materials/0x050032EB_roughness.png"
+occlusion = "materials/0x050032EB_occlusion.png"
+height = "materials/0x050032EB_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DE1"
+fingerprint = "picture 256x512 1a428189bdfd9981"
+base_color = "materials/0x05002DE1_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DE1_metal.png"
+brighten = 1
+normal = "materials/0x05002DE1_normal.png"
+roughness = "materials/0x05002DE1_roughness.png"
+occlusion = "materials/0x05002DE1_occlusion.png"
+height = "materials/0x05002DE1_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E3D"
+fingerprint = "picture 128x256 ff80c0c481a090ff"
+base_color = "materials/0x05002E3D_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E3D_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E3D_normal.png"
+roughness = "materials/0x05002E3D_roughness.png"
+occlusion = "materials/0x05002E3D_occlusion.png"
+height = "materials/0x05002E3D_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E3E"
+fingerprint = "picture 256x256 e783b818180000ff"
+base_color = "materials/0x05002E3E_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E3E_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E3E_normal.png"
+roughness = "materials/0x05002E3E_roughness.png"
+occlusion = "materials/0x05002E3E_occlusion.png"
+height = "materials/0x05002E3E_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E3F"
+fingerprint = "picture 256x256 efc7ff80340100c3"
+base_color = "materials/0x05002E3F_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E3F_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E3F_normal.png"
+roughness = "materials/0x05002E3F_roughness.png"
+occlusion = "materials/0x05002E3F_occlusion.png"
+height = "materials/0x05002E3F_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E41"
+fingerprint = "picture 256x256 c0e0e0d8b07e7838"
+base_color = "materials/0x05002E41_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E41_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E41_normal.png"
+roughness = "materials/0x05002E41_roughness.png"
+occlusion = "materials/0x05002E41_occlusion.png"
+height = "materials/0x05002E41_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E42"
+fingerprint = "picture 128x256 fc0080f41f98feff"
+base_color = "materials/0x05002E42_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E42_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E42_normal.png"
+roughness = "materials/0x05002E42_roughness.png"
+occlusion = "materials/0x05002E42_occlusion.png"
+height = "materials/0x05002E42_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E43"
+fingerprint = "picture 256x256 e7e7c3c3911800e7"
+base_color = "materials/0x05002E43_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E43_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E43_normal.png"
+roughness = "materials/0x05002E43_roughness.png"
+occlusion = "materials/0x05002E43_occlusion.png"
+height = "materials/0x05002E43_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E44"
+fingerprint = "picture 256x256 e7e7c381911800e7"
+base_color = "materials/0x05002E44_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E44_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E44_normal.png"
+roughness = "materials/0x05002E44_roughness.png"
+occlusion = "materials/0x05002E44_occlusion.png"
+height = "materials/0x05002E44_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E45"
+fingerprint = "picture 256x256 e7c3c3c3991800e7"
+base_color = "materials/0x05002E45_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E45_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E45_normal.png"
+roughness = "materials/0x05002E45_roughness.png"
+occlusion = "materials/0x05002E45_occlusion.png"
+height = "materials/0x05002E45_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E47"
+fingerprint = "picture 128x128 030323077fb5bf39"
+base_color = "materials/0x05002E47_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E47_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E47_normal.png"
+roughness = "materials/0x05002E47_roughness.png"
+occlusion = "materials/0x05002E47_occlusion.png"
+height = "materials/0x05002E47_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E48"
+fingerprint = "picture 256x256 ff050606fe0b001c"
+base_color = "materials/0x05002E48_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E48_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E48_normal.png"
+roughness = "materials/0x05002E48_roughness.png"
+occlusion = "materials/0x05002E48_occlusion.png"
+height = "materials/0x05002E48_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E49"
+fingerprint = "picture 128x256 ff18101018185bff"
+base_color = "materials/0x05002E49_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E49_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E49_normal.png"
+roughness = "materials/0x05002E49_roughness.png"
+occlusion = "materials/0x05002E49_occlusion.png"
+height = "materials/0x05002E49_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E4A"
+fingerprint = "picture 128x256 0024ff00ff0429ff"
+base_color = "materials/0x05002E4A_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E4A_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E4A_normal.png"
+roughness = "materials/0x05002E4A_roughness.png"
+occlusion = "materials/0x05002E4A_occlusion.png"
+height = "materials/0x05002E4A_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E4B"
+fingerprint = "picture 256x256 000000247e187c3c"
+base_color = "materials/0x05002E4B_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E4B_metal.png"
+brighten = 2
+normal = "materials/0x05002E4B_normal.png"
+roughness = "materials/0x05002E4B_roughness.png"
+occlusion = "materials/0x05002E4B_occlusion.png"
+height = "materials/0x05002E4B_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E4C"
+fingerprint = "picture 256x128 1f1f3b5d111f0e0f"
+base_color = "materials/0x05002E4C_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E4C_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E4C_normal.png"
+roughness = "materials/0x05002E4C_roughness.png"
+occlusion = "materials/0x05002E4C_occlusion.png"
+height = "materials/0x05002E4C_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DE2"
+fingerprint = "picture 256x512 184281817fffbfc7"
+base_color = "materials/0x05002DE2_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DE2_metal.png"
+brighten = 1
+normal = "materials/0x05002DE2_normal.png"
+roughness = "materials/0x05002DE2_roughness.png"
+occlusion = "materials/0x05002DE2_occlusion.png"
+height = "materials/0x05002DE2_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E58"
+fingerprint = "picture 128x256 00f8cccccb070300"
+base_color = "materials/0x05002E58_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E58_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E58_normal.png"
+roughness = "materials/0x05002E58_roughness.png"
+occlusion = "materials/0x05002E58_occlusion.png"
+height = "materials/0x05002E58_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E59"
+fingerprint = "picture 64x64 83babc4c0f3b3930"
+base_color = "materials/0x05002E59_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E59_metal.png"
+brighten = 2
+normal = "materials/0x05002E59_normal.png"
+roughness = "materials/0x05002E59_roughness.png"
+occlusion = "materials/0x05002E59_occlusion.png"
+height = "materials/0x05002E59_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E5A"
+fingerprint = "picture 128x256 0078c0cccccb0307"
+base_color = "materials/0x05002E5A_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E5A_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E5A_normal.png"
+roughness = "materials/0x05002E5A_roughness.png"
+occlusion = "materials/0x05002E5A_occlusion.png"
+height = "materials/0x05002E5A_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E5B"
+fingerprint = "picture 128x256 10387c1c3e0c3c1c"
+base_color = "materials/0x05002E5B_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E5B_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E5B_normal.png"
+roughness = "materials/0x05002E5B_roughness.png"
+occlusion = "materials/0x05002E5B_occlusion.png"
+height = "materials/0x05002E5B_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E5C"
+fingerprint = "picture 128x256 0078c0cccccb0307"
+base_color = "materials/0x05002E5C_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E5C_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E5C_normal.png"
+roughness = "materials/0x05002E5C_roughness.png"
+occlusion = "materials/0x05002E5C_occlusion.png"
+height = "materials/0x05002E5C_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E5D"
+fingerprint = "picture 128x256 00f8cccccb070300"
+base_color = "materials/0x05002E5D_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E5D_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E5D_normal.png"
+roughness = "materials/0x05002E5D_roughness.png"
+occlusion = "materials/0x05002E5D_occlusion.png"
+height = "materials/0x05002E5D_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E5E"
+fingerprint = "picture 256x256 0000187e3effff42"
+base_color = "materials/0x05002E5E_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E5E_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E5E_normal.png"
+roughness = "materials/0x05002E5E_roughness.png"
+occlusion = "materials/0x05002E5E_occlusion.png"
+height = "materials/0x05002E5E_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E5F"
+fingerprint = "picture 128x256 0030f8f0e09e4000"
+base_color = "materials/0x05002E5F_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E5F_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E5F_normal.png"
+roughness = "materials/0x05002E5F_roughness.png"
+occlusion = "materials/0x05002E5F_occlusion.png"
+height = "materials/0x05002E5F_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E60"
+fingerprint = "picture 128x256 003cfc70e2db4000"
+base_color = "materials/0x05002E60_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E60_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E60_normal.png"
+roughness = "materials/0x05002E60_roughness.png"
+occlusion = "materials/0x05002E60_occlusion.png"
+height = "materials/0x05002E60_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E61"
+fingerprint = "picture 64x64 ffe3f0f9c0d04080"
+base_color = "materials/0x05002E61_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E61_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E61_normal.png"
+roughness = "materials/0x05002E61_roughness.png"
+occlusion = "materials/0x05002E61_occlusion.png"
+height = "materials/0x05002E61_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E62"
+fingerprint = "picture 256x256 c1c3e38018183c18"
+base_color = "materials/0x05002E62_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E62_metal.png"
+brighten = 2
+normal = "materials/0x05002E62_normal.png"
+roughness = "materials/0x05002E62_roughness.png"
+occlusion = "materials/0x05002E62_occlusion.png"
+height = "materials/0x05002E62_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E63"
+fingerprint = "picture 256x256 00300000007efeff"
+base_color = "materials/0x05002E63_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E63_metal.png"
+brighten = 1
+normal = "materials/0x05002E63_normal.png"
+roughness = "materials/0x05002E63_roughness.png"
+occlusion = "materials/0x05002E63_occlusion.png"
+height = "materials/0x05002E63_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E64"
+fingerprint = "picture 256x256 8fdf001c02767c00"
+base_color = "materials/0x05002E64_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E64_metal.png"
+brighten = 2
+normal = "materials/0x05002E64_normal.png"
+roughness = "materials/0x05002E64_roughness.png"
+occlusion = "materials/0x05002E64_occlusion.png"
+height = "materials/0x05002E64_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E65"
+fingerprint = "picture 256x256 001824ff087e7ebf"
+base_color = "materials/0x05002E65_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E65_metal.png"
+brighten = 2
+normal = "materials/0x05002E65_normal.png"
+roughness = "materials/0x05002E65_roughness.png"
+occlusion = "materials/0x05002E65_occlusion.png"
+height = "materials/0x05002E65_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DB8"
+fingerprint = "picture 128x256 ef078f06000705e3"
+base_color = "materials/0x05002DB8_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DB8_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DB8_normal.png"
+roughness = "materials/0x05002DB8_roughness.png"
+occlusion = "materials/0x05002DB8_occlusion.png"
+height = "materials/0x05002DB8_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DB9"
+fingerprint = "picture 256x256 c3c38181bd5a42c3"
+base_color = "materials/0x05002DB9_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DB9_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DB9_normal.png"
+roughness = "materials/0x05002DB9_roughness.png"
+occlusion = "materials/0x05002DB9_occlusion.png"
+height = "materials/0x05002DB9_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DBA"
+fingerprint = "picture 256x256 c3c38185257e66c3"
+base_color = "materials/0x05002DBA_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DBA_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DBA_normal.png"
+roughness = "materials/0x05002DBA_roughness.png"
+occlusion = "materials/0x05002DBA_occlusion.png"
+height = "materials/0x05002DBA_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DBB"
+fingerprint = "picture 256x256 c3c38181a57e66c3"
+base_color = "materials/0x05002DBB_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DBB_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DBB_normal.png"
+roughness = "materials/0x05002DBB_roughness.png"
+occlusion = "materials/0x05002DBB_occlusion.png"
+height = "materials/0x05002DBB_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DBC"
+fingerprint = "picture 256x256 9f9f9980808181ef"
+base_color = "materials/0x05002DBC_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DBC_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DBC_normal.png"
+roughness = "materials/0x05002DBC_roughness.png"
+occlusion = "materials/0x05002DBC_occlusion.png"
+height = "materials/0x05002DBC_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DD9"
+fingerprint = "picture 256x256 00666600426666e7"
+base_color = "materials/0x05002DD9_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DD9_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DD9_normal.png"
+roughness = "materials/0x05002DD9_roughness.png"
+occlusion = "materials/0x05002DD9_occlusion.png"
+height = "materials/0x05002DD9_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DDA"
+fingerprint = "picture 256x128 fffffffff7e380c3"
+base_color = "materials/0x05002DDA_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DDA_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DDA_normal.png"
+roughness = "materials/0x05002DDA_roughness.png"
+occlusion = "materials/0x05002DDA_occlusion.png"
+height = "materials/0x05002DDA_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DDB"
+fingerprint = "picture 256x256 007e660081c3e7e7"
+base_color = "materials/0x05002DDB_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DDB_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DDB_normal.png"
+roughness = "materials/0x05002DDB_roughness.png"
+occlusion = "materials/0x05002DDB_occlusion.png"
+height = "materials/0x05002DDB_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DE4"
+fingerprint = "picture 256x256 e78108db81c3e7e7"
+base_color = "materials/0x05002DE4_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DE4_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DE4_normal.png"
+roughness = "materials/0x05002DE4_roughness.png"
+occlusion = "materials/0x05002DE4_occlusion.png"
+height = "materials/0x05002DE4_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DE5"
+fingerprint = "picture 256x256 e78138db99c3e781"
+base_color = "materials/0x05002DE5_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DE5_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DE5_normal.png"
+roughness = "materials/0x05002DE5_roughness.png"
+occlusion = "materials/0x05002DE5_occlusion.png"
+height = "materials/0x05002DE5_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DE6"
+fingerprint = "picture 128x256 83c3c3c7c39bc1c3"
+base_color = "materials/0x05002DE6_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DE6_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DE6_normal.png"
+roughness = "materials/0x05002DE6_roughness.png"
+occlusion = "materials/0x05002DE6_occlusion.png"
+height = "materials/0x05002DE6_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DE7"
+fingerprint = "picture 128x256 83c3c3c7c39bc1c3"
+base_color = "materials/0x05002DE7_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DE7_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DE7_normal.png"
+roughness = "materials/0x05002DE7_roughness.png"
+occlusion = "materials/0x05002DE7_occlusion.png"
+height = "materials/0x05002DE7_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DE8"
+fingerprint = "picture 128x256 02879bdffdbb3f0f"
+base_color = "materials/0x05002DE8_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DE8_metal.png"
+brighten = 2.2
+normal = "materials/0x05002DE8_normal.png"
+roughness = "materials/0x05002DE8_roughness.png"
+occlusion = "materials/0x05002DE8_occlusion.png"
+height = "materials/0x05002DE8_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x0500257F"
+fingerprint = "picture 128x128 004371d397a7f5cf"
+base_color = "materials/0x0500257F_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x0500257F_metal.png"
+brighten = 2
+normal = "materials/0x0500257F_normal.png"
+roughness = "materials/0x0500257F_roughness.png"
+occlusion = "materials/0x0500257F_occlusion.png"
+height = "materials/0x0500257F_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002580"
+fingerprint = "picture 128x128 39006661e73d7e7e"
+base_color = "materials/0x05002580_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002580_metal.png"
+brighten = 2
+normal = "materials/0x05002580_normal.png"
+roughness = "materials/0x05002580_roughness.png"
+occlusion = "materials/0x05002580_occlusion.png"
+height = "materials/0x05002580_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002581"
+fingerprint = "picture 64x64 83b0bc7c4f3b39b1"
+base_color = "materials/0x05002581_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002581_metal.png"
+brighten = 2
+normal = "materials/0x05002581_normal.png"
+roughness = "materials/0x05002581_roughness.png"
+occlusion = "materials/0x05002581_occlusion.png"
+height = "materials/0x05002581_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002582"
+fingerprint = "picture 64x64 ddf0c4edcc8801e1"
+base_color = "materials/0x05002582_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002582_metal.png"
+brighten = 2
+normal = "materials/0x05002582_normal.png"
+roughness = "materials/0x05002582_roughness.png"
+occlusion = "materials/0x05002582_occlusion.png"
+height = "materials/0x05002582_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002583"
+fingerprint = "picture 128x256 0fcf8f736e1e0001"
+base_color = "materials/0x05002583_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002583_metal.png"
+brighten = 2
+normal = "materials/0x05002583_normal.png"
+roughness = "materials/0x05002583_roughness.png"
+occlusion = "materials/0x05002583_occlusion.png"
+height = "materials/0x05002583_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002584"
+fingerprint = "picture 128x256 0f1f1f6f4b1a0101"
+base_color = "materials/0x05002584_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002584_metal.png"
+brighten = 2
+normal = "materials/0x05002584_normal.png"
+roughness = "materials/0x05002584_roughness.png"
+occlusion = "materials/0x05002584_occlusion.png"
+height = "materials/0x05002584_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002585"
+fingerprint = "picture 128x128 ffffbd9866428918"
+base_color = "materials/0x05002585_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002585_metal.png"
+brighten = 2
+normal = "materials/0x05002585_normal.png"
+roughness = "materials/0x05002585_roughness.png"
+occlusion = "materials/0x05002585_occlusion.png"
+height = "materials/0x05002585_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002586"
+fingerprint = "picture 128x256 ffdf3f1c0c848c08"
+base_color = "materials/0x05002586_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002586_metal.png"
+brighten = 2
+normal = "materials/0x05002586_normal.png"
+roughness = "materials/0x05002586_roughness.png"
+occlusion = "materials/0x05002586_occlusion.png"
+height = "materials/0x05002586_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002587"
+fingerprint = "picture 128x256 ffe0cd8c8800f5ff"
+base_color = "materials/0x05002587_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002587_metal.png"
+brighten = 2
+normal = "materials/0x05002587_normal.png"
+roughness = "materials/0x05002587_roughness.png"
+occlusion = "materials/0x05002587_occlusion.png"
+height = "materials/0x05002587_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002588"
+fingerprint = "picture 128x256 6280a36fedd90a00"
+base_color = "materials/0x05002588_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002588_metal.png"
+brighten = 2
+normal = "materials/0x05002588_normal.png"
+roughness = "materials/0x05002588_roughness.png"
+occlusion = "materials/0x05002588_occlusion.png"
+height = "materials/0x05002588_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002589"
+fingerprint = "picture 128x256 6610a0aa6defd90a"
+base_color = "materials/0x05002589_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002589_metal.png"
+brighten = 2
+normal = "materials/0x05002589_normal.png"
+roughness = "materials/0x05002589_roughness.png"
+occlusion = "materials/0x05002589_occlusion.png"
+height = "materials/0x05002589_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002CBB"
+fingerprint = "picture 64x64 ffe3f1f9c0c040c0"
+base_color = "materials/0x05002CBB_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002CBB_metal.png"
+brighten = 2.2
+normal = "materials/0x05002CBB_normal.png"
+roughness = "materials/0x05002CBB_roughness.png"
+occlusion = "materials/0x05002CBB_occlusion.png"
+height = "materials/0x05002CBB_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002DE3"
+fingerprint = "picture 256x512 3cc38199ffdb9d89"
+base_color = "materials/0x05002DE3_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002DE3_metal.png"
+brighten = 1
+normal = "materials/0x05002DE3_normal.png"
+roughness = "materials/0x05002DE3_roughness.png"
+occlusion = "materials/0x05002DE3_occlusion.png"
+height = "materials/0x05002DE3_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E4D"
+fingerprint = "picture 128x256 000f3f3b2f3d3f00"
+base_color = "materials/0x05002E4D_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E4D_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E4D_normal.png"
+roughness = "materials/0x05002E4D_roughness.png"
+occlusion = "materials/0x05002E4D_occlusion.png"
+height = "materials/0x05002E4D_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E4E"
+fingerprint = "picture 128x128 0000b4b4fcfcfefc"
+base_color = "materials/0x05002E4E_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E4E_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E4E_normal.png"
+roughness = "materials/0x05002E4E_roughness.png"
+occlusion = "materials/0x05002E4E_occlusion.png"
+height = "materials/0x05002E4E_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E4F"
+fingerprint = "picture 128x128 008081a7bfff183c"
+base_color = "materials/0x05002E4F_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E4F_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E4F_normal.png"
+roughness = "materials/0x05002E4F_roughness.png"
+occlusion = "materials/0x05002E4F_occlusion.png"
+height = "materials/0x05002E4F_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E50"
+fingerprint = "picture 128x256 00dbc399c3ffc3c3"
+base_color = "materials/0x05002E50_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E50_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E50_normal.png"
+roughness = "materials/0x05002E50_roughness.png"
+occlusion = "materials/0x05002E50_occlusion.png"
+height = "materials/0x05002E50_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E51"
+fingerprint = "picture 128x256 00000ca4fffefde8"
+base_color = "materials/0x05002E51_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E51_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E51_normal.png"
+roughness = "materials/0x05002E51_roughness.png"
+occlusion = "materials/0x05002E51_occlusion.png"
+height = "materials/0x05002E51_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E52"
+fingerprint = "picture 128x256 090802329ff1ffca"
+base_color = "materials/0x05002E52_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E52_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E52_normal.png"
+roughness = "materials/0x05002E52_roughness.png"
+occlusion = "materials/0x05002E52_occlusion.png"
+height = "materials/0x05002E52_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E53"
+fingerprint = "picture 128x256 00c0f8fc0eb8323a"
+base_color = "materials/0x05002E53_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E53_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E53_normal.png"
+roughness = "materials/0x05002E53_roughness.png"
+occlusion = "materials/0x05002E53_occlusion.png"
+height = "materials/0x05002E53_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E54"
+fingerprint = "picture 128x256 8080b8fc8cf83232"
+base_color = "materials/0x05002E54_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E54_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E54_normal.png"
+roughness = "materials/0x05002E54_roughness.png"
+occlusion = "materials/0x05002E54_occlusion.png"
+height = "materials/0x05002E54_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E55"
+fingerprint = "picture 128x256 8080b4fe8efa3831"
+base_color = "materials/0x05002E55_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E55_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E55_normal.png"
+roughness = "materials/0x05002E55_roughness.png"
+occlusion = "materials/0x05002E55_occlusion.png"
+height = "materials/0x05002E55_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E56"
+fingerprint = "picture 256x256 80595fbf478fc430"
+base_color = "materials/0x05002E56_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E56_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E56_normal.png"
+roughness = "materials/0x05002E56_roughness.png"
+occlusion = "materials/0x05002E56_occlusion.png"
+height = "materials/0x05002E56_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002E57"
+fingerprint = "picture 256x256 18246eff99ff3e00"
+base_color = "materials/0x05002E57_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002E57_metal.png"
+brighten = 2.2
+normal = "materials/0x05002E57_normal.png"
+roughness = "materials/0x05002E57_roughness.png"
+occlusion = "materials/0x05002E57_occlusion.png"
+height = "materials/0x05002E57_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x0500217C"
+fingerprint = "picture 128x256 7c0000ce9c9f9cff"
+base_color = "materials/0x0500217C_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x0500217C_metal.png"
+brighten = 1
+normal = "materials/0x0500217C_normal.png"
+roughness = "materials/0x0500217C_roughness.png"
+occlusion = "materials/0x0500217C_occlusion.png"
+height = "materials/0x0500217C_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x0500217F"
+fingerprint = "picture 256x256 0000707078fcfcfc"
+base_color = "materials/0x0500217F_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x0500217F_metal.png"
+brighten = 1
+normal = "materials/0x0500217F_normal.png"
+roughness = "materials/0x0500217F_roughness.png"
+occlusion = "materials/0x0500217F_occlusion.png"
+height = "materials/0x0500217F_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002180"
+fingerprint = "picture 128x256 18ac0000d169a7ff"
+base_color = "materials/0x05002180_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002180_metal.png"
+brighten = 1
+normal = "materials/0x05002180_normal.png"
+roughness = "materials/0x05002180_roughness.png"
+occlusion = "materials/0x05002180_occlusion.png"
+height = "materials/0x05002180_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002183"
+fingerprint = "picture 128x256 7e10707c00f0feff"
+base_color = "materials/0x05002183_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002183_metal.png"
+brighten = 1
+normal = "materials/0x05002183_normal.png"
+roughness = "materials/0x05002183_roughness.png"
+occlusion = "materials/0x05002183_occlusion.png"
+height = "materials/0x05002183_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002184"
+fingerprint = "picture 256x256 7c3cfcb1817bb63a"
+base_color = "materials/0x05002184_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002184_metal.png"
+brighten = 1
+normal = "materials/0x05002184_normal.png"
+roughness = "materials/0x05002184_roughness.png"
+occlusion = "materials/0x05002184_occlusion.png"
+height = "materials/0x05002184_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002186"
+fingerprint = "picture 128x256 7e00425291bd7c7e"
+base_color = "materials/0x05002186_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002186_metal.png"
+brighten = 1
+normal = "materials/0x05002186_normal.png"
+roughness = "materials/0x05002186_roughness.png"
+occlusion = "materials/0x05002186_occlusion.png"
+height = "materials/0x05002186_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002187"
+fingerprint = "picture 128x256 7e10706c4cf8feff"
+base_color = "materials/0x05002187_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002187_metal.png"
+brighten = 1
+normal = "materials/0x05002187_normal.png"
+roughness = "materials/0x05002187_roughness.png"
+occlusion = "materials/0x05002187_occlusion.png"
+height = "materials/0x05002187_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002188"
+fingerprint = "picture 256x256 e7e7e7e70000007e"
+base_color = "materials/0x05002188_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002188_metal.png"
+brighten = 1
+normal = "materials/0x05002188_normal.png"
+roughness = "materials/0x05002188_roughness.png"
+occlusion = "materials/0x05002188_occlusion.png"
+height = "materials/0x05002188_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002189"
+fingerprint = "picture 128x256 0ff9f9fcf01838ff"
+base_color = "materials/0x05002189_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002189_metal.png"
+brighten = 1
+normal = "materials/0x05002189_normal.png"
+roughness = "materials/0x05002189_roughness.png"
+occlusion = "materials/0x05002189_occlusion.png"
+height = "materials/0x05002189_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020CD"
+fingerprint = "picture 256x256 ffff3c3c9800c9ff"
+base_color = "materials/0x050020CD_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020CD_metal.png"
+brighten = 2
+normal = "materials/0x050020CD_normal.png"
+roughness = "materials/0x050020CD_roughness.png"
+occlusion = "materials/0x050020CD_occlusion.png"
+height = "materials/0x050020CD_height.png"
+damp = 0.0
+grit = "grit/clay.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020CE"
+fingerprint = "picture 256x256 ffff198300c018c7"
+base_color = "materials/0x050020CE_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020CE_metal.png"
+brighten = 2
+normal = "materials/0x050020CE_normal.png"
+roughness = "materials/0x050020CE_roughness.png"
+occlusion = "materials/0x050020CE_occlusion.png"
+height = "materials/0x050020CE_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020CF"
+fingerprint = "picture 128x256 ffc1c786c3c7c0ff"
+base_color = "materials/0x050020CF_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020CF_metal.png"
+brighten = 2
+normal = "materials/0x050020CF_normal.png"
+roughness = "materials/0x050020CF_roughness.png"
+occlusion = "materials/0x050020CF_occlusion.png"
+height = "materials/0x050020CF_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D0"
+fingerprint = "picture 256x256 c3c3c381006e7ec7"
+base_color = "materials/0x050020D0_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D0_metal.png"
+brighten = 2
+normal = "materials/0x050020D0_normal.png"
+roughness = "materials/0x050020D0_roughness.png"
+occlusion = "materials/0x050020D0_occlusion.png"
+height = "materials/0x050020D0_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D1"
+fingerprint = "picture 256x256 c3c3c381187a5aff"
+base_color = "materials/0x050020D1_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D1_metal.png"
+brighten = 2
+normal = "materials/0x050020D1_normal.png"
+roughness = "materials/0x050020D1_roughness.png"
+occlusion = "materials/0x050020D1_occlusion.png"
+height = "materials/0x050020D1_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D2"
+fingerprint = "picture 256x256 c3c3c3813c7e7ec3"
+base_color = "materials/0x050020D2_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D2_metal.png"
+brighten = 2
+normal = "materials/0x050020D2_normal.png"
+roughness = "materials/0x050020D2_roughness.png"
+occlusion = "materials/0x050020D2_occlusion.png"
+height = "materials/0x050020D2_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D3"
+fingerprint = "picture 128x256 f3c0c6e7c7c3c1ff"
+base_color = "materials/0x050020D3_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D3_metal.png"
+brighten = 2
+normal = "materials/0x050020D3_normal.png"
+roughness = "materials/0x050020D3_roughness.png"
+occlusion = "materials/0x050020D3_occlusion.png"
+height = "materials/0x050020D3_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D4"
+fingerprint = "picture 128x256 c3c0c6e7c7c3c3ff"
+base_color = "materials/0x050020D4_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D4_metal.png"
+brighten = 2
+normal = "materials/0x050020D4_normal.png"
+roughness = "materials/0x050020D4_roughness.png"
+occlusion = "materials/0x050020D4_occlusion.png"
+height = "materials/0x050020D4_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D5"
+fingerprint = "picture 128x128 c1c02c1f08dd9d9f"
+base_color = "materials/0x050020D5_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D5_metal.png"
+brighten = 2
+normal = "materials/0x050020D5_normal.png"
+roughness = "materials/0x050020D5_roughness.png"
+occlusion = "materials/0x050020D5_occlusion.png"
+height = "materials/0x050020D5_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D9"
+fingerprint = "picture 256x256 d1d0d0c70707436d"
+base_color = "materials/0x050020D9_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D9_metal.png"
+brighten = 2
+normal = "materials/0x050020D9_normal.png"
+roughness = "materials/0x050020D9_roughness.png"
+occlusion = "materials/0x050020D9_occlusion.png"
+height = "materials/0x050020D9_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020DA"
+fingerprint = "picture 128x256 ff8087834000ffff"
+base_color = "materials/0x050020DA_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020DA_metal.png"
+brighten = 2
+normal = "materials/0x050020DA_normal.png"
+roughness = "materials/0x050020DA_roughness.png"
+occlusion = "materials/0x050020DA_occlusion.png"
+height = "materials/0x050020DA_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B3B"
+fingerprint = "picture 256x256 00fe0e0f1f3e3c08"
+base_color = "materials/0x05002B3B_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B3B_metal.png"
+brighten = 2
+normal = "materials/0x05002B3B_normal.png"
+roughness = "materials/0x05002B3B_roughness.png"
+occlusion = "materials/0x05002B3B_occlusion.png"
+height = "materials/0x05002B3B_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B3D"
+fingerprint = "picture 256x256 00387d7dffff3000"
+base_color = "materials/0x05002B3D_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B3D_metal.png"
+brighten = 2
+normal = "materials/0x05002B3D_normal.png"
+roughness = "materials/0x05002B3D_roughness.png"
+occlusion = "materials/0x05002B3D_occlusion.png"
+height = "materials/0x05002B3D_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B40"
+fingerprint = "picture 256x256 007f67ffe6ff0000"
+base_color = "materials/0x05002B40_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B40_metal.png"
+brighten = 2
+normal = "materials/0x05002B40_normal.png"
+roughness = "materials/0x05002B40_roughness.png"
+occlusion = "materials/0x05002B40_occlusion.png"
+height = "materials/0x05002B40_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B42"
+fingerprint = "picture 256x256 0000677ff7f7df41"
+base_color = "materials/0x05002B42_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B42_metal.png"
+brighten = 2
+normal = "materials/0x05002B42_normal.png"
+roughness = "materials/0x05002B42_roughness.png"
+occlusion = "materials/0x05002B42_occlusion.png"
+height = "materials/0x05002B42_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B44"
+fingerprint = "picture 256x256 0000336723377766"
+base_color = "materials/0x05002B44_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B44_metal.png"
+brighten = 2
+normal = "materials/0x05002B44_normal.png"
+roughness = "materials/0x05002B44_roughness.png"
+occlusion = "materials/0x05002B44_occlusion.png"
+height = "materials/0x05002B44_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B45"
+fingerprint = "picture 256x256 007e3eff3c3e5e4a"
+base_color = "materials/0x05002B45_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B45_metal.png"
+brighten = 2
+normal = "materials/0x05002B45_normal.png"
+roughness = "materials/0x05002B45_roughness.png"
+occlusion = "materials/0x05002B45_occlusion.png"
+height = "materials/0x05002B45_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B47"
+fingerprint = "picture 256x256 007e7e3c3e7e1800"
+base_color = "materials/0x05002B47_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B47_metal.png"
+brighten = 2
+normal = "materials/0x05002B47_normal.png"
+roughness = "materials/0x05002B47_roughness.png"
+occlusion = "materials/0x05002B47_occlusion.png"
+height = "materials/0x05002B47_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B49"
+fingerprint = "picture 256x256 207020ef1cffff08"
+base_color = "materials/0x05002B49_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B49_metal.png"
+brighten = 2
+normal = "materials/0x05002B49_normal.png"
+roughness = "materials/0x05002B49_roughness.png"
+occlusion = "materials/0x05002B49_occlusion.png"
+height = "materials/0x05002B49_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002388"
+fingerprint = "picture 128x256 4800f71f4f1b25c8"
+base_color = "materials/0x05002388_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002388_metal.png"
+brighten = 2.2
+normal = "materials/0x05002388_normal.png"
+roughness = "materials/0x05002388_roughness.png"
+occlusion = "materials/0x05002388_occlusion.png"
+height = "materials/0x05002388_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x0500242C"
+fingerprint = "picture 128x128 00002020fcfcfefe"
+base_color = "materials/0x0500242C_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x0500242C_metal.png"
+brighten = 2
+normal = "materials/0x0500242C_normal.png"
+roughness = "materials/0x0500242C_roughness.png"
+occlusion = "materials/0x0500242C_occlusion.png"
+height = "materials/0x0500242C_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050024DB"
+fingerprint = "picture 128x128 240081e7ffff0018"
+base_color = "materials/0x050024DB_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050024DB_metal.png"
+brighten = 2.2
+normal = "materials/0x050024DB_normal.png"
+roughness = "materials/0x050024DB_roughness.png"
+occlusion = "materials/0x050024DB_occlusion.png"
+height = "materials/0x050024DB_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050024DC"
+fingerprint = "picture 128x256 b65ff34c0c000707"
+base_color = "materials/0x050024DC_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050024DC_metal.png"
+brighten = 2.2
+normal = "materials/0x050024DC_normal.png"
+roughness = "materials/0x050024DC_roughness.png"
+occlusion = "materials/0x050024DC_occlusion.png"
+height = "materials/0x050024DC_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050024DD"
+fingerprint = "picture 128x256 0707000c4cf35fb6"
+base_color = "materials/0x050024DD_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050024DD_metal.png"
+brighten = 2.2
+normal = "materials/0x050024DD_normal.png"
+roughness = "materials/0x050024DD_roughness.png"
+occlusion = "materials/0x050024DD_occlusion.png"
+height = "materials/0x050024DD_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050025A9"
+fingerprint = "picture 256x256 0f49093f19fefafb"
+base_color = "materials/0x050025A9_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050025A9_metal.png"
+brighten = 2
+normal = "materials/0x050025A9_normal.png"
+roughness = "materials/0x050025A9_roughness.png"
+occlusion = "materials/0x050025A9_occlusion.png"
+height = "materials/0x050025A9_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050025AA"
+fingerprint = "picture 256x256 0f49093f19fefafb"
+base_color = "materials/0x050025AA_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050025AA_metal.png"
+brighten = 2
+normal = "materials/0x050025AA_normal.png"
+roughness = "materials/0x050025AA_roughness.png"
+occlusion = "materials/0x050025AA_occlusion.png"
+height = "materials/0x050025AA_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050025AB"
+fingerprint = "picture 128x128 dbdfdb5b4b5b0301"
+base_color = "materials/0x050025AB_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050025AB_metal.png"
+brighten = 2.2
+normal = "materials/0x050025AB_normal.png"
+roughness = "materials/0x050025AB_roughness.png"
+occlusion = "materials/0x050025AB_occlusion.png"
+height = "materials/0x050025AB_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050025AC"
+fingerprint = "picture 256x256 0f49093f19fefafb"
+base_color = "materials/0x050025AC_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050025AC_metal.png"
+brighten = 2
+normal = "materials/0x050025AC_normal.png"
+roughness = "materials/0x050025AC_roughness.png"
+occlusion = "materials/0x050025AC_occlusion.png"
+height = "materials/0x050025AC_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B3E"
+fingerprint = "picture 128x256 006e3e767777fe00"
+base_color = "materials/0x05002B3E_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B3E_metal.png"
+brighten = 2.2
+normal = "materials/0x05002B3E_normal.png"
+roughness = "materials/0x05002B3E_roughness.png"
+occlusion = "materials/0x05002B3E_occlusion.png"
+height = "materials/0x05002B3E_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B3F"
+fingerprint = "picture 128x256 007efefeffb01000"
+base_color = "materials/0x05002B3F_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B3F_metal.png"
+brighten = 2.2
+normal = "materials/0x05002B3F_normal.png"
+roughness = "materials/0x05002B3F_roughness.png"
+occlusion = "materials/0x05002B3F_occlusion.png"
+height = "materials/0x05002B3F_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B41"
+fingerprint = "picture 256x256 0000636f6f69ff69"
+base_color = "materials/0x05002B41_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B41_metal.png"
+brighten = 2.2
+normal = "materials/0x05002B41_normal.png"
+roughness = "materials/0x05002B41_roughness.png"
+occlusion = "materials/0x05002B41_occlusion.png"
+height = "materials/0x05002B41_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B43"
+fingerprint = "picture 128x256 0060787e7e787000"
+base_color = "materials/0x05002B43_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B43_metal.png"
+brighten = 2.2
+normal = "materials/0x05002B43_normal.png"
+roughness = "materials/0x05002B43_roughness.png"
+occlusion = "materials/0x05002B43_occlusion.png"
+height = "materials/0x05002B43_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B46"
+fingerprint = "picture 128x256 00203c3430fe7c3c"
+base_color = "materials/0x05002B46_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B46_metal.png"
+brighten = 2.2
+normal = "materials/0x05002B46_normal.png"
+roughness = "materials/0x05002B46_roughness.png"
+occlusion = "materials/0x05002B46_occlusion.png"
+height = "materials/0x05002B46_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B48"
+fingerprint = "picture 128x256 106e626f6ffefe38"
+base_color = "materials/0x05002B48_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B48_metal.png"
+brighten = 2.2
+normal = "materials/0x05002B48_normal.png"
+roughness = "materials/0x05002B48_roughness.png"
+occlusion = "materials/0x05002B48_occlusion.png"
+height = "materials/0x05002B48_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B4A"
+fingerprint = "picture 256x256 00187cfc7f7e0000"
+base_color = "materials/0x05002B4A_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B4A_metal.png"
+brighten = 2.2
+normal = "materials/0x05002B4A_normal.png"
+roughness = "materials/0x05002B4A_roughness.png"
+occlusion = "materials/0x05002B4A_occlusion.png"
+height = "materials/0x05002B4A_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002B4B"
+fingerprint = "picture 128x256 006e7e7e7777f602"
+base_color = "materials/0x05002B4B_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002B4B_metal.png"
+brighten = 2.2
+normal = "materials/0x05002B4B_normal.png"
+roughness = "materials/0x05002B4B_roughness.png"
+occlusion = "materials/0x05002B4B_occlusion.png"
+height = "materials/0x05002B4B_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032FC"
+fingerprint = "picture 128x256 e0c0008fffffe3e3"
+base_color = "materials/0x050032FC_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032FC_metal.png"
+brighten = 2
+normal = "materials/0x050032FC_normal.png"
+roughness = "materials/0x050032FC_roughness.png"
+occlusion = "materials/0x050032FC_occlusion.png"
+height = "materials/0x050032FC_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032FD"
+fingerprint = "picture 128x256 000c3d7f7f1c1c01"
+base_color = "materials/0x050032FD_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032FD_metal.png"
+brighten = 2
+normal = "materials/0x050032FD_normal.png"
+roughness = "materials/0x050032FD_roughness.png"
+occlusion = "materials/0x050032FD_occlusion.png"
+height = "materials/0x050032FD_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032FE"
+fingerprint = "picture 128x128 e1ccedadedefcc00"
+base_color = "materials/0x050032FE_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032FE_metal.png"
+brighten = 2
+normal = "materials/0x050032FE_normal.png"
+roughness = "materials/0x050032FE_roughness.png"
+occlusion = "materials/0x050032FE_occlusion.png"
+height = "materials/0x050032FE_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050032FF"
+fingerprint = "picture 256x256 3fff2481d3c36224"
+base_color = "materials/0x050032FF_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050032FF_metal.png"
+brighten = 2
+normal = "materials/0x050032FF_normal.png"
+roughness = "materials/0x050032FF_roughness.png"
+occlusion = "materials/0x050032FF_occlusion.png"
+height = "materials/0x050032FF_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05003300"
+fingerprint = "picture 128x256 00101c777f3dc0e0"
+base_color = "materials/0x05003300_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05003300_metal.png"
+brighten = 2
+normal = "materials/0x05003300_normal.png"
+roughness = "materials/0x05003300_roughness.png"
+occlusion = "materials/0x05003300_occlusion.png"
+height = "materials/0x05003300_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05003301"
+fingerprint = "picture 128x256 0000000f3f1f3e38"
+base_color = "materials/0x05003301_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05003301_metal.png"
+brighten = 2
+normal = "materials/0x05003301_normal.png"
+roughness = "materials/0x05003301_roughness.png"
+occlusion = "materials/0x05003301_occlusion.png"
+height = "materials/0x05003301_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05003302"
+fingerprint = "picture 128x256 001c3d7f7f1d1800"
+base_color = "materials/0x05003302_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05003302_metal.png"
+brighten = 2
+normal = "materials/0x05003302_normal.png"
+roughness = "materials/0x05003302_roughness.png"
+occlusion = "materials/0x05003302_occlusion.png"
+height = "materials/0x05003302_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05003303"
+fingerprint = "picture 256x256 224e42eeee660222"
+base_color = "materials/0x05003303_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05003303_metal.png"
+brighten = 2
+normal = "materials/0x05003303_normal.png"
+roughness = "materials/0x05003303_roughness.png"
+occlusion = "materials/0x05003303_occlusion.png"
+height = "materials/0x05003303_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05003304"
+fingerprint = "picture 256x256 4000667f7e266242"
+base_color = "materials/0x05003304_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05003304_metal.png"
+brighten = 2
+normal = "materials/0x05003304_normal.png"
+roughness = "materials/0x05003304_roughness.png"
+occlusion = "materials/0x05003304_occlusion.png"
+height = "materials/0x05003304_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002CA3"
+fingerprint = "picture 128x128 00008167ffff087e"
+base_color = "materials/0x05002CA3_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002CA3_metal.png"
+brighten = 2.2
+normal = "materials/0x05002CA3_normal.png"
+roughness = "materials/0x05002CA3_roughness.png"
+occlusion = "materials/0x05002CA3_occlusion.png"
+height = "materials/0x05002CA3_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002CA7"
+fingerprint = "picture 128x128 2080b4b4fcfcfe30"
+base_color = "materials/0x05002CA7_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002CA7_metal.png"
+brighten = 2.2
+normal = "materials/0x05002CA7_normal.png"
+roughness = "materials/0x05002CA7_roughness.png"
+occlusion = "materials/0x05002CA7_occlusion.png"
+height = "materials/0x05002CA7_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002CA8"
+fingerprint = "picture 256x256 005d7bbe07164c10"
+base_color = "materials/0x05002CA8_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002CA8_metal.png"
+brighten = 2
+normal = "materials/0x05002CA8_normal.png"
+roughness = "materials/0x05002CA8_roughness.png"
+occlusion = "materials/0x05002CA8_occlusion.png"
+height = "materials/0x05002CA8_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002CA9"
+fingerprint = "picture 64x64 ffe3f1f9c0c04080"
+base_color = "materials/0x05002CA9_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002CA9_metal.png"
+brighten = 2.2
+normal = "materials/0x05002CA9_normal.png"
+roughness = "materials/0x05002CA9_roughness.png"
+occlusion = "materials/0x05002CA9_occlusion.png"
+height = "materials/0x05002CA9_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002CAC"
+fingerprint = "picture 128x256 00000424fffeffea"
+base_color = "materials/0x05002CAC_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002CAC_metal.png"
+brighten = 2.2
+normal = "materials/0x05002CAC_normal.png"
+roughness = "materials/0x05002CAC_roughness.png"
+occlusion = "materials/0x05002CAC_occlusion.png"
+height = "materials/0x05002CAC_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002CAD"
+fingerprint = "picture 128x256 18dbc381c3c7c3c3"
+base_color = "materials/0x05002CAD_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002CAD_metal.png"
+brighten = 2.2
+normal = "materials/0x05002CAD_normal.png"
+roughness = "materials/0x05002CAD_roughness.png"
+occlusion = "materials/0x05002CAD_occlusion.png"
+height = "materials/0x05002CAD_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002CAE"
+fingerprint = "picture 128x256 ffd8d00004b37cce"
+base_color = "materials/0x05002CAE_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002CAE_metal.png"
+brighten = 2.2
+normal = "materials/0x05002CAE_normal.png"
+roughness = "materials/0x05002CAE_roughness.png"
+occlusion = "materials/0x05002CAE_occlusion.png"
+height = "materials/0x05002CAE_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B35"
+fingerprint = "picture 128x128 081842e7f7ef2c00"
+base_color = "materials/0x05001B35_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B35_metal.png"
+brighten = 2
+normal = "materials/0x05001B35_normal.png"
+roughness = "materials/0x05001B35_roughness.png"
+occlusion = "materials/0x05001B35_occlusion.png"
+height = "materials/0x05001B35_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B36"
+fingerprint = "picture 64x128 1c1c1f00fcfe1e0c"
+base_color = "materials/0x05001B36_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B36_metal.png"
+brighten = 2
+normal = "materials/0x05001B36_normal.png"
+roughness = "materials/0x05001B36_roughness.png"
+occlusion = "materials/0x05001B36_occlusion.png"
+height = "materials/0x05001B36_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B37"
+fingerprint = "picture 128x256 18e700ff5a7e7e18"
+base_color = "materials/0x05001B37_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B37_metal.png"
+brighten = 2
+normal = "materials/0x05001B37_normal.png"
+roughness = "materials/0x05001B37_roughness.png"
+occlusion = "materials/0x05001B37_occlusion.png"
+height = "materials/0x05001B37_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B38"
+fingerprint = "picture 128x256 08bd12303c383c5a"
+base_color = "materials/0x05001B38_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B38_metal.png"
+brighten = 2
+normal = "materials/0x05001B38_normal.png"
+roughness = "materials/0x05001B38_roughness.png"
+occlusion = "materials/0x05001B38_occlusion.png"
+height = "materials/0x05001B38_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B39"
+fingerprint = "picture 128x128 c7e7e7e666242400"
+base_color = "materials/0x05001B39_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B39_metal.png"
+brighten = 2
+normal = "materials/0x05001B39_normal.png"
+roughness = "materials/0x05001B39_roughness.png"
+occlusion = "materials/0x05001B39_occlusion.png"
+height = "materials/0x05001B39_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B3A"
+fingerprint = "picture 128x128 2024246766e7e7e7"
+base_color = "materials/0x05001B3A_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B3A_metal.png"
+brighten = 2
+normal = "materials/0x05001B3A_normal.png"
+roughness = "materials/0x05001B3A_roughness.png"
+occlusion = "materials/0x05001B3A_occlusion.png"
+height = "materials/0x05001B3A_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B3B"
+fingerprint = "picture 64x128 1c080f0000fcfec7"
+base_color = "materials/0x05001B3B_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B3B_metal.png"
+brighten = 2
+normal = "materials/0x05001B3B_normal.png"
+roughness = "materials/0x05001B3B_roughness.png"
+occlusion = "materials/0x05001B3B_occlusion.png"
+height = "materials/0x05001B3B_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002C4A"
+fingerprint = "picture 128x256 183c3e7f7e7e4000"
+base_color = "materials/0x05002C4A_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002C4A_metal.png"
+brighten = 2.2
+normal = "materials/0x05002C4A_normal.png"
+roughness = "materials/0x05002C4A_roughness.png"
+occlusion = "materials/0x05002C4A_occlusion.png"
+height = "materials/0x05002C4A_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002C4B"
+fingerprint = "picture 128x256 183c3cbc7e7e7e00"
+base_color = "materials/0x05002C4B_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002C4B_metal.png"
+brighten = 2.2
+normal = "materials/0x05002C4B_normal.png"
+roughness = "materials/0x05002C4B_roughness.png"
+occlusion = "materials/0x05002C4B_occlusion.png"
+height = "materials/0x05002C4B_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002C4C"
+fingerprint = "picture 128x128 81989199189d9999"
+base_color = "materials/0x05002C4C_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002C4C_metal.png"
+brighten = 2.2
+normal = "materials/0x05002C4C_normal.png"
+roughness = "materials/0x05002C4C_roughness.png"
+occlusion = "materials/0x05002C4C_occlusion.png"
+height = "materials/0x05002C4C_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002C4D"
+fingerprint = "picture 64x128 109bd39391d31803"
+base_color = "materials/0x05002C4D_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002C4D_metal.png"
+brighten = 2.2
+normal = "materials/0x05002C4D_normal.png"
+roughness = "materials/0x05002C4D_roughness.png"
+occlusion = "materials/0x05002C4D_occlusion.png"
+height = "materials/0x05002C4D_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002C4E"
+fingerprint = "picture 64x128 1801430703f5fcfd"
+base_color = "materials/0x05002C4E_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002C4E_metal.png"
+brighten = 2.2
+normal = "materials/0x05002C4E_normal.png"
+roughness = "materials/0x05002C4E_roughness.png"
+occlusion = "materials/0x05002C4E_occlusion.png"
+height = "materials/0x05002C4E_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002C4F"
+fingerprint = "picture 64x128 0010743c5e7f3f00"
+base_color = "materials/0x05002C4F_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002C4F_metal.png"
+brighten = 2.2
+normal = "materials/0x05002C4F_normal.png"
+roughness = "materials/0x05002C4F_roughness.png"
+occlusion = "materials/0x05002C4F_occlusion.png"
+height = "materials/0x05002C4F_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05002C50"
+fingerprint = "picture 128x128 0000003effff1218"
+base_color = "materials/0x05002C50_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05002C50_metal.png"
+brighten = 2.2
+normal = "materials/0x05002C50_normal.png"
+roughness = "materials/0x05002C50_roughness.png"
+occlusion = "materials/0x05002C50_occlusion.png"
+height = "materials/0x05002C50_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B2E"
+fingerprint = "picture 64x128 183c040606fcfee7"
+base_color = "materials/0x05001B2E_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B2E_metal.png"
+brighten = 2
+normal = "materials/0x05001B2E_normal.png"
+roughness = "materials/0x05001B2E_roughness.png"
+occlusion = "materials/0x05001B2E_occlusion.png"
+height = "materials/0x05001B2E_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B2F"
+fingerprint = "picture 128x128 24242424e7e7e7e7"
+base_color = "materials/0x05001B2F_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B2F_metal.png"
+brighten = 2
+normal = "materials/0x05001B2F_normal.png"
+roughness = "materials/0x05001B2F_roughness.png"
+occlusion = "materials/0x05001B2F_occlusion.png"
+height = "materials/0x05001B2F_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B30"
+fingerprint = "picture 128x128 e7e7e76624242424"
+base_color = "materials/0x05001B30_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B30_metal.png"
+brighten = 2
+normal = "materials/0x05001B30_normal.png"
+roughness = "materials/0x05001B30_roughness.png"
+occlusion = "materials/0x05001B30_occlusion.png"
+height = "materials/0x05001B30_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B31"
+fingerprint = "picture 128x256 183d18b53c3c3c5a"
+base_color = "materials/0x05001B31_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B31_metal.png"
+brighten = 2
+normal = "materials/0x05001B31_normal.png"
+roughness = "materials/0x05001B31_roughness.png"
+occlusion = "materials/0x05001B31_occlusion.png"
+height = "materials/0x05001B31_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B32"
+fingerprint = "picture 128x256 00e718ff7e7e7e18"
+base_color = "materials/0x05001B32_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B32_metal.png"
+brighten = 2
+normal = "materials/0x05001B32_normal.png"
+roughness = "materials/0x05001B32_roughness.png"
+occlusion = "materials/0x05001B32_occlusion.png"
+height = "materials/0x05001B32_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B33"
+fingerprint = "picture 64x128 1c1c1f0cfcff1e0c"
+base_color = "materials/0x05001B33_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B33_metal.png"
+brighten = 2
+normal = "materials/0x05001B33_normal.png"
+roughness = "materials/0x05001B33_roughness.png"
+occlusion = "materials/0x05001B33_occlusion.png"
+height = "materials/0x05001B33_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x05001B34"
+fingerprint = "picture 128x128 00007effffe72600"
+base_color = "materials/0x05001B34_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x05001B34_metal.png"
+brighten = 2
+normal = "materials/0x05001B34_normal.png"
+roughness = "materials/0x05001B34_roughness.png"
+occlusion = "materials/0x05001B34_occlusion.png"
+height = "materials/0x05001B34_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D6"
+fingerprint = "picture 256x256 00000040c3ffffff"
+base_color = "materials/0x050020D6_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D6_metal.png"
+brighten = 2
+normal = "materials/0x050020D6_normal.png"
+roughness = "materials/0x050020D6_roughness.png"
+occlusion = "materials/0x050020D6_occlusion.png"
+height = "materials/0x050020D6_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D7"
+fingerprint = "picture 256x256 0021e7e7c7c7c783"
+base_color = "materials/0x050020D7_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D7_metal.png"
+brighten = 2
+normal = "materials/0x050020D7_normal.png"
+roughness = "materials/0x050020D7_roughness.png"
+occlusion = "materials/0x050020D7_occlusion.png"
+height = "materials/0x050020D7_height.png"
+damp = 0.0
+grit = "grit/metal.png"
+grit_repeat = [1, 1]
+author = "Worked out from the player's own picture and its palette's parts by armor.py"
+tool = "armor.py"
+license = "CC0-1.0"
+
+[[material]]
+texture = "0x050020D8"
+fingerprint = "picture 256x128 1fff01010387c147"
+base_color = "materials/0x050020D8_fallback.png"
+keep_retail_picture = true
+metal_map = "materials/0x050020D8_metal.png"
+brighten = 2
+normal = "materials/0x050020D8_normal.png"
+roughness = "materials/0x050020D8_roughness.png"
+occlusion = "materials/0x050020D8_occlusion.png"
+height = "materials/0x050020D8_height.png"
+damp = 0.0
+grit = "grit/metal.png"
 grit_repeat = [1, 1]
 author = "Worked out from the player's own picture and its palette's parts by armor.py"
 tool = "armor.py"

@@ -54,6 +54,8 @@ STUD = 40
 RINGS = 1.0
 # How much bluer than red a texel of the default palette is where cool= takes it (pale padding).
 COOL = 0.035
+# How far from a reference's colour and busyness a texel may be and still be like it (like=).
+LIKE = 5.5
 
 
 def unit(a):
@@ -80,10 +82,18 @@ def table():
     return out
 
 
-def parts_of(spec, idx, a, px):
+def looks(a, px):
+    """Each texel's local colour and how busy its fine shading is, for like=."""
+    L = (a[..., :3] * [0.3, 0.59, 0.11]).sum(-1)
+    busy = blur(np.abs(L - blur(L, 1.2 * px)), 2.5 * px) / (blur(L, 2.5 * px) + 0.05)
+    return np.dstack([blur(a[..., c], 2.5 * px) for c in range(3)] + [busy * 0.5, np.log(busy + 0.02)])
+
+
+def parts_of(spec, idx, a, px, load=None):
     """Each texel's kind: by palette range (LO-HI=kind), then rectangles (x,y,w,h=kind, shares of
     the picture), then bright= (kind of the brightest texels of a range, or of all: buckles on a
-    strap), then cool= (kind of what the default palette paints bluish grey: padding under plates)."""
+    strap), then cool= (kind of what the default palette paints bluish grey: padding under plates),
+    then like= (kind of what looks like a reference picture or part of one: an untinted suit's chain)."""
     h, w = idx.shape
     kind = np.full((h, w), 'leather', dtype=object)
     L = (a[..., :3] * [0.3, 0.59, 0.11]).sum(-1)
@@ -113,11 +123,31 @@ def parts_of(spec, idx, a, px):
                 b = ndimage.binary_opening(b, iterations=max(1, round(0.6 * px)))
                 kind[b] = k
     for s in spec:
-        # cool=K: bluish grey in the default palette, in broad patches.
+        # cool=K[:N]: bluish grey in the default palette, in broad patches; N closes gaps that many texels wide (a pattern's pale spots).
         if s.startswith('cool='):
+            k, *fill = s[5:].split(':')
             R, B = blur(a[..., 0], 1.5 * px), blur(a[..., 2], 1.5 * px)
-            c = ndimage.binary_opening((B - R) > COOL, iterations=max(1, round(1.5 * px)))
-            kind[c] = s[5:]
+            c = (B - R) > COOL
+            if fill:
+                c = ndimage.binary_closing(c, iterations=max(1, round(float(fill[0]) * px)))
+            c = ndimage.binary_opening(c, iterations=max(1, round(1.5 * px)))
+            kind[c] = k
+    for s in spec:
+        # like=K:ID[:x,y,w,h]: texels whose colour and busyness are like that picture's (or that part of it).
+        if s.startswith('like=') and load:
+            k, ref, *rect = s[5:].split(':')
+            ra, rpx = load(ref)
+            F = looks(ra, rpx)
+            if rect:
+                x, y, rw, rh = map(float, rect[0].split(','))
+                fh, fw = F.shape[:2]
+                F = F[round(y * fh):round((y + rh) * fh), round(x * fw):round((x + rw) * fw)]
+            F = F.reshape(-1, F.shape[-1])
+            inv = np.linalg.inv(np.cov(F.T) + np.eye(F.shape[1]) * 1e-4)
+            d = looks(a, px) - F.mean(0)
+            m = np.sqrt(np.einsum('...i,ij,...j->...', d, inv, d)) < LIKE
+            m = ndimage.binary_opening(ndimage.binary_closing(m, iterations=round(1.5 * px)), iterations=round(2 * px))
+            kind[m] = k
     # mail: plate where the picture is smooth, chain (or scales, for mailscale) where it is busy.
     for auto, small in (('mail', 'chain'), ('mailscale', 'scale')):
         m = kind == auto
@@ -187,21 +217,26 @@ def domes(mask, px):
     return np.sqrt(np.clip(d / rad, 0, 1)).astype(np.float32)
 
 
+def picture(pictures, id):
+    """A picture at its maps' size (twice it, so a stud or a ring has room to be round; no side past 512) and its scale."""
+    path = os.path.join(pictures, id + '.png')
+    sw, sh = map(int, subprocess.run(['identify', '-format', '%w %h', path], capture_output=True, text=True, check=True).stdout.split())
+    k = min(2.0, 512 / max(sw, sh))
+    w, h = int(sw * k), int(sh * k)
+    return relief.read(path, w, h), w / sw
+
+
 def arm(pack, pictures, idx_dir, id, suit, spec, print_, masks):
     """The picture's maps and its [[material]]."""
     out = os.path.join(pack, 'materials')
     path = os.path.join(pictures, id + '.png')
-    sw, sh = map(int, subprocess.run(['identify', '-format', '%w %h', path], capture_output=True, text=True, check=True).stdout.split())
-    # Twice the picture, so a stud or a ring has room to be round; no side past 512.
-    k = min(2.0, 512 / max(sw, sh))
-    w, h = int(sw * k), int(sh * k)
-    px = w / sw
-    a = relief.read(path, w, h)
+    a, px = picture(pictures, id)
+    h, w = a.shape[:2]
     L = (a[..., :3] * [0.3, 0.59, 0.11]).sum(-1) ** 0.8
     L = L / (blur(L, 24 * px) + 0.04)
     ip = os.path.join(idx_dir, id[2:] + '.idx')
     idx = indices(ip, w, h) if os.path.exists(ip) else np.full((h, w), 1024, np.uint16)
-    kind = parts_of(spec, idx, a, px)
+    kind = parts_of(spec, idx, a, px, lambda ref: picture(pictures, ref))
     names = [n for n in KINDS if (kind == n).any()]
     depth = relief.setting(spec, 'depth=', 1.0)
     # The height in retail texels: each part at its level, with its own shapes over it.
