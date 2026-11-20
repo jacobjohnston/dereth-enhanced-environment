@@ -90,7 +90,7 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
     own, its edges where it meets another, and eased into the next. A rectangle named recipe:flip
     takes its own pale lines for mortar, recipe:noflip keeps its own light, whatever the whole
     picture's, :grid lays a flagstone's joints straight, :open makes no crease where it meets
-    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :shade takes its shape from its light, :smooth drops its pits, :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
+    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :shade takes its shape from its light, :smooth[=K] drops its pits (blurring K texels), :grassy lays grass where it is green, :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
     h, w = Lb.shape
     rs = rects(settings, w, h)
     edges = band_edges(rs, w, h, px)
@@ -117,9 +117,10 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
         grid.update(course=True) if 'course' in turns else None
         grid.update(block=True) if 'block' in turns else None
         s, depth, o, r, *fine = SHAPES[name](part, px, rng, cut, **grid)
-        if 'smooth' in turns:
-            # recipe:smooth: the stones' faces without their pits and grain, the joints kept.
-            s, fine = blur(s.astype(np.float32), 0.6 * px), []
+        sm = next((float(t[7:] or 0.6) for t in turns if t.startswith('smooth')), 0.0)
+        if sm:
+            # recipe:smooth[=K]: the stones' faces without their pits and grain, the joints kept.
+            s, fine = blur(s.astype(np.float32), sm * px), []
         if 'shade' in turns:
             # recipe:shade: a carving's shape is its light, its dark grooves sunk and its pale work proud.
             g = blur(part, 0.8 * px)
@@ -142,6 +143,13 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
             s = np.clip(s - ivy, 0, 1) * (1 - m) + (1.0 if ivy else face) * m
             # recipe:bare=K: what is not green (roots through grass) stands K proud of the green.
             s = s * (1 - m) + np.clip(s - bare, 0, 1) * m if bare else s
+        if 'grassy' in turns and a is not None:
+            # recipe:grassy: where the part is green, grass's blades and tufts in place of its own shape.
+            c = a[y0:y1, x0:x1, :3]
+            m = np.clip((c[..., 1] - 0.5 * (c[..., 0] + c[..., 2]) - 0.02) / 0.05, 0, 1)
+            m = np.clip(blur(m.astype(np.float32), 1.5 * px), 0, 1)
+            gh = SHAPES['grass'](part, px, rng)[0]
+            s = s * (1 - m) + (float(np.percentile(s, 60)) - 0.25 + 0.3 * gh) * m
         warm = next((float(t[5:] or 0.25) for t in turns if t.startswith('warm')), 0.0)
         if warm and a is not None:
             # recipe:warm=K: brown wood (a brace across plaster) stands K proud of what is grey.
@@ -376,7 +384,9 @@ def main(args):
             eor, how = stands[id]
             entry = own.get(id) or (listed.get(eor) if how == 'recipe' else None)
             if how.startswith('ground:'):
-                entry = ('ground', how[7:], 0.0, [f'side={GROUND_SIDE}', f'repeat={GROUND_REPEAT}', f'repeatv={GROUND_REPEAT}'])
+                # ground:<recipe> [settings...]: the recipe, and any settings of its own after it.
+                recipe, *more = how[7:].split()
+                entry = ('ground', recipe, 0.0, [f'side={GROUND_SIDE}', f'repeat={GROUND_REPEAT}', f'repeatv={GROUND_REPEAT}', *more])
             return (p, out, entry, seen.get(eor), most, least, sub, named(id))
         return (p, out, listed.get(id), seen.get(id), most, least, sub, named(id))
     work = [job(p) for p in sorted(glob.glob(os.path.join(SRC, '0x*.png')))

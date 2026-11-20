@@ -1136,18 +1136,18 @@ eor	0x05001459	0x05001459	ground	ground:grass
 eor	0x05002F6F	0x05002F6F	ground	ground:grass
 eor	0x05001467	0x05001467	ground	ground:soil
 eor	0x05001462	0x05001462	ground	ground:soil
-eor	0x05001465	0x05001465	ground	ground:soil
+eor	0x05001465	0x05001465	ground	ground:soil depth=0.5
 eor	0x0500145B	0x0500145B	ground	ground:soil
 eor	0x05001457	0x05001457	ground	ground:grass
 eor	0x0500145F	0x0500145F	ground	ground:sand
 eor	0x0500145E	0x0500145E	ground	ground:soil
-eor	0x0500145A	0x0500145A	ground	ground:stony
+eor	0x0500145A	0x0500145A	ground	ground:mixed 0,0,1,1,rock:open:smooth=1.5:grassy
 eor	0x05001464	0x05001464	ground	ground:snow
-eor	0x05001466	0x05001466	ground	ground:soil
+eor	0x05001466	0x05001466	ground	ground:soil depth=0.5
 eor	0x05001827	0x05001827	ground	ground:soil
 eor	0x0500181F	0x0500181F	ground	ground:stony
 eor	0x05001924	0x05001924	ground	ground:stony
 eor	0x05001C3A	0x05001C3A	ground	ground:grass
 eor	0x05001C3B	0x05001C3B	ground	ground:grass
 eor	0x05001C3C	0x05001C3C	ground	ground:soil
-eor	0x05001458	0x05001458	ground	ground:flagstone
+eor	0x05001458	0x05001458	ground	ground:mixed 0,0,1,1,rock:open:smooth=2

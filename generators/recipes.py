@@ -296,10 +296,18 @@ def laid(L, px, grain, depth, shade, rough):
     r = np.clip(rough + 0.05 * unit(blur(L, 1.5 * px) - L), 0, 1)
     return h, depth * size_of(L, px), 1 - shade * np.clip((blur(h, 2.5) - h) * 4, 0, 0.5), r
 def grass(L, px, rng, edges=None):
-    # Blades: thin twisting ridges a texel or two across, in tufts.
-    blades = (1 - np.abs(np.tanh(speckle(L.shape, 1.4, rng)))) ** 3
-    tufts = np.clip(speckle(L.shape, 6, rng) * 0.5 + 0.7, 0, 1)
-    return laid(L, px, 0.9 * blades * tufts + 0.15 * speckle(L.shape, 0.7, rng), 1.0, 0.7, 0.9)
+    # Blades: the picture's own painted blades proud and the dark gaps between them sunk, gathered
+    # in its tufts, with fine strokes where the picture is soft. Shallow: grass is no rock.
+    g = [blur(L, s * px) for s in (0.5, 1.6, 5)]
+    blades = np.tanh(1.2 * unit(g[0] - g[1]))
+    tufts = np.tanh(unit(g[1] - g[2]))
+    strokes = unit((1 - np.abs(np.tanh(speckle(L.shape, 1.4 * px, rng)))) ** 3)
+    hgt = 0.5 * blades + 0.4 * tufts + 0.1 * strokes
+    lo, hi = np.percentile(hgt, [1, 99.5])
+    h = 0.35 + 0.65 * np.clip((hgt - lo) / (hi - lo + 1e-5), 0, 1)
+    h = blur(h.astype(np.float32), 0.4)
+    r = np.clip(0.9 + 0.05 * unit(blur(L, 1.5 * px) - L), 0, 1)
+    return h, 0.55 * size_of(L, px), 1 - 0.6 * np.clip((blur(h, 2.5) - h) * 4, 0, 0.5), r
 def soil(L, px, rng, edges=None):
     # Crumbs and pebbles over a fine tilth.
     pebbles = np.clip(speckle(L.shape, 3, rng) - 1.3, 0, None) * 1.2
