@@ -1,0 +1,307 @@
+# One line for each retail picture armor.py works on: id, the suit it belongs to, then its parts, each
+# LO-HI=kind (the palette entries a clothing table tints on their own), x,y,w,h=kind (a rectangle, as
+# shares of the picture), all=kind, or bright=kind:LO-HI:Q (the texels of that range lighter than its Q
+# quantile, in clumps: buckles and toggles on a strap). Later parts lie over earlier ones; the wearer's
+# skin (entries under 192) is always skin. Kinds: quilt, leather, padding, stud, fitting, chain, plate,
+# metal (a stud where a clump is small, a fitting where large), mail (chain where busy, plate where
+# smooth), mailscale (scales where busy, plate where smooth), scale, chitin (glossy, not metal), fur. bright=
+# takes all for the whole picture; cool=kind takes what the default palette paints bluish grey. depth=K
+# scales its relief.
+# Studded leather: quilted diamonds, studs and the fittings tinted with them.
+0x05000262	studded	1393-1488=quilt	1491-1584=metal
+0x05000266	studded	1393-1488=quilt	1491-1584=metal
+0x050002B5	studded	1393-1488=quilt	1491-1584=metal
+0x050002DA	studded	576-640=quilt	641-736=metal
+0x050002E2	studded	576-640=quilt	641-736=metal
+0x050002E4	studded	1217-1280=quilt	1094-1216=metal
+0x050003D1	studded	1217-1280=quilt	1094-1216=metal
+0x050002E5	studded	1024-1088=quilt	928-1024=metal
+0x050002E7	studded	1024-1088=quilt	928-1024=metal
+0x050002E8	studded	864-928=quilt	768-864=metal
+0x05000EC7	studded	2000-2048=quilt	1920-2000=metal
+0x05000EC4	studded	all=leather
+0x0500203E	studded	1344-1392=leather	320-1344=metal
+# Chain mail: rings, with a belt or a cuff band where the picture has one.
+0x050000AA	chain	all=chain
+0x050002B6	chain	all=chain
+0x050002BB	chain	all=chain
+0x050002C1	chain	all=chain
+0x050002C8	chain	640-736=chain	736-768=fitting
+0x050002C9	chain	all=chain	0,0.88,1,0.12=fitting
+0x050002CC	chain	all=chain
+0x050002D1	chain	all=chain
+0x050003CC	chain	all=chain
+0x05000EC3	chain	all=chain
+0x0500203F	chain	all=chain
+0x05000EC2	chain	all=plate
+# Leather: plain leather, its belts and straps, with the brightest of them buckles and toggles.
+0x0500222D	leather	all=leather	bright=fitting:576-640:0.9	bright=fitting:512-576:0.93
+0x05002231	leather	all=leather	bright=fitting:512-576:0.93
+0x0500222F	leather	928-1088=leather	320-576=quilt
+0x05002233	leather	all=leather	1529-1766=fitting	bright=fitting:324-576:0.9
+0x05002234	leather	all=leather
+0x05002236	leather	all=leather
+0x05002237	leather	all=leather
+0x05002230	leather	all=leather	bright=fitting:1088-1280:0.97	bright=fitting:512-576:0.93
+0x05002235	leather	all=leather	bright=fitting:1088-1280:0.97	bright=fitting:512-576:0.93
+0x05002232	leather	all=leather	bright=fitting:768-928:0.95
+0x0500222C	leather	all=leather	bright=fitting:768-928:0.95
+0x0500222A	leather	all=leather	bright=fitting:1920-2048:0.9
+0x0500222B	leather	all=leather	bright=fitting:1920-2048:0.9
+0x0500222E	leather	all=leather
+0x0500223A	leather	all=leather
+0x05002238	leather	all=leather	bright=metal:2016-2048:0.85
+0x05002239	leather	all=leather
+0x050003CB	leather	all=leather
+0x050003CE	leather	all=leather
+# Plate: smooth plates, chain where it shows at their edges, ornate bands as fittings.
+0x05000264	plate	1728-1920=plate	1584-1728=chain
+0x05000265	plate	1728-1920=plate	1584-1728=chain
+0x050002B8	plate	1728-1920=plate	1584-1728=chain
+0x050002C6	plate	all=mail
+0x050002CD	plate	all=plate
+0x050002CF	plate	all=plate
+0x050002D0	plate	all=plate
+0x050002D9	plate	all=plate
+0x050002DF	plate	640-736=mail	736-768=fitting
+0x050002E0	plate	640-736=mail	736-768=fitting
+0x0500203D	plate	all=plate
+
+# Round 2: twenty more sets, a first pass: each set's usual material, exceptions by palette range,
+# rectangle or tint (cool=).
+# Covenant: plate over chain, trims tinted on their own.
+0x050016D7	covenant	all=leather
+0x05001F9A	covenant	all=mail
+0x05001F9B	covenant	all=mail
+0x05001F9C	covenant	all=mail
+0x05001F9D	covenant	all=mail
+0x05001F9E	covenant	all=mail
+0x05001F9F	covenant	all=mail
+0x05001FA0	covenant	all=mail
+0x05001FA1	covenant	all=mail
+0x05001FA2	covenant	all=mail
+0x05001FA3	covenant	all=mail
+0x05001FA4	covenant	all=mail
+0x05001FA5	covenant	all=mail
+0x05001FA6	covenant	all=mail
+0x05001FA7	covenant	all=fur
+0x05001FA8	covenant	all=mail
+0x05001FA9	covenant	all=mail
+# Yoroi, Kote and Kabuton: lacquered lamellar plates over chain, silk cords at the shoulders.
+0x0500009C	yoroi	all=mail
+0x050002BA	yoroi	all=mail	320-640=padding
+0x05000A8F	yoroi	all=mail
+0x05000A90	yoroi	all=mail
+0x05000E65	yoroi	all=mail
+0x05000E66	yoroi	all=mail	320-640=padding
+0x05000E67	yoroi	all=mail
+0x05000E68	yoroi	all=mail
+0x05000E69	yoroi	all=mail
+0x05000E6A	yoroi	all=mail
+# Scale mail: overlapping scales, plate where smooth (pauldron caps, gauntlets).
+0x05000263	scale	all=scale
+0x05000267	scale	all=scale
+0x050002B7	scale	all=scale
+0x050002D2	scale	all=scale
+0x050002D3	scale	all=scale	0,0,1,0.13=leather	bright=fitting:640-736:0.995
+0x050002D4	scale	all=scale	0,0,1,0.13=leather
+0x050002D5	scale	all=scale
+0x050002D7	scale	all=scale
+0x050002D8	scale	all=mailscale
+0x050002E1	scale	all=scale
+0x050003CD	scale	all=padding
+0x050003D0	scale	all=scale
+0x05000EC6	scale	all=scale
+0x05002040	scale	all=mail
+0x0500315A	scale	all=leather
+# Helms and caps: plate helms; cloth cowl and cap; a horn.
+0x0500019A	helms	all=plate
+0x050003C8	helms	all=plate
+0x050003C9	helms	all=leather
+0x05000EC8	helms	all=padding
+0x05000EC9	helms	all=padding
+0x05001A45	helms	all=plate
+0x05001A49	helms	all=plate
+0x05001A4D	helms	all=padding
+0x05001A91	helms	all=plate
+0x05001A95	helms	all=plate
+# Diforsa: one atlas picture for the whole suit, plate and chain.
+0x05002AC4	diforsa	all=mail
+# Haebrean: plate over a chain mesh.
+0x05002F28	haebrean	all=mail
+0x05002F29	haebrean	all=mail
+0x05002F2A	haebrean	all=mail
+0x05002F2B	haebrean	all=mail
+0x05002F2C	haebrean	all=mail
+0x05002F2D	haebrean	all=mail
+0x05002F2E	haebrean	all=mail
+0x05002F2F	haebrean	all=mail
+0x05002F30	haebrean	all=mail
+0x05002F70	haebrean	all=mail
+# Alduressa: one atlas picture for the whole suit.
+0x05002AC3	alduressa	all=mail
+# Chiran: plate, chain and fur.
+0x05000CC0	chiran	all=mail
+0x05002396	chiran	all=mail
+0x05002397	chiran	all=mail
+0x05002398	chiran	all=mail
+0x05002399	chiran	all=mail
+0x0500239A	chiran	all=mail
+0x0500239B	chiran	all=mail
+0x0500239C	chiran	all=mail
+0x0500239D	chiran	all=mail
+0x0500239E	chiran	all=mail
+0x0500239F	chiran	all=mail
+0x050023A0	chiran	all=fur
+0x050023A1	chiran	all=fur
+0x050023A2	chiran	all=mail
+0x050023A3	chiran	all=mail
+0x050023A4	chiran	all=mail
+0x050023A5	chiran	all=fur
+# Knorr Academy: shaped plates.
+0x05002F8C	knorr	all=mail
+0x05002F8D	knorr	all=mail
+0x05002F8E	knorr	all=mail
+0x05002F8F	knorr	all=mail
+0x05002F90	knorr	all=mail
+0x05002F91	knorr	all=mail
+0x05002F92	knorr	all=mail
+0x05002F93	knorr	all=mail
+0x05002F94	knorr	all=mail
+0x05002F95	knorr	all=mail
+# Nariyid: engraved plate, chain and scales.
+0x050023B4	nariyid	all=mail
+0x050023B5	nariyid	all=mail
+0x050023B6	nariyid	all=mail
+0x050023B7	nariyid	all=mail
+0x050023B8	nariyid	all=mail
+0x050023B9	nariyid	all=mail
+0x050023BA	nariyid	all=mail
+0x050023BB	nariyid	all=mail
+0x050023BC	nariyid	all=mail
+0x050023BD	nariyid	all=mail
+0x050023BE	nariyid	all=mail
+# Lorica: plate with scale skirts and fur.
+0x050023A6	lorica	all=mailscale
+0x050023A7	lorica	all=fur
+0x050023A8	lorica	all=fur
+0x050023A9	lorica	all=fur	322-462=metal
+0x050023AA	lorica	all=scale
+0x050023AB	lorica	all=scale
+0x050023AC	lorica	all=mailscale
+0x050023AD	lorica	all=mailscale
+0x050023AE	lorica	all=mailscale
+0x050023AF	lorica	all=mailscale
+0x050023B0	lorica	all=mailscale
+0x050023B1	lorica	all=mailscale
+0x050023B2	lorica	all=mailscale
+0x050023B3	lorica	all=mailscale
+# Koujia: lamellar plates over chain.
+0x050001BA	koujia	all=mail
+0x050001BB	koujia	all=mail
+0x050001BC	koujia	all=mail
+0x050001BD	koujia	all=mail
+0x050001C1	koujia	all=mail
+0x050001C2	koujia	all=mail
+0x050001C7	koujia	all=mail
+0x050001C8	koujia	all=mail
+# Celdon: engraved plate.
+0x0500009B	celdon	all=mail
+0x0500009D	celdon	all=mail
+0x0500009E	celdon	all=mail
+0x050000A7	celdon	all=mail
+0x0500018B	celdon	all=mail
+0x05000195	celdon	all=mail
+0x0500019B	celdon	all=mail
+0x0500019E	celdon	all=mail
+# Amuli: quilted leather, studs and bands.
+0x05001892	amuli	all=quilt	bright=metal:all:0.97
+0x05001893	amuli	all=quilt	bright=metal:all:0.97
+0x05001894	amuli	all=quilt	bright=metal:all:0.97
+0x05001895	amuli	all=quilt	bright=metal:all:0.97
+0x05001896	amuli	all=quilt	bright=metal:all:0.97
+0x05001897	amuli	all=quilt	bright=metal:all:0.97
+0x05001898	amuli	all=quilt	bright=metal:all:0.97
+# Olthoi armour: glossy chitin over pale padding.
+0x05002182	olthoi	all=chitin	cool=padding
+0x05002195	olthoi	all=chitin	cool=padding
+0x05002196	olthoi	all=chitin	cool=padding
+0x05002197	olthoi	all=chitin	cool=padding
+0x05002198	olthoi	all=chitin	cool=padding
+0x05002199	olthoi	all=chitin	cool=padding
+0x0500219A	olthoi	all=chitin	cool=padding
+0x0500219B	olthoi	all=chitin	cool=padding
+0x0500219C	olthoi	all=chitin	cool=padding
+0x0500219D	olthoi	all=chitin	cool=padding
+0x0500219E	olthoi	all=chitin	cool=padding
+0x0500219F	olthoi	all=chitin	cool=padding
+0x050021A0	olthoi	all=chitin	cool=padding
+0x050021A1	olthoi	all=chitin	cool=padding
+0x050021A2	olthoi	all=chitin	cool=padding
+0x050021A3	olthoi	all=chitin	cool=padding
+0x050021A4	olthoi	all=chitin	cool=padding
+0x05002DD0	olthoi	all=chitin	cool=padding
+0x05002DD3	olthoi	all=chitin	cool=padding
+0x05002E18	olthoi	all=chitin	cool=padding
+0x05002E19	olthoi	all=chitin	cool=padding
+0x05002E1A	olthoi	all=chitin	cool=padding
+0x05002E1B	olthoi	all=chitin	cool=padding
+0x05002E1C	olthoi	all=chitin	cool=padding
+0x05002E1D	olthoi	all=chitin	cool=padding
+0x05002E1E	olthoi	all=chitin	cool=padding
+0x05002E1F	olthoi	all=chitin	cool=padding
+0x05002E20	olthoi	all=chitin	cool=padding
+0x05002E21	olthoi	all=chitin	cool=padding
+0x05002E22	olthoi	all=chitin	cool=padding
+0x05002E23	olthoi	all=chitin	cool=padding
+0x05002E24	olthoi	all=chitin	cool=padding
+0x05002E25	olthoi	all=chitin	cool=padding
+0x05002E26	olthoi	all=chitin	cool=padding
+0x05002E27	olthoi	all=chitin	cool=padding
+0x05002E28	olthoi	all=chitin	cool=padding
+0x05002E29	olthoi	all=chitin	cool=padding
+# Academy Coat: fur with leather bands.
+0x05001AF9	academy	all=fur	576-640=leather
+0x05001AFA	academy	all=fur	864-928=leather
+0x05001AFB	academy	all=fur
+0x05001AFC	academy	all=fur	1392-1488=leather
+0x05001AFD	academy	all=fur	576-640=leather
+0x05001AFE	academy	1728-1920=fur	1392-1488=leather	bright=metal:1392-1488:0.85
+# Shadow armour: dark plates over pale padding.
+0x0500301E	shadow	all=plate	cool=padding
+0x0500301F	shadow	all=plate	cool=padding
+0x05003020	shadow	all=plate	cool=padding
+0x05003021	shadow	all=plate	cool=padding
+0x05003022	shadow	all=plate	cool=padding
+0x05003023	shadow	all=plate	cool=padding
+0x05003024	shadow	all=plate	cool=padding
+0x05003025	shadow	all=plate	cool=padding
+0x05003026	shadow	all=plate	cool=padding
+# Armoredillo hide: scaly hide plates.
+0x050020EE	armoredillo	all=quilt
+0x05002208	armoredillo	all=quilt
+0x05002209	armoredillo	all=quilt
+0x0500220A	armoredillo	all=quilt
+0x0500220C	armoredillo	all=quilt
+0x0500220D	armoredillo	all=quilt
+0x0500220E	armoredillo	all=quilt
+# Gromnie hide: scaly hide.
+0x050002C7	gromnie	all=quilt
+0x05000EF8	gromnie	all=quilt
+0x050024B2	gromnie	all=quilt
+0x050024B4	gromnie	all=quilt
+0x050024B5	gromnie	all=quilt
+0x050024B6	gromnie	all=quilt
+0x050024B8	gromnie	all=quilt
+0x050024B9	gromnie	all=quilt
+0x050024BA	gromnie	all=quilt
+0x050024BB	gromnie	all=quilt
+0x050024BC	gromnie	all=quilt
+0x050024BD	gromnie	all=quilt
+0x050024BE	gromnie	all=quilt
+0x050024C0	gromnie	all=quilt
+0x050024C1	gromnie	all=quilt
+# Boots and sollerets.
+0x05002227	feet	all=leather	1088-1280=plate
+0x05002228	feet	all=leather
+0x05002229	feet	all=leather	324-1280=fitting
