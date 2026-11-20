@@ -139,6 +139,105 @@ def rock(L, px, rng, edges=None):
     h = blur(h.astype(np.float32), 0.35 * px)
     depth = float(np.clip(0.035 * min(L.shape) / px, 2, 14))
     return h, depth, crevices(h, 3 * px) * 0.6 + 0.4, np.clip(0.86 + 0.06 * crack - 0.03 * fine, 0, 1)
+def ashlar(L, px, rng, edges=None, course=False, block=False):
+    # Dressed stone laid in courses, its mortar dark (recipe:flip where the picture's is pale): the
+    # courses are the dark lines that run the whole way across, and each course is cut only where a
+    # dark line runs its whole height. No stone is ever made of the face's own blotches.
+    from scipy import ndimage
+    d = unit(blur(L, 3 * px) - blur(L, 0.5 * px)) > 0.9
+    h_, w_ = L.shape
+    # A course's mortar: dark across most of the width, at the line's darkest row.
+    m = blur(d.astype(np.float32), 0.6 * px).mean(1)
+    rows = np.flatnonzero((m > 0.32) & (m >= np.roll(m, 1)) & (m >= np.roll(m, -1)))
+    # course: the region is one course, cut only up its height.
+    rows = rows[:0] if course or block else rows
+    # A course much taller than the others hides a fainter line of mortar: its strongest row.
+    gaps = np.diff(np.r_[0, rows, h_])
+    if len(rows) and len(gaps) > 2:
+        usual = float(np.median(gaps[gaps > 6 * px])) if (gaps > 6 * px).any() else h_
+        extra = []
+        for a, b in zip(np.r_[0, rows], np.r_[rows, h_]):
+            if b - a > 1.6 * usual:
+                lo, hi = int(a + 0.3 * (b - a)), int(b - 0.3 * (b - a))
+                k = lo + int(np.argmax(m[lo:hi])) if hi > lo else None
+                if k is not None and m[k] > 0.15:
+                    extra.append(k)
+        rows = np.sort(np.r_[rows, extra]).astype(int)
+    j = np.zeros_like(d)
+    for r in rows:
+        j[max(0, r - int(0.3 * px)):r + int(0.3 * px) + 1, :] = True
+    bounds = [0] + [int(r) for r in rows] + [h_]
+    for a, b in zip(bounds[:-1], bounds[1:]):
+        if b - a < max(3, 3 * px):
+            continue
+        # block: the region is one stone, cut only where it meets the next.
+        cols = np.flatnonzero(d[a + 1:b - 1].mean(0) > 0.5) if not block else []
+        j[a:b, cols] = True
+    if edges is not None:
+        j = j | edges
+    j = blur(j.astype(np.float32), 0.45 * px) > 0.3
+    lab, n = ndimage.label(~j)
+    dist = inside(~j, px)
+    e = 1 - (1 - np.clip(dist / (1.6 * px), 0, 1)) ** 2
+    off = rng.uniform(-0.025, 0.025, n + 1).astype(np.float32)
+    fine = np.clip(unit(blur(L, 0.4 * px) - blur(L, 1.5 * px)), -2, 2)
+    face = 0.93 + off[lab] + 0.012 * fine
+    hgt = np.where(j, 0.45, 0.45 + (face - 0.45) * e)
+    hgt = np.clip(blur(hgt.astype(np.float32), 0.35 * px), 0, 1)
+    rough = np.clip(0.84 + 0.1 * j - 0.02 * fine, 0, 1)
+    return hgt, 2.2 * size_of(L, px), crevices(hgt, 1.6 * px), rough
+# The depth a pole stands proud of a recess it sits over, in retail texels at 128.
+POLE_DEPTH = 2.0
+def pole(L, px, rng, edges=None):
+    # A round pole (bamboo, a spar) along the rectangle's longer side: round across it, from the
+    # level of a recess at its sides to its crest, and nicked where the picture's dark rings cross it.
+    h_, w_ = L.shape
+    along = 0 if h_ >= w_ else 1
+    n = L.shape[1 - along]
+    t = (np.arange(n) + 0.5) / n * 2 - 1
+    prof = np.sqrt(np.clip(1 - t * t, 0, 1)).astype(np.float32)
+    prof = prof[None, :] if along == 0 else prof[:, None]
+    from scipy.ndimage import gaussian_filter1d
+    line = L.mean(1 - along)
+    soft = gaussian_filter1d(line, 3 * px, mode='wrap')
+    ring = gaussian_filter1d(((soft - line) / (line.std() + 1e-6) > 1.2).astype(np.float32), 0.6 * px, mode='wrap')
+    ring = ring[:, None] if along == 0 else ring[None, :]
+    hgt = (0.5 + 0.5 * prof) * (1 - 0.12 * np.clip(ring * 2, 0, 1))
+    hgt = blur(np.broadcast_to(hgt, L.shape).astype(np.float32), 0.35 * px)
+    return hgt, POLE_DEPTH * size_of(L, px), crevices(hgt, 1.2 * px, 0.4), 0.6
+def recess(L, px, rng, edges=None):
+    # Flat, at the level a pole's sides come down to: what the poles stand proud of.
+    hgt = np.full(L.shape, 0.5, np.float32)
+    rough = np.clip(0.85 + 0.08 * (1 - np.clip(L / (np.percentile(L, 98) + 1e-5), 0, 1)), 0, 1)
+    return hgt, POLE_DEPTH * size_of(L, px), np.ones_like(hgt), rough
+def ledge(L, px, rng, edges=None):
+    # A cap or moulding that juts out: flat and proud, its upper arris rounded and its lower one eased.
+    h_, w_ = L.shape
+    along = 0 if h_ >= w_ else 1
+    n = L.shape[1 - along]
+    t = (np.arange(n) + 0.5) / n
+    prof = np.minimum(np.clip(0.8 + 0.2 * np.sin(np.clip(t / 0.3, 0, 1) * np.pi / 2), 0, 1), 1 - 0.1 * np.clip((t - 0.85) / 0.15, 0, 1))
+    prof = (prof[None, :] if along == 0 else prof[:, None]).astype(np.float32)
+    fine = np.clip(unit(blur(L, 0.5 * px) - blur(L, 2 * px)), -2, 2) * 0.02
+    # Its joints: dark lines running the whole way across it.
+    from scipy.ndimage import gaussian_filter1d
+    line = L.mean(1 - along)
+    cut = gaussian_filter1d(((gaussian_filter1d(line, 3 * px, mode='wrap') - line) / (line.std() + 1e-6) > 1.5).astype(np.float32), 0.6 * px, mode='wrap')
+    cut = cut[:, None] if along == 0 else cut[None, :]
+    hgt = np.clip(np.broadcast_to(prof, L.shape) * (1 - 0.15 * np.clip(cut * 2, 0, 1)) + fine, 0, 1).astype(np.float32)
+    return blur(hgt, 0.35 * px), 1.5 * size_of(L, px), crevices(hgt, 1.2 * px, 0.35), 0.85
+def flat(L, px, rng, edges=None):
+    # Painted on and no shape of its own: level, at the depth of a trim band.
+    return np.ones(L.shape, np.float32), 1.5 * size_of(L, px), np.ones(L.shape, np.float32), 0.88
+def cloth(L, px, rng, edges=None):
+    # A woven hanging: only the weave's fine threads, never the broad shadow painted across it.
+    w = np.tanh(unit(blur(L, 0.7 * px) - blur(L, 2.5 * px)))
+    hgt = np.clip(0.92 + 0.08 * w, 0, 1).astype(np.float32)
+    return blur(hgt, 0.3 * px), 1.2 * size_of(L, px), crevices(hgt, 1.0 * px, 0.25), 0.9
+def weave(L, px, rng, edges=None):
+    # Cloth with a pattern painted on it: the threads only as they run, so the pattern has no shape.
+    axis, _ = grain_axis(L)
+    return cloth(dir_blur(L, 4 * px, axis), px, rng, edges)
 def metal(L, px, rng, edges=None):
     d = unit(blur(L, 0.8 * px) - blur(L, 3 * px))
     rivet = blur((d > 2.2).astype(np.float32), 0.6 * px)
@@ -291,7 +390,8 @@ def pages(L, px, rng, edges=None):
     return hgt, 0.8 * size_of(L, px), crevices(hgt, 1.2 * px, 0.4), np.where(cover, 0.7, 0.9)
 RECIPES = dict(grass=grass, soil=soil, sand=sand, snow=snow, stony=stony, organic=organic, masonry=masonry, flagstone=flagstone, wood=wood, roof=roof, thatch=thatch,
                plaster=plaster, rock=rock, metal=metal, design=design, surface=surface, cutout=cutout,
-               books=books, pages=pages)
+               books=books, pages=pages, ashlar=ashlar, pole=pole, recess=recess,
+               ledge=ledge, flat=flat, cloth=cloth, weave=weave)
 def classify(L, a, px, floor=False):
     """Which recipe a picture tables/recipes.tsv does not list looks to want. Never stones: a stone
     finder takes too much else for them (planks, scales, cloth), and wrong mortar is worse than none."""

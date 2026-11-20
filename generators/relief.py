@@ -8,7 +8,7 @@
 # materials of an earlier run are replaced, and their pictures removed.
 # relief.py <the player's pictures> <pack folder> [recipes file] [--survey <pictures.tsv>]
 #           [--most <side>] [--least <side>] [--jobs <n>] [--report <file>]
-#           [--into <era> --stands-for <eras.tsv>] [--fingerprints <fingerprints.tsv>]
+#           [--into <era> --stands-for <eras.tsv>] [--fingerprints <fingerprints.tsv>] [--like <folder>]
 # --survey: the survey's pictures.tsv (pyreal-art survey --pixels): leaves out what is drawn see-through,
 #   glowing or as the sky, and gives an unlisted picture its repeat and whether it is a floor.
 # --most, --least: the longest and shortest a map's longer side may be (256 and 128): a map is its
@@ -18,6 +18,8 @@
 #   those --stands-for (tables/eras.tsv) lists for the era, each taking the survey row of the
 #   end-of-retail picture it stands for, and its recipe where the table says so. A run replaces only
 #   its own era's materials, and a run without --into only those directly in materials/.
+# --like: the pictures a recipe's like=ID names (a picture shaped from another era's picture of the
+#   same layout, so the two match).
 # --fingerprints: the fingerprint of each picture (pyreal-art pictures writes them), named in its
 #   material so a client draws it only on that picture; fingerprints.tsv beside the pictures unless
 #   named.
@@ -83,9 +85,12 @@ def band_edges(rs, w, h, px):
             e[y0:y1, x0] = e[y0:y1, x1 - 1] = True
     return inside(~e, px) < 0.6 * px
 
-def mixed(settings, Lb, px, rng):
+def mixed(settings, Lb, px, rng, L=None, a=None):
     """A picture of several materials: each rectangle shaped by its own recipe as a picture of its
-    own, its edges where it meets another, and eased into the next."""
+    own, its edges where it meets another, and eased into the next. A rectangle named recipe:flip
+    takes its own pale lines for mortar, recipe:noflip keeps its own light, whatever the whole
+    picture's, :grid lays a flagstone's joints straight, :open makes no crease where it meets
+    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :shade takes its shape from its light, :smooth drops its pits, :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
     h, w = Lb.shape
     rs = rects(settings, w, h)
     edges = band_edges(rs, w, h, px)
@@ -93,17 +98,68 @@ def mixed(settings, Lb, px, rng):
     A[:] = 0
     F[:] = 0
     deepest = 1e-3
+    lower = np.zeros((h, w), np.float32)
     for x0, y0, x1, y1, name in rs:
-        cut = None if edges is None else edges[y0:y1, x0:x1]
-        s, depth, o, r, *fine = SHAPES[name](Lb[y0:y1, x0:x1], px, rng, cut)
-        deepest = max(deepest, depth)
+        name, *turns = name.split(':')
+        # recipe:open meets what is beside it with no crease of its own; recipe:d=K scales its depth.
+        cut = None if edges is None or 'open' in turns else edges[y0:y1, x0:x1]
+        scale = next((float(t[2:]) for t in turns if t.startswith('d=')), 1.0)
+        part = Lb[y0:y1, x0:x1]
+        if ('flip' in turns or 'noflip' in turns) and L is not None:
+            part = L[y0:y1, x0:x1]
+            part = 2 * float(part.mean()) - part if 'flip' in turns else part
+        if 'even' in turns:
+            # recipe:even: shading that runs the whole way across (a ledge's cast shadow) is no shape.
+            from scipy.ndimage import gaussian_filter1d
+            row = gaussian_filter1d(part.mean(1), 1.5 * px, mode='nearest')[:, None]
+            part = part * (float(part.mean()) / np.maximum(row, 1e-3))
+        grid = dict(grid=True) if 'grid' in turns else {}
+        grid.update(course=True) if 'course' in turns else None
+        grid.update(block=True) if 'block' in turns else None
+        s, depth, o, r, *fine = SHAPES[name](part, px, rng, cut, **grid)
+        if 'smooth' in turns:
+            # recipe:smooth: the stones' faces without their pits and grain, the joints kept.
+            s, fine = blur(s.astype(np.float32), 0.6 * px), []
+        if 'shade' in turns:
+            # recipe:shade: a carving's shape is its light, its dark grooves sunk and its pale work proud.
+            g = blur(part, 0.8 * px)
+            lo, hi = np.percentile(g, 5), np.percentile(g, 95)
+            s = 0.4 + 0.6 * np.clip((g - lo) / max(float(hi - lo), 1e-3), 0, 1)
+        rough = next((float(t[6:]) for t in turns if t.startswith('rough=')), 0.0)
+        if rough:
+            # recipe:rough=K lays the picture's own cracks and grime over the recipe's shapes.
+            g = SHAPES['surface'](part, px, rng)[0]
+            s = np.clip(s + rough * (g - float(g.mean())), 0, 1)
+        ivy = next((float(t[4:] or 0.25) for t in turns if t.startswith('ivy')), 0.0)
+        bare = next((float(t[5:] or 0.25) for t in turns if t.startswith('bare')), 0.0)
+        if ('moss' in turns or ivy or bare) and a is not None:
+            # recipe:moss: moss grown over the part has no shape of its own; it lies at the part's face.
+            c = a[y0:y1, x0:x1, :3]
+            m = np.clip((c[..., 1] - 0.5 * (c[..., 0] + c[..., 2]) - 0.03) / 0.05, 0, 1)
+            m = np.clip(blur(m.astype(np.float32), 0.5 * px), 0, 1) if bare else np.clip(blur(m.astype(np.float32), 1.0 * px) * 1.5, 0, 1)
+            face = float(np.percentile(s[m < 0.5], 70)) if (m < 0.5).any() else float(s.mean())
+            # recipe:ivy=K: leaves grown over the part stand K proud of it instead.
+            s = np.clip(s - ivy, 0, 1) * (1 - m) + (1.0 if ivy else face) * m
+            # recipe:bare=K: what is not green (roots through grass) stands K proud of the green.
+            s = s * (1 - m) + np.clip(s - bare, 0, 1) * m if bare else s
+        warm = next((float(t[5:] or 0.25) for t in turns if t.startswith('warm')), 0.0)
+        if warm and a is not None:
+            # recipe:warm=K: brown wood (a brace across plaster) stands K proud of what is grey.
+            c = a[y0:y1, x0:x1, :3]
+            m = np.clip(blur(np.clip((c[..., 0] - c[..., 2] - 0.08) / 0.08, 0, 1).astype(np.float32), 0.7 * px), 0, 1)
+            s = s * m + np.clip(s - warm, 0, 1) * (1 - m)
+        # The picture's range is set by its deepest rectangle as made, so one turned down stays shallow.
+        deepest = max(deepest, depth, depth * scale)
+        depth *= scale
         A[y0:y1, x0:x1] = (s - 1) * depth
         if fine:
             F[y0:y1, x0:x1] = fine[0] * depth
         O[y0:y1, x0:x1] = o
         R[y0:y1, x0:x1] = r
-    A = blur(A, 0.25 * px)
-    return 1 + A / deepest, deepest, O, R, F / deepest
+        # recipe:at=K sits behind its neighbours: a face under a ledge, a field behind a frame.
+        lower[y0:y1, x0:x1] = next((float(t[3:]) for t in turns if t.startswith('at=')), 0.0)
+    A = blur(A - lower * deepest, 0.25 * px)
+    return np.maximum(1 + A / deepest, 0), deepest, O, R, F / deepest
 
 def fill(a, solid, px):
     """The picture's colour where it is see-through, spread from what is solid about it."""
@@ -154,9 +210,18 @@ def make(job):
     px = w / sw
     rng = np.random.default_rng(int(id, 16))
     a = read(path, w, h)
+    like = next((t[5:] for t in settings if t.startswith('like=')), None)
+    if like:
+        # like=ID: shaped from picture ID (in --like), another era's of the same layout as this one.
+        at = os.path.join(os.environ.get('RELIEF_LIKE', ''), like + '.png')
+        if not os.path.exists(at):
+            return id, None, f'no picture {like} to be shaped like'
+        a = read(at, w, h)
     solid = a[..., 3] >= 0.5
-    cut = (a[..., 3] < 0.98).mean() > 0.01
-    if cut:
+    seen_through = (a[..., 3] < 0.98).mean() > 0.01
+    # solid: the see-through specks are gaps between stones in a solid wall, which take a height.
+    cut = seen_through and 'solid' not in settings
+    if seen_through:
         if not solid.any():
             return id, None, 'wholly see-through'
         a = fill(a, solid, px)
@@ -184,7 +249,7 @@ def make(job):
         o = one if dark else 1 - np.clip((blur(soft, 4 * px) - soft) / (soft.std() + 1e-5) * 0.15, 0, 0.35)
         r = np.clip(0.82 + 0.1 * (1 - np.clip(L / (np.percentile(L, 98) + 1e-5), 0, 1)), 0, 1)
     elif recipe == 'mixed':
-        hgt, depth, o, r, fine = mixed(settings, Lb, px, rng)
+        hgt, depth, o, r, fine = mixed(settings, Lb, px, rng, L, a)
     else:
         # What is pale on flesh stands proud, however thin.
         # Slabs in a plain grid, whose joints the stones' own blotches would hide (0x050026F7).
@@ -192,6 +257,11 @@ def make(job):
         hgt, depth, o, r, *fine = SHAPES[recipe](L if recipe == 'organic' else Lb, px, rng, **grid)
         fine = fine[0] if fine else 0
     r = r * one
+    # depth=K: the whole picture shallower (or deeper), in its height map as well as its normal.
+    k = setting(settings, 'depth=', 1.0)
+    if not flat and k != 1.0:
+        hgt = 1 - (1 - hgt) * k
+        depth *= k
     if not flat:
         # The height as it stands, in retail texels; the normal leans with its slope there.
         # A stone's pits and grain, where its recipe keeps them out of the height, bend it too.
@@ -252,6 +322,7 @@ def main(args):
             id, material, recipe, damp, *rest = line.rstrip('\n').split('\t')
             listed[id] = material, recipe, float(damp), ' '.join(rest).split()
     era = option(args, '--into', None)
+    os.environ['RELIEF_LIKE'] = option(args, '--like', '')
     sub = f'{era}/' if era else ''
     out = os.path.join(PACK, 'materials', sub); os.makedirs(out, exist_ok=True)
     # An earlier run's materials go, and the pictures they named with them: this era's alone.
@@ -290,11 +361,20 @@ def main(args):
             other = b.startswith('[[material]]') and not re.search(rf'^tool = "{TOOL}"$', b, re.M)
             m = re.search(r'^texture = (.*)$', b, re.M) if other and re.search(where, b, re.M) else None
             taken.update(re.findall(r'0x[0-9A-Fa-f]{8}', m.group(1)) if m else [])
+    # An older era's own hand recipes (tables/recipes-<era>.tsv), for its pictures whose layout
+    # differs from the end-of-retail picture they stand for: they come before that picture's.
+    own = {}
+    own_at = os.path.join(TABLES, f'recipes-{era}.tsv') if era else None
+    if own_at and os.path.exists(own_at):
+        for line in open(own_at):
+            if line.strip() and not line.startswith('#'):
+                id, material, recipe, damp, *rest = line.rstrip('\n').split('\t')
+                own[id] = material, recipe, float(damp), ' '.join(rest).split()
     def job(p):
         id = os.path.basename(p)[:-4]
         if era:
             eor, how = stands[id]
-            entry = listed.get(eor) if how == 'recipe' else None
+            entry = own.get(id) or (listed.get(eor) if how == 'recipe' else None)
             if how.startswith('ground:'):
                 entry = ('ground', how[7:], 0.0, [f'side={GROUND_SIDE}', f'repeat={GROUND_REPEAT}', f'repeatv={GROUND_REPEAT}'])
             return (p, out, entry, seen.get(eor), most, least, sub, named(id))

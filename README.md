@@ -59,6 +59,17 @@ ground recipes (grass, soil, sand, snow, stony) laid over each picture's own for
 retail's ground pictures, toned toward 1999 by the client's Ground Coloring, so they take these
 too and have no ground of their own.
 
+A change to relief is checked against the maps it replaces before it is kept:
+
+```bash
+python3 generators/check_relief.py <the player's pictures> <old pack folder> <new pack folder> [--sub 2005/]
+```
+
+It says, for each picture, whether the new height is no worse than the old: its joints and cracks
+lie on the picture's own lines as well as before, it dips no more where the picture is plain, and
+it is flat only where the old height was clearly broken. `generators/refit.py` refits the rock and
+masonry rectangles of hand recipes whose maps blotch smooth stone and plaster.
+
 Every script is in `generators/`. Each one describes its own use at the top of the file.
 
 ## Copyright
