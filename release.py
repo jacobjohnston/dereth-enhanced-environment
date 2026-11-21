@@ -40,7 +40,7 @@ def entries(text):
         head = block.lstrip().split('\n', 1)[0].strip('[]')
         if head == 'pack':
             continue
-        name = re.search(r'^(?:id|texture|object|ground) = (.+)$', block, re.M)
+        name = re.search(r'^(?:id|texture|object|ground|surface) = (.+)$', block, re.M)
         lod = re.search(r'^file = "([^"]+)"', block, re.M)
         key = (head, (name[1] if head != 'ground_cover' else os.path.basename(lod[1]).split('_lod')[0] if lod else '?').strip('"'))
         out[key] = (block.strip(), set(re.findall(r'= "([^"]+\.(?:png|gltf|bin))"', block)))
