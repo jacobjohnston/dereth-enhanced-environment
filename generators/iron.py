@@ -30,6 +30,16 @@ IRON = {
     '0x05002638': 'banded',
     # The wooden doors' leaf, its hinges, ring and foot iron.
     '0x05000D25': 'banded',
+    # Props: the wall torch's plate and collar (0x020001E5), the hanging chain (0x01000E0E), the
+    # standing torch's stand (0x020005D9), the cask's hoops (0x020000A5), the house door's
+    # hinges (0x020019FF) and the chandelier's chain (0x02000081).
+    '0x050010C4': 'iron',
+    '0x05001417': 'iron',
+    '0x0500141A': 'iron',
+    '0x05002A9F': 'banded',
+    '0x05000A91': 'banded',
+    '0x05002F96': 'banded',
+    '0x05000B18': 'iron',
 }
 # Iron's roughness where the picture is plain, how much smoother it is where painted worn bright,
 # and the smoothest and roughest it may be.
