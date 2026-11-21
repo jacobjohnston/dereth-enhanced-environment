@@ -15,14 +15,14 @@
   {
    "mesh": 0,
    "translation": [
-    -0.16678285598754883,
-    1.4942254424095154,
-    0.2792031764984131
+    -0.07911348342895508,
+    2.041324555873871,
+    0.4631779193878174
    ],
    "scale": [
-    5.196412563323975,
-    5.196412563323975,
-    5.196412563323975
+    4.759121656417847,
+    4.759121656417847,
+    4.759121656417847
    ]
   }
  ],
@@ -82,9 +82,9 @@
      "index": 2
     },
     "baseColorFactor": [
-     0.3,
-     0.62,
-     0.24,
+     0.129,
+     0.369,
+     0.092,
      1
     ],
     "metallicFactor": 0,
@@ -117,7 +117,7 @@
  "buffers": [
   {
    "uri": "0x02000E72_lod2.bin",
-   "byteLength": 3320
+   "byteLength": 3056
   }
  ],
  "bufferViews": [
@@ -150,27 +150,27 @@
   {
    "buffer": 0,
    "byteOffset": 2264,
-   "byteLength": 384,
+   "byteLength": 288,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 2648,
-   "byteLength": 192,
+   "byteOffset": 2552,
+   "byteLength": 144,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 2840,
-   "byteLength": 192,
+   "byteOffset": 2696,
+   "byteLength": 144,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 3032,
-   "byteLength": 288,
+   "byteOffset": 2840,
+   "byteLength": 216,
    "target": 34963
   }
  ],
@@ -181,14 +181,14 @@
    "count": 79,
    "type": "VEC3",
    "min": [
-    -2125,
-    -16358,
-    -4988
+    -4204,
+    -21628,
+    -7940
    ],
    "max": [
-    4518,
-    2164,
-    1357
+    5293,
+    1349,
+    1562
    ],
    "normalized": true
   },
@@ -214,38 +214,38 @@
   {
    "bufferView": 4,
    "componentType": 5122,
-   "count": 48,
+   "count": 36,
    "type": "VEC3",
    "min": [
-    -32767,
-    -1782,
-    -32167
+    -30243,
+    -9397,
+    -32767
    ],
    "max": [
-    32767,
-    16358,
-    32167
+    30243,
+    21628,
+    32767
    ],
    "normalized": true
   },
   {
    "bufferView": 5,
    "componentType": 5120,
-   "count": 48,
+   "count": 36,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 6,
    "componentType": 5123,
-   "count": 48,
+   "count": 36,
    "type": "VEC2",
    "normalized": true
   },
   {
    "bufferView": 7,
    "componentType": 5123,
-   "count": 144,
+   "count": 108,
    "type": "SCALAR"
   }
  ],

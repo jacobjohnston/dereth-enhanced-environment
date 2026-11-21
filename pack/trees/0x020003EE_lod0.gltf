@@ -15,14 +15,14 @@
   {
    "mesh": 0,
    "translation": [
-    -0.22327709197998047,
-    18.4838924407959,
-    -0.01637554168701172
+    -0.16458511352539062,
+    13.746527671813965,
+    0.007232666015625
    ],
    "scale": [
-    22.0106143951416,
-    22.0106143951416,
-    22.0106143951416
+    17.27167797088623,
+    17.27167797088623,
+    17.27167797088623
    ]
   }
  ],
@@ -117,59 +117,59 @@
  "buffers": [
   {
    "uri": "0x020003EE_lod0.bin",
-   "byteLength": 140780
+   "byteLength": 258272
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 19536,
+   "byteLength": 56832,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 19536,
-   "byteLength": 9768,
+   "byteOffset": 56832,
+   "byteLength": 28416,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 29304,
-   "byteLength": 19536,
+   "byteOffset": 85248,
+   "byteLength": 56832,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 48840,
-   "byteLength": 12900,
+   "byteOffset": 142080,
+   "byteLength": 37152,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 61740,
+   "byteOffset": 179232,
    "byteLength": 33280,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 95020,
+   "byteOffset": 212512,
    "byteLength": 16640,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 111660,
+   "byteOffset": 229152,
    "byteLength": 16640,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 128300,
+   "byteOffset": 245792,
    "byteLength": 12480,
    "target": 34963
   }
@@ -178,37 +178,37 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 2442,
+   "count": 7104,
    "type": "VEC3",
    "min": [
-    -19635,
+    -19029,
     -32767,
-    -22616
+    -21947
    ],
    "max": [
-    22386,
-    18015,
-    21136
+    21675,
+    18020,
+    20432
    ],
    "normalized": true
   },
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 2442,
+   "count": 7104,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
    "componentType": 5126,
-   "count": 2442,
+   "count": 7104,
    "type": "VEC2"
   },
   {
    "bufferView": 3,
    "componentType": 5123,
-   "count": 6450,
+   "count": 18576,
    "type": "SCALAR"
   },
   {
@@ -217,14 +217,14 @@
    "count": 4160,
    "type": "VEC3",
    "min": [
-    -27325,
-    -313,
-    -26609
+    -26948,
+    -1663,
+    -26121
    ],
    "max": [
-    27325,
+    26948,
     32767,
-    26609
+    26121
    ],
    "normalized": true
   },

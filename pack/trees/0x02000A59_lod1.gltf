@@ -15,14 +15,14 @@
   {
    "mesh": 0,
    "translation": [
-    0.0017729699611663818,
-    -0.004013672471046448,
-    0.008199319243431091
+    0.040158066898584366,
+    0.18835387378931046,
+    0.024365916848182678
    ],
    "scale": [
-    0.49928490817546844,
-    0.49928490817546844,
-    0.49928490817546844
+    0.2316461130976677,
+    0.2316461130976677,
+    0.2316461130976677
    ]
   }
  ],
@@ -52,16 +52,16 @@
  ],
  "materials": [
   {
-   "name": "Bark",
+   "name": "Stem",
    "doubleSided": true,
    "pbrMetallicRoughness": {
     "baseColorTexture": {
      "index": 0
     },
     "baseColorFactor": [
-     0.52,
-     0.36,
-     0.24,
+     0.3,
+     0.25,
+     0.2,
      1
     ],
     "metallicFactor": 0,
@@ -73,7 +73,7 @@
    }
   },
   {
-   "name": "Leaves",
+   "name": "Needles",
    "doubleSided": true,
    "alphaMode": "MASK",
    "alphaCutoff": 0.3,
@@ -82,9 +82,9 @@
      "index": 2
     },
     "baseColorFactor": [
-     0.42,
-     0.5,
-     0.3,
+     0.962,
+     1,
+     1,
      1
     ],
     "metallicFactor": 0,
@@ -100,7 +100,7 @@
    "uri": "Conifer_Bark_Normal.png"
   },
   {
-   "uri": "Leaves_oak.png"
+   "uri": "Conifer_Needles.png"
   }
  ],
  "textures": [
@@ -117,60 +117,60 @@
  "buffers": [
   {
    "uri": "0x02000A59_lod1.bin",
-   "byteLength": 36864
+   "byteLength": 2528
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 1184,
+   "byteLength": 400,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 1184,
-   "byteLength": 592,
+   "byteOffset": 400,
+   "byteLength": 200,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 1776,
-   "byteLength": 1184,
+   "byteOffset": 600,
+   "byteLength": 200,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 2960,
-   "byteLength": 1224,
+   "byteOffset": 800,
+   "byteLength": 384,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 4184,
-   "byteLength": 13760,
+   "byteOffset": 1184,
+   "byteLength": 480,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 17944,
-   "byteLength": 6880,
+   "byteOffset": 1664,
+   "byteLength": 240,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 24824,
-   "byteLength": 6880,
+   "byteOffset": 1904,
+   "byteLength": 240,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 31704,
-   "byteLength": 5160,
+   "byteOffset": 2144,
+   "byteLength": 384,
    "target": 34963
   }
  ],
@@ -178,74 +178,75 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 148,
+   "count": 50,
    "type": "VEC3",
    "min": [
-    -6827,
-    -32767,
-    -7249
+    -7661,
+    -32391,
+    -5427
    ],
    "max": [
-    6595,
-    17107,
-    6173
+    6288,
+    32767,
+    3864
    ],
    "normalized": true
   },
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 148,
+   "count": 50,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
-   "componentType": 5126,
-   "count": 148,
-   "type": "VEC2"
+   "componentType": 5123,
+   "count": 50,
+   "type": "VEC2",
+   "normalized": true
   },
   {
    "bufferView": 3,
    "componentType": 5123,
-   "count": 612,
+   "count": 192,
    "type": "SCALAR"
   },
   {
    "bufferView": 4,
    "componentType": 5122,
-   "count": 1720,
+   "count": 60,
    "type": "VEC3",
    "min": [
-    -19117,
-    -1697,
-    -18654
+    -15076,
+    -32767,
+    -12842
    ],
    "max": [
-    19117,
+    15076,
     32767,
-    18654
+    12842
    ],
    "normalized": true
   },
   {
    "bufferView": 5,
    "componentType": 5120,
-   "count": 1720,
+   "count": 60,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 6,
    "componentType": 5123,
-   "count": 1720,
+   "count": 60,
    "type": "VEC2",
    "normalized": true
   },
   {
    "bufferView": 7,
    "componentType": 5123,
-   "count": 2580,
+   "count": 192,
    "type": "SCALAR"
   }
  ],

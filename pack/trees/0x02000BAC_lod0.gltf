@@ -15,14 +15,14 @@
   {
    "mesh": 0,
    "translation": [
-    0.05612289905548096,
-    1.5175019204616547,
-    -0.1792769432067871
+    -0.11615878343582153,
+    1.2485376298427582,
+    -0.026820778846740723
    ],
    "scale": [
-    2.3175019323825836,
-    2.3175019323825836,
-    2.3175019323825836
+    2.059438854455948,
+    2.059438854455948,
+    2.059438854455948
    ]
   }
  ],
@@ -43,16 +43,16 @@
  ],
  "materials": [
   {
-   "name": "Bark",
+   "name": "Wood",
    "doubleSided": true,
    "pbrMetallicRoughness": {
     "baseColorTexture": {
      "index": 0
     },
     "baseColorFactor": [
-     0.42,
-     0.36,
-     0.3,
+     0.078,
+     0.078,
+     0.095,
      1
     ],
     "metallicFactor": 0,
@@ -83,34 +83,34 @@
  "buffers": [
   {
    "uri": "0x02000BAC_lod0.bin",
-   "byteLength": 24452
+   "byteLength": 249980
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 6728,
+   "byteLength": 73664,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 6728,
-   "byteLength": 3364,
+   "byteOffset": 73664,
+   "byteLength": 36832,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 10092,
-   "byteLength": 6728,
+   "byteOffset": 110496,
+   "byteLength": 73664,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 16820,
-   "byteLength": 7632,
+   "byteOffset": 184160,
+   "byteLength": 65820,
    "target": 34963
   }
  ],
@@ -118,37 +118,37 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 841,
+   "count": 9208,
    "type": "VEC3",
    "min": [
-    -20732,
+    -23540,
     -32767,
-    -22444
+    -23173
    ],
    "max": [
-    20732,
+    23540,
     32767,
-    22444
+    23173
    ],
    "normalized": true
   },
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 841,
+   "count": 9208,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
    "componentType": 5126,
-   "count": 841,
+   "count": 9208,
    "type": "VEC2"
   },
   {
    "bufferView": 3,
    "componentType": 5123,
-   "count": 3816,
+   "count": 32910,
    "type": "SCALAR"
   }
  ],

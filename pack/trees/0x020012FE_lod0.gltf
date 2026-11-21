@@ -15,14 +15,14 @@
   {
    "mesh": 0,
    "translation": [
-    -0.03073716163635254,
-    10.253716766834259,
-    0.09913063049316406
+    0.413415789604187,
+    10.258961856365204,
+    0.5166562795639038
    ],
    "scale": [
-    11.613716781139374,
-    11.613716781139374,
-    11.613716781139374
+    11.358961880207062,
+    11.358961880207062,
+    11.358961880207062
    ]
   }
  ],
@@ -91,9 +91,9 @@
      "index": 2
     },
     "baseColorFactor": [
-     0.72,
-     0.8,
-     0.5,
+     0.274,
+     0.158,
+     0.333,
      1
     ],
     "metallicFactor": 0,
@@ -147,85 +147,85 @@
  "buffers": [
   {
    "uri": "0x020012FE_lod0.bin",
-   "byteLength": 177500
+   "byteLength": 61512
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 13528,
+   "byteLength": 3928,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 13528,
-   "byteLength": 6764,
+   "byteOffset": 3928,
+   "byteLength": 1964,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 20292,
-   "byteLength": 13528,
+   "byteOffset": 5892,
+   "byteLength": 3928,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 33820,
-   "byteLength": 13152,
+   "byteOffset": 9820,
+   "byteLength": 3936,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 46972,
-   "byteLength": 53248,
+   "byteOffset": 13756,
+   "byteLength": 18432,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 100220,
-   "byteLength": 26624,
+   "byteOffset": 32188,
+   "byteLength": 9216,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 126844,
-   "byteLength": 26624,
+   "byteOffset": 41404,
+   "byteLength": 9216,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 153468,
-   "byteLength": 19968,
+   "byteOffset": 50620,
+   "byteLength": 6828,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 173436,
+   "byteOffset": 57448,
    "byteLength": 1088,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 174524,
+   "byteOffset": 58536,
    "byteLength": 544,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 175068,
+   "byteOffset": 59080,
    "byteLength": 1088,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 176156,
+   "byteOffset": 60168,
    "byteLength": 1344,
    "target": 34963
   }
@@ -234,74 +234,74 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 1691,
+   "count": 491,
    "type": "VEC3",
    "min": [
-    -8533,
-    -30623,
-    -8114
+    -6398,
+    -31325,
+    -6914
    ],
    "max": [
-    7996,
-    29959,
-    8819
+    5618,
+    30616,
+    6479
    ],
    "normalized": true
   },
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 1691,
+   "count": 491,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
    "componentType": 5126,
-   "count": 1691,
+   "count": 491,
    "type": "VEC2"
   },
   {
    "bufferView": 3,
    "componentType": 5123,
-   "count": 6576,
+   "count": 1968,
    "type": "SCALAR"
   },
   {
    "bufferView": 4,
    "componentType": 5122,
-   "count": 6656,
+   "count": 2304,
    "type": "VEC3",
    "min": [
-    -10376,
-    -8244,
-    -11056
+    -8214,
+    -4309,
+    -9204
    ],
    "max": [
-    10376,
+    8214,
     32767,
-    11056
+    9204
    ],
    "normalized": true
   },
   {
    "bufferView": 5,
    "componentType": 5120,
-   "count": 6656,
+   "count": 2304,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 6,
    "componentType": 5123,
-   "count": 6656,
+   "count": 2304,
    "type": "VEC2",
    "normalized": true
   },
   {
    "bufferView": 7,
    "componentType": 5123,
-   "count": 9984,
+   "count": 3414,
    "type": "SCALAR"
   },
   {
@@ -310,14 +310,14 @@
    "count": 136,
    "type": "VEC3",
    "min": [
-    -4511,
+    -3952,
     -32767,
-    -4465
+    -4002
    ],
    "max": [
-    4514,
-    -23513,
-    4112
+    1465,
+    -25333,
+    1146
    ],
    "normalized": true
   },

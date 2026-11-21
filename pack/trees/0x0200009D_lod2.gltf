@@ -82,9 +82,9 @@
      "index": 2
     },
     "baseColorFactor": [
-     1,
-     1,
-     0.78,
+     0.481,
+     0.477,
+     0.303,
      1
     ],
     "metallicFactor": 0,
