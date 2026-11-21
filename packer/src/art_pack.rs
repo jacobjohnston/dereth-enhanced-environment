@@ -541,6 +541,7 @@ pub fn open(
                 entry
                     .textures
                     .iter()
+                    .chain(entry.solid.iter().flat_map(|sd| sd.surfaces.iter()))
                     .map(|t| format!("{:#010X}", t.0))
                     .collect::<Vec<_>>()
                     .join(", ")

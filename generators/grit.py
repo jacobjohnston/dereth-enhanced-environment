@@ -41,7 +41,7 @@ def metal():
     return h * 0.6, 0.5 * noise(4) - 1.2 * pits(1.6, 0.012), 0.9 * noise(10)
 TILES = dict(stone=stone, rock=rock, plaster=plaster, fibre=fibre, clay=clay, metal=metal, organic=organic)
 # Which tile each material takes.
-OF = dict(organic='organic', masonry='stone', flagstone='stone', design='stone', rock='rock', plaster='plaster', roof='clay', metal='metal', wood='fibre', thatch='fibre', surface='clay', cutout='fibre', grass='fibre', soil='clay', sand='clay', snow='plaster', stony='rock', books='fibre', pages='fibre', ashlar='stone', pole='fibre', recess='plaster', ledge='stone', flat='plaster', cloth='fibre', weave='fibre')
+OF = dict(organic='organic', masonry='stone', flagstone='stone', design='stone', carved='stone', rock='rock', plaster='plaster', roof='clay', metal='metal', wood='fibre', thatch='fibre', surface='clay', cutout='fibre', grass='fibre', soil='clay', sand='clay', snow='plaster', stony='rock', books='fibre', pages='fibre', ashlar='stone', pole='fibre', recess='plaster', ledge='stone', flat='plaster', cloth='fibre', weave='fibre')
 def tile_of(recipe, settings):
     """The tile a picture takes: a mixed picture's is that of the most of it."""
     if recipe != 'mixed':

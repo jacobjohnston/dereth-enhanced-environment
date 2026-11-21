@@ -224,8 +224,23 @@ pub struct ManifestMaterial {
     pub draws_on: DrawsOn,
     /// The palettes (`0x04...`) it is drawn in alone; any, where it names none.
     pub palettes: Vec<DataId>,
+    /// For a `[[solid]]` entry: the untextured surfaces it is laid on, in place of [`Self::textures`].
+    pub solid: Option<Solid>,
     /// Who made it, with what, and under which license.
     pub credit: Credit,
+}
+
+/// Where a `[[solid]]` material is laid: untextured surfaces, which have no picture to stand for.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Solid {
+    /// The surface records (`0x08...`) it is laid on.
+    pub surfaces: Vec<DataId>,
+    /// The solid colour (ARGB) a surface must have for it to be laid there: what tells one era's
+    /// surface from another's under the same id.
+    pub colour: u32,
+    /// How many metres one repeat of its pictures covers on the object at its own size, laid along
+    /// the world's three axes.
+    pub size: f32,
 }
 
 /// What a material is made of beyond its pictures: a metal, how smooth, or clear as ice or a gem.
@@ -503,6 +518,31 @@ impl ArtPackManifest {
             }
             materials.push(material);
         }
+        let listed = match table.get("solid") {
+            None => &empty,
+            Some(toml::Value::Array(a)) => a,
+            Some(_) => return fail("`solid` is not a list of [[solid]] tables"),
+        };
+        let mut solid_at: HashSet<(DataId, u32)> = HashSet::new();
+        for (i, m) in listed.iter().enumerate() {
+            let Some(m) = m.as_table() else {
+                return fail(format!("solid {} is not a table", i + 1));
+            };
+            let material =
+                solid(m).map_err(|e| ManifestError(format!("solid {}: {}", i + 1, e.0)))?;
+            if let Some(sd) = &material.solid {
+                for s in &sd.surfaces {
+                    if !solid_at.insert((*s, sd.colour)) {
+                        return fail(format!(
+                            "solid {}: {:#010X} has a material already",
+                            i + 1,
+                            s.0
+                        ));
+                    }
+                }
+            }
+            materials.push(material);
+        }
         let listed = match table.get("ground_cover") {
             None => &empty,
             Some(toml::Value::Array(a)) => a,
@@ -772,7 +812,59 @@ fn draws_on(t: &toml::Table) -> Result<DrawsOn, ManifestError> {
 }
 
 fn material(t: &toml::Table) -> Result<ManifestMaterial, ManifestError> {
-    let textures = textures_of(t.get("texture"))?;
+    material_with(t, textures_of(t.get("texture"))?, None)
+}
+
+/// A `[[solid]]` entry: a material laid on untextured surfaces of one colour.
+fn solid(t: &toml::Table) -> Result<ManifestMaterial, ManifestError> {
+    if t.contains_key("texture") || t.contains_key("keep_retail_picture") {
+        return fail("names a picture; a solid is laid on untextured surfaces");
+    }
+    let one = |v: &toml::Value| -> Result<DataId, ManifestError> {
+        match v.as_str().and_then(|r| u32::from_str_radix(r.trim().trim_start_matches("0x"), 16).ok()) {
+            Some(id) if id >> 24 == 0x08 => Ok(DataId(id)),
+            _ => fail(format!("surface {v} is not a surface record (0x08...)")),
+        }
+    };
+    let surfaces = match t.get("surface") {
+        None => return fail("no surface"),
+        Some(toml::Value::Array(a)) => a.iter().map(one).collect::<Result<Vec<_>, _>>()?,
+        Some(v) => vec![one(v)?],
+    };
+    if surfaces.is_empty() {
+        return fail("no surface");
+    }
+    let colour = match t.get("colour").and_then(toml::Value::as_str).map(str::trim) {
+        Some(c) => match u32::from_str_radix(c.trim_start_matches("0x"), 16) {
+            Ok(c) => c,
+            Err(_) => return fail(format!("colour {c:?} is not 0x and eight hex digits")),
+        },
+        None => return fail("no colour"),
+    };
+    #[allow(clippy::cast_possible_truncation, clippy::cast_precision_loss)]
+    // Metres, well inside both types' range.
+    let size = match t.get("size") {
+        Some(toml::Value::Float(f)) if *f >= 0.05 && *f <= 100.0 => *f as f32,
+        Some(toml::Value::Integer(i)) if (1..=100).contains(i) => *i as f32,
+        _ => return fail("size is not a number of metres from 0.05 to 100"),
+    };
+    material_with(
+        t,
+        Vec::new(),
+        Some(Solid {
+            surfaces,
+            colour,
+            size,
+        }),
+    )
+}
+
+/// A material entry's pictures, matter and credit, for `textures` or a `solid`.
+fn material_with(
+    t: &toml::Table,
+    textures: Vec<DataId>,
+    solid: Option<Solid>,
+) -> Result<ManifestMaterial, ManifestError> {
     let picture = |key: &str| -> Result<Option<String>, ManifestError> {
         match t.get(key) {
             None => Ok(None),
@@ -874,6 +966,7 @@ fn material(t: &toml::Table) -> Result<ManifestMaterial, ManifestError> {
         fingerprints,
         draws_on,
         palettes,
+        solid,
         credit: Credit {
             author: text(t, "author")?.to_owned(),
             tool: text(t, "tool")?.to_owned(),

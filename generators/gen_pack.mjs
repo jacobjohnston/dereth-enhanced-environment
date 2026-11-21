@@ -1,7 +1,7 @@
 // Builds the trees pack: trees generated with EZ-Tree, fitted to the retail objects they replace,
 // and ground cover from the Quaternius Stylized Nature MegaKit.
 // Bundle with esbuild, `--alias:eztree=<EZ-Tree repo>/src/lib`, then run:
-//   node <bundle> <pack folder> <picture folder> <kit glTF folder>
+//   node <bundle> <pack folder> <picture folder> <kit glTF folder> [--only <id>,<id>]
 // Afterward run clump_cover.py (see COVER), then foliage.py <pack folder>, which finishes the
 // pictures copied here.
 import fs from 'node:fs';
@@ -17,16 +17,20 @@ import bush from 'eztree/presets/bush_1.json';
 
 const [pack, pictures, kit] = process.argv.slice(2);
 const out = path.join(pack, 'trees');
+// `--only <id>,<id>`: grow those models alone into the pack folder, leaving the rest of it, and
+// write their manifest blocks to <pack>/regrown.toml.
+const only = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1].split(',') : null;
 
 // How far below the ground a trunk starts, so it stays planted on a slope.
 const SINK = 0.6;
-// Where a conifer's lowest branches start up its trunk, high enough to walk under.
-const START = 0.4;
+// Where a conifer's lowest branches start up its trunk: low, so its needles come near the ground as
+// retail's do. Lower, the long bare branches under the needles show as a cone of bark.
+const START = 0.15;
 // A conifer's branches' angle from the trunk's axis, a little below level.
 const ANGLE = 105;
 const SWEEP = Math.sin((ANGLE * Math.PI) / 180);
 // How much wider a trunk is at the ground, and how much of the trunk's height the flare reaches.
-const FLARE = 0.45;
+const FLARE = 0.3;
 const FLARE_SHARE = 0.15;
 
 const BROWN = { color: 'Conifer_Bark.png', normal: 'Conifer_Bark_Normal.png', tint: [0.52, 0.36, 0.24, 1] };
@@ -35,7 +39,8 @@ const PALE = { color: 'Pale_Bark.png', normal: 'Pale_Bark_Normal.png', tint: [0.
 const GREEN = { color: 'Conifer_Needles.png', tint: [0.72, 0.8, 0.5, 1], cutoff: 0.3 };
 const AUTUMN = { color: 'Conifer_Needles_Autumn.png', tint: [0.8, 0.78, 0.7, 1], cutoff: 0.3 };
 const TEAL = { color: 'Conifer_Needles_Teal.png', tint: [0.7, 0.85, 0.85, 1], cutoff: 0.3 };
-const SNOW = { color: 'Conifer_Needles_Snow.png', tint: [1, 1, 1, 1], cutoff: 0.3, snow: true };
+// Snow lies on a share of the cards, more toward the top; `snow` is the needles under it.
+const SNOW = { color: 'Conifer_Needles_Snow.png', tint: [1, 1, 1, 1], cutoff: 0.3, snow: { color: 'Conifer_Needles.png', tint: [0.36, 0.38, 0.42, 1], cutoff: 0.3 } };
 const OAK = { color: 'Leaves_oak.png', tint: [0.72, 0.78, 0.5, 1], cutoff: 0.3, mass: [0.3, 0.46, 0.2, 1] };
 const ASH = { color: 'Leaves_ash.png', tint: [0.78, 0.85, 0.55, 1], cutoff: 0.3, mass: [0.3, 0.46, 0.22, 1] };
 const YELLOW = { color: 'Leaves_ash_yellow.png', tint: [1, 1, 0.78, 1], cutoff: 0.3, mass: [0.56, 0.54, 0.16, 1] };
@@ -52,46 +57,69 @@ const LIME = { color: 'Leaves_ash.png', tint: [1, 1, 0.5, 1], cutoff: 0.3 };
 const BANYAN_BARK = { color: 'Pale_Bark.png', normal: 'Pale_Bark_Normal.png', tint: [0.5, 0.45, 0.39, 1] };
 const SWAMP = { color: 'Conifer_Bark.png', normal: 'Conifer_Bark_Normal.png', tint: [0.3, 0.25, 0.2, 1] };
 const ASPEN = { color: 'Leaves_aspen.png', tint: [1, 0.72, 0.42, 1], cutoff: 0.3 };
+const RUSSET = { color: 'Leaves_aspen.png', tint: [0.07, 0.026, 0.022, 1], cutoff: 0.3, mass: [0.035, 0.013, 0.011, 1] };
+const RICH = { color: 'Leaves_oak.png', tint: [0.2, 0.36, 0.13, 1], cutoff: 0.3, mass: [0.06, 0.15, 0.05, 1] };
+const FIR = { color: 'Conifer_Needles.png', tint: [0.26, 0.38, 0.3, 1], cutoff: 0.3 };
+// Snow lying on a snowy conifer's foot.
+const SNOW_FOOT = { color: 'Pale_Bark.png', normal: 'Pale_Bark_Normal.png', tint: [0.95, 0.96, 1, 1] };
+const WILLOW = { color: 'Gen_Willow.png', tint: [0.7, 0.75, 0.7, 1], cutoff: 0.35 };
+const BROAD = { color: 'Gen_BroadLeaf.png', tint: [0.8, 0.85, 0.7, 1], cutoff: 0.35 };
+const APPLE = { color: 'Leaves_oak.png', tint: [0.194, 0.211, 0.236, 1], cutoff: 0.3, mass: [0.074, 0.118, 0.11, 1] };
+const CHARRED = { color: 'Gen_Char.png', normal: 'Gen_Grit_Normal.png', tint: [1, 1, 1, 1] };
 
-// Each retail conifer: id, across, tall, the trunk's radius at its foot, its needles, its bark.
+// `look` with its tint, and the mass under its leaves, multiplied by `by`: the ratio measured between
+// end of retail's crown and the pack's, so the leaves take retail's colour (Jacob's review, 2026-11-20).
+const toned = (look, by) => {
+  const times = (c) => [...c.slice(0, 3).map((v, k) => Math.min(1, Math.round(v * by[k] * 1000) / 1000)), 1];
+  return { ...look, tint: times(look.tint), ...(look.mass ? { mass: times(look.mass) } : {}) };
+};
+
+// Each retail conifer: id, across, tall, the trunk's radius at its foot, its needles, its bark, and
+// how: where its branches start when not at START, or the floor of its crown read from end of
+// retail's (Jacob's second review, 2026-11-21), snow on its foot, and the other trees of a group.
 const CONIFERS = [
-  ['0x02000258', 16.1, 23.96, 1.0, GREEN],
-  ['0x02000257', 4.6, 6.75, 0.45, GREEN],
-  ['0x02000256', 9.2, 13.5, 0.8, GREEN],
-  ['0x020002D3', 13.4, 35.82, 1.4, GREEN],
-  ['0x020002D9', 13.4, 35.82, 1.4, AUTUMN],
-  ['0x020002DA', 23.5, 62.69, 2.4, AUTUMN],
-  ['0x020002DB', 13.4, 44.42, 1.4, TEAL],
-  ['0x020002D8', 13.4, 33.42, 1.4, TEAL],
-  ['0x020003A2', 4.6, 6.75, 0.45, SNOW],
-  ['0x020003A3', 9.2, 13.5, 0.8, SNOW],
-  ['0x020003A4', 16.1, 23.96, 1.0, SNOW],
-  ['0x020003A7', 13.4, 33.42, 1.4, SNOW],
-  ['0x020012FB', 13.4, 35.82, 1.4, SNOW],
-  ['0x0200129A', 15.3, 54.07, 2.0, GREEN, REDWOOD],
-  ['0x0200129B', 15.3, 40.57, 1.8, GREEN, REDWOOD],
-  ['0x020012FE', 6.5, 21.49, 0.8, GREEN, REDWOOD],
-  ['0x02001C39', 16.4, 35.82, 1.4, GREEN],
+  ['0x02000258', 16.1, 23.96, 1.0, toned(GREEN, [0.394, 0.264, 0.911]), BROWN, { floor: 0.2 }],
+  ['0x02000257', 4.6, 6.75, 0.25, toned(GREEN, [0.271, 0.248, 1]), BROWN, { floor: 0.19, wider: 0.68, taper: 0.7 }],
+  ['0x02000256', 9.2, 13.5, 0.8, toned(GREEN, [0.212, 0.178, 0.687]), BROWN, { floor: 0.17 }],
+  ['0x020002D3', 13.4, 35.82, 1.4, toned(GREEN, [0.211, 0.159, 0.585]), BROWN, { floor: 0.14 }],
+  ['0x020002D9', 13.4, 35.82, 1.4, toned(AUTUMN, [0.23, 0.228, 0.291]), BROWN, { floor: 0.17 }],
+  ['0x020002DA', 23.5, 62.69, 2.4, toned(AUTUMN, [0.197, 0.206, 0.272])],
+  ['0x020002DB', 13.4, 44.42, 1.4, toned(TEAL, [0.157, 0.161, 0.491]), BROWN, { floor: 0.13 }],
+  ['0x020002D8', 13.4, 33.42, 1.4, toned(TEAL, [0.302, 0.193, 0.314]), BROWN, { floor: 0.14 }],
+  ['0x020003A2', 4.6, 6.75, 0.45, toned(SNOW, [0.72, 0.78, 0.84]), BROWN, { floor: 0.15, wider: 0.68, taper: 0.7, reseed: 11, children: 64, snowy: 0.4 }],
+  ['0x020003A3', 9.2, 13.5, 0.8, toned(SNOW, [0.419, 0.463, 0.547]), BROWN, { floor: 0.18, wider: 0.6, taper: 0.75 }],
+  ['0x020003A4', 16.1, 23.96, 1.0, toned(SNOW, [0.448, 0.473, 0.527]), BROWN, { floor: 0.15, snowFoot: true }],
+  ['0x020003A7', 13.4, 33.42, 1.4, toned(SNOW, [0.581, 0.655, 0.74])],
+  ['0x020012FB', 13.4, 35.82, 1.4, toned(SNOW, [0.768, 0.803, 0.858]), BROWN, { floor: 0.1, snowFoot: true }],
+  ['0x0200129A', 12, 54.07, 2.0, toned(GREEN, [0.289, 0.19, 0.484]), REDWOOD, { floor: 0.46 }],
+  ['0x0200129B', 10, 40.57, 1.8, toned(GREEN, [0.359, 0.268, 1]), REDWOOD, { floor: 0.33 }],
+  ['0x020012FE', 6.5, 21.49, 0.8, toned(GREEN, [0.381, 0.198, 0.666]), REDWOOD, { floor: 0.45, children: 16 }],
+  ['0x02001C39', 13, 32, 1.2, toned(GREEN, [0.222, 0.198, 0.73]), BROWN, { floor: 0.2, group: [[-3, -9, 0.82], [2, 9, 0.92]] }],
+  // The older tall pine and fir, which end of retail drew another way (the remodelled props review).
+  ['0x020003A1', 10.4, 56.0, 1.2, TEAL, BROWN, { older: true, start: 0.1 }],
+  ['0x02000F06', 14.8, 29.6, 1.0, FIR, BROWN, { older: true, start: 0.2 }],
 ];
 
 // Each retail round tree: id, across, tall, the EZ-Tree preset, its bark and leaves, the radius of
 // its trunk at its foot where it follows retail's, and how many times the preset's leaves it has.
+// The two-lobed ashes and the leafy oak are shaped models now (Jacob's review, 2026-11-20).
 const ROUND = [
-  ['0x02000246', 6.2, 8.05, oak, BROWN, OAK, undefined, 1.4],
-  ['0x02000240', 4.7, 5.63, oak, BROWN, OAK, undefined, 1.4],
-  ['0x0200062C', 7.9, 11.25, ash, PALE, ASH, undefined, 2],
+  // The small oak, the sapling and the spreading bush are shaped models now (Jacob's second review,
+  // 2026-11-21); their rows stay so the rows after them keep their seeds.
+  ['0x02000246', 'shaped'],
+  ['0x02000240', 'shaped'],
+  ['0x0200062C', 'shaped'],
+  // 0.4.4's bright orange (Jacob, 2026-11-21).
   ['0x0200062B', 7.9, 11.25, aspen, PALE, ASPEN, undefined, 3.2, 1.45],
-  ['0x020002F6', 8.9, 4.76, bush, BROWN, OLIVE],
-  ['0x020004BE', 13.5, 21.3, ashLarge, ASHEN, ASH, 1.25, 1.7],
-  ['0x020012FF', 13.5, 21.3, ashLarge, ASHEN, YELLOW, 1.25, 1.7],
-  ['0x02000322', 8.85, 9.75, oak, BROWN, DARK, 0.59],
+  ['0x020002F6', 'shaped'],
 ];
 
 // Each retail banyan: id, across, tall, its trunk's radius at its foot.
 const BANYANS = [
-  ['0x020003EE', 32.8, 39.25, 1.33],
-  ['0x020003EF', 32.8, 25.68, 1.33],
-  ['0x020003ED', 32.8, 19.9, 1.33],
+  // Scaled to retail's height as drawn (Jacob's sizes review, 2026-11-21).
+  ['0x020003EE', 32.8 * 0.76, 39.25 * 0.76, 1.33 * 0.76],
+  ['0x020003EF', 32.8 * 0.92, 25.68 * 0.92, 1.33 * 0.92],
+  ['0x020003ED', 32.8 * 0.64, 19.9 * 0.64, 1.33 * 0.64],
 ];
 // Each level: sides of the wood, how many roots reach the ground and how many hang, the share of
 // leaf cards kept and how much those grow.
@@ -110,40 +138,45 @@ const FLESH = [0.46, 0.42, 0.3, 1];
 const mush = (across, tall, stem, depth, cap) => ({ across, tall, stem, depth, cap, flesh: FLESH });
 
 // Everything else, each from a maker in shapes.mjs: id, maker, its size.
+// A shaped model drawn only on the record it was made for, not on every era's.
+const OLDER = { older: true };
+
 const SHAPED = [
   ['0x0100069A', 'hayPile', { across: 1.7, tall: 0.3 }],
   ['0x02000285', 'emberBed', { across: 1.25, rise: 2.04, tall: 0.26 }],
   ['0x02000354', 'emberBed', { across: 0.86, rise: 0.17, tall: 0.1 }],
-  ['0x020007D4', 'parasol', { across: 41.8, tall: 28.69, trunk: 0.85, bark: CREAM, leaves: LIME }],
-  ['0x020007D9', 'parasol', { across: 17.1, tall: 15.36, trunk: 0.6, lean: 0.14, bark: CREAM, leaves: VIVID }],
-  ['0x020003EB', 'parasol', { across: 17.1, tall: 15.36, trunk: 0.6, lean: 0.14, bark: CREAM, leaves: VIVID }],
-  ['0x020003EA', 'parasol', { across: 22.9, tall: 20.48, trunk: 0.72, lean: 0.14, bark: CREAM, leaves: VIVID }],
-  ['0x020002D7', 'elm', { across: 26.5, tall: 17.63, trunk: 1.34, bark: ELM_GREY, leaves: OAK }],
-  ['0x02000251', 'elm', { across: 53, tall: 35.27, trunk: 1.83, bark: ELM_GREY, leaves: OAK }],
-  ['0x020002DC', 'elm', { across: 26.5, tall: 17.63, trunk: 0.95, bark: ELM_GREY, leaves: OAK }],
-  ['0x020012FC', 'crowned', { across: 8.5, tall: 10.38, trunk: 0.8, bark: CREAM, leaves: YELLOW }],
-  ['0x020012FD', 'crowned', { across: 8.5, tall: 18.38, trunk: 0.8, bark: CREAM, leaves: YELLOW }],
-  ['0x0200009D', 'crowned', { across: 8.5, tall: 18.38, trunk: 0.8, bark: CREAM, leaves: YELLOW }],
-  ['0x020002F2', 'shrub', { across: 3.6, tall: 3.84, bark: BROWN, leaves: OAK }],
-  ['0x020002F5', 'shrub', { across: 3.5, tall: 3.85, bark: BROWN, leaves: ASH }],
-  ['0x020002F4', 'shrub', { across: 4.9, tall: 3.85, bark: BROWN, leaves: OAK }],
-  ['0x02001C36', 'shrub', { across: 3.6, tall: 3.84, bark: BROWN, leaves: OAK }],
-  ['0x02001C34', 'shrub', { across: 4.3, tall: 7.8, bark: BROWN, leaves: OLIVE }],
-  ['0x02001C31', 'shrub', { across: 4.7, tall: 5.63, bark: BROWN, leaves: OAK }],
-  ['0x020002F3', 'shrub', { across: 3.0, tall: 6.55, bark: BROWN, leaves: DARK }],
-  ['0x02000A35', 'clumpTree', { across: 14.2, tall: 26.8, trunk: 2.2 }],
-  ['0x020004C7', 'snag', { across: 8.85, tall: 9.75, trunk: 0.5, spikes: 12 }],
-  ['0x02000AB6', 'snag', { across: 9, tall: 26.48, trunk: 1.9, spikes: 6, fork: true }],
-  ['0x0200071F', 'snag', { across: 9.1, tall: 12.4, trunk: 1.2, spikes: 12, ash: 1 }],
-  ['0x02000847', 'snag', { across: 18.1, tall: 18.79, trunk: 2.0, spikes: 11, ash: 1 }],
-  ['0x020007BC', 'gnarl', { across: 11, tall: 6.5, trunk: 0.5, arms: 7, arching: true, bark: { ...GNARLED, tint: [0.5, 0.41, 0.16, 1] } }],
-  ['0x02000BAC', 'gnarl', { across: 3.6, tall: 3.84, trunk: 0.14, arms: 12, bark: GREY }],
-  ['0x020004B1', 'palm', { across: 5.35, tall: 9.97, trunk: 0.34 }],
-  ['0x020007DA', 'palm', { across: 12.7, tall: 14.2, trunk: 0.24, fronds: 7, fan: true, leaf: [0.24, 0.62, 0.42, 1], bark: [0.42, 0.38, 0.24, 1], lean: 0.04 }],
-  ['0x02000214', 'palm', { across: 9.6, tall: 8.48, trunk: 0.62, fronds: 18, lean: 0.03, bark: [0.3, 0.22, 0.15, 1] }],
-  ['0x02000E71', 'jungle', { across: 8.7, tall: 5.96, blades: 8, wide: 0.34 }],
-  ['0x02000E72', 'jungle', { across: 10, tall: 6.54, blades: 12, wide: 0.5 }],
-  ['0x02000A38', 'stalk', { across: 7.5, tall: 10.6, trunk: 1.15 }],
+  ['0x020007D4', 'tiers', { across: 41.8, tall: 28.69, trunk: 0.85, bark: CREAM, leaves: toned(BROAD, [0.962, 1, 0.747]) }],
+  ['0x020007D9', 'bonsai', { across: 17.1, tall: 15.36, trunk: 0.6, bark: { ...PALE, tint: [0.9, 0.89, 0.85, 1] }, leaves: toned(VIVID, [0.73, 0.547, 1]), flat: true, lean: 0.14, heading: 0.45 }],
+  ['0x020003EB', 'bonsai', { across: 17.1, tall: 15.36, trunk: 0.6, bark: GNARLED, leaves: toned(VIVID, [0.744, 0.554, 1]), lean: 0.14, heading: 0.45 }],
+  ['0x020003EA', 'bonsai', { across: 22.9, tall: 20.48, trunk: 0.82, bark: { ...PALE, tint: [0.9, 0.89, 0.85, 1] }, leaves: toned(VIVID, [0.723, 0.534, 1]), flat: true, lean: 0.12, heading: 0.45 }],
+  ['0x020002D7', 'elm', { across: 26.5, tall: 17.63, trunk: 1.34, bark: ELM_GREY, leaves: toned(OAK, [0.351, 0.362, 0.962]), low: 0.06 }],
+  ['0x02000251', 'elm', { across: 53, tall: 35.27, trunk: 1.83, bark: ELM_GREY, leaves: toned(OAK, [0.328, 0.344, 0.868]), low: 0.01 }],
+  ['0x020002DC', 'elm', { across: 26.5, tall: 17.63, trunk: 0.95, bark: ELM_GREY, leaves: toned(OAK, [0.296, 0.316, 0.719]), low: 0.01 }],
+  ['0x020012FC', 'crowned', { across: 8.5, tall: 8.04, trunk: 0.8, bark: CREAM, leaves: toned(YELLOW, [0.561, 0.57, 0.169]), droop: true }],
+  ['0x020012FD', 'crowned', { across: 8.5, tall: 18.38, trunk: 0.8, bark: CREAM, leaves: toned(YELLOW, [0.562, 0.606, 0.708]) }],
+  ['0x0200009D', 'crowned', { across: 8.5, tall: 18.38, trunk: 0.8, bark: CREAM, leaves: toned(YELLOW, [0.481, 0.477, 0.389]) }],
+  ['0x020002F2', 'shrub', { across: 3.6, tall: 3.84, bark: BROWN, leaves: toned(OAK, [0.19, 0.143, 0.324]), lobes: 8, leafy: 0.6 }],
+  ['0x020002F5', 'shrub', { across: 3.5, tall: 3.85, bark: BROWN, leaves: toned(ASH, [0.205, 0.312, 0.564]), lobes: 8 }],
+  ['0x020002F4', 'shrub', { across: 4.9, tall: 3.85, bark: BROWN, leaves: toned(OAK, [0.171, 0.248, 0.608]), lobes: 8 }],
+  ['0x02001C36', 'shrub', { across: 3.6, tall: 3.84, bark: BROWN, leaves: toned(OAK, [0.197, 0.146, 0.322]) }],
+  ['0x02001C34', 'shrub', { across: 4.3, tall: 7.8, bark: BROWN, leaves: toned(OLIVE, [0.231, 0.192, 0.509]) }],
+  ['0x02001C31', 'shrub', { across: 4.7, tall: 5.63, bark: BROWN, leaves: toned(OAK, [0.165, 0.131, 0.372]) }],
+  ['0x020002F3', 'shrub', { across: 3.0, tall: 6.55, bark: BROWN, leaves: toned(DARK, [0.162, 0.207, 0.447]) }],
+  ['0x02000A35', 'clumpTree', { across: 14.2, tall: 26.8, trunk: 2.2, leaf: [0.035, 0.083, 0.026, 1] }],
+  ['0x020004C7', 'deadwood', { across: 8.85, tall: 9.75, trunk: 0.42, depth: 4, limbs: 8, bark: { ...CHARRED, tint: [0.046, 0.046, 0.044, 1] } }],
+  ['0x02000AB6', 'snag', { across: 9, tall: 26.48, trunk: 1.9, spikes: 6, fork: true, tint: [0.024, 0.023, 0.021, 1] }],
+  // Fallen trees on their root plates, leaning east as retail's do.
+  ['0x0200071F', 'deadwood', { across: 9.1, tall: 12.4, trunk: 0.6, level: true, lean: 0.6, toward: 0, uprooted: 1.8, snapped: true, limbs: 14, depth: 2, moss: 0.7, bark: { ...BROWN, tint: [0.587, 0.374, 0.309, 1] } }],
+  ['0x02000847', 'deadwood', { across: 18.1, tall: 18.79, trunk: 0.95, level: true, lean: 0.18, toward: 0, uprooted: 2, snapped: true, limbs: 16, depth: 3, moss: 0.5, bark: { ...BROWN, tint: [0.401, 0.228, 0.239, 1] } }],
+  // Drawn as retail draws it (Jacob's third review, 2026-11-21).
+  ['0x020007BC', 'retail'],
+  ['0x02000BAC', 'deadwood', { across: 3.6, tall: 3.84, trunk: 0.07, stems: 4, limbs: 4, depth: 3, bark: { ...GREY, tint: [0.078, 0.078, 0.095, 1] } }],
+  ['0x020004B1', 'palm', { across: 5.35, tall: 9.97, trunk: 0.34, leaf: [0.763, 1, 0.17, 1], bark: [1, 0.98, 0.93, 1] }],
+  ['0x020007DA', 'palm', { across: 12.7, tall: 14.2, trunk: 0.24, fronds: 7, fan: true, leaf: [0.373, 0.524, 1, 1], bark: [0.42, 0.38, 0.24, 1], lean: 0.04 }],
+  ['0x02000214', 'palm', { across: 9.6, tall: 8.48, trunk: 0.62, fronds: 18, lean: 0.03, bark: [0.3, 0.22, 0.15, 1], leaf: [0.166, 0.779, 0.356, 1] }],
+  ['0x02000E71', 'jungle', { across: 8.7, tall: 5.96, blades: 5, wide: 0.2, stem: 0.42, rise: 0.36, droop: 0.72, leaf: [0.225, 0.466, 0.237, 1] }],
+  ['0x02000E72', 'jungle', { across: 10, tall: 6.54, blades: 7, wide: 0.24, stem: 0.46, rise: 0.34, droop: 0.72, leaf: [0.129, 0.369, 0.092, 1] }],
+  ['0x02000A38', 'stalk', { across: 7.5, tall: 10.6, trunk: 1.15, leaf: [0.36, 0.22, 0.12, 1] }],
   ['0x020010C7', 'wingTree', { across: 6.32, tall: 5.72, trunk: 0.72 }],
   ['0x020010CD', 'wingTree', { across: 6.32, tall: 8.87, trunk: 0.86 }],
   ['0x020010C5', 'puffTree', { across: 13.2, tall: 20, trunk: 1.5 }],
@@ -166,20 +199,23 @@ const SHAPED = [
   ['0x020007E4', 'crystal', { across: 8.6, tall: 10.8, prongs: 3 }],
   ['0x020007E2', 'crystal', { across: 12.4, tall: 17.78, prongs: 5 }],
   ['0x020007E3', 'crystal', { across: 9.2, tall: 17.74, prongs: 3 }],
-  ['0x020014A8', 'coral', { across: 32, tall: 42.59, tint: [0.14, 0.58, 0.7, 1] }],
-  ['0x020014A5', 'coral', { across: 32, tall: 42.59, tint: [0.72, 0.16, 0.08, 1] }],
-  ['0x020014A7', 'coral', { across: 32, tall: 42.59, tint: [0.12, 0.6, 0.2, 1] }],
+  // The sea ferns, sea stars and anemones are drawn as retail draws them (Jacob's review, 2026-11-20);
+  // their rows stay so the rows after them keep their seeds. anemone.py paints the anemones' pictures.
+  ['0x020014A8', 'retail'],
+  ['0x020014A5', 'retail'],
+  ['0x020014A7', 'retail'],
   ['0x02000CA5', 'pod', { across: 1.7, tall: 2.29, picture: 'Gen_Pod_Green.png' }],
-  ['0x02000A37', 'blossom', { across: 1.22, tall: 1.09, petal: 'Gen_Petal_Orange.png' }],
-  ['0x02000B2F', 'blossom', { across: 1.22, tall: 1.09, petal: 'Gen_Petal_Red.png' }],
-  ['0x02000B2D', 'blossom', { across: 1.22, tall: 1.09, petal: 'Gen_Petal_Magenta.png' }],
-  ['0x02000B2E', 'blossom', { across: 1.22, tall: 1.09, petal: 'Gen_Petal_Purple.png' }],
+  // The drooping flowers are drawn as retail draws them (Jacob's second review, 2026-11-21).
+  ['0x02000A37', 'retail'],
+  ['0x02000B2F', 'retail'],
+  ['0x02000B2D', 'retail'],
+  ['0x02000B2E', 'retail'],
   ['0x020004BC', 'bladed', { across: 0.61, tall: 1.5, leaf: [0.66, 0.74, 0.14, 1] }],
   ['0x020004BB', 'bladed', { across: 0.61, tall: 1.5, leaf: [0.14, 0.42, 0.1, 1], stalkTint: [0.2, 0.05, 0.05, 1] }],
-  ['0x020014AF', 'star', { across: 3.72, tall: 1.44, tint: [0.82, 0.34, 0.24, 1] }],
-  ['0x020014B0', 'star', { across: 3.72, tall: 1.44, tint: [0.26, 0.78, 0.46, 1] }],
-  ['0x020014B2', 'anemone', { across: 1.95, tall: 2.42, tint: [0.22, 0.7, 0.3, 1] }],
-  ['0x020014B4', 'anemone', { across: 1.95, tall: 2.42, tint: [0.24, 0.32, 0.8, 1] }],
+  ['0x020014AF', 'retail'],
+  ['0x020014B0', 'retail'],
+  ['0x020014B2', 'retail'],
+  ['0x020014B4', 'retail'],
   ['0x020010C8', 'budStalk', { across: 0.27, tall: 1.66 }],
   ['0x020010CE', 'budStalk', { across: 0.27, tall: 1.06 }],
   ['0x020010C9', 'webbed', { across: 1.38, tall: 1.67 }],
@@ -189,8 +225,34 @@ const SHAPED = [
   ['0x020010C4', 'tuft', { across: 1, tall: 2, tint: [0.54, 0.36, 0.25, 1], blades: 16 }],
   ['0x020010D0', 'tuft', { across: 4.73, tall: 2, tint: [0.62, 0.43, 0.32, 1], clumps: 4, blades: 18 }],
   ['0x020010CB', 'frond', { across: 1.5, tall: 1.25 }],
-  ['0x02000A59', 'shrub', { across: 0.4, tall: 0.42, bark: BROWN, leaves: DARK }],
+  ['0x02000A59', 'sprig', { across: 0.4, tall: 0.42, leaves: { color: 'Conifer_Needles.png', tint: [0.962, 1, 1, 1], cutoff: 0.3 } }],
   ['0x020004B2', 'cycad', { across: 4.4, tall: 2.43, trunk: 0.58, crest: 1.72 }],
+  // The 1999 and 2005 plants End of Retail drew as other plants under the same ids (Jacob's
+  // review of the remodelled props, 2026-11-20): drawn only on the older records, so End of
+  // Retail keeps its own. The graphics objects are the same plants scattered by themselves.
+  ['0x02000253', 'fern', { across: 1.3, tall: 1.05 }, OLDER],
+  ['0x01000B74', 'fern', { across: 1.3, tall: 1.05 }, OLDER],
+  ['0x02000254', 'ferns', { across: 5.0, tall: 3.0, count: 6 }, OLDER],
+  ['0x01000B78', 'ferns', { across: 5.0, tall: 3.0, count: 6 }, OLDER],
+  ['0x020007A2', 'lilies', { across: 0.66, tall: 0.88, stems: 3, petal: 'Gen_Petal_Red.png' }, OLDER],
+  ['0x020007A3', 'spike', { across: 0.57, tall: 1.6, petal: 'Gen_Petal_Purple.png' }, OLDER],
+  ['0x020007A4', 'spike', { across: 0.57, tall: 1.6, petal: 'Gen_Petal_Magenta.png' }, OLDER],
+  // Round 2: the older young tree, its red-brown twin and the giant tree, grown again.
+  ['0x020002F1', 'shrub', { across: 4.3, tall: 7.75, bark: BROWN, leaves: ASH, leafy: 0.3, stems: 6, reach: 0.85 }, OLDER],
+  ['0x02000BAD', 'shrub', { across: 4.3, tall: 7.75, bark: BROWN, leaves: RUSSET, leafy: 0.3, stems: 6, reach: 0.85 }, OLDER],
+  ['0x02000BAE', 'shrub', { across: 8.0, tall: 4.78, bark: BROWN, leaves: RUSSET, leafy: 0.35, stems: 7, reach: 0.8 }, OLDER],
+  ['0x02000325', 'elm', { across: 13.4, tall: 12.9, trunk: 0.6, bark: BROWN, leaves: RICH, low: 0.22 }, OLDER],
+  // Jacob's review of the pack's trees, 2026-11-20: the two-lobed ashes as weeping trees of a new
+  // leaf, and the leafy oak as the fruit tree it is.
+  ['0x020004BE', 'weeper', { across: 13.5, tall: 21.3, trunk: 0.75, hang: 0.22, bark: ASHEN, leaves: { ...WILLOW, tint: [0.527, 0.604, 0.401, 1] } }],
+  ['0x020012FF', 'weeper', { across: 13.5, tall: 21.3, trunk: 0.75, hang: 0.22, bark: ASHEN, leaves: { ...WILLOW, tint: [0.488, 0.238, 0.153, 1] } }],
+  // Jacob's second review, 2026-11-21: the small oak, the sapling and the spreading bush as dense
+  // crowns of lobes, from a little above the ground.
+  ['0x02000246', 'fruitTree', { across: 5, tall: 8.05, trunk: 0.3, bark: BROWN, leaves: toned(OAK, [0.283, 0.229, 0.49]), fruit: 0, low: 0.1 }],
+  ['0x02000240', 'fruitTree', { across: 3.9, tall: 5.63, trunk: 0.24, bark: BROWN, leaves: toned(OAK, [0.214, 0.179, 0.447]), fruit: 0, low: 0.1 }],
+  ['0x020002F6', 'fruitTree', { across: 8.9, tall: 4.76, trunk: 0.3, bark: BROWN, leaves: toned(OLIVE, [0.22, 0.188, 0.501]), fruit: 0, low: 0.2, leafy: 0.45 }],
+  ['0x0200062C', 'fruitTree', { across: 7.9, tall: 11.25, trunk: 0.3, bark: PALE, leaves: toned(ASH, [0.358, 0.27, 0.248]), fruit: 0, low: 0.35 }],
+  ['0x02000322', 'fruitTree', { across: 8.85, tall: 9.75, trunk: 0.42, bark: BROWN, leaves: toned(APPLE, [0.634, 0.778, 1]), leafy: 0.6, mass: false }],
 ];
 // Each level: the share of its sides and rows kept, of its leaves kept, and how much those grow.
 const SHAPE_LEVELS = [
@@ -320,30 +382,44 @@ function write(name, parts) {
   return primitives.reduce((sum, p) => sum + accessors[p.indices].count / 3, 0);
 }
 
-function conifer(tall, across, trunk, seed) {
+function conifer(tall, across, trunk, seed, start = START, older = false, floor, children, wider = 0.46) {
   const o = structuredClone(pine);
   o.seed = seed;
   o.bark.textured = false;
   o.bark.textureScale = { x: 4, y: 1 };
   o.branch.length[0] = tall;
-  o.branch.length[1] = across / 2 / SWEEP / (1 - START);
+  o.branch.length[1] = across / 2 / SWEEP / (1 - start);
   o.branch.radius[0] = trunk;
   o.branch.radius[1] = Math.max(0.06, trunk * 0.18);
   o.branch.children[0] = Math.round(Math.max(28, tall * 3));
-  o.branch.start[1] = START;
+  o.branch.start[1] = start;
   o.branch.angle[1] = ANGLE;
   o.branch.sections[0] = Math.max(4, Math.round(tall / 3.4));
   o.branch.sections[1] = 4;
   o.branch.segments[0] = 12;
   o.branch.segments[1] = 4;
-  o.leaves.count = tall < 10 ? 10 : 13;
+  // Needles all along each branch, as thick as retail's crowns; the older models keep their own.
+  o.leaves.count = older ? (tall < 10 ? 10 : 13) : tall < 10 ? 15 : 20;
+  if (!older) o.leaves.start = 0;
   o.leaves.size = Math.min(2.2, Math.max(0.7, across * 0.13));
+  // A crown with a floor read from retail's: more, shorter-needled branches from that floor up, so the
+  // needles close into a cone where fewer, larger tufts read as a spiral up the trunk.
+  // Its cone is as wide as retail's, `wider` of its height, and its branches near level.
+  if (floor !== undefined) {
+    const wide = Math.min(across, tall * wider);
+    o.branch.start[1] = floor;
+    o.branch.angle[1] = 96;
+    o.branch.length[1] = wide / 2 / (1 - floor);
+    o.branch.children[0] = children ?? Math.round(Math.max(48, tall * 4.5));
+    o.leaves.count = tall < 15 ? 22 : 18;
+    o.leaves.size = Math.min(2.4, Math.max(0.7, wide * 0.16));
+  }
   return o;
 }
 
 // A generated tree's two parts, flared at the foot and sunk into the ground; a tree `fit` to
 // `across` by `tall` is stretched to it.
-function treeParts(geometry, bark, leaves, flareTall, fit, level, seed) {
+function treeParts(geometry, bark, leaves, flareTall, fit, level, seed, under, trim) {
   const of = (g, m, flare) => ({
     material: m,
     position: Float32Array.from(g.getAttribute('position').array),
@@ -378,10 +454,17 @@ function treeParts(geometry, bark, leaves, flareTall, fit, level, seed) {
     // three.js counts a picture's second coordinate from its foot, glTF from its top.
     for (let i = 1; i < p.uv.length; i += 2) p.uv[i] = 1 - p.uv[i];
   }
-  if (leaves.m.snow) snowOn(parts[1], high, seed);
-  const ball = shapes.footMesh(Math.max(0.12, footR), [1, 0.65, 0.42, 0.28][level], seed);
+  if (trim) {
+    parts[1] = cone(parts[1], high, trim);
+    parts[0] = pruned(parts[0], high, trim.floor, Math.max(0.3, footR * 1.3));
+  }
+  if (under) parts.push(...snowOn(parts.splice(1, 1)[0], high, seed, under, trim?.snowy ?? 0));
+  // Sized from the trunk under its flare, so the flare is not spread twice.
+  const ball = shapes.footMesh(Math.max(0.12, footR / (1 + FLARE)), [1, 0.65, 0.42, 0.28][level], seed);
+  // The root ball drawn in to the trunk it stands under, so the two meet with no ledge.
+  shapes.seatFoot(ball, 0, parts[0].position, parts[0].index);
   parts.push({
-    material: bark,
+    material: trim?.foot ?? bark,
     position: Float32Array.from(ball.position),
     normal: Float32Array.from(ball.normal),
     uv: Float32Array.from(ball.uv),
@@ -390,29 +473,72 @@ function treeParts(geometry, bark, leaves, flareTall, fit, level, seed) {
   return parts;
 }
 
-// Vertex colours over a picture of snow lying on needles: brightest toward the top of the tree and
-// on the upper edge of each card.
-function snowOn(part, high, seed) {
+// A conifer's cards shaped to a cone: each grown a little at the foot of the crown and shrunk toward
+// its top by `taper`, so it ends in a point, and none reaching under `floor` of its height.
+function cone(part, high, { floor = 0, taper = 1 }) {
+  const n = part.position.length / 3;
+  const gone = new Uint8Array(Math.ceil(n / 4));
+  for (let q = 0; q < gone.length; q++) {
+    const c = [0, 0, 0];
+    const k = Math.min(4, n - q * 4);
+    for (let v = 0; v < k; v++) for (let a = 0; a < 3; a++) c[a] += part.position[(q * 4 + v) * 3 + a] / k;
+    const up = (c[1] + SINK) / high;
+    const s = 1.2 - taper * Math.max(0, Math.min(1, up)) ** 1.3;
+    let low = Infinity;
+    for (let v = 0; v < k; v++) for (let a = 0; a < 3; a++) {
+      const i = (q * 4 + v) * 3 + a;
+      part.position[i] = c[a] + (part.position[i] - c[a]) * s;
+      if (a === 1) low = Math.min(low, (part.position[i] + SINK) / high);
+    }
+    if (low < floor) gone[q] = 1;
+  }
+  const index = [];
+  for (let t = 0; t < part.index.length; t += 3) {
+    if (!gone[Math.floor(part.index[t] / 4)]) index.push(part.index[t], part.index[t + 1], part.index[t + 2]);
+  }
+  return { ...part, index: Uint32Array.from(index) };
+}
+
+// The wood under a crown's floor cut away but for the trunk, so no bare branch hangs below it.
+function pruned(part, high, floor, trunk) {
+  const keep = (v) => (part.position[v * 3 + 1] + SINK) / high >= floor * 0.95 || Math.hypot(part.position[v * 3], part.position[v * 3 + 2]) < trunk;
+  const index = [];
+  for (let t = 0; t < part.index.length; t += 3) {
+    if (keep(part.index[t]) || keep(part.index[t + 1]) || keep(part.index[t + 2])) index.push(part.index[t], part.index[t + 1], part.index[t + 2]);
+  }
+  return { ...part, index: Uint32Array.from(index) };
+}
+
+// A conifer's cards as two parts, since the client draws no vertex colours: snow on a share of them,
+// rising toward the top of the tree, and bare needles on the rest; `more` adds to the share.
+function snowOn(part, high, seed, under, more = 0) {
   const random = shapes.seeded(seed);
   const n = part.position.length / 3;
-  part.color = new Float32Array(n * 4);
-  for (let q = 0; q + 3 < n; q += 4) {
-    let lo = Infinity;
-    let hi = -Infinity;
-    for (let v = 0; v < 4; v++) {
-      const y = part.position[(q + v) * 3 + 1];
-      lo = Math.min(lo, y);
-      hi = Math.max(hi, y);
-    }
-    const jitter = random() * 0.25;
-    for (let v = 0; v < 4; v++) {
-      const y = part.position[(q + v) * 3 + 1];
-      const rise = (y - (lo + hi) / 2) / Math.max(0.01, (hi - lo) / 2);
-      const s = Math.max(0, Math.min(1, 0.3 + (y / high) * 0.9 + rise * 0.35 + jitter));
-      // A little blue, since the crowns take a warm light.
-      part.color.set([0.34 + 0.54 * s, 0.46 + 0.48 * s, 0.38 + 0.62 * s, 1], (q + v) * 4);
-    }
+  const snowy = new Uint8Array(Math.ceil(n / 4));
+  for (let q = 0; q < snowy.length; q++) {
+    let y = 0;
+    for (let v = 0; v < 4; v++) y += part.position[(Math.min(n - 1, q * 4 + v)) * 3 + 1] / 4;
+    snowy[q] = random() < Math.max(0.3, Math.min(0.95, 0.35 + more + (y / high) * 0.5)) ? 1 : 0;
   }
+  const split = (want, material) => {
+    const remap = new Map();
+    const index = [];
+    for (let t = 0; t < part.index.length; t += 3) {
+      if (snowy[Math.floor(part.index[t] / 4)] !== want) continue;
+      for (let k = 0; k < 3; k++) {
+        const v = part.index[t + k];
+        if (!remap.has(v)) remap.set(v, remap.size);
+        index.push(remap.get(v));
+      }
+    }
+    const pick = (array, width) => {
+      const out = new Float32Array(remap.size * width);
+      for (const [from, to] of remap) for (let k = 0; k < width; k++) out[to * width + k] = array[from * width + k];
+      return out;
+    };
+    return { material, position: pick(part.position, 3), normal: pick(part.normal, 3), uv: pick(part.uv, 2), index: Uint32Array.from(index) };
+  };
+  return [split(0, under), split(1, part.material)];
 }
 
 function fitting(parts, [across, tall]) {
@@ -430,7 +556,7 @@ function fitting(parts, [across, tall]) {
   return [across / wide, tall / hi[1], across / wide];
 }
 
-function buildTree(id, options, barkLook, leafLook, flareTall, fit, trunk, seed = 1) {
+function buildTree(id, options, barkLook, leafLook, flareTall, fit, trunk, seed = 1, trim) {
   let tree = new Tree();
   tree.options.copy(options);
   if (trunk) {
@@ -446,11 +572,30 @@ function buildTree(id, options, barkLook, leafLook, flareTall, fit, trunk, seed 
   }
   const bark = material('Bark', barkLook, true);
   const leaves = material('Leaves', leafLook, false);
+  const under = leafLook.snow ? material('Needles', leafLook.snow, false) : null;
+  const how = trim && { ...trim, foot: trim.snowFoot ? material('Snow', SNOW_FOOT, true) : undefined };
+  // A group grows more trees from other seeds, each scaled and moved: [x, z, scale].
+  const others = (trim?.group ?? []).map(([x, z, k], g) => {
+    const t = new Tree();
+    t.options.copy({ ...structuredClone(tree.options), seed: tree.options.seed + 31 * (g + 1) });
+    return { t, x, z, k };
+  });
   const files = [];
   const counts = TREE_LEVELS.map((level, i) => {
     const name = `${id}_lod${i}`;
     files.push(name);
-    return write(name, treeParts(tree.createGeometry(level.detail), bark, leaves, flareTall, fit, i, seed));
+    const parts = treeParts(tree.createGeometry(level.detail), bark, leaves, flareTall, fit, i, seed, under, how);
+    for (const { t, x, z, k } of others) {
+      for (const p of treeParts(t.createGeometry(level.detail), bark, leaves, flareTall, fit, i, seed, under, how)) {
+        for (let v = 0; v < p.position.length; v += 3) {
+          p.position[v] = p.position[v] * k + x;
+          p.position[v + 1] = (p.position[v + 1] + SINK) * k - SINK;
+          p.position[v + 2] = p.position[v + 2] * k + z;
+        }
+        parts.push(p);
+      }
+    }
+    return write(name, parts);
   });
   console.log(`${id}: ${counts.join(', ')} triangles`);
   return files;
@@ -496,12 +641,23 @@ function banyanParts(across, tall, trunk, seed, level, bark, leaves) {
   };
   const wood = { position: [], normal: [], uv: [], index: [] };
   const crown = { position: [], normal: [], uv: [], index: [] };
-  // A run of tubes through `points`, its radius falling from `from` to `to`.
+  // A run of tubes along a smooth curve through `points`, its radius falling from `from` to `to`:
+  // a few short tubes a span, so a bend leaves no crease across the wood.
   const run = (points, from, to, sides) => {
-    const last = points.length - 1;
+    const per = sides >= 7 ? 4 : sides >= 5 ? 3 : 1;
+    const path = [];
+    for (let k = 0; k < points.length - 1; k++) {
+      const p0 = points[Math.max(0, k - 1)], p1 = points[k], p2 = points[k + 1], p3 = points[Math.min(points.length - 1, k + 2)];
+      for (let s = 0; s < per; s++) {
+        const t = s / per;
+        path.push([0, 1, 2].map((j) => 0.5 * (2 * p1[j] + (-p0[j] + p2[j]) * t + (2 * p0[j] - 5 * p1[j] + 4 * p2[j] - p3[j]) * t * t + (-p0[j] + 3 * p1[j] - 3 * p2[j] + p3[j]) * t ** 3)));
+      }
+    }
+    path.push(points[points.length - 1]);
+    const last = path.length - 1;
     for (let k = 0; k < last; k++) {
       const r = (t) => from + (to - from) * t;
-      addTube(wood, points[k], points[k + 1], r(k / last), r((k + 1) / last), sides);
+      addTube(wood, path[k], path[k + 1], r(k / last), r((k + 1) / last), sides);
     }
   };
   shapes.foot(wood, trunk, level.sides / 10, seed);
@@ -763,23 +919,34 @@ function buildCover(c, k) {
   return levels;
 }
 
-fs.rmSync(out, { recursive: true, force: true });
+if (!only) fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
 let manifest = '[pack]\nname = "Enhanced Environment Models"\nformat = 2\n';
 // How much the wind moves each maker's shapes; rigid things stand still.
-const WIND = { hayPile: 0, emberBed: 0, mushroom: 0, cactus: 0, pod: 0, crystal: 0, snag: 0, coral: 0.2, anemone: 0.15, gnarl: 0.3 };
-const treeEntry = (id, files, credit = CREDITS.tree, foliage = true, wind = 1) => {
-  // Every era draws the plants, whatever shape its own files give them.
-  manifest += `\n[[model]]\nid = "${id}"\ndraws_on = "any"\nfoliage = ${foliage}\nwind = ${wind}\n${credit}`;
+const WIND = { hayPile: 0, emberBed: 0, mushroom: 0, cactus: 0, pod: 0, crystal: 0, snag: 0, deadwood: 0, coral: 0.2, anemone: 0.15, gnarl: 0.3, vine: 0.2 };
+// Models kept as 0.4.4's gen_pack.mjs (141f440b) grew them, with today's foot (Jacob's reviews, 2026-11-21);
+// their rows here would grow them differently, so they are grown only when named in `--only`.
+const KEPT = ['0x02000240', '0x02000246', '0x02000251', '0x020002D7', '0x020002DC', '0x020007D4', '0x020002F3', '0x02001C36',
+  '0x020003A3', '0x020003A4', '0x020003A7', '0x020012FB', '0x020004BE', '0x020002D9'];
+const wanted = (id) => (only ? only.includes(id) : !KEPT.includes(id));
+const treeEntry = (id, files, credit = CREDITS.tree, foliage = true, wind = 1, older = false) => {
+  // Every era draws the plants, whatever shape its own files give them, but those made for an
+  // older record alone; `pyreal-art fingerprint` names that record from the older files.
+  manifest += `\n[[model]]\nid = "${id}"\ndraws_on = "${older ? 'matching' : 'any'}"\nfoliage = ${foliage}\nwind = ${wind}\n${credit}`;
   files.forEach((file, i) => {
     manifest += `\n[[model.lod]]\nfile = "trees/${file}.gltf"\n`;
     if (TREE_LEVELS[i].distance) manifest += `distance = ${TREE_LEVELS[i].distance}.0\n`;
   });
 };
-CONIFERS.forEach(([id, across, tall, trunk, needles, bark = BROWN], i) => {
-  treeEntry(id, buildTree(id, conifer(tall, across, trunk, 258 + 97 * i), bark, needles, tall * FLARE_SHARE, undefined, undefined, 258 + 97 * i));
+CONIFERS.forEach(([id, across, tall, trunk, needles, bark = BROWN, how = {}], i) => {
+  if (!wanted(id)) return;
+  const trim = how.floor === undefined ? undefined : { floor: how.floor, taper: how.taper, snowFoot: how.snowFoot, group: how.group, snowy: how.snowy };
+  // `how.reseed` grows it from another seed, where its own grows lopsided.
+  const seed = 258 + 97 * i + (how.reseed ?? 0);
+  treeEntry(id, buildTree(id, conifer(tall, across, trunk, seed, how.start, how.older, how.floor, how.children, how.wider), bark, needles, tall * FLARE_SHARE, undefined, undefined, seed, trim), CREDITS.tree, true, 1, how.older);
 });
 ROUND.forEach(([id, across, tall, preset, bark, leaves, trunk, thicker = 1, bigger = 1], i) => {
+  if (across === 'shaped' || !wanted(id)) return;
   const o = structuredClone(preset);
   o.seed = 4001 + 211 * i;
   o.bark.textured = false;
@@ -788,25 +955,28 @@ ROUND.forEach(([id, across, tall, preset, bark, leaves, trunk, thicker = 1, bigg
   treeEntry(id, buildTree(id, o, bark, leaves, tall * FLARE_SHARE, [across, tall], trunk, 4001 + 211 * i));
 });
 BANYANS.forEach(([id, across, tall, trunk], i) => {
+  if (!wanted(id)) return;
   treeEntry(id, buildBanyan(id, across, tall, trunk, 7013 + 443 * i));
 });
-SHAPED.forEach(([id, maker, size], i) => {
+SHAPED.forEach(([id, maker, size, how = {}], i) => {
+  if (maker === 'retail' || !wanted(id)) return;
   // Plants small enough to skip the sun lit through them and the distant trees' farther blocks.
-  const small = ['blossom', 'bladed', 'star', 'anemone', 'budStalk', 'webbed', 'tuft', 'frond', 'hayPile', 'emberBed'].includes(maker) || size.tall < 3;
-  treeEntry(id, buildShaped(id, maker, size, 9001 + 131 * i), CREDITS.shape, !small, WIND[maker] ?? 1);
+  const small = ['blossom', 'bladed', 'star', 'anemone', 'budStalk', 'webbed', 'tuft', 'frond', 'fern', 'ferns', 'lilies', 'spike', 'hayPile', 'emberBed'].includes(maker) || size.tall < 3;
+  treeEntry(id, buildShaped(id, maker, size, 9001 + 131 * i), CREDITS.shape, !small, WIND[maker] ?? 1, how.older);
 });
 COVER.forEach((c, k) => {
+  if (only) return;
   const levels = buildCover(c, k);
   manifest += `\n[[ground_cover]]\nground = [${c.ground.join(', ')}]\ndensity = ${c.density}\nscale = [${c.scale.join(', ')}]\n${CREDITS.cover}`;
   for (const l of levels) {
     manifest += `\n[[ground_cover.lod]]\nfile = "trees/${l.name}.gltf"\ndistance = ${l.distance}.0\n`;
   }
 });
-fs.writeFileSync(path.join(pack, 'manifest.toml'), manifest);
+fs.writeFileSync(path.join(pack, only ? 'regrown.toml' : 'manifest.toml'), manifest);
 for (const picture of used) {
   if (shapes.PICTURES[picture]) {
     fs.writeFileSync(path.join(out, picture), shapes.PICTURES[picture]());
-  } else {
+  } else if (!only || !fs.existsSync(path.join(out, picture))) {
     fs.copyFileSync(path.join(pictures, picture), path.join(out, picture));
   }
 }

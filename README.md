@@ -12,16 +12,19 @@ materials and moons. The client draws them in place of the game's own when Enhan
 
 | Assets | Scripts | Folder |
 |---|---|---|
-| Shaped models: plants, mushrooms, corals, palms, snags, embers and hay | `shapes.mjs`, `gen_pack.mjs`, `reshape.mjs`, `fit_trunks.py`, `foliage.py` | `pack/trees/` |
-| Trees and bushes | `gen_pack.mjs`, `fit_trunks.py`, `foliage.py` | `pack/trees/` |
+| Shaped models: plants, mushrooms, palms, dead trees, embers and hay | `shapes.mjs`, `gen_pack.mjs`, `reshape.mjs`, `fit_trunks.py`, `foliage.py` | `pack/trees/` |
+| Trees and bushes | `gen_pack.mjs`, `fit_trunks.py`, `taper_trunks.py`, `foliage.py`, then `scale_models.py` once on the trees it lists | `pack/trees/` |
 | Boulders and rocks | `boulders.py` | `pack/trees/` |
 | Cactuses | `cactus.py` | `pack/trees/` |
+| The sea anemones' pictures, drawn on the game's own anemones | `anemone.py`, after `gen_pack.mjs` | `pack/materials/` |
 | Ground cover | `gen_pack.mjs`, then `clump_cover.py`, then `foliage.py` | `pack/trees/` |
-| Relief materials for walls, floors, roofs, rock, wood and books | `relief.py`, `masonry.py`, `recipes.py`, `split.py`, `fallback.py` | `pack/materials/` |
+| Relief materials for walls, floors, roofs, rock, carved stone, wood and books | `relief.py`, `masonry.py`, `recipes.py`, `split.py`, `fallback.py` | `pack/materials/` |
 | Rock materials | `rockgen.py` | `pack/materials/` |
 | Ice | `ice.py` | `pack/materials/` |
 | Iron that shines: the doors' iron leaves and frames, and the iron bands and hinges on wood, each with a metal map where wood and iron share a picture | `iron.py`, with `relief.py` | `pack/materials/` |
+| The iron chest painted anew in each era: its sides, lid and lock plate at four times retail's texels, laid out as retail's so its picture coordinates fit, with bands, rivets, hinge scrolls, lid rings and rust, and relief in millimetres from the same shapes | `chest.py` | `pack/materials/` |
 | Arms and armour that shine: blades, mace heads, gilt guards, grips, the heater shield and the Training Academy's two suits of plate, each with a metal map where steel or gold share a picture with leather | `arms.py`, with `relief.py` | `pack/materials/` |
+| Stone for surfaces with no picture: the Bael'Zharon statues' dark red, chiselled, laid along the world's axes over the surface's own colour | `solids.py` | `pack/materials/solid/` |
 | Fine-detail grit tiles | `grit.py` | `pack/grit/` |
 | Obsidian ground | `obsidian.py` | `pack/ground/` |
 | Moons | `moons.py` | `pack/sky/` |
@@ -38,10 +41,17 @@ drawing an older era's files draws it only where that era's record is the same. 
 It writes the fingerprint of each entry that has none, read from your own files. A fingerprint is
 a fact about the original, as an id or a size is: a short hash of a picture's light and dark, or of
 a model's part sizes. The plants (`gen_pack.mjs`) say `draws_on = "any"`, so every era draws them.
+The few made for 1999 and 2005 plants and trees that end of retail drew another way under the same ids
+say `draws_on = "matching"`, and their fingerprints come from the 2005 files, so end of retail keeps
+its own.
 
 The materials for the 1999 and 2005 files are in `materials/1999/` and `materials/2005/`. They are
 made from those files' own pictures where no material made from end of retail's pictures matches
-them. `tables/eras.tsv` lists those pictures. To make them again:
+them. `tables/eras.tsv` lists those pictures. `tables/drawn-as-eor.tsv` lists the rooms' pictures
+and the props Pyreal draws with end of retail's own art beside an older world, and the older
+materials the pack leaves out for them; Pyreal checks it against its own lists when it packs this
+pack, and `build.py` refuses a material it leaves out. A picture with no relief has no material
+either: the client draws it as retail does. To make them again:
 
 ```bash
 pyreal-art pictures <a list of the era's pictures in tables/eras.tsv> --dat-dir <that era's files> --out <folder>

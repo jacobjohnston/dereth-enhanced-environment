@@ -42,10 +42,20 @@ def entries(path):
     return out
 
 
+def drawn_as_eor():
+    """The older eras' pictures Pyreal draws as End of Retail's, as (era, picture): tables/drawn-as-eor.tsv."""
+    out = set()
+    for line in open(os.path.join(HERE, 'tables', 'drawn-as-eor.tsv')):
+        if line.strip() and not line.startswith('#'):
+            out |= {tuple(x.split(':')) for x in line.rstrip('\n').split('\t')[4].split() if x != '-'}
+    return out
+
+
 def provenance():
     """Why the pack may not be shipped, one line a reason."""
     why = []
     es = entries(os.path.join(PACK, 'manifest.toml'))
+    eor = drawn_as_eor()
     pack = next((e for e in es if e['kind'] == 'pack'), {})
     if pack.get('format') != '1':
         why.append('manifest: [pack] must be format = 1')
@@ -53,7 +63,7 @@ def provenance():
     for e in es:
         if e['kind'] == 'pack':
             continue
-        label = f"{e['kind']} {e.get('id') or e.get('texture') or e.get('object') or e.get('ground')}"
+        label = f"{e['kind']} {e.get('id') or e.get('texture') or e.get('surface') or e.get('object') or e.get('ground')}"
         tool, author, lic = e.get('tool'), e.get('author'), e.get('license')
         if not (tool and author and lic):
             why.append(f'{label}: no author, tool or license')
@@ -67,8 +77,14 @@ def provenance():
         if tool != HAND and (not scripts or not all(
                 os.path.isfile(os.path.join(HERE, 'generators', s)) for s in scripts)):
             why.append(f'{label}: its tool {tool!r} names no script in generators/')
-        if e['kind'] == 'material' and 'base_color' not in e:
+        if e['kind'] in ('material', 'solid') and 'base_color' not in e:
             why.append(f'{label}: no base_color, which format 1 needs')
+        era = re.match(r'materials/(\d{4})/', e.get('base_color', ''))
+        if e['kind'] == 'material' and era and (era[1], e.get('texture')) in eor:
+            why.append(f'{label}: Pyreal draws End of Retail\'s picture for it in {era[1]} (tables/drawn-as-eor.tsv)')
+        if (e['kind'] == 'material' and tool == 'relief.py' and not float(e.get('damp') or 0)
+                and not {'normal', 'height', 'metal', 'metal_map', 'damp_map'} & set(e)):
+            why.append(f'{label}: adds nothing to the retail picture, which the client draws as it is')
         for k, v in e.items():
             if isinstance(v, str) and re.match(r'^[\w./-]+\.(png|gltf|bin)$', v):
                 named.add(v)

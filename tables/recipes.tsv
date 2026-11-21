@@ -1,8 +1,8 @@
 # One line for each retail picture relief.py works on. A blank line and a line starting # are skipped.
 # id, the material it is (masonry flagstone wood roof thatch plaster rock metal design organic books plant flat mixed),
-# the recipe it is shaped by now (none: no relief), how damp it is, and the rest of its line, each
+# the recipe it is shaped by now (none: no relief, and no material: the client draws it as retail does), how damp it is, and the rest of its line, each
 # word a setting: flip (pale mortar), noflip (never), grid (a flagstone's slabs laid in a plain grid
-# of straight joints), solid (its see-through specks are gaps in a solid wall), like=ID (shaped from another era's picture ID of the same layout, relief.py --like), side=N (the maps' longer side, in texels), or a rectangle x,y,w,h,recipe in
+# of straight joints), solid (its see-through specks are gaps in a solid wall), like=ID (shaped from another era's picture ID of the same layout, relief.py --like), side=N (the maps' longer side, in texels), mm=N (a small prop's relief at most N millimetres deep at the deepest depth mapping), or a rectangle x,y,w,h,recipe in
 # parts of the picture. A rectangle's recipe may add :flip (its own pale mortar), :noflip or :grid.
 # The ashlar recipe is dressed stone in courses, its joints found as lines across and up a course.
 # id	material	recipe	damp	settings
@@ -27,6 +27,7 @@
 0x0500129A	rock	rock	0	repeat=7.800	repeatv=4.700
 0x050012D8	design	design	0	repeat=3.000	repeatv=3.000
 0x05001468	flat	none	0	repeat=5.014	repeatv=5.022
+0x0500145D	ground	sand	0	side=512	repeat=8.000	repeatv=8.000
 0x0500189F	mixed	mixed	0	repeat=4.472	repeatv=10.000	0,0,1,1,design:flip:moss
 0x050018A0	plaster	plaster	0	repeat=13.219	repeatv=13.567
 0x050018A1	rock	rock	0	repeat=5.115	repeatv=3.884
@@ -347,9 +348,12 @@
 0x05002752	mixed	mixed	0	repeat=2.362	repeatv=2.336	side=256	0,0,1,1,design
 0x05002753	design	design	0	repeat=1.313	repeatv=1.014
 0x05002754	design	design	0	repeat=8.000	repeatv=8.993
-0x05002757	rock	rock	0.85	repeat=4.935	repeatv=0.392
-0x05002758	design	design	0	repeat=4.935	repeatv=8.064
-0x05002759	rock	rock	0.85	repeat=1.630	repeatv=1.972
+0x05002755	rock	carved	0	side=512	repeat=4.779	repeatv=8.800
+0x05001E76	rock	carved	0	side=512	repeat=2.979	repeatv=0.535
+0x05002757	rock	carved	0.85	side=512	repeat=4.935	repeatv=0.392
+0x05002756	rock	carved	0	side=512	repeat=6.596	repeatv=8.288
+0x05002758	rock	carved	0	side=512	repeat=4.935	repeatv=8.064
+0x05002759	rock	carved	0.85	side=512	repeat=1.630	repeatv=1.972
 0x0500275C	design	design	0	repeat=1.312	repeatv=1.011
 0x0500275D	flagstone	flagstone	0	repeat=4.000	repeatv=4.000
 0x0500275E	design	design	0	repeat=1.732	repeatv=1.000
@@ -950,9 +954,9 @@
 0x050027A3	wood	wood	0	repeat=5.000	repeatv=10.198
 0x05000E5C	wood	wood	0	repeat=1.700	repeatv=1.700
 0x05001029	wood	wood	0	repeat=1.000	repeatv=1.000
-0x05000C92	wood	wood	0	repeat=0.950	repeatv=0.800
+0x05000C92	mixed	mixed	0	mm=10	repeat=0.950	repeatv=0.800	0,0,1,0.12,wood	0,0.88,1,0.12,wood	0,0.12,0.12,0.76,wood	0.88,0.12,0.12,0.76,wood	0.12,0.12,0.76,0.76,wood:even:at=0.35
 0x05002719	flagstone	flagstone	0	repeat=3.183	repeatv=3.000
-0x05000A91	wood	wood	0	repeat=0.929	repeatv=1.025
+0x05000A91	mixed	mixed	0	mm=8	repeat=0.929	repeatv=1.025	0,0,1,0.025,wood:at=0.4	0,0.025,1,0.06,metal	0,0.085,1,0.38,wood:at=0.4	0,0.465,1,0.07,metal	0,0.535,1,0.34,wood:at=0.4	0,0.875,1,0.065,metal	0,0.94,1,0.06,wood:at=0.4
 0x0500271A	wood	wood	0	repeat=3.000	repeatv=3.000
 0x050011FF	wood	wood	0	repeat=2.396	repeatv=5.871
 0x050032B7	masonry	masonry	0	repeat=3.000	repeatv=3.000
@@ -960,12 +964,11 @@
 0x050032B5	masonry	masonry	0	repeat=5.000	repeatv=5.000
 0x05002682	wood	wood	0	repeat=3.333	repeatv=2.993
 0x05003318	wood	wood	0	repeat=3.879	repeatv=6.000
-0x0500271B	wood	wood	0	repeat=9.384	repeatv=0.200
+0x0500271B	wood	wood	0	mm=3.5	repeat=9.384	repeatv=0.200
 0x05000E80	rock	rock	0	repeat=6.327	repeatv=6.182
 0x05000B15	mixed	mixed	0	repeat=1.649	repeatv=2.000	side=256	noflip	0.000,0.000,1.000,0.0625,wood	0.000,0.0625,0.125,0.8672,wood	0.875,0.0625,0.125,0.8672,wood	0.125,0.0625,0.750,0.2578,books	0.125,0.3203,0.750,0.0625,wood	0.125,0.3828,0.750,0.2422,books	0.125,0.6250,0.750,0.0547,wood	0.125,0.6797,0.750,0.2500,books	0.000,0.9297,1.000,0.0703,wood
-0x05002756	rock	rock	0	repeat=6.596	repeatv=8.288
 0x050026AE	rock	rock	0	repeat=2.885	repeatv=3.991
-0x050019F8	rock	rock	0	repeat=1.649	repeatv=2.000
+0x050019F8	rock	rock	0	mm=1	repeat=1.649	repeatv=2.000
 0x0500240B	rock	rock	0.85	repeat=8.434	repeatv=13.562
 0x050018A5	mixed	mixed	0	repeat=4.187	repeatv=5.749	0,0,1,1,surface:d=0.4
 0x0500235E	design	design	0	repeat=1.740	repeatv=2.692
@@ -975,16 +978,16 @@
 0x05002850	wood	wood	0	repeat=2.000	repeatv=0.400
 0x05001A3F	design	design	0	repeat=1.000	repeatv=1.000
 0x05002A68	rock	rock	0	repeat=5.930	repeatv=4.000
-0x05002364	rock	rock	0.85	repeat=1.157	repeatv=1.501
-0x05000ACC	wood	wood	0	repeat=0.384	repeatv=1.537
+0x05002364	rock	rock	0.85	mm=12	repeat=1.157	repeatv=1.501
+0x05000ACC	wood	wood	0	mm=5.5	repeat=0.384	repeatv=1.537
 0x05002E01	design	design	0	repeat=1.716	repeatv=7.000
 0x05002362	design	design	0	repeat=4.955	repeatv=8.543
 0x05002353	masonry	masonry	0	repeat=1.000	repeatv=1.295
 0x05001A3E	design	design	0	repeat=1.649	repeatv=2.000
 0x050032AB	plaster	plaster	0	repeat=4.000	repeatv=4.000
 0x050013FE	wood	wood	0	repeat=0.858	repeatv=0.731
-0x05002B91	wood	wood	0	repeat=0.474	repeatv=0.580
-0x05002365	rock	rock	0.85	repeat=0.675	repeatv=1.001
+0x05002B91	rock	rock	0	mm=6	repeat=0.474	repeatv=0.580
+0x05002365	rock	rock	0.85	mm=8	repeat=0.675	repeatv=1.001
 0x0500235F	rock	rock	0.85	repeat=4.935	repeatv=8.014
 0x050026DF	flagstone	flagstone	0	repeat=1.515	repeatv=1.408
 0x05002F82	plaster	plaster	0	repeat=7.000	repeatv=7.000
@@ -1006,12 +1009,12 @@
 0x050029E5	design	design	0	repeat=21.813	repeatv=23.093
 0x05002681	masonry	masonry	0.85	repeat=1.055	repeatv=1.425
 0x050010C5	wood	wood	0	repeat=0.194	repeatv=0.565
-0x050010F7	rock	rock	0	repeat=2.856	repeatv=0.799
+0x050010F7	rock	rock	0	mm=9.5	repeat=2.856	repeatv=0.799
 0x0500138C	design	design	0	repeat=0.800	repeatv=1.587
 0x050027EE	design	design	0	repeat=0.649	repeatv=0.650
-0x050010F8	flagstone	flagstone	0	repeat=1.758	repeatv=0.329	grid
+0x050010F8	flagstone	flagstone	0	mm=5	repeat=1.758	repeatv=0.329	grid
 0x05000EE3	metal	metal	0	repeat=0.924	repeatv=0.550
-0x05002501	rock	rock	0.85	repeat=0.675	repeatv=1.001
+0x05002501	rock	rock	0.85	mm=8	repeat=0.675	repeatv=1.001
 0x05002EC9	plaster	plaster	0	repeat=10.400	repeatv=3.980
 0x050010C6	wood	wood	0	repeat=0.231	repeatv=3.000
 0x05003319	wood	wood	0	repeat=7.873	repeatv=6.024
@@ -1050,3 +1053,71 @@
 0x05003046	mixed	mixed	0	repeat=24.000	repeatv=20.617	0,0,1,1,design
 0x0500260F	rock	rock	0	repeat=7.601	repeatv=19.562
 0x05003298	mixed	mixed	0	repeat=8.000	repeatv=8.062	0,0,1,1,design	solid
+0x050010C4	metal	metal	0	mm=5	repeat=0.396	repeatv=0.506
+0x05002A9F	mixed	mixed	0	mm=2.5	repeat=0.119	repeatv=0.740	0,0,1,0.235,metal	0,0.235,1,0.765,wood:at=0.3
+0x05001417	metal	surface	0	mm=3	repeat=0.100	repeatv=0.600
+0x05000AF7	cloth	cloth	0	mm=3	repeat=0.521	repeatv=1.231
+0x0500141A	flat	none	0	repeat=0.568	repeatv=0.836
+0x05000E13	wood	wood	0	mm=8	repeat=0.605	repeatv=0.422
+0x05002F96	mixed	mixed	0	mm=12	repeat=1.800	repeatv=2.395	0,0,1,1,wood:iron=0.35
+0x05001EC8	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05001EC7	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05001EC9	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05001ECA	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05001ECB	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05001ECC	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05001ECD	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05001ECE	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05001ECF	mixed	mixed	0	mm=3	repeat=0.198	repeatv=0.297	0,0,1,1,design
+0x05000B2B	flat	none	0
+0x05000B2C	flat	none	0	repeat=1.159	repeatv=0.524
+0x05000B2D	flat	none	0	repeat=0.320	repeatv=0.430
+0x05002677	wood	wood	0	mm=3	repeat=0.300	repeatv=3.000
+0x0500027A	organic	surface	0	mm=3	repeat=0.675	repeatv=0.195
+0x0500040A	flat	none	0	repeat=0.094	repeatv=0.157
+0x05000AF2	organic	surface	0	mm=4	repeat=0.540	repeatv=0.493
+0x05000AF6	flat	none	0	repeat=0.240	repeatv=0.219
+0x05000B18	metal	surface	0	mm=3	repeat=0.186	repeatv=0.560
+0x050024CA	organic	surface	0	mm=3	repeat=0.450	repeatv=0.570
+0x05000D31	rock	surface	0	mm=4	repeat=0.424	repeatv=0.402
+0x05000ACE	surface	surface	0	mm=4.5	repeat=0.300	repeatv=0.376
+0x05000B09	surface	surface	0	mm=5.5	repeat=0.400	repeatv=0.410
+0x05000B0B	wood	wood	0	mm=6	repeat=0.759	repeatv=0.433
+0x05000B43	surface	surface	0	mm=3	repeat=0.140	repeatv=0.140
+0x05000BA7	surface	surface	0	mm=3.5	repeat=0.215	repeatv=0.425
+0x05000BE4	surface	surface	0	mm=4.5	repeat=2.155	repeatv=0.306
+0x05000C54	wood	wood	0	mm=2.5	repeat=0.083	repeatv=0.674
+0x05000DAF	surface	surface	0	mm=10	repeat=0.910	repeatv=0.850
+0x05000DEE	surface	surface	0	mm=9	repeat=0.750	repeatv=0.750
+0x05000E1C	surface	surface	0	mm=4	repeat=0.298	repeatv=0.244
+0x05000EE9	surface	surface	0	mm=9	repeat=0.804	repeatv=0.748
+0x050010EA	surface	surface	0	mm=10	repeat=0.833	repeatv=1.000
+0x0500120F	surface	surface	0	mm=6	repeat=0.457	repeatv=1.006
+0x05001377	surface	surface	0	mm=7.5	repeat=0.600	repeatv=0.900
+0x0500167F	surface	surface	0	mm=4.5	repeat=0.304	repeatv=0.278
+0x05001680	surface	surface	0	mm=9	repeat=0.752	repeatv=1.103
+0x0500179F	surface	surface	0	mm=4.5	repeat=0.526	repeatv=0.280
+0x050017B0	flat	none	0	repeat=0.129	repeatv=1.603
+0x050017BA	wood	wood	0	mm=3	repeat=0.143	repeatv=0.651
+0x050019F9	surface	surface	0	mm=7.5	repeat=1.000	repeatv=0.616
+0x050019FA	surface	surface	0	mm=9	repeat=0.736	repeatv=1.031
+0x05001A3D	surface	surface	0	mm=8.5	repeat=0.800	repeatv=0.700
+0x05001C08	surface	surface	0	mm=4.5	repeat=0.311	repeatv=0.399
+0x05002114	surface	surface	0	mm=3	repeat=0.198	repeatv=0.159
+0x05002115	surface	surface	0	mm=6.5	repeat=0.911	repeatv=0.502
+0x05002116	surface	surface	0	mm=6	repeat=0.837	repeatv=0.447
+0x05002117	surface	surface	0	mm=6	repeat=0.498	repeatv=0.447
+0x0500234F	surface	surface	0	mm=6.5	repeat=1.197	repeatv=0.501
+0x05002351	surface	surface	0	mm=6	repeat=0.476	repeatv=0.425
+0x05002352	surface	surface	0	mm=7	repeat=0.563	repeatv=0.555
+0x05002354	surface	surface	0	mm=9.5	repeat=2.100	repeatv=0.799
+0x05002355	surface	surface	0	mm=9.5	repeat=0.800	repeatv=1.587
+0x05002360	surface	surface	0	mm=4	repeat=0.319	repeatv=0.227
+0x05002363	surface	surface	0	mm=5	repeat=0.327	repeatv=0.548
+0x05002366	surface	surface	0	mm=4	repeat=0.254	repeatv=0.271
+0x050024CC	surface	surface	0	mm=6	repeat=0.468	repeatv=0.427
+0x050024FC	surface	surface	0	mm=5.5	repeat=0.400	repeatv=0.550
+0x050024FF	surface	surface	0	mm=5	repeat=0.327	repeatv=0.548
+0x05002641	surface	surface	0	mm=4.5	repeat=0.289	repeatv=0.499
+0x05002683	surface	surface	0	mm=4	repeat=0.247	repeatv=0.242
+0x050026E2	surface	surface	0	mm=2.5	repeat=0.123	repeatv=0.250

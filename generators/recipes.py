@@ -254,6 +254,27 @@ def design(L, px, rng, edges=None):
         # A band of trim stands out from what it meets, its edge eased.
         h = h * (0.6 + 0.4 * np.clip(inside(~edges, px) / (1.2 * px), 0, 1))
     return blur(h.astype(np.float32), 0.35 * px), 1.5 * size_of(L, px), crevices(h, 2.5 * px) * 0.5 + 0.5, 0.85
+def carved(L, px, rng, edges=None):
+    # Carved stone weathered in the open (the stone head 0x020003B1): its painted light and shade as
+    # the carving's soft forms, its thin dark cracks cut narrow and sharp, and a weathered grain and
+    # pitting of its own, finer than its texels, that bends the light but takes no depth.
+    g = [blur(L, s * px) for s in (1.0, 3, 9, 27)]
+    forms = 0.6 * np.tanh(unit(g[1] - g[3])) + 0.4 * np.tanh(unit(g[0] - g[2]))
+    lo, hi = np.percentile(forms, [1, 99])
+    f = blur(np.clip((forms - lo) / (hi - lo + 1e-5), 0, 1).astype(np.float32), 0.6 * px)
+    d = unit(blur(L, 2.5 * px) - blur(L, 0.5 * px))
+    line = runs_on(d > 1.2, px, 4)
+    # A crack is thin: a dark patch wider than three texels is painted shade, not a cut.
+    from scipy.ndimage import binary_opening
+    r = max(1, round(1.5 * px))
+    disk = np.hypot(*np.mgrid[-r:r + 1, -r:r + 1]) <= r
+    crack = (line & ~binary_opening(line, disk)).astype(np.float32)
+    cut = np.clip(blur(crack, 0.3 * px) * 2.2, 0, 1)
+    h = np.clip(0.35 + 0.6 * f - 0.3 * cut, 0, 1)
+    pits = np.clip(speckle(L.shape, 0.5, rng) - 1.6, 0, None)
+    fine = np.clip(0.01 * speckle(L.shape, 0.7, rng) + 0.008 * speckle(L.shape, 2.0, rng) - 0.02 * pits, -0.05, 0.05)
+    rough = np.clip(0.88 + 0.06 * cut - 0.04 * f, 0, 1)
+    return h, 3.0 * size_of(L, px), crevices(h, 2 * px) * 0.6 + 0.4, rough, fine
 def surface(L, px, rng, edges=None):
     # A picture of no recipe: its broad shading as gentle forms, its fine detail as grain.
     g = [blur(L, s * px) for s in (0.45, 1.5, 5, 16)]
@@ -313,13 +334,32 @@ def soil(L, px, rng, edges=None):
     pebbles = np.clip(speckle(L.shape, 3, rng) - 1.3, 0, None) * 1.2
     crumbs = 0.3 * speckle(L.shape, 1.3, rng) + 0.3 * speckle(L.shape, 4, rng)
     return laid(L, px, pebbles + crumbs, 1.2, 0.8, 0.92)
-def sand(L, px, rng, edges=None):
-    # Soft ripples, wandering, with a fine grain.
+def along_crests(L, along, across, waves):
+    """`L` blurred `along` texels along its ripples' crests and `across` texels across them."""
     h, w = L.shape
-    y, x = np.mgrid[0:h, 0:w].astype(np.float32)
-    phase = 9 * y / h + 2 * x / w + 0.6 * speckle(L.shape, 40, rng) / 6.283
-    ripples = 0.45 * np.sin(6.283 * phase) * np.clip(speckle(L.shape, 30, rng) * 0.4 + 0.7, 0, 1)
-    return laid(L, px, ripples + 0.08 * speckle(L.shape, 1.0, rng), 0.8, 0.4, 0.85)
+    fy, fx = np.fft.fftfreq(h)[:, None], np.fft.rfftfreq(w)[None, :]
+    c, s = np.cos(waves), np.sin(waves)
+    k, q = fx * c + fy * s, fy * c - fx * s
+    return np.fft.irfft2(np.fft.rfft2(L) * np.exp(-2 * np.pi ** 2 * (across ** 2 * k * k + along ** 2 * q * q)), s=L.shape)
+def sand(L, px, rng, edges=None):
+    # Wind ripples where the picture paints them: its pale bands the crests, smoothed along them so
+    # its mottling makes no bumps, sharper at the crest than in the trough, and deep enough to cast
+    # shade, under a fine grain.
+    h, w = L.shape
+    side = min(h, w)
+    spec = np.abs(np.fft.rfft2(L - L.mean())) ** 2
+    fy, fx = np.fft.fftfreq(h)[:, None] * h, np.fft.rfftfreq(w)[None, :] * w
+    r = np.sqrt(fx * fx + fy * fy)
+    band = spec * ((r >= 3) & (r < 16))
+    waves = float(np.angle((band * np.exp(2j * np.arctan2(fy, fx + 0 * fy))).sum())) / 2
+    ripples = unit(along_crests(L, side / 40, side / 90, waves) - blur(L, side / 18))
+    hgt = ((np.tanh(1.2 * ripples) + 1) / 2) ** 1.3
+    hgt = (0.15 + 0.85 * hgt).astype(np.float32)
+    grain = 0.01 * speckle(L.shape, 1.0, rng)
+    r = np.clip(0.92 + 0.03 * unit(blur(L, 1.5 * px) - L), 0, 1)
+    return hgt, SAND_DEPTH * side / 512 / px, 1 - 0.2 * (1 - hgt), r, grain
+# How deep the ripples stand, in a 512-texel map's texels.
+SAND_DEPTH = 11.0
 def snow(L, px, rng, edges=None):
     # Drifted and wind-scoured: soft swells, a little crust.
     swell = 0.4 * speckle(L.shape, 12, rng) + 0.12 * speckle(L.shape, 1.2, rng)
@@ -397,7 +437,7 @@ def pages(L, px, rng, edges=None):
     hgt = blur(hgt.astype(np.float32), 0.3 * px)
     return hgt, 0.8 * size_of(L, px), crevices(hgt, 1.2 * px, 0.4), np.where(cover, 0.7, 0.9)
 RECIPES = dict(grass=grass, soil=soil, sand=sand, snow=snow, stony=stony, organic=organic, masonry=masonry, flagstone=flagstone, wood=wood, roof=roof, thatch=thatch,
-               plaster=plaster, rock=rock, metal=metal, design=design, surface=surface, cutout=cutout,
+               plaster=plaster, rock=rock, metal=metal, design=design, carved=carved, surface=surface, cutout=cutout,
                books=books, pages=pages, ashlar=ashlar, pole=pole, recess=recess,
                ledge=ledge, flat=flat, cloth=cloth, weave=weave)
 def classify(L, a, px, floor=False):

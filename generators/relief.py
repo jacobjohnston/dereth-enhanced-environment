@@ -3,7 +3,7 @@
 # picture (`keep_retail_picture`), with the picture's average colour as the fallback a client without
 # depth mapping draws (fallback.py). Nothing of the picture's pixels goes into the pack. A picture
 # tables/recipes.tsv does not list is shaped by the recipe it looks to want (recipes.classify). A
-# picture of artwork (a design) or of no relief (flat) takes only its roughness and occlusion. A
+# picture of artwork (a design) or of no relief (flat) has no material: the client draws it as retail does. A
 # picture that can be seen through is shaped over what of it is solid, and takes no height. The
 # materials of an earlier run are replaced, and their pictures removed.
 # relief.py <the player's pictures> <pack folder> [recipes file] [--survey <pictures.tsv>]
@@ -44,6 +44,8 @@ BACKDROP = 100
 GROUND_SIDE, GROUND_REPEAT = 512, 12.0
 # The steepest a normal leans, as a slope.
 STEEPEST = 2.5
+# How deep the client's deepest relief reaches, metres (a height map's 0).
+DEEPEST = 0.12
 
 def option(args, name, default):
     return args[args.index(name) + 1] if name in args else default
@@ -90,7 +92,7 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
     own, its edges where it meets another, and eased into the next. A rectangle named recipe:flip
     takes its own pale lines for mortar, recipe:noflip keeps its own light, whatever the whole
     picture's, :grid lays a flagstone's joints straight, :open makes no crease where it meets
-    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :shade takes its shape from its light, :smooth[=K] drops its pits (blurring K texels), :grassy lays grass where it is green, :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
+    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :iron=K raises grey iron on wood (hinges, straps) K proud of it, :shade takes its shape from its light, :smooth[=K] drops its pits (blurring K texels), :grassy lays grass where it is green, :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
     h, w = Lb.shape
     rs = rects(settings, w, h)
     edges = band_edges(rs, w, h, px)
@@ -156,6 +158,15 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
             c = a[y0:y1, x0:x1, :3]
             m = np.clip(blur(np.clip((c[..., 0] - c[..., 2] - 0.08) / 0.08, 0, 1).astype(np.float32), 0.7 * px), 0, 1)
             s = s * m + np.clip(s - warm, 0, 1) * (1 - m)
+        iron = next((float(t[5:] or 0.3) for t in turns if t.startswith('iron')), 0.0)
+        if iron and a is not None:
+            # recipe:iron=K: grey iron on wood (hinges, straps) stands K proud of it, level; thin dark seams are no iron.
+            from scipy.ndimage import binary_opening
+            c = a[y0:y1, x0:x1, :3]
+            cold = (c[..., 0] - c[..., 2]) / (c[..., 0] + 0.03) < 0.29
+            cold = binary_opening(cold, iterations=max(1, round(1.2 * px)))
+            m = np.clip(blur(cold.astype(np.float32), 0.6 * px) * 1.4, 0, 1)
+            s = np.clip(s - iron, 0, 1) * (1 - m) + m
         # The picture's range is set by its deepest rectangle as made, so one turned down stays shallow.
         deepest = max(deepest, depth, depth * scale)
         depth *= scale
@@ -201,9 +212,12 @@ def survey_of(path):
 
 def make(job):
     """One picture's maps written into `out`, and its [[material]], or why it has none."""
-    path, out, entry, seen, most, least, sub, print_ = job
+    path, out, entry, seen, most, least, sub, print_, *rest = job
+    skip = bool(rest and rest[0])
     id = os.path.basename(path)[:-4]
     material, recipe, damp, settings = entry or ('auto', None, 0.0, [])
+    if entry and (recipe == 'none' or material == 'design') and not damp and skip:
+        return id, None, 'flat: drawn as retail draws it'
     if seen:
         if seen['bits'] & CLEAR and entry is None:
             return id, None, 'see-through or glowing'
@@ -242,6 +256,9 @@ def make(job):
         if seen:
             settings = [f'repeat={seen["repeat"][0]:.3f}', f'repeatv={seen["repeat"][1]:.3f}']
     flat = recipe == 'none' or material == 'design' or dark
+    if flat and not damp and skip:
+        # Drawn as retail draws it, so no material; iron.py and arms.py still take flat maps of their own.
+        return id, None, 'flat: drawn as retail draws it'
     # Thin pale lines over a dark field are mortar, not ridges: they sink.
     g = [blur(L, s * px) for s in (1.3, 12)]
     joints = g[0] - g[1]
@@ -268,6 +285,12 @@ def make(job):
     # depth=K: the whole picture shallower (or deeper), in its height map as well as its normal.
     k = setting(settings, 'depth=', 1.0)
     if not flat and k != 1.0:
+        hgt = 1 - (1 - hgt) * k
+        depth *= k
+    # mm=N: a small prop's picture, its relief at most N millimetres deep at the deepest depth mapping.
+    mm = setting(settings, 'mm=', 0.0)
+    if not flat and mm > 0:
+        k = min(1.0, mm / 1000 / DEEPEST / max(1 - float(np.percentile(hgt, 0.5)), 1e-3))
         hgt = 1 - (1 - hgt) * k
         depth *= k
     if not flat:
@@ -363,6 +386,12 @@ def main(args):
             f = line.rstrip('\n').split('\t')
             if line.strip() and not line.startswith('#') and f[0] == era:
                 stands[f[1]] = (f[2], f[4])
+        # Pyreal draws End of Retail's picture for these beside this era (tables/drawn-as-eor.tsv): none.
+        for line in open(os.path.join(TABLES, 'drawn-as-eor.tsv')):
+            if line.strip() and not line.startswith('#'):
+                for x in line.rstrip('\n').split('\t')[4].split():
+                    if x.startswith(era + ':'):
+                        stands.pop(x.split(':')[1], None)
         # Only another generator's material for this era's own picture keeps it (arms.py's 2005 blade).
         taken = set()
         for b in kept:
@@ -378,6 +407,10 @@ def main(args):
             if line.strip() and not line.startswith('#'):
                 id, material, recipe, damp, *rest = line.rstrip('\n').split('\t')
                 own[id] = material, recipe, float(damp), ' '.join(rest).split()
+    # A flat picture iron.py or arms.py makes its material from keeps relief.py's, for them to replace.
+    from iron import IRON
+    from arms import ARMS
+    builds = set(IRON) | set(ARMS)
     def job(p):
         id = os.path.basename(p)[:-4]
         if era:
@@ -387,8 +420,8 @@ def main(args):
                 # ground:<recipe> [settings...]: the recipe, and any settings of its own after it.
                 recipe, *more = how[7:].split()
                 entry = ('ground', recipe, 0.0, [f'side={GROUND_SIDE}', f'repeat={GROUND_REPEAT}', f'repeatv={GROUND_REPEAT}', *more])
-            return (p, out, entry, seen.get(eor), most, least, sub, named(id))
-        return (p, out, listed.get(id), seen.get(id), most, least, sub, named(id))
+            return (p, out, entry, seen.get(eor), most, least, sub, named(id), id not in builds)
+        return (p, out, listed.get(id), seen.get(id), most, least, sub, named(id), id not in builds)
     work = [job(p) for p in sorted(glob.glob(os.path.join(SRC, '0x*.png')))
             if os.path.basename(p)[:-4] not in taken and (not era or os.path.basename(p)[:-4] in stands)]
     tables, counts, report = '', {}, []
