@@ -38,6 +38,10 @@ KINDS = {
     'scale':   (0.85, 0.40, 0.0, 1.3),
     'chitin':  (0, 0.32, 0.2, 1.4),
     'fur':     (0, 0.92, 0.0, 1.2),
+    'hair':    (0, 0.66, 0.0, 0.0),
+    'cloth':   (0, 0.86, 0.0, 1.2),
+    'silk':    (0, 0.46, 0.0, 0.8),
+    'bone':    (0, 0.58, 0.3, 1.3),
     'skin':    (0, 0.70, 0.0, 0.0),
 }
 # The share of the height map's range a picture's relief takes: a suit's relief is millimetres deep
@@ -177,7 +181,9 @@ def parts_of(spec, idx, a, px, load=None):
         small = np.concatenate([[False], area < STUD])[lab]
         kind[m & small] = 'stud'
         kind[m & ~small] = 'fitting'
-    kind[idx < 192] = 'skin'
+    # unskin: a picture that paints its own parts in the skin entries; its skin comes from like= or a rectangle.
+    if 'unskin' not in spec:
+        kind[idx < 192] = 'skin'
     return kind
 
 
@@ -189,6 +195,12 @@ def shape(k, L, px):
         s = 0.35 * np.tanh(unit(g(0.6) - g(2))) + 0.9 * np.tanh(unit(g(2) - g(7))) + 0.4 * np.tanh(unit(g(7) - g(20)))
     elif k in ('leather', 'padding'):
         s = 0.25 * np.tanh(unit(g(0.6) - g(2))) + 0.6 * np.tanh(unit(g(2) - g(6))) + 0.6 * np.tanh(unit(g(6) - g(18)))
+    elif k == 'cloth':
+        # Cloth: soft folds, its painted creases kept; no grain of its own (a picture's dither would read as crinkle).
+        s = 0.1 * np.tanh(unit(g(0.8) - g(2))) + 0.6 * np.tanh(unit(g(2) - g(6))) + 0.9 * np.tanh(unit(g(6) - g(18)))
+    elif k == 'silk':
+        # Silk: smooth, all broad folds.
+        s = 0.1 * np.tanh(unit(g(0.6) - g(2))) + 0.4 * np.tanh(unit(g(2) - g(6))) + 0.9 * np.tanh(unit(g(6) - g(20)))
     elif k == 'chain':
         # Rings: what is pale at the size of a ring stands, the dark between them sinks.
         s = 0.9 * np.tanh(1.2 * unit(g(0.4) - g(1.8))) + 0.5 * np.tanh(unit(g(3) - g(14)))
@@ -198,7 +210,7 @@ def shape(k, L, px):
     elif k == 'fur':
         # Fur: its strands' fine light over soft tufts.
         s = 0.6 * np.tanh(unit(g(0.4) - g(1.5))) + 0.5 * np.tanh(unit(g(1.5) - g(6)))
-    elif k in ('plate', 'fitting', 'stud', 'chitin'):
+    elif k in ('plate', 'fitting', 'stud', 'chitin', 'bone'):
         s = 0.3 * np.tanh(unit(g(0.5) - g(1.6))) + 0.8 * np.tanh(unit(g(1.6) - g(6))) + 0.7 * np.tanh(unit(g(6) - g(20)))
     else:
         s = np.zeros_like(L)
@@ -217,11 +229,54 @@ def domes(mask, px):
     return np.sqrt(np.clip(d / rad, 0, 1)).astype(np.float32)
 
 
-def picture(pictures, id):
+def flow(L, px):
+    """The direction strands run: across the painted light and dark, straight down where nothing says."""
+    src = blur(L, 0.6 * px)
+    gx, gy = ndimage.sobel(src, 1), ndimage.sobel(src, 0)
+    jxx, jxy, jyy = (blur(v, 3 * px) for v in (gx * gx, gx * gy, gy * gy))
+    theta = 0.5 * np.arctan2(2 * jxy, jxx - jyy)
+    d = np.sqrt((jxx - jyy) ** 2 + 4 * jxy ** 2)
+    coh = (d / (jxx + jyy + 1e-9)) ** 2
+    wt = np.clip(coh * 4, 0, 1)
+    dx, dy = -np.sin(theta) * wt, np.cos(theta) * wt + (1 - wt)
+    l = np.sqrt(dx * dx + dy * dy) + 1e-9
+    return dx / l, dy / l
+
+
+def lic(noise, dx, dy, length):
+    """Noise smeared along the flow (line integral convolution): strands."""
+    h, w = noise.shape
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    acc, wsum = noise.copy(), np.ones_like(noise)
+    for sign in (1, -1):
+        x, y, vx, vy = xx.copy(), yy.copy(), dx * sign, dy * sign
+        for i in range(1, length):
+            x += vx; y += vy
+            ndx = ndimage.map_coordinates(dx, [y, x], order=1, mode='nearest')
+            ndy = ndimage.map_coordinates(dy, [y, x], order=1, mode='nearest')
+            flip = np.where(ndx * vx + ndy * vy < 0, -1.0, 1.0)
+            vx, vy = ndx * flip, ndy * flip
+            k = 0.5 + 0.5 * np.cos(np.pi * i / length)
+            acc += k * ndimage.map_coordinates(noise, [y, x], order=1, mode='wrap')
+            wsum += k
+    return acc / wsum
+
+
+def strands(L, px, seed):
+    """Hair strands a few retail texels long and a quarter of one wide, as a unit-spread field."""
+    rng = np.random.default_rng(seed)
+    dx, dy = flow(L, px)
+    h, w = L.shape
+    long = lic(ndimage.gaussian_filter(rng.uniform(-1, 1, (h, w)).astype(np.float32), 0.5), dx, dy, int(5 * px))
+    short = lic(ndimage.gaussian_filter(rng.uniform(-1, 1, (h, w)).astype(np.float32), 0.4), dx, dy, int(2 * px))
+    return 0.7 * unit(long) + 0.5 * unit(short)
+
+
+def picture(pictures, id, most=2.0):
     """A picture at its maps' size (twice it, so a stud or a ring has room to be round; no side past 512) and its scale."""
     path = os.path.join(pictures, id + '.png')
     sw, sh = map(int, subprocess.run(['identify', '-format', '%w %h', path], capture_output=True, text=True, check=True).stdout.split())
-    k = min(2.0, 512 / max(sw, sh))
+    k = min(most, 512 / max(sw, sh))
     w, h = int(sw * k), int(sh * k)
     return relief.read(path, w, h), w / sw
 
@@ -230,7 +285,8 @@ def arm(pack, pictures, idx_dir, id, suit, spec, print_, masks):
     """The picture's maps and its [[material]]."""
     out = os.path.join(pack, 'materials')
     path = os.path.join(pictures, id + '.png')
-    a, px = picture(pictures, id)
+    # Hair's strands are finer than a retail texel: four times the picture.
+    a, px = picture(pictures, id, 4.0 if any(s.endswith('=hair') for s in spec) else 2.0)
     h, w = a.shape[:2]
     L = (a[..., :3] * [0.3, 0.59, 0.11]).sum(-1) ** 0.8
     L = L / (blur(L, 24 * px) + 0.04)
@@ -262,7 +318,12 @@ def arm(pack, pictures, idx_dir, id, suit, spec, print_, masks):
     A = blur(A, 0.35 * px) * depth
     # Fine grain on leather bends the light without being a height of its own.
     fine = np.isin(kind, ['leather', 'quilt', 'padding', 'fur']) * 0.25 * px * np.tanh(unit(blur(L, 0.4 * px) - blur(L, 1.2 * px)))
-    B = A + fine
+    if (kind == 'hair').any():
+        # Hair: fine strands along the picture's painted flow, bending the light only; its painted shading is not a height.
+        hs = strands(L, px, int(id, 16))
+        fine = fine + (kind == 'hair') * 0.3 * px * np.tanh(hs)
+        rough -= (kind == 'hair') * 0.06 * np.clip(hs, -1, 1)
+    B = A + fine * depth
     sx = (np.roll(B, -1, 1) - np.roll(B, 1, 1)) / 2 / px
     sy = (np.roll(B, -1, 0) - np.roll(B, 1, 0)) / 2 / px
     mag = np.sqrt(sx * sx + sy * sy)
@@ -286,8 +347,9 @@ def arm(pack, pictures, idx_dir, id, suit, spec, print_, masks):
     FALLBACK.write(at('fallback'), FALLBACK.average(path))
     if masks:
         relief.grey(os.path.join(masks, f'{id}_metal.png'), metal)
-        cols = {'scale': (0.3, 0.5, 0.9), 'chitin': (0.5, 0.8, 0.5), 'fur': (0.9, 0.9, 0.9), 'quilt': (0.55, 0.35, 0.2), 'leather': (0.7, 0.5, 0.3), 'padding': (0.8, 0.8, 0.6), 'stud': (1, 0.85, 0.2),
-                'fitting': (1, 0.5, 0.1), 'chain': (0.5, 0.7, 1), 'plate': (0.75, 0.85, 0.95), 'skin': (1, 0.75, 0.65)}
+        cols = {'scale': (0.3, 0.5, 0.9), 'chitin': (0.5, 0.8, 0.5), 'fur': (0.9, 0.9, 0.9), 'hair': (0.85, 0.75, 0.55), 'quilt': (0.55, 0.35, 0.2), 'leather': (0.7, 0.5, 0.3), 'padding': (0.8, 0.8, 0.6), 'stud': (1, 0.85, 0.2),
+                'fitting': (1, 0.5, 0.1), 'chain': (0.5, 0.7, 1), 'plate': (0.75, 0.85, 0.95), 'skin': (1, 0.75, 0.65),
+                'cloth': (0.6, 0.45, 0.8), 'silk': (0.95, 0.55, 0.85), 'bone': (0.95, 0.92, 0.8)}
         rgb = np.zeros((h, w, 4), np.float32); rgb[..., 3] = 1
         for n in names:
             rgb[kind == n, :3] = cols[n]
@@ -334,6 +396,12 @@ def main(args):
             continue
         if not os.path.exists(os.path.join(pictures, id + '.png')):
             print(id, 'is not among the pictures; left as it is')
+            continue
+        # A picture another tool already covers (a weapon's, say) is left to it.
+        other = [b for b in blocks if b.startswith('[[material]]') and texture(b) == id and eor(b)
+                 and not re.search(rf'^tool = "(relief\.py|{TOOL})"$', b, re.M)]
+        if other:
+            print(id, 'already has a material of', re.search(r'^tool = "([^"]+)"', other[0], re.M)[1] + '; left as it is')
             continue
         print_ = f'fingerprint = "{prints[id]}"\n' if id in prints else ''
         new = arm(pack, pictures, idx_dir, id, suit, spec, print_, masks)

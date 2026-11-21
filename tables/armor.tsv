@@ -4,10 +4,11 @@
 # quantile, in clumps: buckles and toggles on a strap). Later parts lie over earlier ones; the wearer's
 # skin (entries under 192) is always skin. Kinds: quilt, leather, padding, stud, fitting, chain, plate,
 # metal (a stud where a clump is small, a fitting where large), mail (chain where busy, plate where
-# smooth), mailscale (scales where busy, plate where smooth), scale, chitin (glossy, not metal), fur. bright=
+# smooth), mailscale (scales where busy, plate where smooth), scale, chitin (glossy, not metal), fur, hair (fine strands along the painted flow), cloth (matte, soft folds), silk (smooth, with a sheen), bone. bright=
 # takes all for the whole picture; cool=kind takes what the default palette paints bluish grey (cool=kind:N also closes gaps N texels wide); like=kind:ID
 # or like=kind:ID:x,y,w,h takes what looks like that picture (or that part of it) in colour and busyness: an
-# untinted suit's chain by its own chain. depth=K scales its relief.
+# untinted suit's chain by its own chain. unskin: the picture paints parts in the skin entries, so they
+# aren't taken as skin. depth=K scales its relief.
 # Studded leather: quilted diamonds, studs and the fittings tinted with them.
 0x05000262	studded	1393-1488=quilt	1491-1584=metal
 0x05000266	studded	1393-1488=quilt	1491-1584=metal
@@ -494,3 +495,787 @@
 0x050020D6	auroric-exarch	all=plate cool=padding
 0x050020D7	auroric-exarch	all=plate cool=padding
 0x050020D8	auroric-exarch	all=plate cool=padding
+0x050002C4	sleeves-gloves	all=padding
+0x050002CA	jerkins	all=leather
+0x05000EFA	leggings	all=leather
+0x0500181E	boots	all=quilt bright=metal:all:0.97
+0x05001876	furs	all=fur
+0x05001878	trench-coat	all=leather
+0x0500187A	trench-coat	all=leather
+0x0500187B	trench-coat	all=leather
+0x0500187F	trench-coat	all=leather
+0x05001880	trench-coat	all=leather
+0x0500188C	trench-coat	all=leather
+0x0500188F	trench-coat	all=leather
+0x05001890	trench-coat	all=leather
+0x05001979	boots	all=plate
+0x0500197A	boots	all=leather
+0x0500197B	boots	all=plate
+0x05001A41	helms-single	all=fur
+0x05001A42	helms-single	all=plate
+0x05001A4B	helms-single	all=plate
+0x05001A4C	helms-single	all=plate
+0x05001A63	helms-single	all=plate 0,0.28,1,0.72=skin
+0x05001A93	helms-single	all=plate
+0x05001B0D	helms-single	all=plate
+0x05001B0E	helms-single	all=plate
+0x05001B0F	helms-single	all=plate
+0x05001B10	helms-single	all=fur
+0x05001B11	helms-single	all=fur
+0x05001B12	helms-single	all=fur
+0x05001B13	helms-single	all=fur
+0x05001BCB	boots	all=fur
+0x05001BCC	boots	all=fur
+0x05001BCD	snake-skin	all=leather
+0x05001BCE	snake-skin	all=leather
+0x05001BCF	snake-skin	all=leather
+0x05001BD0	helms-single	all=leather
+0x05001BD1	snake-skin	all=leather
+0x05001BD2	snake-skin	all=leather
+0x05001BD3	helms-single	all=leather
+0x05001BD4	snake-skin	all=leather
+0x05001BDB	helms-single	all=plate
+0x05001C09	sleeves-gloves	all=padding
+0x05001C0A	sleeves-gloves	all=padding
+0x05001C0C	renegade	all=plate
+0x05001C0D	renegade	all=plate
+0x05001C0F	renegade	all=plate
+0x05001C10	renegade	all=plate
+0x05001C11	renegade	all=plate
+0x05001C1F	renegade	all=plate
+0x05001C4C	helms-single	all=plate
+0x05001C4D	helms-single	all=plate
+0x05001E8B	helms-single	all=fur
+0x05001E8C	helms-single	all=plate
+0x05001E8D	helms-single	all=plate
+0x05002041	gauntlets	all=leather
+0x05002119	leggings	all=quilt
+0x0500211A	leggings	all=quilt
+0x0500211D	leggings	all=leather bright=metal:all:0.97
+0x05002130	olthoi-fighter	all=chitin cool=padding
+0x05002143	gauntlets	all=plate
+0x050021D0	boots	all=leather
+0x050021D1	boots	all=leather
+0x050021D2	boots	all=leather
+0x05002202	helms-single	all=plate
+0x05002203	helms-single	all=plate
+0x05002204	helms-single	all=chitin
+0x05002205	helms-single	all=chitin
+0x05002206	helms-single	all=chitin
+0x05002207	helms-single	all=chitin
+0x05002219	leggings	all=fur
+0x0500221A	leggings	all=fur
+0x0500221B	leggings	all=fur 0,0,1,0.25=fitting
+0x0500221C	furs	all=fur
+0x0500221D	furs	all=fur
+0x0500221E	furs	all=fur
+0x0500221F	furs	all=fur
+0x05002220	leggings	all=fur
+0x050022AA	boots	all=plate
+0x050022AB	furs	all=fur
+0x050022AC	furs	all=fur
+0x050022AD	furs	all=fur
+0x050022AE	furs	all=fur
+0x050022AF	leggings	all=fur
+0x050022B0	leggings	all=fur
+0x050022B9	hides	all=quilt
+0x050022BA	hides	all=quilt
+0x050022BB	hides	all=quilt
+0x050022BC	hides	all=quilt
+0x050022BD	hides	all=quilt
+0x050022BE	hides	all=quilt
+0x050022E6	helms-single	all=plate
+0x050022E7	helms-single	all=plate
+0x05002309	helms-single	all=plate
+0x0500230A	helms-single	all=plate
+0x050023DF	renegade	all=plate
+0x050023E0	renegade	all=plate
+0x050023E1	renegade	all=plate
+0x05002413	ornate-tumerok	all=mail
+0x05002414	ornate-tumerok	all=mail
+0x05002418	helms-single	all=plate
+0x05002419	helms-single	all=plate
+0x0500241A	helms-single	all=padding
+0x0500241B	helms-single	all=plate
+0x0500242D	ancient-armored	all=plate like=chain:0x050025AB
+0x050024B3	wings	all=leather
+0x050024B7	wings	all=leather
+0x050024BF	wings	all=leather
+0x050024C2	gromnie-amuli	all=quilt
+0x050024C3	gromnie-amuli	all=quilt
+0x050024C4	gromnie-amuli	all=quilt
+0x050024C5	gromnie-amuli	all=quilt
+0x050024C6	gromnie-amuli	all=quilt
+0x050024C7	gromnie-amuli	all=quilt
+0x050024C8	gromnie-amuli	all=quilt
+0x050025AF	girths	all=leather
+0x050025B0	girths	all=leather
+0x05002A8B	leggings	all=leather
+0x05002A8C	leggings	all=leather
+0x05002A8D	leggings	all=leather
+0x05002A8E	leggings	all=leather
+0x05002A93	boots	all=leather
+0x05002A94	boots	all=leather
+0x05002AC5	tenassa	all=plate
+0x05002AD3	gauntlets	all=fur
+0x05002AD4	gauntlets	all=fur
+0x05002AD8	sleeves-gloves	all=padding
+0x05002ADA	leggings	all=padding 0,0,0.42,1=chitin
+0x05002ADB	helms-single	all=padding bright=fitting:all:0.9
+0x05002AE7	invader-lord-helms	all=plate 0.75,0,0.25,0.55=padding
+0x05002AE8	invader-lord-helms	all=plate 0.75,0,0.25,0.55=padding
+0x05002AE9	invader-lord-helms	all=plate 0.75,0,0.25,0.55=padding
+0x05002AEA	invader-lord-helms	all=plate 0.75,0,0.25,0.55=padding
+0x05002AEB	invader-lord-helms	all=plate 0.75,0,0.25,0.55=padding
+0x05002AEC	invader-lord-helms	all=plate 0.75,0,0.25,0.55=padding
+0x05002AED	invader-lord-helms	all=plate 0.75,0,0.25,0.55=padding
+0x05002AEE	invader-lord-helms	all=plate 0.75,0,0.25,0.55=padding
+0x05002AF0	breastplates	all=plate
+0x05002B29	boots	all=leather bright=fitting:all:0.9
+0x05002B2A	boots	all=leather
+0x05002B3C	helms-single	all=plate
+0x05002B4C	helms-single	all=plate
+0x05002B4D	boots	all=plate
+0x05002B4E	coats	all=padding bright=fitting:all:0.97
+0x05002B4F	coats	all=padding bright=fitting:all:0.97
+0x05002B50	coats	all=padding bright=fitting:all:0.97
+0x05002B51	coats	all=padding bright=fitting:all:0.97
+0x05002B52	coats	all=padding bright=fitting:all:0.97
+0x05002B53	gauntlets	all=plate
+0x05002BAC	helms-single	all=plate 0,0.55,0.6,0.45=leather
+0x05002BAD	squalid	all=mail
+0x05002BAE	squalid	all=mail
+0x05002BAF	squalid	all=mail
+0x05002BB0	squalid	all=mail
+0x05002BB1	squalid	all=mail
+0x05002BB2	squalid	all=quilt
+0x05002BB3	squalid	all=mail
+0x05002BDE	helms-single	all=plate
+0x05002C04	helms-single	all=plate
+0x05002C23	breastplates	all=plate
+0x05002C24	breastplates	all=plate
+0x05002C25	breastplates	all=leather
+0x05002C33	gauntlets	all=plate
+0x05002C3D	boots	all=plate
+0x05002C3E	boots	all=plate
+0x05002C43	prismatic-amuli	all=quilt bright=metal:all:0.97
+0x05002C44	prismatic-amuli	all=quilt bright=metal:all:0.97
+0x05002C45	prismatic-amuli	all=quilt bright=metal:all:0.97
+0x05002C46	prismatic-amuli	all=quilt bright=metal:all:0.97
+0x05002C47	prismatic-amuli	all=quilt bright=metal:all:0.97
+0x05002C48	prismatic-amuli	all=quilt bright=metal:all:0.97
+0x05002C49	prismatic-amuli	all=quilt bright=metal:all:0.97
+0x05002C6B	gauntlets	all=plate
+0x05002C8B	helms-single	all=plate
+0x05002CA2	relic-alduressa	all=plate
+0x05002CA4	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CA5	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CA6	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CAB	ancient-relic	all=plate like=chain:0x05002CA9
+0x05002CAF	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB0	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB1	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB2	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB3	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB4	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB5	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB6	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB7	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB8	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CB9	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CBA	noble-relic	all=plate like=chain:0x05002CAF:0,0.8,1,0.2
+0x05002CCE	breastplates	all=plate cool=padding
+0x05002CCF	breastplates	all=plate cool=padding
+0x05002CD0	breastplates	all=plate cool=padding
+0x05002D13	helms-single	all=chain
+0x05002D14	helms-single	all=plate
+0x05002D15	helms-single	all=fur
+0x05002D16	helms-single	all=plate
+0x05002D8E	helms-single	all=plate
+0x05002D8F	helms-single	all=plate
+0x05002D90	helms-single	all=padding
+0x050032E1	gauntlets	all=plate
+# Clothing 1: shirts, tunics, pants and breeches. Cloth is woven and matte, silk smooth with a sheen; hide shirts are leather,
+# the Guardian's Uniform has a studded belt and the Hea shirt bone over hide.
+0x05001968	aerlinthe-shirts	all=cloth
+0x05001969	aerlinthe-shirts	all=cloth
+0x0500196A	aerlinthe-shirts	all=cloth
+0x0500196B	aerlinthe-shirts	all=cloth
+0x0500196C	aerlinthe-shirts	all=cloth
+0x050000A1	plain-shirts-pants	all=cloth
+0x050003CF	plain-shirts-pants	all=cloth
+0x05000BB0	plain-shirts-pants	all=cloth
+0x05000CBE	plain-shirts-pants	all=cloth
+0x0500025D	plain-shirts-pants	all=cloth
+0x0500025E	plain-shirts-pants	all=cloth
+0x0500025F	plain-shirts-pants	all=cloth
+0x050002BD	plain-shirts-pants	all=cloth
+0x050002BE	plain-shirts-pants	all=cloth
+0x05000CEA	plain-shirts-pants	all=cloth
+0x0500140D	plain-shirts-pants	all=cloth
+0x050024A6	aphus	all=silk
+0x050024A7	aphus	all=silk
+0x050024A8	aphus	all=silk
+0x050024A4	aphus	all=cloth
+0x050024A5	aphus	all=cloth
+0x050024A9	aphus	all=cloth
+0x050022EE	battle-sparring	1088-1279=cloth	576-767=leather
+0x050022F0	battle-sparring	1088-1279=cloth	576-767=leather
+0x050022EF	battle-sparring	1088-1279=cloth	576-767=leather	bright=fitting:576-767:0.9
+0x050022F1	battle-sparring	all=cloth
+0x050022F2	battle-sparring	all=cloth
+0x050022F3	battle-sparring	all=cloth
+0x050022F4	battle-sparring	all=cloth
+0x050022F5	battle-sparring	all=cloth
+0x050022F6	battle-sparring	all=cloth
+0x050022F7	battle-sparring	all=cloth
+0x050022F8	battle-sparring	all=cloth
+0x05002AAD	tunics	all=cloth
+0x05002AAE	tunics	all=cloth
+0x05002AAF	tunics	all=cloth
+0x05002AB0	tunics	all=cloth
+0x05002415	hide-shirts	all=leather
+0x05002416	hide-shirts	all=leather
+0x05002417	hide-shirts	all=leather
+0x05002249	dapper-suit	all=cloth
+0x0500224A	dapper-suit	all=cloth
+0x0500224B	dapper-suit	all=cloth
+0x0500224C	dapper-suit	all=cloth
+0x0500224D	dapper-suit	all=cloth
+0x0500224E	dapper-suit	all=cloth
+0x0500224F	dapper-suit	all=cloth
+0x05001E4C	guardian-uniform	320-639=cloth	768-863=leather	bright=metal:768-863:0.9
+0x05001E4D	guardian-uniform	320-639=cloth	640-735=leather	bright=metal:640-735:0.97
+0x05001E4E	guardian-uniform	320-639=cloth	640-735=leather	bright=metal:640-735:0.97
+0x05001E4F	guardian-uniform	320-639=cloth	640-735=leather	bright=metal:640-735:0.97
+0x05001E50	guardian-uniform	320-639=cloth	640-735=leather	bright=metal:640-735:0.97
+0x05001E51	guardian-uniform	320-639=cloth	640-735=leather	bright=metal:640-735:0.97
+0x05001E52	guardian-uniform	320-639=cloth	640-735=leather	bright=metal:640-735:0.97
+0x05002BFC	hide-shirts	all=leather	bright=bone:all:0.6
+0x05002BFD	hide-shirts	all=leather	bright=bone:all:0.6
+0x05002BFE	hide-shirts	all=leather	bright=bone:all:0.6
+0x05002BFF	hide-shirts	all=leather	bright=bone:all:0.6
+0x05002C00	hide-shirts	all=leather	bright=bone:all:0.6
+0x05002C01	hide-shirts	all=leather	bright=bone:all:0.6
+0x05002118	jaleh-chain	all=mail
+0x0500211B	jaleh-chain	all=mail
+0x0500211C	jaleh-chain	all=mail
+0x0500243C	loincloth	all=fur
+0x05002127	olthoi-fighter	all=cloth
+0x05002128	olthoi-fighter	all=cloth
+0x0500212F	olthoi-fighter	all=cloth	768-1023=chitin	like=skin:0x0500212F:0.8,0,0.2,0.12	unskin
+0x05002A8F	poets-shirts	all=cloth
+0x05002A90	poets-shirts	all=cloth
+0x05002A91	poets-shirts	all=cloth
+0x05002A92	poets-shirts	all=cloth
+0x050032D6	shou-jen	all=cloth
+0x050032D7	shou-jen	all=cloth
+0x050032D8	shou-jen	all=cloth
+0x050032DA	shou-jen	all=cloth
+0x050032DB	shou-jen	all=cloth
+0x050032DC	shou-jen	all=cloth
+0x050032DD	shou-jen	all=cloth
+0x050032DE	shou-jen	all=cloth
+0x050032D9	shou-jen	all=leather
+0x050032D3	shou-jen	all=leather
+0x05002CD1	shou-jen	all=cloth
+0x05002CD4	shou-jen	all=cloth
+0x05002CD5	shou-jen	all=cloth
+0x05002CD6	shou-jen	all=cloth
+0x05002CD7	shou-jen	all=cloth
+0x05002CD8	shou-jen	all=cloth
+0x05002CD9	shou-jen	all=cloth
+0x05001AFF	shreth-hide	all=fur
+0x05001B00	shreth-hide	all=fur
+0x0500249B	silken-wrap	all=silk
+0x0500249C	silken-wrap	all=silk
+0x0500249D	silken-wrap	all=silk
+0x0500249E	silken-wrap	all=silk
+0x050024A0	silken-wrap	all=silk
+0x050024A1	silken-wrap	all=silk
+0x050024A2	silken-wrap	all=silk
+0x050024A3	silken-wrap	all=silk
+0x05002082	tusker-island	all=cloth
+0x05002083	tusker-island	all=cloth
+0x05002084	tusker-island	all=cloth
+0x05002085	tusker-island	all=cloth
+# Clothing 2: robes, gowns and dresses. Cloth, or silk for gowns and raiments; the armour sets' robes keep their plates and
+# chain from the set's own chain, with trims as fittings; leather vests over robes.
+0x05001879	aerfalle-pallium	all=cloth
+0x0500187C	aerfalle-pallium	all=cloth
+0x0500187D	aerfalle-pallium	all=cloth
+0x0500233A	ancient-armored-vestment	all=plate	like=chain:0x050025AB
+0x0500233B	ancient-armored-vestment	all=plate	like=chain:0x050025AB
+0x0500233C	ancient-armored-vestment	all=plate	like=chain:0x050025AB
+0x0500233D	ancient-armored-vestment	all=plate	like=chain:0x050025AB
+0x0500258A	society-robes	all=cloth
+0x0500258B	society-robes	all=cloth
+0x0500258C	society-robes	all=cloth
+0x0500258D	society-robes	all=cloth
+0x0500258E	society-robes	all=cloth
+0x0500258F	society-robes	all=cloth
+0x05002590	society-robes	all=cloth
+0x05002591	society-robes	all=cloth
+0x05002592	society-robes	all=cloth
+0x05002593	society-robes	all=cloth
+0x05002594	society-robes	all=cloth
+0x05002595	society-robes	all=cloth
+0x05002596	society-robes	all=cloth
+0x05002598	society-robes	all=cloth
+0x05002599	society-robes	all=cloth
+0x0500259A	society-robes	all=cloth
+0x0500259B	society-robes	all=cloth
+0x0500259C	society-robes	all=cloth
+0x0500259D	society-robes	all=cloth
+0x0500259E	society-robes	all=cloth
+0x0500259F	society-robes	all=cloth
+0x050025A0	society-robes	all=cloth
+0x050025A1	society-robes	all=cloth
+0x050025A2	society-robes	all=cloth
+0x050025A3	society-robes	all=cloth
+0x050025A4	society-robes	all=cloth
+0x050025A5	society-robes	all=cloth
+0x050025A6	society-robes	all=cloth
+0x050025A7	society-robes	all=cloth
+0x050025A8	society-robes	all=cloth
+0x05002153	asherons-raiment	all=silk
+0x05002154	asherons-raiment	all=silk
+0x05002155	asherons-raiment	all=silk
+0x05002156	asherons-raiment	all=silk
+0x05002157	asherons-raiment	all=silk
+0x05002158	asherons-raiment	all=silk
+0x05002159	asherons-raiment	all=silk
+0x0500215A	asherons-raiment	all=silk
+0x05001A10	siraluun-dress	all=cloth
+0x05001DE8	siraluun-dress	all=cloth
+0x05001DE9	siraluun-dress	all=cloth
+0x05001DEB	siraluun-dress	all=cloth
+0x05001DEC	siraluun-dress	all=cloth
+0x05001DF2	siraluun-dress	all=cloth
+0x05001DF3	siraluun-dress	all=cloth
+0x05001881	plain-robes	all=cloth
+0x05001882	plain-robes	all=cloth
+0x05001883	plain-robes	all=cloth
+0x0500187E	plain-robes	all=cloth
+0x05002ABF	plain-robes	all=cloth
+0x05001884	plain-robes	all=leather
+0x05001885	plain-robes	all=leather
+0x050030BC	celestial-hand-robe	all=plate	like=chain:0x05002E4A	like=cloth:0x050030C6
+0x050030BD	celestial-hand-robe	all=plate	like=chain:0x05002E4A	0.15,0.5,0.7,0.5=cloth
+0x050030BF	celestial-hand-robe	all=plate	like=chain:0x05002E4A
+0x050030C0	celestial-hand-robe	all=plate	like=chain:0x05002E4A
+0x050030C1	celestial-hand-robe	all=plate	like=chain:0x05002E4A
+0x050030C2	celestial-hand-robe	all=plate	like=chain:0x05002E4A
+0x050030C3	celestial-hand-robe	all=cloth	bright=fitting:all:0.93
+0x050030C4	celestial-hand-robe	all=cloth	bright=fitting:all:0.93
+0x050030C5	celestial-hand-robe	all=cloth	bright=fitting:all:0.93
+0x050030C8	celestial-hand-robe	all=cloth	bright=fitting:all:0.93
+0x050030C6	celestial-hand-robe	all=cloth
+0x050030C7	celestial-hand-robe	all=cloth
+0x0500310C	dho-robe	all=cloth
+0x0500310D	dho-robe	all=cloth
+0x05003112	dho-robe	all=cloth
+0x05003113	dho-robe	all=cloth
+0x05003114	dho-robe	all=cloth
+0x05003110	dho-robe	all=leather
+0x05003111	dho-robe	all=leather
+0x050025E6	doppelganger-robe	all=cloth
+0x050025E7	doppelganger-robe	all=cloth
+0x050025E8	doppelganger-robe	all=cloth
+0x050025E9	doppelganger-robe	all=cloth
+0x050025EA	doppelganger-robe	all=cloth
+0x050025EB	doppelganger-robe	all=cloth
+0x050025EC	doppelganger-robe	all=cloth
+0x050025ED	doppelganger-robe	all=cloth
+0x050025EE	doppelganger-robe	all=cloth
+0x050030C9	eldrytch-web-robe	all=cloth	bright=fitting:all:0.93
+0x050030CA	eldrytch-web-robe	all=cloth	bright=fitting:all:0.93
+0x050030CB	eldrytch-web-robe	all=cloth	bright=fitting:all:0.93
+0x050030CC	eldrytch-web-robe	all=cloth	bright=fitting:all:0.93
+0x050030CD	eldrytch-web-robe	all=cloth
+0x050030CE	eldrytch-web-robe	all=cloth
+0x05001FC0	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC1	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC2	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC3	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC4	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC5	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC6	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC7	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC8	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05001FC9	elemental-master-robe	320-639=cloth	640-735=fitting	768-863=leather
+0x05002AB5	elena-gown	all=silk
+0x05002AB6	elena-gown	all=silk
+0x05002AB8	elena-gown	all=silk
+0x05002ABA	elena-gown	all=silk
+0x05002ABB	elena-gown	all=silk
+0x05002ABC	elena-gown	all=silk
+0x05002D3C	empyrean-robe	all=cloth
+0x05002D3D	empyrean-robe	all=cloth
+0x05002D3E	empyrean-robe	all=cloth
+0x0500304C	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x0500304D	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x0500304E	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x0500304F	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05003053	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05003054	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05003055	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05003058	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05003056	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05003057	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35
+0x05003050	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35	like=cloth:0x0500305A
+0x05003051	perfect-light-robe	all=plate	like=chain:0x05002DE4:0.35,0.6,0.3,0.35	like=cloth:0x0500305A
+0x05003052	perfect-light-robe	all=cloth	0.3,0,0.7,0.55=plate
+0x05003059	perfect-light-robe	all=cloth	0,0.9,1,0.1=plate
+0x0500305A	perfect-light-robe	all=cloth	0,0.9,1,0.1=plate
+0x0500305B	perfect-light-robe	all=cloth
+0x050022FF	envoys-robe	all=cloth
+0x05002300	envoys-robe	all=cloth
+0x05002301	envoys-robe	all=cloth
+0x05002302	envoys-robe	all=cloth
+0x05002303	envoys-robe	all=cloth
+0x05002304	envoys-robe	all=cloth
+0x05002305	envoys-robe	all=cloth
+0x05002306	envoys-robe	all=cloth
+0x05002307	envoys-robe	all=cloth
+0x05002308	envoys-robe	all=cloth
+0x050022DD	gelidite-robe	all=cloth
+0x050022DE	gelidite-robe	all=cloth
+0x050022DF	gelidite-robe	all=cloth
+0x050022E0	gelidite-robe	all=cloth
+0x050022E1	gelidite-robe	all=cloth
+0x050022E2	gelidite-robe	all=cloth
+0x050022E3	gelidite-robe	all=cloth
+0x050022E4	gelidite-robe	all=cloth
+0x050022E5	gelidite-robe	all=cloth
+0x0500220F	reedshark-robe	all=leather
+0x05002210	reedshark-robe	all=leather
+0x05002211	reedshark-robe	all=leather
+0x05002212	reedshark-robe	all=leather
+0x05002213	reedshark-robe	all=leather
+0x05002214	reedshark-robe	all=leather
+0x05002215	reedshark-robe	all=leather
+0x05002216	reedshark-robe	all=leather
+0x05002217	reedshark-robe	all=leather
+0x05002218	reedshark-robe	all=leather
+0x05001A08	kireth-gown	all=silk
+0x05001A09	kireth-gown	all=silk
+0x05001A0A	kireth-gown	all=silk
+0x05001A0B	kireth-gown	all=silk
+0x05001A0E	kireth-gown	all=silk
+0x05001A0F	kireth-gown	all=silk
+0x05001A0C	kireth-gown	all=silk
+0x05001A0D	kireth-gown	all=silk
+0x05001A11	kiyafa-robe	all=silk
+0x05001A12	kiyafa-robe	all=silk
+0x05001A13	kiyafa-robe	all=silk
+0x05001A14	kiyafa-robe	all=silk
+0x05001A15	kiyafa-robe	all=silk
+0x05001A16	kiyafa-robe	all=silk
+0x05001A17	kiyafa-robe	all=silk
+0x05001A18	kiyafa-robe	all=silk
+0x05001A1B	kiyafa-robe	all=silk
+0x05001A1C	kiyafa-robe	all=silk
+0x05001A20	kiyafa-robe	all=silk
+0x05001A19	sasalia-dress	all=silk
+0x05001A1A	sasalia-dress	all=silk
+0x05001A1D	sasalia-dress	all=silk
+0x05001A1E	sasalia-dress	all=silk
+0x05001A1F	sasalia-dress	all=silk
+0x05001A21	sasalia-dress	all=silk
+0x05001A22	sasalia-dress	all=silk
+0x05003280	utter-darkness-robe	all=plate	like=chain:0x05003280:0,0.8,1,0.2
+0x05003281	utter-darkness-robe	all=plate	like=chain:0x05003280:0,0.8,1,0.2
+0x05003284	utter-darkness-robe	all=plate	like=chain:0x05003280:0,0.8,1,0.2
+0x05003285	utter-darkness-robe	all=plate	like=chain:0x05003280:0,0.8,1,0.2
+0x05003286	utter-darkness-robe	all=plate	like=chain:0x05003280:0,0.8,1,0.2
+0x05003287	utter-darkness-robe	all=plate	like=chain:0x05003280:0,0.8,1,0.2
+0x05003289	utter-darkness-robe	all=plate	like=chain:0x05003280:0,0.8,1,0.2
+0x05003282	utter-darkness-robe	all=plate	like=cloth:0x0500328C
+0x05003283	utter-darkness-robe	all=plate
+0x05003288	utter-darkness-robe	all=plate
+0x0500328A	utter-darkness-robe	all=plate
+0x0500328F	utter-darkness-robe	all=plate	like=cloth:0x0500328C
+0x0500328B	utter-darkness-robe	all=cloth	bright=fitting:all:0.95
+0x0500328C	utter-darkness-robe	all=cloth	bright=fitting:all:0.95
+0x0500328D	utter-darkness-robe	all=cloth	bright=fitting:all:0.95
+0x0500328E	utter-darkness-robe	all=cloth	bright=fitting:all:0.95
+0x05002BA4	luminous-robe	all=silk
+0x05002BA5	luminous-robe	all=silk
+0x05002BA6	luminous-robe	all=silk
+0x05002BA7	luminous-robe	all=silk
+0x05002BA8	luminous-robe	all=silk
+0x05002BA9	luminous-robe	all=silk
+0x05002BAA	luminous-robe	all=silk
+0x05001FF0	martines-robe	all=cloth
+0x05001FF1	martines-robe	all=cloth
+0x05001FF2	martines-robe	all=cloth
+0x05001FF3	martines-robe	all=cloth
+0x05001FF4	martines-robe	all=cloth
+0x05001FF5	martines-robe	all=cloth
+0x05001FF6	martines-robe	320-639=cloth	768-863=leather
+0x05001FF7	martines-robe	320-639=cloth	768-863=leather
+0x050022B1	plaguefang-robe	all=cloth
+0x050022B2	plaguefang-robe	all=cloth
+0x050022B3	plaguefang-robe	all=cloth
+0x050022B4	plaguefang-robe	all=cloth
+0x050022B5	plaguefang-robe	all=cloth
+0x050022B6	plaguefang-robe	all=cloth
+0x050022B7	plaguefang-robe	all=cloth
+0x050022B8	plaguefang-robe	all=cloth
+0x050030CF	radiant-blood-robe	all=cloth	bright=fitting:all:0.9
+0x050030D0	radiant-blood-robe	all=cloth	bright=fitting:all:0.9
+0x050030D1	radiant-blood-robe	all=cloth	bright=fitting:all:0.9
+0x050030D2	radiant-blood-robe	all=cloth	bright=fitting:all:0.9
+0x050030D3	radiant-blood-robe	all=cloth	bright=fitting:all:0.9
+0x050030D4	radiant-blood-robe	all=cloth	bright=fitting:all:0.9
+0x050030D5	radiant-blood-robe	all=cloth	bright=fitting:all:0.9
+0x050030D6	radiant-blood-robe	all=cloth
+0x050030D7	radiant-blood-robe	all=cloth
+0x050030D8	radiant-blood-robe	all=cloth
+0x050023BF	realaidain-raiment	all=silk
+0x050023C0	realaidain-raiment	all=silk
+0x050023C1	realaidain-raiment	all=silk
+0x050023C2	realaidain-raiment	all=silk
+0x050023C3	realaidain-raiment	all=silk
+0x050023C4	realaidain-raiment	all=silk
+0x050023C5	realaidain-raiment	all=silk
+0x050023C6	realaidain-raiment	all=silk
+0x05001A64	shadows-garb	all=cloth
+0x05001A66	shadows-garb	all=cloth
+0x05002240	sleek-dress	all=silk
+0x05002241	sleek-dress	all=silk
+0x05002242	sleek-dress	all=silk
+0x05002243	sleek-dress	all=silk
+0x05002244	sleek-dress	all=silk
+0x05002245	sleek-dress	all=silk
+0x05002246	sleek-dress	all=silk
+0x05002247	sleek-dress	all=silk
+0x05002248	sleek-dress	all=silk
+0x05002AB2	tessera-gown	all=silk
+0x05002AB3	tessera-gown	all=silk
+0x05002AB4	tessera-gown	all=silk
+0x05002AB7	tessera-gown	all=silk
+0x05002AB9	tessera-gown	all=silk
+0x05002ABE	tessera-gown	all=silk
+0x05002AC0	toga	all=cloth
+0x05002AC1	toga	all=cloth
+0x05002AC2	toga	all=cloth
+# Clothing 3: masks and creature heads. Each by what it shows: hide (leather), fur, bone or porcelain, metal, cloth;
+# unskin, since a creature mask paints its own skin in the skin entries.
+0x05002FAC	cloth-masks	all=cloth	unskin
+0x05001E13	cloth-masks	all=cloth	unskin
+0x0500223C	cloth-masks	all=cloth	unskin
+0x05001DAB	cloth-masks	all=cloth	unskin
+0x05002B73	cloth-masks	all=cloth	unskin
+0x050019EA	cloth-masks	all=cloth	unskin
+0x050019EB	cloth-masks	all=cloth	unskin
+0x050019EF	cloth-masks	all=cloth	unskin
+0x050019EE	cloth-masks	all=cloth	unskin
+0x0500264C	cloth-masks	all=cloth	unskin
+0x050019E8	cloth-masks	all=cloth	unskin
+0x05002C54	cloth-masks	all=cloth	unskin
+0x05002C55	cloth-masks	all=cloth	unskin
+0x05002CDA	cloth-masks	all=cloth	unskin
+0x050032DF	cloth-masks	all=cloth	unskin
+0x05001886	cloth-masks	all=cloth	unskin
+0x05002DB4	cloth-masks	all=cloth	unskin
+0x05002DB6	cloth-masks	all=cloth	unskin
+0x05002DB3	cloth-masks	all=cloth	unskin
+0x05002DB5	cloth-masks	all=cloth	unskin
+0x05001AEF	cloth-masks	all=cloth	unskin
+0x05002D11	cloth-masks	all=cloth	bright=fitting:all:0.93	unskin
+0x05002DB7	cloth-masks	all=cloth	bright=fitting:all:0.93	unskin
+0x05002D12	cloth-masks	all=cloth	unskin
+0x05002F8A	bone-masks	all=bone	unskin
+0x05001E14	bone-masks	all=bone	unskin
+0x0500202B	bone-masks	all=bone	unskin
+0x05001E22	bone-masks	all=bone	unskin
+0x05001F66	bone-masks	all=bone	unskin
+0x05002CE1	bone-masks	all=bone	unskin
+0x05002CE2	bone-masks	all=bone	unskin
+0x05002318	bone-masks	all=bone	unskin
+0x0500330B	bone-masks	all=bone	unskin
+0x05003306	bone-masks	all=bone	unskin
+0x0500330D	bone-masks	all=bone	unskin
+0x05000E2B	bone-masks	all=bone	unskin
+0x05000E2D	bone-masks	all=bone	unskin
+0x05000E31	bone-masks	all=bone	unskin
+0x05000E32	bone-masks	all=bone	unskin
+0x050021E5	bone-masks	all=bone	unskin
+0x050021E8	bone-masks	all=bone	unskin
+0x05001A3C	bone-masks	all=bone	unskin
+0x05002DFD	metal-masks	all=plate	unskin
+0x05002E03	metal-masks	all=plate	unskin
+0x05002E0A	metal-masks	all=plate	unskin
+0x05001AED	metal-masks	all=plate	unskin
+0x05001AEE	metal-masks	all=plate	unskin
+0x05002D10	metal-masks	all=plate	unskin
+0x050021E6	metal-masks	all=plate	unskin
+0x050021E7	metal-masks	all=plate	unskin
+0x050021DB	metal-masks	all=plate	unskin
+0x05002136	metal-masks	all=plate	unskin
+0x05001AEC	fur-masks	all=fur	0,0.75,1,0.25=fitting	unskin
+0x05001AE8	fur-masks	all=fur	unskin
+0x05001F61	fur-masks	all=fur	unskin
+0x050023CF	fur-masks	all=fur	unskin
+0x050023D3	fur-masks	all=fur	unskin
+0x0500257D	fur-masks	all=fur	unskin
+0x05001A68	fur-masks	all=fur	unskin
+0x050019C9	fur-masks	all=fur	unskin
+0x050019CA	fur-masks	all=fur	unskin
+0x050019D0	fur-masks	all=fur	unskin
+0x05002C26	fur-masks	all=hair	unskin
+0x05002AC6	fur-masks	all=fur	unskin
+0x05002DA6	fur-masks	all=fur	unskin
+0x05002DA7	fur-masks	all=fur	unskin
+0x05002DA8	fur-masks	all=fur	unskin
+0x05002DA9	fur-masks	all=fur	unskin
+0x05002073	hide-masks	all=chitin	unskin
+0x0500140B	hide-masks	all=leather	unskin
+0x05001405	hide-masks	all=leather	unskin
+0x05001408	hide-masks	all=leather	unskin
+0x0500140C	hide-masks	all=leather	unskin
+0x0500001B	hide-masks	all=leather	unskin
+0x0500001D	hide-masks	all=leather	unskin
+0x05002039	hide-masks	all=leather	unskin
+0x05002032	hide-masks	all=leather	unskin
+0x05002422	hide-masks	all=leather	unskin
+0x05002420	hide-masks	all=leather	unskin
+0x05002423	hide-masks	all=leather	unskin
+0x05002312	hide-masks	all=leather	unskin
+0x05002313	hide-masks	all=leather	unskin
+0x05002315	hide-masks	all=leather	unskin
+0x050018EF	hide-masks	all=leather	unskin
+0x050018F1	hide-masks	all=leather	unskin
+0x050018F2	hide-masks	all=leather	unskin
+0x050021C9	hide-masks	all=leather	unskin
+0x050021C8	hide-masks	all=leather	unskin
+0x05000C01	hide-masks	all=leather	unskin
+0x05000C04	hide-masks	all=leather	unskin
+0x05000C07	hide-masks	all=leather	unskin
+0x05001873	hide-masks	all=leather	unskin
+0x05001AA7	hide-masks	all=leather	unskin
+0x05001AAB	hide-masks	all=leather	unskin
+0x05001DCD	hide-masks	all=leather	unskin
+0x050025B6	hide-masks	all=leather	unskin
+0x05001F5D	hide-masks	all=leather	unskin
+0x05002135	hide-masks	all=leather	unskin
+0x05002C28	hide-masks	all=leather	unskin
+0x05002CE3	hide-masks	all=leather	unskin
+0x0500195B	hide-masks	all=leather	unskin
+0x0500195C	hide-masks	all=leather	unskin
+0x0500195D	hide-masks	all=leather	unskin
+0x05000058	hide-masks	all=leather	unskin
+0x0500005B	hide-masks	all=leather	unskin
+0x05001E06	hide-masks	all=leather	unskin
+0x05002C96	hide-masks	all=leather	unskin
+0x05001A67	hide-masks	all=leather	unskin
+0x050019F4	hide-masks	all=leather	unskin
+0x050019F5	hide-masks	all=leather	unskin
+0x050019F7	hide-masks	all=leather	unskin
+0x050025AD	hide-masks	all=leather	unskin
+0x05003305	hide-masks	all=leather	unskin
+0x05003307	hide-masks	all=leather	unskin
+0x0500330A	hide-masks	all=leather	unskin
+0x05003312	hide-masks	all=leather	unskin
+0x0500330C	hide-masks	all=leather	unskin
+0x0500330E	hide-masks	all=leather	unskin
+0x05001A33	hide-masks	all=leather	unskin
+0x05001A36	hide-masks	all=leather	unskin
+0x05002DAA	hide-masks	all=leather	unskin
+0x05001AEB	hide-masks	all=leather	unskin
+# Clothing 4: hats, crowns and hoods. Felt and cloth hats are cloth, a top hat is silk, caps and straps leather, feathers and fur fur,
+# crowns and metal bands plate, bone crowns bone. Helm faces are left to the face pictures.
+0x05001C38	cloth-hats	all=cloth
+0x050022D6	cloth-hats	all=cloth
+0x050022D7	cloth-hats	all=cloth
+0x050022D8	cloth-hats	all=cloth
+0x050022D9	cloth-hats	all=cloth
+0x050022DA	cloth-hats	all=cloth
+0x05002AB1	cloth-hats	all=cloth
+0x05001C35	cloth-hats	all=cloth
+0x05001C36	cloth-hats	all=cloth
+0x0500223D	cloth-hats	all=cloth
+0x0500223E	cloth-hats	all=cloth
+0x0500223F	cloth-hats	all=cloth
+0x050002C3	cloth-hats	all=cloth
+0x0500314E	cloth-hats	all=cloth
+0x05003152	cloth-hats	all=cloth
+0x050002E9	cloth-hats	all=cloth
+0x050020A1	cloth-hats	all=cloth
+0x050020A0	cloth-hats	all=cloth
+0x05002148	cloth-hats	all=cloth
+0x05002149	cloth-hats	all=cloth
+0x05002EF2	cloth-hats	all=cloth
+0x05001E3F	cloth-hats	all=cloth
+0x05001C39	cloth-hats	all=cloth
+0x05002EF0	cloth-hats	all=silk
+0x05002EF1	cloth-hats	all=silk
+0x050025BD	leather-hats	all=leather
+0x050025BE	leather-hats	all=leather
+0x05002146	leather-hats	all=leather
+0x050025BF	leather-hats	all=leather	bright=fitting:all:0.85
+0x050021FF	fur-hats	all=fur
+0x05002200	fur-hats	all=fur
+0x05001C37	fur-hats	all=fur
+0x05002144	fur-hats	all=fur
+0x05002145	fur-hats	all=fur
+0x05001A65	fur-hats	all=fur	unskin
+0x05002201	fur-hats	all=leather
+0x050022F9	crowns	all=bone
+0x050022FA	crowns	all=bone
+0x0500233E	crowns	all=bone
+0x05002448	crowns	all=plate
+0x05002449	crowns	all=plate
+0x05002C1C	crowns	all=plate
+0x05002027	crowns	all=plate
+0x05002028	crowns	all=plate
+0x05000E17	crowns	all=plate
+0x05000ECA	crowns	all=plate
+0x0500233F	crowns	all=plate
+0x05002B94	crowns	all=plate
+0x05002C1B	crowns	all=plate
+0x05001E18	crowns	all=plate
+0x05002D0E	crowns	all=plate
+0x05001E3E	crowns	all=plate
+0x05002C18	crowns	all=plate
+0x05002C19	crowns	all=plate
+0x05003153	crowns	all=plate
+0x05002147	crowns	all=plate
+0x0500214A	crowns	all=plate
+# Clothing 5: cloaks (cloth), bunny slippers (hair), a buckler cover, an apron over a shirt, fingerless gloves, a dress's metal and bead armbands,
+# and an arm wrap; the bare skin these pictures show stays skin.
+0x0500315F	cloaks	all=cloth
+0x05003126	cloaks	all=cloth
+0x05003122	cloaks	all=cloth
+0x05003123	cloaks	all=cloth
+0x05003124	cloaks	all=cloth
+0x05003125	cloaks	all=cloth
+0x05003121	cloaks	all=cloth
+0x05003120	cloaks	all=cloth
+0x05003127	cloaks	all=cloth
+0x05003128	cloaks	all=cloth
+0x05002DF9	cloaks	all=cloth
+0x0500312A	cloaks	all=cloth
+0x0500312B	cloaks	all=cloth
+0x0500312D	cloaks	all=cloth
+0x05003129	cloaks	all=cloth
+0x05001E5C	slippers	all=hair
+0x05001E5D	slippers	all=hair
+0x05001E5E	slippers	all=hair
+0x05002CDC	slippers	all=hair
+0x05002CDD	slippers	all=hair
+0x05002CDE	slippers	all=hair
+0x05003094	leftovers	all=leather
+0x05000F59	leftovers	all=leather	cool=cloth
+0x05000F5B	leftovers	all=leather	cool=cloth
+0x05000F5A	leftovers	all=cloth
+0x05000F5C	leftovers	all=leather
+0x050032BE	leftovers	all=cloth
+0x050032BF	leftovers	all=cloth
+0x050032E0	leftovers	all=cloth
+0x050032E2	leftovers	all=cloth
+0x05001DF1	leftovers	all=skin	192-2048=plate	0,0.8,1,0.14=bone	unskin
+0x05001E0A	leftovers	all=skin	192-2048=plate	0,0.8,1,0.14=bone	unskin
+0x0500249F	leftovers	all=silk
