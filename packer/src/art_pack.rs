@@ -41,6 +41,8 @@ pub struct PackPrimitive {
 /// One level of detail.
 #[derive(Debug, Clone, PartialEq)]
 pub struct PackLod {
+    /// How far from the eye it is drawn, metres; infinite for a last level with no limit.
+    pub distance: f32,
     pub primitives: Vec<PackPrimitive>,
     /// For a level that is pictures of the model seen from round it, how they are laid out.
     pub views: Option<Views>,
@@ -424,6 +426,7 @@ pub fn open(
                 break;
             }
             built.push(PackLod {
+                distance: lod.distance.unwrap_or(f32::INFINITY),
                 primitives: parts,
                 views: lod.views,
                 shadows_only: lod.shadows_only,

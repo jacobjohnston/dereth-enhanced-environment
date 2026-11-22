@@ -145,9 +145,9 @@
      "index": 2
     },
     "baseColorFactor": [
-     0.16,
-     0.158,
-     0.365,
+     0.366,
+     0.527,
+     0.161,
      1
     ],
     "metallicFactor": 0,
@@ -206,9 +206,9 @@
      "index": 2
     },
     "baseColorFactor": [
-     0.16,
-     0.158,
-     0.365,
+     0.366,
+     0.527,
+     0.161,
      1
     ],
     "metallicFactor": 0,
@@ -267,9 +267,9 @@
      "index": 2
     },
     "baseColorFactor": [
-     0.16,
-     0.158,
-     0.365,
+     0.366,
+     0.527,
+     0.161,
      1
     ],
     "metallicFactor": 0,
@@ -306,7 +306,7 @@
    "uri": "Conifer_Bark_Normal.png"
   },
   {
-   "uri": "Conifer_Needles.png"
+   "uri": "Conifer_Needles_Grey.png"
   }
  ],
  "textures": [

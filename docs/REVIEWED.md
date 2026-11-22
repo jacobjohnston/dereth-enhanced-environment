@@ -42,6 +42,7 @@ shapes.mjs and cactus.py. Review page "Pack Trees Review", with a separate keep 
 | 9 | 11-21 | 2 | 4BE and 2D9 rolled back to 0.4.4, approved; yellow twin 12FF kept as is | 15ec42da (tree-rollback-044) |
 | 10 | 11-21 | 1 | red birch 62B leaves back to 0.4.4's bright orange, approved | 703efe54 (tree-birch-044) |
 | 0.5 | 11-21 | | squashed into a95f7082 | fbaee071 |
+| Needle colour | 11-21 | 11 | Far crowns read near-black (Jacob: "distant tree cards got a bit blobby"). Needles moved to a grey picture coloured as end of retail's crown, twice as bright; not yet shown to Jacob | d723cadd, e9b788ec (fix/needle-colour) |
 
 ### Per tree
 
@@ -221,6 +222,23 @@ Rounds 9 and 10 (via the screenshot session): "Keep the yellow twin as it is, bu
 - Back on retail's own models (pack model removed): drooping flowers A37, B2D, B2E, B2F (sway entries, below); sea ferns and stars 14A5, 14A7, 14A8, 14AF, 14B0; gnarled stump 7BC (round 3: "stay with the EoR version"). Anemones 14B2, 14B4 are on retail's model with anemone.py pictures (0x05002C17, 0x05002C12) and half-depth bulb relief, halved again in round 6.
 - The 0.5 manifest has 149 models: 93 `draws_on any` (the 90 plants, plus 0x0100069A, 0x02000285, 0x02000354: the hay pile and two ember beds), 13 older-era plants, 43 boulders.
 - Removed tools: roots.py, blend_foot.py, fitFoot, fit_trunks.py `--to-head`, the redwood TREERING outlines. taper_trunks.py stayed out of the 26 regrown picks.
+
+### Needle colour round (2026-11-21)
+
+- Why: at a distance the 0.5 conifers read as solid near-black cones. Their needles were the yellow-green
+  `Conifer_Needles.png` times a purple-leaning tint (`toned`), about 2% albedo, which no picture colour could
+  bring to retail's hue (the picture has almost no blue).
+- What: 256, 257, 258, 2D3, 2D8, 2DA, 2DB, 129A, 129B, 12FE and 1C39 draw their needles from
+  `Conifer_Needles_Grey.png` (`grey_needles.py`: the picture's brightness, alpha kept, mean 0.1513 linear).
+  Their tint (`crown` in gen_pack.mjs) is end of retail's crown colour, measured linear over its needles'
+  area, over that mean, times `NEEDLE_GAIN` 2: at gain 1 Pyreal's lighting still drew them near-black
+  beside retail.
+- Left alone: 2D9 (0.4.4's autumn needles, round 9), the snowy 3A2, 3A3, 3A4, 3A7 and 12FB (0.4.4 needles,
+  round 7), the older-era 3A1 and F06, and the sprig A59.
+- Close up the needles read a little lighter and greener than retail's, and the teal firs bluer; the gain
+  is the one knob.
+- ee-pack draws each card from the level it takes over from (cards' make 2), as Pyreal's art-pack does
+  since Pyreal 479b8aa5; the two packers write the same bytes in layouts 1 and 2.
 
 ### Kept deliberately
 

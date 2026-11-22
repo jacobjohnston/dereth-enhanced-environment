@@ -74,27 +74,38 @@ const toned = (look, by) => {
   return { ...look, tint: times(look.tint), ...(look.mass ? { mass: times(look.mass) } : {}) };
 };
 
+// Needles in end of retail's own colour: the grey needle picture (grey_needles.py) times retail's
+// crown colour (linear, over its needles' area) over the picture's mean, twice as bright, so lit by
+// the client they read as retail's dark green at a distance (needle colour round, 2026-11-21).
+const NEEDLE_GREY_MEAN = 0.1513;
+const NEEDLE_GAIN = 2;
+const crown = (c) => ({
+  color: 'Conifer_Needles_Grey.png',
+  tint: [...c.map((v) => Math.min(1, Math.round((v / NEEDLE_GREY_MEAN) * NEEDLE_GAIN * 1000) / 1000)), 1],
+  cutoff: 0.3,
+});
+
 // Each retail conifer: id, across, tall, the trunk's radius at its foot, its needles, its bark, and
 // how: where its branches start when not at START, or the floor of its crown read from end of
 // retail's (Jacob's second review, 2026-11-21), snow on its foot, and the other trees of a group.
 const CONIFERS = [
-  ['0x02000258', 16.1, 23.96, 1.0, toned(GREEN, [0.394, 0.264, 0.911]), BROWN, { floor: 0.2 }],
-  ['0x02000257', 4.6, 6.75, 0.25, toned(GREEN, [0.271, 0.248, 1]), BROWN, { floor: 0.19, wider: 0.68, taper: 0.7 }],
-  ['0x02000256', 9.2, 13.5, 0.8, toned(GREEN, [0.212, 0.178, 0.687]), BROWN, { floor: 0.17 }],
-  ['0x020002D3', 13.4, 35.82, 1.4, toned(GREEN, [0.211, 0.159, 0.585]), BROWN, { floor: 0.14 }],
+  ['0x02000258', 16.1, 23.96, 1.0, crown([0.05, 0.0532, 0.0128]), BROWN, { floor: 0.2 }],
+  ['0x02000257', 4.6, 6.75, 0.25, crown([0.0274, 0.0399, 0.0119]), BROWN, { floor: 0.19, wider: 0.68, taper: 0.7 }],
+  ['0x02000256', 9.2, 13.5, 0.8, crown([0.0274, 0.0399, 0.0119]), BROWN, { floor: 0.17 }],
+  ['0x020002D3', 13.4, 35.82, 1.4, crown([0.024, 0.0292, 0.0085]), BROWN, { floor: 0.14 }],
   ['0x020002D9', 13.4, 35.82, 1.4, toned(AUTUMN, [0.23, 0.228, 0.291]), BROWN, { floor: 0.17 }],
-  ['0x020002DA', 23.5, 62.69, 2.4, toned(AUTUMN, [0.197, 0.206, 0.272])],
-  ['0x020002DB', 13.4, 44.42, 1.4, toned(TEAL, [0.157, 0.161, 0.491]), BROWN, { floor: 0.13 }],
-  ['0x020002D8', 13.4, 33.42, 1.4, toned(TEAL, [0.302, 0.193, 0.314]), BROWN, { floor: 0.14 }],
+  ['0x020002DA', 23.5, 62.69, 2.4, crown([0.0339, 0.0186, 0.0069])],
+  ['0x020002DB', 13.4, 44.42, 1.4, crown([0.0084, 0.0275, 0.0272]), BROWN, { floor: 0.13 }],
+  ['0x020002D8', 13.4, 33.42, 1.4, crown([0.0109, 0.0259, 0.0147]), BROWN, { floor: 0.14 }],
   ['0x020003A2', 4.6, 6.75, 0.45, toned(SNOW, [0.72, 0.78, 0.84]), BROWN, { floor: 0.15, wider: 0.68, taper: 0.7, reseed: 11, children: 64, snowy: 0.4 }],
   ['0x020003A3', 9.2, 13.5, 0.8, toned(SNOW, [0.419, 0.463, 0.547]), BROWN, { floor: 0.18, wider: 0.6, taper: 0.75 }],
   ['0x020003A4', 16.1, 23.96, 1.0, toned(SNOW, [0.448, 0.473, 0.527]), BROWN, { floor: 0.15, snowFoot: true }],
   ['0x020003A7', 13.4, 33.42, 1.4, toned(SNOW, [0.581, 0.655, 0.74])],
   ['0x020012FB', 13.4, 35.82, 1.4, toned(SNOW, [0.768, 0.803, 0.858]), BROWN, { floor: 0.1, snowFoot: true }],
-  ['0x0200129A', 12, 54.07, 2.0, toned(GREEN, [0.289, 0.19, 0.484]), REDWOOD, { floor: 0.46 }],
-  ['0x0200129B', 10, 40.57, 1.8, toned(GREEN, [0.359, 0.268, 1]), REDWOOD, { floor: 0.33 }],
-  ['0x020012FE', 6.5, 21.49, 0.8, toned(GREEN, [0.381, 0.198, 0.666]), REDWOOD, { floor: 0.45, children: 16 }],
-  ['0x02001C39', 13, 32, 1.2, toned(GREEN, [0.222, 0.198, 0.73]), BROWN, { floor: 0.2, group: [[-3, -9, 0.82], [2, 9, 0.92]] }],
+  ['0x0200129A', 12, 54.07, 2.0, crown([0.0483, 0.0687, 0.0213]), REDWOOD, { floor: 0.46 }],
+  ['0x0200129B', 10, 40.57, 1.8, crown([0.0421, 0.0543, 0.0173]), REDWOOD, { floor: 0.33 }],
+  ['0x020012FE', 6.5, 21.49, 0.8, crown([0.0475, 0.0642, 0.0205]), REDWOOD, { floor: 0.45, children: 16 }],
+  ['0x02001C39', 13, 32, 1.2, crown([0.0277, 0.0399, 0.0122]), BROWN, { floor: 0.2, group: [[-3, -9, 0.82], [2, 9, 0.92]] }],
   // The older tall pine and fir, which end of retail drew another way (the remodelled props review).
   ['0x020003A1', 10.4, 56.0, 1.2, TEAL, BROWN, { older: true, start: 0.1 }],
   ['0x02000F06', 14.8, 29.6, 1.0, FIR, BROWN, { older: true, start: 0.2 }],

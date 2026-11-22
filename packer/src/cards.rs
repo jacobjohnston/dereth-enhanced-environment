@@ -13,13 +13,17 @@ use crate::math;
 
 /// The cards' make, in the key a packed pack keeps each card under: bumped whenever a card is
 /// drawn differently, so a pack packed with older cards has them drawn again as it opens.
-pub const MAKE: u32 = 1;
+pub const MAKE: u32 = 2;
 
 /// The views round a card's model, and the tiles to a row.
 pub const VIEWS: Views = Views {
     count: 16,
     columns: 4,
 };
+
+/// The least distance a level of shape is taken to begin at, metres a metre of scale: an
+/// open-ended last level after one ending this far out is left to the card.
+const CARD_LEAST: f32 = 60.0;
 
 /// A tile's texels a metre of its model's height, and the least and most of its height.
 const TEXELS_A_METRE: f32 = 8.0;
@@ -138,15 +142,25 @@ pub fn add_cards(
         .collect()
 }
 
-/// The level a model's card is drawn from: its first level of shape the view draws, for a model
-/// with no level of pictures.
+/// The level a model's card is drawn from, for a model with no level of pictures: the level of
+/// shape the client draws last, which the card takes over from. An open-ended last level after
+/// one ending at least [`CARD_LEAST`] out is never drawn alone, so the level before it.
 fn source(m: &PackModel) -> Option<&PackLod> {
     if m.lods.iter().any(|l| l.views.is_some()) {
         return None;
     }
-    m.lods
+    let shapes: Vec<&PackLod> = m
+        .lods
         .iter()
-        .find(|l| !l.shadows_only && !l.primitives.is_empty())
+        .filter(|l| !l.shadows_only && !l.primitives.is_empty())
+        .collect();
+    match shapes.as_slice() {
+        [.., before, last] if !last.distance.is_finite() && before.distance >= CARD_LEAST => {
+            Some(before)
+        }
+        [.., last] => Some(last),
+        [] => None,
+    }
 }
 
 /// Where a model's card stands round its upright axis: half its width, its foot and its top.

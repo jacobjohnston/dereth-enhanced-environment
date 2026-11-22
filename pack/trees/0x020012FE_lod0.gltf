@@ -91,9 +91,9 @@
      "index": 2
     },
     "baseColorFactor": [
-     0.274,
-     0.158,
-     0.333,
+     0.628,
+     0.849,
+     0.271,
      1
     ],
     "metallicFactor": 0,
@@ -130,7 +130,7 @@
    "uri": "Conifer_Bark_Normal.png"
   },
   {
-   "uri": "Conifer_Needles.png"
+   "uri": "Conifer_Needles_Grey.png"
   }
  ],
  "textures": [
