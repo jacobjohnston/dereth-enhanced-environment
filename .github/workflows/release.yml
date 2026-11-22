@@ -25,8 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          # The whole history and its tags: the version counts commits, and the changelog compares
-          # with the last release's tag.
+          # The whole history and its tags: the changelog compares with the last release's tag.
           fetch-depth: 0
           lfs: false
 

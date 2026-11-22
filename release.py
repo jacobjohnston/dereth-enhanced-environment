@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # The release's version and its changelog, worked out from git, and its compressed download.
-#   python3 release.py version                       the version of HEAD: VERSION's major.minor, then
-#                                                    the commits since VERSION last changed
+#   python3 release.py version                       the version in VERSION, written by hand for each
+#                                                    release (major.minor.patch)
 #   python3 release.py compress                      dist/enhanced-environment.dat.xz, the .dat
 #                                                    compressed with xz (`xz -d` restores it)
 #   python3 release.py notes <previous tag> <out>    what changed since the previous release
@@ -27,10 +27,10 @@ def git(*args):
 
 
 def version():
-    base = open(os.path.join(HERE, 'VERSION')).read().strip()
-    since = git('log', '-1', '--format=%H', '--', 'VERSION').strip()
-    count = git('rev-list', '--count', f'{since}..HEAD' if since else 'HEAD').strip()
-    return f'{base}.{count}'
+    text = open(os.path.join(HERE, 'VERSION')).read().strip()
+    if not re.fullmatch(r'\d+\.\d+\.\d+', text):
+        sys.exit(f'VERSION should be major.minor.patch, such as 0.5.3, not {text!r}')
+    return text
 
 
 def entries(text):

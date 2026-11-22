@@ -165,9 +165,10 @@ Each release carries `enhanced-environment.dat`, its `.sha256` and `CHANGELOG.md
 `enhanced-environment.dat.xz`, the same file compressed with xz for a smaller download, and its
 `.sha256`. `xz -d enhanced-environment.dat.xz` or 7-Zip gives back the `.dat`.
 
-The version is `VERSION`'s major and minor numbers, then the count of commits since `VERSION` last
-changed. `python3 release.py version` prints it. A hand edit to `VERSION` starts a new minor or
-major version.
+The version is the one written in `VERSION` (major.minor.patch), and `python3 release.py version`
+prints it. Raise it by hand in the commit that should become a release. A push whose version is
+already released publishes nothing, so a change to the pack without a new version waits for the
+next one.
 
 `release.py notes` writes each release's notes. They list the entries added, changed and removed
 since the last release, the commits since then, and the `.dat` file's size and SHA-256.
