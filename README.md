@@ -13,7 +13,7 @@ materials and moons. The client draws them in place of the game's own when Enhan
 | Assets | Scripts | Folder |
 |---|---|---|
 | Shaped models: plants, mushrooms, palms, dead trees, embers and hay | `shapes.mjs`, `gen_pack.mjs`, `reshape.mjs`, `fit_trunks.py`, `foliage.py` | `pack/trees/` |
-| Trees and bushes | `gen_pack.mjs`, `fit_trunks.py`, `taper_trunks.py`, `foliage.py`, `grey_needles.py` (the conifers' needle picture), then `scale_models.py` once on the trees it lists | `pack/trees/` |
+| Trees and bushes | `gen_pack.mjs`, `fit_trunks.py`, `taper_trunks.py`, `foliage.py`, `grey_needles.py` (the conifers' needle picture), then `scale_models.py` once on the trees it lists, then `slim_trees.py`, which draws the grown trees with fewer triangles | `pack/trees/` |
 | Boulders and rocks | `boulders.py` | `pack/trees/` |
 | Cactuses | `cactus.py` | `pack/trees/` |
 | The sea anemones' pictures, drawn on the game's own anemones | `anemone.py`, after `gen_pack.mjs` | `pack/materials/` |

@@ -43,6 +43,7 @@ shapes.mjs and cactus.py. Review page "Pack Trees Review", with a separate keep 
 | 10 | 11-21 | 1 | red birch 62B leaves back to 0.4.4's bright orange, approved | 703efe54 (tree-birch-044) |
 | 0.5 | 11-21 | | squashed into a95f7082 | fbaee071 |
 | Needle colour | 11-21 | 11 | Far crowns read near-black (Jacob: "distant tree cards got a bit blobby"). Needles moved to a grey picture coloured as end of retail's crown, twice as bright; not yet shown to Jacob | d723cadd, e9b788ec (fix/needle-colour) |
+| Tree triangles | 11-22 | 22 | Same look with fewer triangles (`slim_trees.py`): every branch from half its rings; the conifers' middle level with one needle card for each crossed pair, grown 1.25; their far level without the branches the needles hide. Near levels and the round trees keep both cards of a pair, since one card alone showed thinner. About a third fewer triangles in view in a forest at Ultra. Not yet shown to the developer | ba69435d (review/tree-triangles) |
 
 ### Per tree
 

@@ -19,6 +19,10 @@ TOOL = 'iron.py'
 TABLES = os.path.join(HERE, '..', 'tables')
 # Each picture: whether it is wholly iron or wood bound with iron.
 IRON = {
+    # The iron-framed double door (0x020010A8): its plates, its strip and its leaves of wood in an iron frame.
+    '0x05001FEB': 'iron',
+    '0x05002018': 'iron',
+    '0x050021FB': 'banded',
     # The iron double doors' leaves (0x020005DA, 0x020005F1).
     '0x05001777': 'iron',
     # The riveted iron posts and lintel of 0x020005F1, and the plates of many dungeons.

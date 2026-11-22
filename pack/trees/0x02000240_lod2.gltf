@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs, quantised by quantise.py"
+  "generator": "gen_pack.mjs, quantised by quantise.py, slimmed by slim_trees.py"
  },
  "scene": 0,
  "scenes": [
@@ -147,85 +147,85 @@
  "buffers": [
   {
    "uri": "0x02000240_lod2.bin",
-   "byteLength": 127144
+   "byteLength": 104676
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 12672,
+   "byteLength": 3416,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 12672,
-   "byteLength": 6336,
+   "byteOffset": 3416,
+   "byteLength": 1708,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 19008,
-   "byteLength": 6336,
+   "byteOffset": 5124,
+   "byteLength": 3416,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 25344,
-   "byteLength": 7668,
+   "byteOffset": 8540,
+   "byteLength": 2004,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 33012,
+   "byteOffset": 10544,
    "byteLength": 38848,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 71860,
+   "byteOffset": 49392,
    "byteLength": 19424,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 91284,
+   "byteOffset": 68816,
    "byteLength": 19424,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 110708,
+   "byteOffset": 88240,
    "byteLength": 14568,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 125276,
+   "byteOffset": 102808,
    "byteLength": 512,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 125788,
+   "byteOffset": 103320,
    "byteLength": 256,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 126044,
+   "byteOffset": 103576,
    "byteLength": 512,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 126556,
+   "byteOffset": 104088,
    "byteLength": 588,
    "target": 34963
   }
@@ -234,38 +234,37 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 1584,
+   "count": 427,
    "type": "VEC3",
    "min": [
-    -23854,
+    -17117,
     -32767,
-    -17808
+    -14279
    ],
    "max": [
-    23396,
-    29313,
-    19732
+    17909,
+    14235,
+    15057
    ],
    "normalized": true
   },
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 1584,
+   "count": 427,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
-   "componentType": 5123,
-   "count": 1584,
-   "type": "VEC2",
-   "normalized": true
+   "componentType": 5126,
+   "count": 427,
+   "type": "VEC2"
   },
   {
    "bufferView": 3,
    "componentType": 5123,
-   "count": 3834,
+   "count": 1002,
    "type": "SCALAR"
   },
   {

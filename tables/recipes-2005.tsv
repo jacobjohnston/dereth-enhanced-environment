@@ -16,3 +16,4 @@
 0x05001776	mixed	mixed	0.85	repeat=4.400	repeatv=3.000	0,0,1,0.72,plaster	0,0.72,0.34,0.28,ashlar:block:rough=0.3	0.34,0.72,0.32,0.28,ashlar:block:rough=0.3	0.66,0.72,0.34,0.28,ashlar:block:rough=0.3
 0x050012D9	mixed	mixed	0.85	repeat=2.500	repeatv=5.099	0,0,1,0.39,design	0,0.39,1,0.094,design	0,0.484,1,0.516,flagstone:grid:rough=0.3:moss:d=0.5	like=0x050027A9
 0x05000BCD	mixed	mixed	0.85	repeat=3.000	repeatv=3.000	0,0,1,0.075,wood	0,0.075,1,0.645,rock	0,0.075,1,0.09,rock:even:open	0,0.72,0.34,0.28,ashlar:block:rough=0.3	0.34,0.72,0.32,0.28,ashlar:block:rough=0.3	0.66,0.72,0.34,0.28,ashlar:block:rough=0.3
+0x050010F5	mixed	mixed	0	repeat=3.333	repeatv=3.333	like=0x05002725	0,0,1,1,design:flip

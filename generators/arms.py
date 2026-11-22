@@ -45,6 +45,11 @@ ARMS = {
     '0x05001D9C': 'gilt',
     '0x05001D9D': 'gilt',
     '0x05001E0E': 'gilt',
+    # The weapon rack (0x02001287): its blades, gilt guards and hilts, and its steel plate in an iron frame over wood.
+    '0x050026D1': 'gilt',
+    '0x050026D0': 'faced',
+    # The green jar's lid (0x02000602): wood over a steel rim.
+    '0x050017A1': 'faced',
 }
 WHOLE = ('steel', 'gold')
 # Steel's and gold's roughness where the picture is plain, how much smoother where painted worn

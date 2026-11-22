@@ -1,7 +1,7 @@
 {
  "asset": {
   "version": "2.0",
-  "generator": "gen_pack.mjs, quantised by quantise.py"
+  "generator": "gen_pack.mjs, quantised by quantise.py, slimmed by slim_trees.py"
  },
  "scene": 0,
  "scenes": [
@@ -15,14 +15,14 @@
   {
    "mesh": 0,
    "translation": [
-    0.16858744621276855,
-    19.418917417526245,
-    0.05848336219787598
+    0.18168997764587402,
+    19.412977933883667,
+    0.02941274642944336
    ],
    "scale": [
-    21.77276349067688,
-    21.77276349067688,
-    21.77276349067688
+    21.7668240070343,
+    21.7668240070343,
+    21.7668240070343
    ]
   }
  ],
@@ -147,85 +147,85 @@
  "buffers": [
   {
    "uri": "0x0200129B_lod1.bin",
-   "byteLength": 310660
+   "byteLength": 162116
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 18128,
+   "byteLength": 12272,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 18128,
-   "byteLength": 9064,
+   "byteOffset": 12272,
+   "byteLength": 6136,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 27192,
-   "byteLength": 18128,
+   "byteOffset": 18408,
+   "byteLength": 12272,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 45320,
-   "byteLength": 13824,
+   "byteOffset": 30680,
+   "byteLength": 7236,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 59144,
-   "byteLength": 105408,
+   "byteOffset": 37916,
+   "byteLength": 51200,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 164552,
-   "byteLength": 52704,
+   "byteOffset": 89116,
+   "byteLength": 25600,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 217256,
-   "byteLength": 52704,
+   "byteOffset": 114716,
+   "byteLength": 25600,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 269960,
-   "byteLength": 38100,
+   "byteOffset": 140316,
+   "byteLength": 19200,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 308060,
+   "byteOffset": 159516,
    "byteLength": 704,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 308764,
+   "byteOffset": 160220,
    "byteLength": 352,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 309116,
+   "byteOffset": 160572,
    "byteLength": 704,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 309820,
+   "byteOffset": 161276,
    "byteLength": 840,
    "target": 34963
   }
@@ -234,74 +234,74 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 2266,
+   "count": 1534,
    "type": "VEC3",
    "min": [
-    -7186,
-    -30128,
-    -7571
+    -7208,
+    -30127,
+    -7529
    ],
    "max": [
-    6418,
-    30817,
-    6899
+    6400,
+    30834,
+    6945
    ],
    "normalized": true
   },
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 2266,
+   "count": 1534,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
    "componentType": 5126,
-   "count": 2266,
+   "count": 1534,
    "type": "VEC2"
   },
   {
    "bufferView": 3,
    "componentType": 5123,
-   "count": 6912,
+   "count": 3618,
    "type": "SCALAR"
   },
   {
    "bufferView": 4,
    "componentType": 5122,
-   "count": 13176,
+   "count": 6400,
    "type": "VEC3",
    "min": [
-    -9673,
-    -12893,
-    -9395
+    -9698,
+    -10380,
+    -9298
    ],
    "max": [
-    9673,
+    9698,
     32767,
-    9395
+    9298
    ],
    "normalized": true
   },
   {
    "bufferView": 5,
    "componentType": 5120,
-   "count": 13176,
+   "count": 6400,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 6,
    "componentType": 5123,
-   "count": 13176,
+   "count": 6400,
    "type": "VEC2",
    "normalized": true
   },
   {
    "bufferView": 7,
    "componentType": 5123,
-   "count": 19050,
+   "count": 9600,
    "type": "SCALAR"
   },
   {
@@ -310,14 +310,14 @@
    "count": 88,
    "type": "VEC3",
    "min": [
-    -3287,
+    -3308,
     -32767,
-    -2938
+    -2895
    ],
    "max": [
-    2756,
-    -24223,
-    2938
+    2737,
+    -24221,
+    2983
    ],
    "normalized": true
   },

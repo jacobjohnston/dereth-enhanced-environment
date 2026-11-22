@@ -92,7 +92,7 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
     own, its edges where it meets another, and eased into the next. A rectangle named recipe:flip
     takes its own pale lines for mortar, recipe:noflip keeps its own light, whatever the whole
     picture's, :grid lays a flagstone's joints straight, :open makes no crease where it meets
-    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :iron=K raises grey iron on wood (hinges, straps) K proud of it, :shade takes its shape from its light, :smooth[=K] drops its pits (blurring K texels), :grassy lays grass where it is green, :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
+    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :iron=K raises grey iron on wood (hinges, straps) K proud of it, :tiles=K raises a coloured tile pattern K proud of its tan field, :shade takes its shape from its light, :smooth[=K] drops its pits (blurring K texels), :grassy lays grass where it is green, :sheet=K raises a pale sheet (parchment) K proud of the stone about it and its ink proud of the sheet, :glaze=K makes it smooth (roughness K), :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
     h, w = Lb.shape
     rs = rects(settings, w, h)
     edges = band_edges(rs, w, h, px)
@@ -128,6 +128,19 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
             g = blur(part, 0.8 * px)
             lo, hi = np.percentile(g, 5), np.percentile(g, 95)
             s = 0.4 + 0.6 * np.clip((g - lo) / max(float(hi - lo), 1e-3), 0, 1)
+        sheet = next((float(t[6:] or 0.4) for t in turns if t.startswith('sheet')), 0.0)
+        if sheet and L is not None:
+            # recipe:sheet=K: a pale sheet (parchment) stands K proud of the stone about it, its dark ink proud of the sheet.
+            from scipy.ndimage import grey_closing
+            g = L[y0:y1, x0:x1]
+            k = max(3, round(11 * px)) | 1
+            shut = grey_closing(g, size=(k, k), mode='constant', cval=0.0)
+            wide = blur(shut, 1.5 * px)
+            lo, hi = np.percentile(wide, 15), np.percentile(wide, 85)
+            m = np.clip(blur(np.clip((wide - (lo + hi) / 2) / max(0.15 * float(hi - lo), 1e-3), 0, 1).astype(np.float32), 0.6 * px), 0, 1)
+            ink = np.clip(shut - g, 0, None)
+            ink = np.clip(blur(ink, 0.4 * px) / max(float(np.percentile(ink[m > 0.5], 98)) if (m > 0.5).any() else 1e-3, 1e-3), 0, 1) * m
+            s = s * (1 - sheet) * (1 - m) + (1 - 0.5 * sheet + 0.5 * sheet * ink) * m
         rough = next((float(t[6:]) for t in turns if t.startswith('rough=')), 0.0)
         if rough:
             # recipe:rough=K lays the picture's own cracks and grime over the recipe's shapes.
@@ -167,6 +180,20 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
             cold = binary_opening(cold, iterations=max(1, round(1.2 * px)))
             m = np.clip(blur(cold.astype(np.float32), 0.6 * px) * 1.4, 0, 1)
             s = np.clip(s - iron, 0, 1) * (1 - m) + m
+        tiles = next((float(t[6:] or 0.12) for t in turns if t.startswith('tiles')), 0.0)
+        if tiles and a is not None:
+            # recipe:tiles=K: a coloured tile pattern (blue, green, purple) stands K proud of its tan field, filled solid.
+            from scipy import ndimage
+            c = a[y0:y1, x0:x1, :3]
+            cold = (c[..., 0] - c[..., 2]) / (c[..., 0] + 0.03) < 0.33
+            it = max(1, round(2 * px))
+            cold = ndimage.binary_fill_holes(ndimage.binary_closing(cold, iterations=it))
+            cold = ndimage.binary_opening(cold, iterations=max(1, it // 2))
+            lab, n = ndimage.label(cold)
+            if n:
+                cold = np.r_[False, ndimage.sum(cold, lab, range(1, n + 1)) > 40 * px * px][lab]
+            m = np.clip(blur(cold.astype(np.float32), 0.6 * px), 0, 1)
+            s = np.clip(s - tiles, 0, 1) * (1 - m) + s * m
         # The picture's range is set by its deepest rectangle as made, so one turned down stays shallow.
         deepest = max(deepest, depth, depth * scale)
         depth *= scale
@@ -175,6 +202,8 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
             F[y0:y1, x0:x1] = fine[0] * depth
         O[y0:y1, x0:x1] = o
         R[y0:y1, x0:x1] = r
+        # recipe:glaze=K: a glazed or polished part, its roughness K all over.
+        R[y0:y1, x0:x1] = next((float(t[6:]) for t in turns if t.startswith('glaze=')), R[y0:y1, x0:x1])
         # recipe:at=K sits behind its neighbours: a face under a ledge, a field behind a frame.
         lower[y0:y1, x0:x1] = next((float(t[3:]) for t in turns if t.startswith('at=')), 0.0)
     A = blur(A - lower * deepest, 0.25 * px)
@@ -282,6 +311,8 @@ def make(job):
         hgt, depth, o, r, *fine = SHAPES[recipe](L if recipe == 'organic' else Lb, px, rng, **grid)
         fine = fine[0] if fine else 0
     r = r * one
+    # glaze=K: glazed pottery, glass or polished stone, its roughness K all over.
+    r = one * setting(settings, 'glaze=', 0.0) if setting(settings, 'glaze=', 0.0) else r
     # depth=K: the whole picture shallower (or deeper), in its height map as well as its normal.
     k = setting(settings, 'depth=', 1.0)
     if not flat and k != 1.0:
@@ -324,6 +355,8 @@ def make(job):
     normal = '' if flat else f'normal = "materials/{sub}{id}_normal.png"\n'
     grit = '' if flat else (f'grit = "grit/{GRIT.tile_of(recipe, settings)}.png"\n'
                             f'grit_repeat = [{GRIT.repeats(setting(settings, "repeat=", 3.3))}, {GRIT.repeats(setting(settings, "repeatv=", 3.3))}]\n')
+    # clear=K, refraction=K, wet=K: what it is made of (glass, crystal, a film of water), as the manifest says them.
+    matter = ''.join(f'{k} = {setting(settings, k + "=", 0.0):g}\n' for k in ('clear', 'refraction', 'wet') if setting(settings, k + '=', 0.0))
     block = f'''
 [[material]]
 texture = "{id}"
@@ -332,7 +365,7 @@ keep_retail_picture = true
 {normal}roughness = "materials/{sub}{id}_roughness.png"
 occlusion = "materials/{sub}{id}_occlusion.png"
 {deep}damp = {damp}
-{wet}{grit}author = "Worked out from the player's own picture by relief.py"
+{wet}{grit}{matter}author = "Worked out from the player's own picture by relief.py"
 tool = "relief.py"
 license = "CC0-1.0"
 '''
