@@ -19,6 +19,12 @@ TOOL = 'iron.py'
 TABLES = os.path.join(HERE, '..', 'tables')
 # Each picture: whether it is wholly iron or wood bound with iron.
 IRON = {
+    # The street lamp's scrollwork, the riveted stool, the octagonal grate's bars, the anvil's face and the Renegade Chest's plates.
+    '0x05000B43': 'iron',
+    '0x05002683': 'iron',
+    '0x05000EE3': 'iron',
+    '0x05002517': 'iron',
+    '0x050019D4': 'iron',
     # The iron-framed double door (0x020010A8): its plates, its strip and its leaves of wood in an iron frame.
     '0x05001FEB': 'iron',
     '0x05002018': 'iron',

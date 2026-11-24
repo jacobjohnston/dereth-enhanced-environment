@@ -25,7 +25,7 @@ from masonry import blur
 
 TOOL = 'arms.py'
 # Each picture: wholly steel, wholly gold, steel beside leather (faced), or steel and gold beside
-# leather (gilt).
+# leather (gilt); `strict steel` and `strict gilt` take steel only where grey and gold only where a strong yellow.
 ARMS = {
     # Sword blades (0x010002EB on the Training Academy's walls, and the swords players wield).
     '0x05000C53': 'steel',
@@ -50,6 +50,61 @@ ARMS = {
     '0x050026D0': 'faced',
     # The green jar's lid (0x02000602): wood over a steel rim.
     '0x050017A1': 'faced',
+    # The silver chalice (0x020000E5) and the potion flasks' silver necks (0x020000AB).
+    '0x05000CCD': 'steel',
+    '0x05000BE6': 'faced',
+    # Jaleh's Finery Chest and the Armor and Magic Chests (0x02000F30): flat, only their steel and gold.
+    '0x0500210B': 'strict gilt',
+    '0x0500210C': 'strict steel',
+    '0x0500210D': 'strict gilt',
+    '0x0500210E': 'strict gilt',
+    # Round 9: the Bronze Lamp's brass, the Shrine of the Blood Pearl's steel and gold, a lever's plate, a gilt horn and a journal's corner plates.
+    '0x05000E5A': 'strict gilt',
+    '0x050010EB': 'strict gilt',
+    '0x050021D7': 'strict steel',
+    '0x050021D8': 'strict steel',
+    '0x050021D9': 'strict gilt',
+    '0x05002503': 'strict steel',
+    '0x05002A12': 'strict gilt',
+    '0x050021D3': 'strict steel',
+    '0x050021D4': 'strict steel',
+    # Chests, keys and a vault door (round 8): the Forbidden and Lunnum's Chests, the Lock Box, the Trunk of Bones, the Puzzle Box, the Vault Door and the chest keys.
+    '0x05000B24': 'steel',
+    '0x05000B26': 'strict steel',
+    '0x05000B28': 'strict steel',
+    '0x05000B2A': 'steel',
+    '0x050002A7': 'steel',
+    '0x0500201C': 'strict steel',
+    '0x05001D21': 'strict gilt',
+    '0x05000E2C': 'strict gilt',
+    '0x050020B1': 'strict gilt',
+    '0x05001BFC': 'strict gilt',
+    '0x05001BFE': 'strict gilt',
+    '0x0500291D': 'strict gilt',
+    '0x05002518': 'strict steel',
+    # Metal on props signed off earlier for their depth only (round 8): lamps, levers, chests, candlesticks, a keg, a platter, an altar box and a coin.
+    '0x05000BA7': 'faced',
+    '0x05001C08': 'faced',
+    '0x05002114': 'faced',
+    '0x05002115': 'faced',
+    '0x05002116': 'faced',
+    '0x05002117': 'faced',
+    '0x05000CCA': 'steel',
+    '0x05000C52': 'faced',
+    '0x05000B08': 'faced',
+    '0x05000B0B': 'faced',
+    '0x050003D2': 'faced',
+    '0x05000293': 'gilt',
+    '0x05000B31': 'steel',
+    '0x05000C51': 'gilt',
+    '0x050024D0': 'gilt',
+    '0x050024D1': 'gilt',
+    '0x050024D2': 'gilt',
+    '0x050024D3': 'gilt',
+    '0x050002AB': 'steel',
+    '0x05001A3D': 'gilt',
+    '0x05001A3F': 'gilt',
+    '0x05000AF9': 'gold',
 }
 WHOLE = ('steel', 'gold')
 # Steel's and gold's roughness where the picture is plain, how much smoother where painted worn
@@ -74,6 +129,18 @@ def metal_of(a, kind, px, hue=HUE):
     if kind in WHOLE:
         return np.ones(a.shape[:2], np.float32)
     R, G, B = a[..., 0], a[..., 1], a[..., 2]
+    if kind in ('strict steel', 'strict gilt'):
+        # Steel only where the picture is grey (not green, blue or warm), gold only where it is a strong yellow.
+        L = (a[..., :3] * [0.3, 0.59, 0.11]).sum(-1)
+        sat = a[..., :3].max(-1) - a[..., :3].min(-1)
+        metal = (1 - ramp(sat, 0.06, 0.12)) * (1 - ramp(R - B, 0.03, 0.08)) * ramp(L, 0.10, 0.18)
+        if kind == 'strict gilt':
+            gold = ramp(L, 0.25, 0.4) * ramp(G / (R + 0.03), 0.68, 0.78) * ramp(1 - B / (R + 0.03), 0.45, 0.6) * ramp(sat, 0.2, 0.3)
+            metal = np.maximum(metal, gold)
+        near = lambda m: blur(m, 1.5 * px)
+        metal = metal * np.clip((near(metal) - 0.25) / 0.2, 0, 1)
+        metal = np.maximum(metal, np.clip((near(metal) - 0.55) / 0.2, 0, 1))
+        return blur(metal, 0.5 * px)
     metal = 1 - ramp((R - B) / (R + 0.03), COLD, WARM)
     if kind == 'gilt':
         L = (a * [0.3, 0.59, 0.11]).sum(-1)

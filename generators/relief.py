@@ -311,8 +311,21 @@ def make(job):
         hgt, depth, o, r, *fine = SHAPES[recipe](L if recipe == 'organic' else Lb, px, rng, **grid)
         fine = fine[0] if fine else 0
     r = r * one
-    # glaze=K: glazed pottery, glass or polished stone, its roughness K all over.
-    r = one * setting(settings, 'glaze=', 0.0) if setting(settings, 'glaze=', 0.0) else r
+    clear = None
+    if 'clearmap' in settings and setting(settings, 'clear=', 0.0):
+        # clearmap: clear but where the picture is warm (a cork, a gold band), or under opaque=x:y:w:h[:oval].
+        R, G, B = a[..., 0], a[..., 1], a[..., 2]
+        opaque = np.clip((R - B - 0.04) / 0.08, 0, 1) * np.clip((R - G + 0.08) / 0.08, 0, 1) * (np.maximum(R, G) > 0.08)
+        opaque = np.clip(blur(opaque.astype(np.float32), 1.5 * px) * 2, 0, 1)  # a band's dark stripes stay in it
+        v, u = (np.mgrid[0:h, 0:w] + 0.5) / np.array([h, w])[:, None, None]
+        for x, y, rw, rh, *oval in (s[7:].split(':') for s in settings if s.startswith('opaque=')):
+            du, dv = (u - float(x)) / float(rw) - 0.5, (v - float(y)) / float(rh) - 0.5
+            opaque = np.maximum(opaque, du * du + dv * dv <= 0.25 if oval else (abs(du) <= 0.5) & (abs(dv) <= 0.5))
+        clear = np.clip(blur(1 - opaque.astype(np.float32), 0.6 * px), 0, 1)
+    # glaze=K: glazed pottery, glass or polished stone, its roughness K all over (only the clear part with a clearmap).
+    if setting(settings, 'glaze=', 0.0):
+        g = one * setting(settings, 'glaze=', 0.0)
+        r = g if clear is None else r * (1 - clear) + g * clear
     # depth=K: the whole picture shallower (or deeper), in its height map as well as its normal.
     k = setting(settings, 'depth=', 1.0)
     if not flat and k != 1.0:
@@ -357,6 +370,11 @@ def make(job):
                             f'grit_repeat = [{GRIT.repeats(setting(settings, "repeat=", 3.3))}, {GRIT.repeats(setting(settings, "repeatv=", 3.3))}]\n')
     # clear=K, refraction=K, wet=K: what it is made of (glass, crystal, a film of water), as the manifest says them.
     matter = ''.join(f'{k} = {setting(settings, k + "=", 0.0):g}\n' for k in ('clear', 'refraction', 'wet') if setting(settings, k + '=', 0.0))
+    # ice: glacier ice, as the ice spires are (deep where thick, bent, mirroring the sky).
+    matter += 'ice = true\n' if 'ice' in settings else ''
+    if clear is not None:
+        write(f'{out}/{id}_clear.png', np.dstack([clear, 0 * clear, 0 * clear, np.ones_like(clear)]))
+        matter += f'clear_map = "materials/{sub}{id}_clear.png"\n'
     block = f'''
 [[material]]
 texture = "{id}"
