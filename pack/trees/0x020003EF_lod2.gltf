@@ -15,9 +15,9 @@
   {
    "mesh": 0,
    "translation": [
-    -0.5718564987182617,
-    11.120515942573547,
-    -0.3917999267578125
+    -0.17185592651367188,
+    11.12051546573639,
+    -0.9818000793457031
    ],
    "scale": [
     18.416257858276367,
@@ -117,59 +117,59 @@
  "buffers": [
   {
    "uri": "0x020003EF_lod2.bin",
-   "byteLength": 54764
+   "byteLength": 46784
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 10000,
+   "byteLength": 6808,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 10000,
-   "byteLength": 5000,
+   "byteOffset": 6808,
+   "byteLength": 3404,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 15000,
-   "byteLength": 10000,
+   "byteOffset": 10212,
+   "byteLength": 6808,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 25000,
+   "byteOffset": 17020,
    "byteLength": 6204,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 31204,
+   "byteOffset": 23224,
    "byteLength": 9920,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 41124,
+   "byteOffset": 33144,
    "byteLength": 4960,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 46084,
+   "byteOffset": 38104,
    "byteLength": 4960,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 51044,
+   "byteOffset": 43064,
    "byteLength": 3720,
    "target": 34963
   }
@@ -178,7 +178,7 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 1250,
+   "count": 851,
    "type": "VEC3",
    "min": [
     -19008,
@@ -187,7 +187,7 @@
    ],
    "max": [
     26542,
-    11752,
+    11569,
     22127
    ],
    "normalized": true
@@ -195,14 +195,14 @@
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 1250,
+   "count": 851,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
    "componentType": 5126,
-   "count": 1250,
+   "count": 851,
    "type": "VEC2"
   },
   {

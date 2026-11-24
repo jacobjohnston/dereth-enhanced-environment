@@ -15,9 +15,9 @@
   {
    "mesh": 0,
    "translation": [
-    -0.10471534729003906,
-    5.366614460945129,
-    -0.20366525650024414
+    0.2952852249145508,
+    5.3668365478515625,
+    -0.7936654090881348
    ],
    "scale": [
     12.440322875976562,
@@ -117,59 +117,59 @@
  "buffers": [
   {
    "uri": "0x020003ED_lod1.bin",
-   "byteLength": 83188
+   "byteLength": 71768
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 14000,
+   "byteLength": 9432,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 14000,
-   "byteLength": 7000,
+   "byteOffset": 9432,
+   "byteLength": 4716,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 21000,
-   "byteLength": 14000,
+   "byteOffset": 14148,
+   "byteLength": 9432,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 35000,
+   "byteOffset": 23580,
    "byteLength": 8820,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 43820,
+   "byteOffset": 32400,
    "byteLength": 16576,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 60396,
+   "byteOffset": 48976,
    "byteLength": 8288,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 68684,
+   "byteOffset": 57264,
    "byteLength": 8288,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 76972,
+   "byteOffset": 65552,
    "byteLength": 6216,
    "target": 34963
   }
@@ -178,16 +178,16 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 1750,
+   "count": 1179,
    "type": "VEC3",
    "min": [
-    -26076,
+    -26077,
     -23401,
     -23275
    ],
    "max": [
     25502,
-    10018,
+    10017,
     25053
    ],
    "normalized": true
@@ -195,14 +195,14 @@
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 1750,
+   "count": 1179,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
    "componentType": 5126,
-   "count": 1750,
+   "count": 1179,
    "type": "VEC2"
   },
   {
@@ -218,7 +218,7 @@
    "type": "VEC3",
    "min": [
     -32767,
-    -1259,
+    -1260,
     -31853
    ],
    "max": [

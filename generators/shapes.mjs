@@ -1341,14 +1341,23 @@ export function puffTree({ across, tall, trunk }, lod, random) {
 
 // An alien take on a Joshua tree: a dark trunk swollen like a bulb, forking into upturned arms, each
 // carrying a round glossy clump.
-export function clumpTree({ across, tall, trunk, leaf = [0.26, 0.5, 0.3, 1] }, lod, random) {
+export function clumpTree({ across, tall, trunk, leaf = [0.26, 0.5, 0.3, 1], bark = [0.2, 0.09, 0.055, 1] }, lod, random) {
   const wood = newMesh();
   const crown = newMesh();
   const sides = Math.max(5, Math.round(11 * lod.seg));
   const a0 = random() * TAU;
   const fork = tall * 0.3;
   const stem = Array.from({ length: 7 }, (_, k) => [(random() - 0.5) * trunk * 0.1 * (k / 6), -0.8 + (fork + 0.8) * (k / 6), (random() - 0.5) * trunk * 0.1 * (k / 6)]);
-  sweep(wood, stem, (t) => trunk * (0.52 + 0.8 * Math.sin(Math.PI * Math.min(1, 0.3 + t * 0.85)) ** 3 * (1 - t * 0.5)), sides, { rib: 0.08, ribs: 6, wraps: 2, perMeter: 0.4 });
+  // The trunk and its first limb are one tube, so no crack opens where they meet.
+  const dir0 = unit([Math.cos(a0) * 0.08, 1, Math.sin(a0) * 0.08]);
+  const mid0 = add(stem[6], dir0, tall * 0.1);
+  const end0 = add(mid0, unit(add(dir0, [0, 1, 0], 0.42)), tall * 0.11);
+  sweep(wood, [...stem, mid0, end0], (t) => {
+    const k = t * 8;
+    return k <= 6
+      ? trunk * (0.52 + 0.8 * Math.sin(Math.PI * Math.min(1, 0.3 + (k / 6) * 0.85)) ** 3 * (1 - (k / 6) * 0.5))
+      : trunk * 0.56 * (1 - ((k - 6) / 2) * 0.28);
+  }, sides, { rib: 0.08, ribs: 6, wraps: 2, perMeter: 0.4 });
   foot(wood, trunk * 0.62, lod.seg, a0);
   const clump = (at, rim) => {
     const count = Math.max(6, Math.round(90 * lod.keep));
@@ -1364,7 +1373,8 @@ export function clumpTree({ across, tall, trunk, leaf = [0.26, 0.5, 0.3, 1] }, l
     const up = unit(add(dir, [0, 1, 0], 0.42));
     const mid = add(from, dir, long * 0.5);
     const end = add(mid, up, long * 0.55);
-    sweep(wood, [from, mid, end], (t) => radius * (1 - t * 0.28), Math.max(4, sides - 3), { wraps: 1, perMeter: 0.5 });
+    // A limb starts inside the one it grows from, so its foot shows no gap; the first is the trunk's own.
+    if (level < 2) sweep(wood, [add(from, dir, -radius), mid, end], (t) => radius * (1 - t * 0.28), Math.max(4, sides - 3), { wraps: 1, perMeter: 0.5 });
     if (level === 0) {
       clump(add(end, [0, across * 0.07, 0]), across * (0.12 + random() * 0.05));
       return;
@@ -1378,7 +1388,7 @@ export function clumpTree({ across, tall, trunk, leaf = [0.26, 0.5, 0.3, 1] }, l
   };
   arm(stem[6], unit([Math.cos(a0) * 0.08, 1, Math.sin(a0) * 0.08]), tall * 0.2, trunk * 0.56, 2);
   return [
-    { name: 'Bark', look: { ...ALIEN_BARK, tint: [0.2, 0.09, 0.055, 1] }, opaque: true, mesh: wood },
+    { name: 'Bark', look: { ...ALIEN_BARK, tint: bark }, opaque: true, mesh: wood },
     { name: 'Leaves', look: { color: 'Leaves_oak.png', tint: leaf, cutoff: 0.3 }, mesh: crown },
   ];
 }
@@ -1787,40 +1797,84 @@ export function emberBed({ across, rise, tall = 0.12 }, lod, random) {
   return [{ name: 'Embers', look: generated('Gen_Ember.png', [1, 1, 1, 0.25]), opaque: true, mesh: bed }];
 }
 
-// A low heap of straw: a rough mound, and loose strands lying over it and spilling round its foot.
-export function hayPile({ across, tall, tint = [0.78, 0.62, 0.36, 1] }, lod, random) {
+// A heap of straw: a broad, lumpy mound sloping to the floor, its top a little off its middle
+// and its edge uneven, with strands lying every which way over it and loose straw round its foot.
+// Its tint is linear, as glTF's colour factor is: retail's golden straw over the grey straw picture.
+// `slope` and `round` shape its profile (higher `slope` keeps it full further out, `round` under 1
+// softens its shoulders), `lumpy` scales its lumps, `ragged` how uneven its edge is, `aside` how far
+// its top sits off its middle and `straws` how thick its strands lie.
+export function haystack({ across, tall, slope = 2.2, round = 0.8, lumpy = 1, ragged = 1, aside = 0.12, straws = 1, tint = [0.87, 0.7, 0.23, 1] }, lod, random) {
   const mound = newMesh();
   const straw = newMesh();
   const R = across / 2;
   const a0 = random() * TAU;
-  const bulge = (a) => 0.84 + 0.1 * Math.sin(a * 3 + a0) + 0.07 * Math.sin(a * 7 + a0 * 2);
-  const high = (r) => tall * Math.max(0, 1 - (r / R) ** 1.8) ** 0.75;
-  const sides = Math.max(8, Math.round(26 * lod.seg));
-  lathe(mound, [[R * 0.98, -0.03], [R * 0.86, high(R * 0.86)], [R * 0.66, high(R * 0.66)], [R * 0.4, high(R * 0.4)], [R * 0.16, high(R * 0.16)], [0.01, tall]], sides, bulge, (r, a) => [0.5 + (0.48 * r * Math.cos(a)) / R, 0.5 + (0.48 * r * Math.sin(a)) / R]);
-  const strands = Math.max(24, Math.round(1100 * lod.seg ** 1.5));
-  const girth = Math.max(0.005, 0.0065 * lod.grow);
+  const lumps = noiseOf(217);
+  const edge = (a) => 0.86 + ragged * (0.08 * Math.sin(a * 2 + a0) + 0.05 * Math.sin(a * 5 + a0 * 3));
+  // The top sits off the middle, toward angle a0.
+  const top = [Math.cos(a0) * R * aside, Math.sin(a0) * R * aside];
+  const height = (x, z) => {
+    const a = Math.atan2(z, x);
+    const r = Math.hypot(x - top[0], z - top[1]) / (R * edge(a));
+    const dome = Math.max(0, 1 - r ** slope) ** round;
+    const lump = 1 + lumpy * (0.22 * (lumps(x * 0.9 + 3.1, z * 0.9 + 1.7) - 0.5) + 0.1 * (lumps(x * 2.3, z * 2.3) - 0.5));
+    return tall * dome * lump;
+  };
+  const rings = Math.max(6, Math.round(22 * lod.seg));
+  const sides = Math.max(10, Math.round(40 * lod.seg));
+  const base = mound.position.length / 3;
+  const e = 0.02;
+  for (let k = 0; k <= rings; k++) {
+    for (let j = 0; j <= sides; j++) {
+      const a = (j / sides) * TAU;
+      // Out to the edge, then a skirt tucked under the floor.
+      const reach = k < rings ? (k / (rings - 1)) ** 0.8 : 1.04;
+      const r = R * edge(a) * reach;
+      const x = Math.cos(a) * r + top[0] * (1 - reach);
+      const z = Math.sin(a) * r + top[1] * (1 - reach);
+      const y = k < rings ? height(x, z) : -0.04;
+      const gx = (height(x + e, z) - height(x - e, z)) / (2 * e);
+      const gz = (height(x, z + e) - height(x, z - e)) / (2 * e);
+      const l = Math.hypot(gx, 1, gz);
+      mound.position.push(x, y, z);
+      mound.normal.push(-gx / l, 1 / l, -gz / l);
+      mound.uv.push(x / 1.1, z / 1.1);
+    }
+  }
+  const row = sides + 1;
+  for (let k = 0; k < rings; k++) {
+    for (let j = 0; j < sides; j++) {
+      const p = base + k * row + j;
+      mound.index.push(p, p + row, p + 1, p + 1, p + row, p + row + 1);
+    }
+  }
+  // A point on the heap's face, `lift` above it.
+  const on = (x, z, lift) => [x, Math.max(0.006, height(x, z)) + lift, z];
+  // As many strands to a square metre at any size: 5,500 on a heap 3.3 m across.
+  const strands = Math.max(40, Math.round(5500 * straws * (across / 3.3) ** 2 * lod.seg ** 1.5));
+  const girth = Math.max(0.006, 0.0075 * lod.grow);
   for (let i = 0; i < strands; i++) {
     const a = random() * TAU;
-    // Most lie on the heap, a few spill onto the floor round it.
-    const spill = random() < 0.16;
-    const r = spill ? R * (0.92 + random() * 0.28) : R * bulge(a) * Math.sqrt(random()) * 0.96;
-    const y = spill ? 0.012 : high(r / bulge(a)) * 0.98;
-    const from = [Math.cos(a) * r, y, Math.sin(a) * r];
-    const turn = a + (random() - 0.5) * 2.6 + (random() < 0.5 ? 1.57 : -1.57);
-    const long = 0.12 + random() * 0.34;
-    const lift = spill ? random() * 0.02 : (random() - 0.2) * 0.1;
-    const mid = add(from, [Math.cos(turn), lift, Math.sin(turn)], long * 0.5);
-    const tip = add(mid, [Math.cos(turn + (random() - 0.5)), lift - 0.25, Math.sin(turn + (random() - 0.5))], long * 0.5);
-    tip[1] = Math.max(tip[1], 0.006);
-    sweep(straw, [from, mid, tip], (t) => girth * (1 - t * 0.6), 3, { wraps: 1, perMeter: 2 });
+    const spill = random() < 0.14;
+    const r = spill ? R * edge(a) * (0.95 + random() * 0.3) : R * edge(a) * Math.sqrt(random()) * 0.95;
+    const x = Math.cos(a) * r + (spill ? 0 : top[0]);
+    const z = Math.sin(a) * r + (spill ? 0 : top[1]);
+    const turn = random() * TAU;
+    const long = 0.15 + random() * 0.4;
+    const mx = x + Math.cos(turn) * long * 0.5;
+    const mz = z + Math.sin(turn) * long * 0.5;
+    const bend = turn + (random() - 0.5) * 0.8;
+    const tx = mx + Math.cos(bend) * long * 0.5;
+    const tz = mz + Math.sin(bend) * long * 0.5;
+    const lift = spill ? 0.008 : 0.012 + random() * 0.02;
+    sweep(straw, [on(x, z, lift), on(mx, mz, lift + random() * 0.03), on(tx, tz, lift)], (t) => girth * (1 - t * 0.6), 3, { wraps: 1, perMeter: 2 });
   }
-  const tone = noiseOf(211);
+  const tone = noiseOf(213);
   shade(straw, (up, y, x, z) => {
-    const g = 0.55 + 0.9 * tone(x * 1.7 + 0.5, z * 1.7 + 0.5);
+    const g = 0.6 + 0.8 * tone(x * 1.3 + 0.5, z * 1.3 + y * 0.7);
     return [g, g * (0.96 + 0.1 * tone(z * 3, x * 3)), g * 0.86];
   });
   return [
-    { name: 'Heap', look: generated('Gen_Straw.png', [tint[0] * 0.62, tint[1] * 0.62, tint[2] * 0.62, 1]), opaque: true, mesh: mound },
+    { name: 'Heap', look: generated('Gen_Straw.png', [tint[0] * 0.88, tint[1] * 0.88, tint[2] * 0.88, 1]), opaque: true, mesh: mound },
     { name: 'Straw', look: generated('Gen_Straw.png', tint), opaque: true, mesh: straw },
   ];
 }

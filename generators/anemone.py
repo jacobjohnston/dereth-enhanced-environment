@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # Paints the two sea anemones' pictures, which the client draws on retail's own anemone models
-# (Jacob's review, 2026-11-20). Each 512 picture's right half is the model's: the bulb lies in its
+# (the developer's review, 2026-11-20). Each 512 picture's right half is the model's: the bulb lies in its
 # lower quarter and the spikes in its upper. The bulb takes the pack's banded skin (shapes.mjs's
 # Gen_Bands.png, drawn here through Node) in the colour the pack's own anemones had. The spikes are
 # cut out of the upper quarter: one wavering strand of our own in each column retail's spikes stand
 # in, as tall as retail's, in the mean colours of retail's spike texels, bright at the core and paler
 # at the edge. No retail texel is copied. The left half, which no model draws, repeats the bulb.
 # Each picture becomes the base colour of relief.py's material for it, in place of its fallback and the
-# retail picture. The bulb also takes the pack's old anemones' relief (Jacob's pick, 2026-11-21): the
+# retail picture. The bulb also takes the pack's old anemones' relief (the developer's pick, 2026-11-21): the
 # grain shapes.mjs draws Gen_Grit_Normal.png from as its height and normal at a quarter of their depth
-# (Jacob, 2026-11-21: theirs at full depth, then half, read too strong here), with their gloss; the spikes keep relief.py's maps. Run it after relief.py, which writes those materials.
+# (the developer, 2026-11-21: theirs at full depth, then half, read too strong here), with their gloss; the spikes keep relief.py's maps. Run it after relief.py, which writes those materials.
 # Needs Python, Node and ImageMagick (`magick`).
 # anemone.py <retail pictures folder> <pack folder>
 import math, os, random, subprocess, sys, tempfile

@@ -15,9 +15,9 @@
   {
    "mesh": 0,
    "translation": [
-    -0.5943350791931152,
-    5.512766361236572,
-    -0.06922292709350586
+    -0.1943345069885254,
+    5.512723684310913,
+    -0.6592230796813965
    ],
    "scale": [
     12.724544048309326,
@@ -117,59 +117,59 @@
  "buffers": [
   {
    "uri": "0x020003ED_lod2.bin",
-   "byteLength": 51572
+   "byteLength": 43592
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 10000,
+   "byteLength": 6808,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 10000,
-   "byteLength": 5000,
+   "byteOffset": 6808,
+   "byteLength": 3404,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 15000,
-   "byteLength": 10000,
+   "byteOffset": 10212,
+   "byteLength": 6808,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 25000,
+   "byteOffset": 17020,
    "byteLength": 6204,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 31204,
+   "byteOffset": 23224,
    "byteLength": 8576,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 39780,
+   "byteOffset": 31800,
    "byteLength": 4288,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 44068,
+   "byteOffset": 36088,
    "byteLength": 4288,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 48356,
+   "byteOffset": 40376,
    "byteLength": 3216,
    "target": 34963
   }
@@ -178,11 +178,11 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 1250,
+   "count": 851,
    "type": "VEC3",
    "min": [
     -23777,
-    -23292,
+    -23293,
     -21869
    ],
    "max": [
@@ -195,14 +195,14 @@
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 1250,
+   "count": 851,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
    "componentType": 5126,
-   "count": 1250,
+   "count": 851,
    "type": "VEC2"
   },
   {
@@ -223,7 +223,7 @@
    ],
    "max": [
     32767,
-    23292,
+    23293,
     32699
    ],
    "normalized": true

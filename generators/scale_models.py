@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Scales trees whose models are right but too big for retail (Jacob's sizes reviews, 2026-11-21): each
+# Scales trees whose models are right but too big for retail (the developer's sizes reviews, 2026-11-21): each
 # listed model's every level grows by its factor about its foot, through its node's transform, so
 # nothing else about it changes. A factor is retail's height over the model's, measured from both
 # meshes; the fruit tree's is retail's trunk width at 0.6 to 1.3 m over its own.

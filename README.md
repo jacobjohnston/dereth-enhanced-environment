@@ -13,7 +13,7 @@ materials and moons. The client draws them in place of the game's own when Enhan
 | Assets | Scripts | Folder |
 |---|---|---|
 | Shaped models: plants, mushrooms, palms, dead trees, embers and hay | `shapes.mjs`, `gen_pack.mjs`, `reshape.mjs`, `fit_trunks.py`, `foliage.py` | `pack/trees/` |
-| Trees and bushes | `gen_pack.mjs`, `fit_trunks.py`, `taper_trunks.py`, `foliage.py`, `grey_needles.py` (the conifers' needle picture), then `scale_models.py` once on the trees it lists, then `slim_trees.py`, which draws the grown trees with fewer triangles | `pack/trees/` |
+| Trees and bushes | `gen_pack.mjs`, `fit_trunks.py`, `taper_trunks.py`, `foliage.py`, `grey_needles.py` (the conifers' needle picture), then `scale_models.py` once on the trees it lists, then `slim_trees.py`, which draws the grown trees with fewer triangles, then `twins.py`, which draws End of Retail's setups that build a pack tree or plant again under another id as that model | `pack/trees/` |
 | Boulders and rocks | `boulders.py` | `pack/trees/` |
 | Cactuses | `cactus.py` | `pack/trees/` |
 | The sea anemones' pictures, drawn on the game's own anemones | `anemone.py`, after `gen_pack.mjs` | `pack/materials/` |
@@ -21,7 +21,9 @@ materials and moons. The client draws them in place of the game's own when Enhan
 | Relief materials for walls, floors, roofs, rock, carved stone, wood and books | `relief.py`, `masonry.py`, `recipes.py`, `split.py`, `fallback.py` | `pack/materials/` |
 | Rock materials | `rockgen.py` | `pack/materials/` |
 | Ice | `ice.py` | `pack/materials/` |
+| The crystal creatures as clear crystal in their own colours: the shards and the cistern pillars | `crystals.py`, after `relief.py` | `pack/materials/` |
 | Iron that shines: the doors' iron leaves and frames, and the iron bands and hinges on wood, each with a metal map where wood and iron share a picture | `iron.py`, with `relief.py` | `pack/materials/` |
+| The Bottle of Crystal Champagne painted anew in place of End of Retail's dark pictures: green glass, silver foil, a black collar with a gold seal, and a gold oval frame round a plaque lettered "Dom Pyrignon, Vintage P.Y. 10", with relief and a clear map (the foil, seal and frame metal) from the same shapes | `champagne.py`, after `relief.py` | `pack/materials/` |
 | The iron chest painted anew in each era: its sides, lid and lock plate at four times retail's texels, laid out as retail's so its picture coordinates fit, with bands, rivets, hinge scrolls, lid rings and rust, and relief in millimetres from the same shapes | `chest.py` | `pack/materials/` |
 | Arms and armour that shine: blades, mace heads, gilt guards, grips, the heater shield and the Training Academy's two suits of plate, each with a metal map where steel or gold share a picture with leather | `arms.py`, with `relief.py` | `pack/materials/` |
 | Stone for surfaces with no picture: the Bael'Zharon statues' dark red, chiselled, laid along the world's axes over the surface's own colour | `solids.py` | `pack/materials/solid/` |
@@ -142,14 +144,16 @@ PNG, `.bin` and `.dat` files go through Git LFS (`.gitattributes`).
 
 ## Credits
 
-This pack uses openly licensed work. EZ-Tree's MIT license asks that its notice travels with its
-work. That notice is in `licenses/EZ-Tree-MIT.txt`. The CC0 works ask for no credit. This section
+This pack uses openly licensed work. EZ-Tree's MIT license and Pinyon Script's Open Font License
+ask that their notices travel with their work. Those notices are in `licenses/EZ-Tree-MIT.txt` and
+`licenses/PinyonScript-OFL.txt`. The CC0 works ask for no credit. This section
 credits each work.
 
 | Work | By | License | Used for |
 |---|---|---|---|
 | [ambientCG](https://ambientcg.com) bark | The ambientCG authors and contributors | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | The bark of the trees and some shaped trees |
 | [EZ-Tree](https://github.com/dgreenheck/ez-tree) | Daniel Greenheck | [MIT](https://github.com/dgreenheck/ez-tree/blob/main/LICENSE) | Growing the trees, and its leaf and needle pictures |
+| [Pinyon Script](https://github.com/SorkinType/Pinyon) | The Pinyon Project Authors | [SIL Open Font License 1.1](https://openfontlicense.org) | The lettering on the champagne's label (`generators/fonts/`) |
 | [Stylized Nature MegaKit](https://quaternius.com) | [Quaternius](https://quaternius.com) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | The ground cover, and the leaves of some shaped plants |
 
 The bark reached this pack through EZ-Tree. EZ-Tree bundles ambientCG's bark textures and credits
@@ -184,4 +188,5 @@ The client opens a release's `.dat` with `--art-pack` or from the launcher's Lib
 This repository is dedicated to the public domain under [CC0 1.0](LICENSE). Anyone may use it for
 any purpose, with or without credit. The packer in `packer/` is copied from Pyreal and is MIT, as
 Pyreal is (`packer/LICENSE`). The outside work above keeps its own license. ambientCG's and
-Quaternius's work is CC0. EZ-Tree's work is MIT (`licenses/EZ-Tree-MIT.txt`).
+Quaternius's work is CC0. EZ-Tree's work is MIT (`licenses/EZ-Tree-MIT.txt`). Pinyon Script is
+under the SIL Open Font License (`licenses/PinyonScript-OFL.txt`).

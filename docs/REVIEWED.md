@@ -4,12 +4,12 @@ Ledger of every asset in the art pack that has been worked on or reviewed, so la
 Built 2026-11-21 from pack main fbaee071 (version 0.5), the full commit history, the tables, the manifest and the
 review notes and verdicts. Add to it as new rounds are reviewed.
 
-Dates are Jacob's local dates. "Card" is one entry on a review page. Ids are retail file ids; `0x05..` are
+Dates are the developer's local dates. "Card" is one entry on a review page. Ids are retail file ids; `0x05..` are
 pictures, `0x01..`/`0x02..` models. A range such as `0x0500222A-223A` means every id from the first to the last.
 
 ## Counts
 
-| Area | Worked on | Reviewed by Jacob | Not reviewed or open |
+| Area | Worked on | Reviewed by the developer | Not reviewed or open |
 |---|---|---|---|
 | Trees and plants | 102 plant cards (90 still pack models in 0.5, 12 back on retail's model) plus 13 older-era plant models, 4 sway entries, 43 boulder models | 102 of 102 over 10 rounds (all passed by 2026-11-21); older plants over 3 checks | Boulders, ground cover, hay and ember beds never reviewed; older plants' last fix (018f49fe) not re-shown |
 | Armour and clothing | 1,234 rows in `tables/armor.tsv` (1,233 armor.py materials) | Armour rounds 1-4 and clothing rounds 1-4 all good | Clothing round 5 (33 pictures) and the White Rabbit Mask rework: no verdict found |
@@ -17,7 +17,7 @@ pictures, `0x01..`/`0x02..` models. A range such as `0x0500222A-223A` means ever
 | Room and ground textures | 348 room materials in review set, ground round, dungeon rounds 27-30, sand | Rounds 1-29 all good at the end | Round 30 (40 dungeon pieces) no verdict; 178 dungeon pieces never shown; every other relief.py material is automatic and unreviewed |
 
 Legend for verdict columns: `g` looks right, `r` needs work (note given), `u` shown and left unmarked,
-blank not in that round, `s` shown in round 5 (that round was dropped, see below), `back` or `keep` is Jacob's
+blank not in that round, `s` shown in round 5 (that round was dropped, see below), `back` or `keep` is the developer's
 keep pick (back to 0.4.4 model, or keep 0.4.45 model).
 
 ## 1. Trees and plants
@@ -35,15 +35,17 @@ shapes.mjs and cactus.py. Review page "Pack Trees Review", with a separate keep 
 | 3 | 11-20 | 37 | 29 good, 8 needs work | ed253a2d |
 | 4 | 11-20 | 8 | all good: every card passed at 0.4.45 | (then trunk fits efeeb015, f08e073c, 77171f64, e318f41e) |
 | Keep picks | 11-21 | 65 | 26 back to 0.4.4 model, 39 keep 0.4.45 (12 with notes) | 9140bdef |
-| 5 | 11-21 | 41 | roots-as-trunk (roots.py) shown; Jacob rejected roots and all trunk fitting ("go back before we ever widened tree bases") | 380ac331, c5ff9f3c, then dropped in 22cb4085, d5a1b014 |
+| 5 | 11-21 | 41 | roots-as-trunk (roots.py) shown; the developer rejected roots and all trunk fitting ("go back before we ever widened tree bases") | 380ac331, c5ff9f3c, then dropped in 22cb4085, d5a1b014 |
 | 6 | 11-21 | 62 | 31 good, 31 needs work (sizes against retail, 0.4.4 returns) | 2d070e17 |
 | 7 | 11-21 | 31 | 18 good, 13 needs work (match retail height, snowy back to 0.4.4) | c98a22b3 |
-| 8 | 11-21 | 13 | all good; Jacob asked for a build | c98a22b3 (tree-picks) |
+| 8 | 11-21 | 13 | all good; the developer asked for a build | c98a22b3 (tree-picks) |
 | 9 | 11-21 | 2 | 4BE and 2D9 rolled back to 0.4.4, approved; yellow twin 12FF kept as is | 15ec42da (tree-rollback-044) |
 | 10 | 11-21 | 1 | red birch 62B leaves back to 0.4.4's bright orange, approved | 703efe54 (tree-birch-044) |
 | 0.5 | 11-21 | | squashed into a95f7082 | fbaee071 |
-| Needle colour | 11-21 | 11 | Far crowns read near-black (Jacob: "distant tree cards got a bit blobby"). Needles moved to a grey picture coloured as end of retail's crown, twice as bright; not yet shown to Jacob | d723cadd, e9b788ec (fix/needle-colour) |
+| Needle colour | 11-21 | 11 | Far crowns read near-black (the developer: "distant tree cards got a bit blobby"). Needles moved to a grey picture coloured as end of retail's crown, twice as bright; not yet shown to the developer | d723cadd, e9b788ec (fix/needle-colour) |
 | Tree triangles | 11-22 | 22 | Same look with fewer triangles (`slim_trees.py`): every branch from half its rings; the conifers' middle level with one needle card for each crossed pair, grown 1.25; their far level without the branches the needles hide. Near levels and the round trees keep both cards of a pair, since one card alone showed thinner. About a third fewer triangles in view in a forest at Ultra. Not yet shown to the developer | ba69435d (review/tree-triangles) |
+| Banyan trunks | 11-23 | 3 | 3ED, 3EE, 3EF: each stem, limb and root is now one smooth tube, so the bends show no lines (they were short separate tubes with a crack at every joint). Inner trunk slimmed to 55%, the developer's pick from mockups at 100%, 75% and 55%, so the stems round it are near its size; then the whole trunk, stems and inner trunk together, sized to retail's (about 3 m across at its foot, 2.2 m above), and the tree moved so the trunk stands where retail's does (0.4 m east, 0.59 m north of the middle). Height, spread and triangles unchanged | 35e3985c, fef8400f, 491444ba, 7df4ebdd (banyan-trunks) |
+| Giant tree | 11-24 | 18 | End of Retail's trees and plants that reuse a pack model's parts under another id, found from a report of the giant tree at 0xBB80 (`twins.py`): 325 is the giant elm 251 at 1.5x; 3A1 the giant spruce 2DA in teal needles; F06, 2F1, 1C35, 1003, 1C3A, 7BE, 7DB, AC0, AC4, AC6, AC8 and AC9 as their twins. BAD and BAE are bare grey deadwood on End of Retail's record; A67 and F8E red-barked clump trees. Clump trees' trunk and first limb are one tube, with no crack at the fork (A35 too, on its first seed). The developer: keep. Braziers 104, 286, 287, 5B5, 625-62A wait on Pyreal's `lays_over` | d513391d, 54be21db, 25195ff4 (giant-tree) |
 
 ### Per tree
 
@@ -152,7 +154,7 @@ shapes.mjs and cactus.py. Review page "Pack Trees Review", with a separate keep 
 | 0x0200032C | Cactus, large | cactus.py | g |  |  |  |  |  |  |  |  |  |
 | 0x0200032B | Cactus, round | cactus.py | g |  |  |  |  |  |  |  |  |  |
 
-### Jacob's notes (verbatim, short ids are the last four hex digits of 0x0200....)
+### The developer's notes (verbatim, short ids are the last four hex digits of 0x0200....)
 
 Round 1:
 - 322 Leafy oak: "These look like they are meant to be an Apple/Fruit Tree - rework with that in mind"
@@ -214,12 +216,14 @@ Round 7:
 - 3A3, 3A4, 3A7, 12FB: "Go back to 0.4.4 model and snowy leaves/needles, match retail height"
 - 3EF Banyan: "Scale up to match retail height"
 
+Banyan trunks (relayed in chat, 2026-11-23, not verbatim): jagged lines still showed in the offshoot trunks; slim the inner trunk so the offshoot trunks are close to its size. The developer picked 55% from three mockups, then asked for the stems to shrink too, so the whole trunk is about the size of retail's, and, after the retail overlay, to move it where retail's trunk stands.
+
 Rounds 9 and 10 (via the screenshot session): "Keep the yellow twin as it is, but have 0x020004BE rolled back to 0.4.4. Also have 0x020002D9 rolled back to basically how it was in 0.4.4"; "The autumn trees in the cragstone shot, I think I also want those rolled back to the leaf colors they were in 0.4.4" (0x0200062B).
 
 ### State at 0.5
 
 - On 0.4.4 models (grown by a copy of the 0.4.4 generator; gen_pack.mjs's KEPT list keeps them out of a full regrow, only `--only` grows them): 240, 246, 251, 2D7, 2DC, 2F3, 7D4, 1C36 (round 6); 3A3, 3A4, 3A7, 12FB with 0.4.4's snowy needles (round 7); 4BE one trunk with a full green crown and 2D9 with orange-brown needles (round 9). 62B has 0.4.4's orange leaves on today's shape (round 10).
-- Every other tree is its 0.4.45 design with Jacob's notes, grown as its generator grows it with no fitting to retail's collision; foot blended into the trunk (FLARE 0.3); conifers scaled to retail height from mesh measures; banyans scaled to retail height; 71F and 847 lean east on root plates as retail's do.
+- Every other tree is its 0.4.45 design with the developer's notes, grown as its generator grows it with no fitting to retail's collision; foot blended into the trunk (FLARE 0.3); conifers scaled to retail height from mesh measures; banyans scaled to retail height; 71F and 847 lean east on root plates as retail's do.
 - Back on retail's own models (pack model removed): drooping flowers A37, B2D, B2E, B2F (sway entries, below); sea ferns and stars 14A5, 14A7, 14A8, 14AF, 14B0; gnarled stump 7BC (round 3: "stay with the EoR version"). Anemones 14B2, 14B4 are on retail's model with anemone.py pictures (0x05002C17, 0x05002C12) and half-depth bulb relief, halved again in round 6.
 - The 0.5 manifest has 149 models: 93 `draws_on any` (the 90 plants, plus 0x0100069A, 0x02000285, 0x02000354: the hay pile and two ember beds), 13 older-era plants, 43 boulders.
 - Removed tools: roots.py, blend_foot.py, fitFoot, fit_trunks.py `--to-head`, the redwood TREERING outlines. taper_trunks.py stayed out of the 26 regrown picks.
@@ -245,7 +249,7 @@ Rounds 9 and 10 (via the screenshot session): "Keep the yellow twin as it is, bu
 
 - Burnt tree 0x020004C7 at Yaraq is black on purpose: round 1 note "Needs to be black and more branchy-twiggy, make it look EoR for all packs", passed in round 2; confirmed again after the screenshot recapture. 0.4.0 drew it pale grey.
 - Taller than retail was accepted in round 1 ("I don't need this changed"), later narrowed by the round 6 and 7 size notes for conifers, banyans, 322 and 1C31.
-- Trees that lost wind (the 12 back on retail models and dead bush BAC) stay still, Jacob's call. puffTree, wingTree and hayPile still use vertex colours the client doesn't draw; Jacob passed them as they look.
+- Trees that lost wind (the 12 back on retail models and dead bush BAC) stay still, the developer's call. puffTree, wingTree and hayPile still use vertex colours the client doesn't draw; the developer passed them as they look.
 - Spruce group 1C39, 1C31, 1C36 and 240 have no collision in retail; left without one.
 - Small oak 246 and fruit tree 322 kept stout collision-fitted trunks at one point ("Keep collision fit"); superseded when all fitting was dropped.
 
@@ -290,7 +294,7 @@ its suit, its parts). Every row in that table has been reviewed or is in the ope
 | Armour 1 (1): studded, chain, leather, plate | 11-19 made, 11-20 reviewed | 55 | 28 | 28 good, 0 bad | 5ef7f578 |
 | Armour 2 (2): 20 sets, first pass | 11-20 | 216 | 140 | 140 good, 0 bad | 420a824a; rounds 1+2 squashed as 6b7ec972 |
 | Armour 3 (3): last 18 sets with helms | 11-20 | 188 (185 + runic helms 0x050020D6-20D8) | 169 incl. 43 helm cards | 169 good | 3c6ea807 + 4d26ddbc, squashed 1cf20584 |
-| Armour 4 (4): single pieces | 11-20 | 200 (111 items: 31 one-off helms, 80 coats, breastplates, leggings, gauntlets, boots, sleeves) | 216 | all good (Jacob in chat, no page submit) | 22236daf |
+| Armour 4 (4): single pieces | 11-20 | 200 (111 items: 31 one-off helms, 80 coats, breastplates, leggings, gauntlets, boots, sleeves) | 216 | all good (the developer in chat, no page submit) | 22236daf |
 | Clothing 1 (5): shirts and pants | 11-20 | 102 (51 bases) | 130 | all good (chat) | 522fdcc1 |
 | Clothing 2 (6): robes, gowns, dresses | 11-20 | 260 (45 bases) | 214 | all good (chat) | e42df693 |
 | Clothing 3 (7): masks, creature heads | 11-20 | 122 (64 bases) | 251 | all good except White Rabbit Mask 0x05002C26 ("too crinkled") | 2c9c8454 |
@@ -298,7 +302,7 @@ its suit, its parts). Every row in that table has been reviewed or is in the ope
 | Clothing 5 (9): cloaks, slippers, apron, gloves, armbands, buckler cover | 11-20 | 33 (23 pieces) | 96 incl. rabbit | no verdict found in notes or transcripts | a6448419 |
 | 0.5 | 11-21 | | | squashed into 1e0b6b0f | fbaee071 |
 
-Before these rounds: Ethangar's Robe silk sheen was removed (silk.py and materials 0x0500E300-E308 gone, b0519de3, v0.3); its deep-cowl hood (Jacob picked option 3, 2026-11-19) is a dat overlay, not the pack.
+Before these rounds: Ethangar's Robe silk sheen was removed (silk.py and materials 0x0500E300-E308 gone, b0519de3, v0.3); its deep-cowl hood (the developer picked option 3, 2026-11-19) is a dat overlay, not the pack.
 
 ### Ids by round and suit
 
@@ -461,13 +465,14 @@ Suit names are `tables/armor.tsv`'s second column.
 | Asset | Work | Date, commit | Verdict |
 |---|---|---|---|
 | Iron doors 0x020005DA (also 0x020005F1, 0x0200024F) at 0x7F03: 0x05001777, 0x05002635, 0x05000EE2 iron; 0x05002620, 0x05002638, 0x05000D25 banded wood | iron.py metal and metal maps, roughness 0.3 then 0.4 | 11-17, 3d26751f, 9cad3f77; v0.3 | softer sheen shipped |
-| Training Academy books: 0x05000B15 bookcase front, 0x05000AD1 open page, 0x05000DFB page edges | books and pages recipes | 11-17, 5b75e0d0; v0.3 | Jacob chose medium depth and satin gloss. Left alone then: covers 0x05000ACE, spine 0x05000ACD, painting 0x05002685 (0x05000ACE later changed in prop round 4) |
+| Training Academy books: 0x05000B15 bookcase front, 0x05000AD1 open page, 0x05000DFB page edges | books and pages recipes | 11-17, 5b75e0d0; v0.3 | The developer chose medium depth and satin gloss. Left alone then: covers 0x05000ACE, spine 0x05000ACD, painting 0x05002685 (0x05000ACE later changed in prop round 4) |
 | Arms at 0x7F03: 0x050025BC, 0x050002A2, 0x05000C53, 0x05000C54, 0x05000C55, 0x05000FDD, 0x0500029E, 0x05001D9C, 0x05001D9D, 0x05001E0E (models 0x010002EB, 0x01000305, 0x02000ADD, 0x02001255) | arms.py metal | 11-17, 5979d0d7; v0.3 | shipped. Follow-up candidates never done: 0x05000A8A, 0x05000E18, 0x05000C56 |
 | Iron chest 0x05000A6E lock plate, 0x05000A6F sides, 0x05000A70 lid (setups 0x0200007C, 0x02000A23, 0x02001250), every era | iron.py plates (1c542739), then chest.py paints new pictures at 4x texels (ba8c3feb) | 11-20 | era-props round 2 asked for it ("materials task"); new pictures merged |
 | Stone head 0x020003B1 and boulder 0x020003B2: 0x05002755-2759, 0x05001E76; 2005 0x05001E79, 0x05001E7B, 0x05001E7C, 0x05001E7D | carved recipe at 512 | 11-20, 1c542739 | era-props round 2: "don't re-tint" (they never were) |
-| Bael'Zharon statues: solid surfaces 0x080006F7 and 2005 0x08000203 (setups 0x02000359, 0x020007C3, 0x02000A53, 0x02000A54) | solids.py `[[solid]]` chiselled stone | 11-20, e93132f2 | Jacob: "Chiselled stone, make all versions use the EoR version" |
+| Bael'Zharon statues: solid surfaces 0x080006F7 and 2005 0x08000203 (setups 0x02000359, 0x020007C3, 0x02000A53, 0x02000A54) | solids.py `[[solid]]` chiselled stone | 11-20, e93132f2 | The developer: "Chiselled stone, make all versions use the EoR version" |
 | Torch pillars 0x0200039C, 0x0200039D | `[[light]]` in front of the flame | 11-20, 1553379c, 1ac414de | era-props round 2 redo, then fixed |
 | Golems, obsidian ground, mud, silk cobwebs, stones, cut-out foliage, quantised models | first generators | 11-14, efdcb967, 90b6ffc3 (0.1, 0.2) | no review round |
+| Crystal creatures: the shards' picture 0x05000E18 in their template palettes 0x04000BEE, 0x04000BF0-0BF7, 0x04000FDC-0FDE, 0x0400151D-1521 (setups 0x02000700-0713, 0x020008F9-08FC, 0x02001AC7: Crystal Shard Sentinel, Crystal of the Dark Isle, Fire, Acid, Fenmalain, Rynthid Crystal, Crystal Moiety and the rest), and the cistern pillars' 0x05001F99 (0x020010A2), each with its 2005 picture | crystals.py clear 0.65, refraction 1.75; the black shards (0x04000BF7, 0x04001521) clear 0.25; pillars clear 0.65, refraction 2.0. relief.py's 0x05000E18 material names the picture's own palette 0x04000BEF, so the world's crystal clusters keep it; the blue shards (template 2, the same palette) name it in `laid_palettes`, drawn clear by a Pyreal that tells a look's palette from a picture's own (review/crystal-creatures) and retail by an older one. Bloodstones 0x05002FAD left alone: clear lost their red glow. Crystal Lord, Sovereign and Minion already draw the gem golems' 0x050018C9/0x0500190C | 11-23, 75f6ec2d, 7dfef30e (crystal-creatures) | not yet shown to the developer |
 
 ### Prop texture review (most placed End of Retail props first)
 
@@ -594,7 +599,7 @@ The 348, by where they are drawn most:
 - eor room (15): 0x05000E5C 0x05001029 0x050011EC 0x05001205 0x0500189F 0x05001CB4 0x05002678 0x050026CC 0x050026F1-26F2 0x05002841 0x0500287C-287D 0x050028DD 0x0500297A
 - 2005  (52): 0x050000C7 0x050001DB 0x05000ABF 0x05000BB7 0x05000BCD 0x05000D10 0x05000D34 0x05000D55-0D56 0x05000D5A 0x05000D5E 0x05000D7A 0x05000FAB 0x05000FAF 0x05000FBB 0x05000FF5 0x05001020 0x050010F9 0x0500121A 0x050012AC 0x050012D9 0x05001369 0x05001376 0x05001395 0x050013A0 0x050013F5 0x0500175D 0x05001776 0x05001779 0x05001A5F 0x05001C67-1C69 0x05001C71-1C72 0x05001C74 0x05001C76 0x05001C8C 0x05001C96 0x05001D2D 0x05001D2F 0x05001D53 0x05001F6D 0x0500213E 0x05002150 0x05002329-232A 0x0500232F 0x05002332 0x05002335 0x050023F9 0x05002541
 
-Rounds that changed maps, from Jacob's notes ("pre" = fixed before he saw it, from notes on similar pieces). Rounds
+Rounds that changed maps, from the developer's notes ("pre" = fixed before they saw it, from notes on similar pieces). Rounds
 not listed (4, 5, 8, 10, 12, 16, 19, 24) were all good with no change. Saved verdicts with notes exist for rounds 16-23.
 - R1: 10 EoR and 7 2005 recipes refitted (e1a692cd); recipes-2005.tsv started.
 - R2: 0x050026F4, 0x05002785, 0x050028EA ledges; 0x0500264D; 0x050011EC one cloth; 2005 0x05000D7A, 0x05001C96.
@@ -631,14 +636,14 @@ a height. Nothing was marked reviewed. Reviewed materials were kept exactly; 18 
 ### Sand (2026-11-20, d297e694)
 
 End of Retail's yellow sand 0x0500145D takes the new sand recipe (was auto plaster), grey sand 0x0500145F remade.
-Rendered at Jacob's view at Morntide 0x7E62 and the Yaraq desert; merged into pack 0.4.4 (141f440b). 2005's 0x0500145D (128 px) not redone.
+Rendered at the developer's view at Morntide 0x7E62 and the Yaraq desert; merged into pack 0.4.4 (141f440b). 2005's 0x0500145D (128 px) not redone.
 
 ### Not reviewed
 
 - Dungeon pieces after round 30: 178 (about 5% of dungeon-piece drawn area), never shown. Round 30 itself has no verdict.
 - Every other relief.py material (3,468 in the 0.5 manifest, minus the reviewed set above) is automatic and unreviewed, including what the re-run remade.
 - 2005 and 1999 pictures except the stand-ins named above; the 0.5 squash dropped tables/eras.tsv rows for pictures Pyreal swaps (drawn-as-eor).
-- Pictures with no material at all were next on Jacob's order list (after ground, dungeons and the unreviewed list); not started.
+- Pictures with no material at all were next on the developer's order list (after ground, dungeons and the unreviewed list); not started.
 
 ### Branches
 

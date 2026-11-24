@@ -68,7 +68,7 @@ const APPLE = { color: 'Leaves_oak.png', tint: [0.194, 0.211, 0.236, 1], cutoff:
 const CHARRED = { color: 'Gen_Char.png', normal: 'Gen_Grit_Normal.png', tint: [1, 1, 1, 1] };
 
 // `look` with its tint, and the mass under its leaves, multiplied by `by`: the ratio measured between
-// end of retail's crown and the pack's, so the leaves take retail's colour (Jacob's review, 2026-11-20).
+// end of retail's crown and the pack's, so the leaves take retail's colour (the developer's review, 2026-11-20).
 const toned = (look, by) => {
   const times = (c) => [...c.slice(0, 3).map((v, k) => Math.min(1, Math.round(v * by[k] * 1000) / 1000)), 1];
   return { ...look, tint: times(look.tint), ...(look.mass ? { mass: times(look.mass) } : {}) };
@@ -87,7 +87,7 @@ const crown = (c) => ({
 
 // Each retail conifer: id, across, tall, the trunk's radius at its foot, its needles, its bark, and
 // how: where its branches start when not at START, or the floor of its crown read from end of
-// retail's (Jacob's second review, 2026-11-21), snow on its foot, and the other trees of a group.
+// retail's (the developer's second review, 2026-11-21), snow on its foot, and the other trees of a group.
 const CONIFERS = [
   ['0x02000258', 16.1, 23.96, 1.0, crown([0.05, 0.0532, 0.0128]), BROWN, { floor: 0.2 }],
   ['0x02000257', 4.6, 6.75, 0.25, crown([0.0274, 0.0399, 0.0119]), BROWN, { floor: 0.19, wider: 0.68, taper: 0.7 }],
@@ -113,21 +113,21 @@ const CONIFERS = [
 
 // Each retail round tree: id, across, tall, the EZ-Tree preset, its bark and leaves, the radius of
 // its trunk at its foot where it follows retail's, and how many times the preset's leaves it has.
-// The two-lobed ashes and the leafy oak are shaped models now (Jacob's review, 2026-11-20).
+// The two-lobed ashes and the leafy oak are shaped models now (the developer's review, 2026-11-20).
 const ROUND = [
-  // The small oak, the sapling and the spreading bush are shaped models now (Jacob's second review,
+  // The small oak, the sapling and the spreading bush are shaped models now (the developer's second review,
   // 2026-11-21); their rows stay so the rows after them keep their seeds.
   ['0x02000246', 'shaped'],
   ['0x02000240', 'shaped'],
   ['0x0200062C', 'shaped'],
-  // 0.4.4's bright orange (Jacob, 2026-11-21).
+  // 0.4.4's bright orange (the developer, 2026-11-21).
   ['0x0200062B', 7.9, 11.25, aspen, PALE, ASPEN, undefined, 3.2, 1.45],
   ['0x020002F6', 'shaped'],
 ];
 
-// Each retail banyan: id, across, tall, its trunk's radius at its foot.
+// Each retail banyan: id, across, tall, and the radius its limbs and roots are sized from.
 const BANYANS = [
-  // Scaled to retail's height as drawn (Jacob's sizes review, 2026-11-21).
+  // Scaled to retail's height as drawn (the developer's sizes review, 2026-11-21).
   ['0x020003EE', 32.8 * 0.76, 39.25 * 0.76, 1.33 * 0.76],
   ['0x020003EF', 32.8 * 0.92, 25.68 * 0.92, 1.33 * 0.92],
   ['0x020003ED', 32.8 * 0.64, 19.9 * 0.64, 1.33 * 0.64],
@@ -142,6 +142,13 @@ const BANYAN_LEVELS = [
 ];
 // How far below the ground a root reaches, so it stays planted on a slope, meters.
 const ROOT_SINK = 3.5;
+// The trunk's girth, metres: its stems stand within about this of its axis, so with the inner trunk it
+// is as wide as retail's trunk (2.2 m across, 3.1 m at its foot).
+const BANYAN_GIRTH = 1.5;
+// The inner trunk's radius, a share of the girth, so the stems round it are near its size.
+const BANYAN_CORE = 0.36;
+// Where retail's trunk stands from the tree's middle, measured from its mesh: glTF x and z, metres.
+const BANYAN_AT = [0.4, -0.59];
 
 const GREEN_CAP = [0.34, 0.46, 0.24, 1];
 const PALE_CAP = [0.74, 0.66, 0.56, 1];
@@ -151,9 +158,13 @@ const mush = (across, tall, stem, depth, cap) => ({ across, tall, stem, depth, c
 // Everything else, each from a maker in shapes.mjs: id, maker, its size.
 // A shaped model drawn only on the record it was made for, not on every era's.
 const OLDER = { older: true };
+// End of Retail's own record of an id that has an OLDER row: drawn on that record alone, from files of its own.
+const EOR = { eor: true };
 
 const SHAPED = [
-  ['0x0100069A', 'hayPile', { across: 1.7, tall: 0.3 }],
+  ['0x0100069A', 'haystack', { across: 1.7, tall: 0.4 }],
+  // As tall as retail's mound, whose shape the game walks on; wider at its foot so it stays a heap.
+  ['0x0200040F', 'haystack', { across: 4.8, tall: 2.5, slope: 2.6, round: 1, lumpy: 0.35, ragged: 0.35, aside: 0.03, straws: 0.6 }],
   ['0x02000285', 'emberBed', { across: 1.25, rise: 2.04, tall: 0.26 }],
   ['0x02000354', 'emberBed', { across: 0.86, rise: 0.17, tall: 0.1 }],
   ['0x020007D4', 'tiers', { across: 41.8, tall: 28.69, trunk: 0.85, bark: CREAM, leaves: toned(BROAD, [0.962, 1, 0.747]) }],
@@ -173,13 +184,14 @@ const SHAPED = [
   ['0x02001C34', 'shrub', { across: 4.3, tall: 7.8, bark: BROWN, leaves: toned(OLIVE, [0.231, 0.192, 0.509]) }],
   ['0x02001C31', 'shrub', { across: 4.7, tall: 5.63, bark: BROWN, leaves: toned(OAK, [0.165, 0.131, 0.372]) }],
   ['0x020002F3', 'shrub', { across: 3.0, tall: 6.55, bark: BROWN, leaves: toned(DARK, [0.162, 0.207, 0.447]) }],
-  ['0x02000A35', 'clumpTree', { across: 14.2, tall: 26.8, trunk: 2.2, leaf: [0.035, 0.083, 0.026, 1] }],
+  // `seed`: the seed it was first grown from, before rows above it moved its place.
+  ['0x02000A35', 'clumpTree', { across: 14.2, tall: 26.8, trunk: 2.2, leaf: [0.035, 0.083, 0.026, 1] }, { seed: 11621 }],
   ['0x020004C7', 'deadwood', { across: 8.85, tall: 9.75, trunk: 0.42, depth: 4, limbs: 8, bark: { ...CHARRED, tint: [0.046, 0.046, 0.044, 1] } }],
   ['0x02000AB6', 'snag', { across: 9, tall: 26.48, trunk: 1.9, spikes: 6, fork: true, tint: [0.024, 0.023, 0.021, 1] }],
   // Fallen trees on their root plates, leaning east as retail's do.
   ['0x0200071F', 'deadwood', { across: 9.1, tall: 12.4, trunk: 0.6, level: true, lean: 0.6, toward: 0, uprooted: 1.8, snapped: true, limbs: 14, depth: 2, moss: 0.7, bark: { ...BROWN, tint: [0.587, 0.374, 0.309, 1] } }],
   ['0x02000847', 'deadwood', { across: 18.1, tall: 18.79, trunk: 0.95, level: true, lean: 0.18, toward: 0, uprooted: 2, snapped: true, limbs: 16, depth: 3, moss: 0.5, bark: { ...BROWN, tint: [0.401, 0.228, 0.239, 1] } }],
-  // Drawn as retail draws it (Jacob's third review, 2026-11-21).
+  // Drawn as retail draws it (the developer's third review, 2026-11-21).
   ['0x020007BC', 'retail'],
   ['0x02000BAC', 'deadwood', { across: 3.6, tall: 3.84, trunk: 0.07, stems: 4, limbs: 4, depth: 3, bark: { ...GREY, tint: [0.078, 0.078, 0.095, 1] } }],
   ['0x020004B1', 'palm', { across: 5.35, tall: 9.97, trunk: 0.34, leaf: [0.763, 1, 0.17, 1], bark: [1, 0.98, 0.93, 1] }],
@@ -210,13 +222,13 @@ const SHAPED = [
   ['0x020007E4', 'crystal', { across: 8.6, tall: 10.8, prongs: 3 }],
   ['0x020007E2', 'crystal', { across: 12.4, tall: 17.78, prongs: 5 }],
   ['0x020007E3', 'crystal', { across: 9.2, tall: 17.74, prongs: 3 }],
-  // The sea ferns, sea stars and anemones are drawn as retail draws them (Jacob's review, 2026-11-20);
+  // The sea ferns, sea stars and anemones are drawn as retail draws them (the developer's review, 2026-11-20);
   // their rows stay so the rows after them keep their seeds. anemone.py paints the anemones' pictures.
   ['0x020014A8', 'retail'],
   ['0x020014A5', 'retail'],
   ['0x020014A7', 'retail'],
   ['0x02000CA5', 'pod', { across: 1.7, tall: 2.29, picture: 'Gen_Pod_Green.png' }],
-  // The drooping flowers are drawn as retail draws them (Jacob's second review, 2026-11-21).
+  // The drooping flowers are drawn as retail draws them (the developer's second review, 2026-11-21).
   ['0x02000A37', 'retail'],
   ['0x02000B2F', 'retail'],
   ['0x02000B2D', 'retail'],
@@ -238,7 +250,7 @@ const SHAPED = [
   ['0x020010CB', 'frond', { across: 1.5, tall: 1.25 }],
   ['0x02000A59', 'sprig', { across: 0.4, tall: 0.42, leaves: { color: 'Conifer_Needles.png', tint: [0.962, 1, 1, 1], cutoff: 0.3 } }],
   ['0x020004B2', 'cycad', { across: 4.4, tall: 2.43, trunk: 0.58, crest: 1.72 }],
-  // The 1999 and 2005 plants End of Retail drew as other plants under the same ids (Jacob's
+  // The 1999 and 2005 plants End of Retail drew as other plants under the same ids (the developer's
   // review of the remodelled props, 2026-11-20): drawn only on the older records, so End of
   // Retail keeps its own. The graphics objects are the same plants scattered by themselves.
   ['0x02000253', 'fern', { across: 1.3, tall: 1.05 }, OLDER],
@@ -253,17 +265,24 @@ const SHAPED = [
   ['0x02000BAD', 'shrub', { across: 4.3, tall: 7.75, bark: BROWN, leaves: RUSSET, leafy: 0.3, stems: 6, reach: 0.85 }, OLDER],
   ['0x02000BAE', 'shrub', { across: 8.0, tall: 4.78, bark: BROWN, leaves: RUSSET, leafy: 0.35, stems: 7, reach: 0.8 }, OLDER],
   ['0x02000325', 'elm', { across: 13.4, tall: 12.9, trunk: 0.6, bark: BROWN, leaves: RICH, low: 0.22 }, OLDER],
-  // Jacob's review of the pack's trees, 2026-11-20: the two-lobed ashes as weeping trees of a new
+  // The developer's review of the pack's trees, 2026-11-20: the two-lobed ashes as weeping trees of a new
   // leaf, and the leafy oak as the fruit tree it is.
   ['0x020004BE', 'weeper', { across: 13.5, tall: 21.3, trunk: 0.75, hang: 0.22, bark: ASHEN, leaves: { ...WILLOW, tint: [0.527, 0.604, 0.401, 1] } }],
   ['0x020012FF', 'weeper', { across: 13.5, tall: 21.3, trunk: 0.75, hang: 0.22, bark: ASHEN, leaves: { ...WILLOW, tint: [0.488, 0.238, 0.153, 1] } }],
-  // Jacob's second review, 2026-11-21: the small oak, the sapling and the spreading bush as dense
+  // The developer's second review, 2026-11-21: the small oak, the sapling and the spreading bush as dense
   // crowns of lobes, from a little above the ground.
   ['0x02000246', 'fruitTree', { across: 5, tall: 8.05, trunk: 0.3, bark: BROWN, leaves: toned(OAK, [0.283, 0.229, 0.49]), fruit: 0, low: 0.1 }],
   ['0x02000240', 'fruitTree', { across: 3.9, tall: 5.63, trunk: 0.24, bark: BROWN, leaves: toned(OAK, [0.214, 0.179, 0.447]), fruit: 0, low: 0.1 }],
   ['0x020002F6', 'fruitTree', { across: 8.9, tall: 4.76, trunk: 0.3, bark: BROWN, leaves: toned(OLIVE, [0.22, 0.188, 0.501]), fruit: 0, low: 0.2, leafy: 0.45 }],
   ['0x0200062C', 'fruitTree', { across: 7.9, tall: 11.25, trunk: 0.3, bark: PALE, leaves: toned(ASH, [0.358, 0.27, 0.248]), fruit: 0, low: 0.35 }],
   ['0x02000322', 'fruitTree', { across: 8.85, tall: 9.75, trunk: 0.42, bark: BROWN, leaves: toned(APPLE, [0.634, 0.778, 1]), leafy: 0.6, mass: false }],
+  // End of Retail's bare trees on the young tree's and the spreading bush's shapes, as bare as the gnarled
+  // stump 0x02000BAC (the giant tree report, 2026-11-24).
+  ['0x02000BAD', 'deadwood', { across: 4.3, tall: 7.75, trunk: 0.12, stems: 1, limbs: 7, depth: 3, bark: { ...GREY, tint: [0.078, 0.078, 0.095, 1] } }, EOR],
+  ['0x02000BAE', 'deadwood', { across: 8.0, tall: 4.78, trunk: 0.12, stems: 3, limbs: 6, depth: 3, bark: { ...GREY, tint: [0.078, 0.078, 0.095, 1] } }, EOR],
+  // The clump tree's red-trunked kin.
+  ['0x02000A67', 'clumpTree', { across: 15.1, tall: 20, trunk: 2.2, leaf: [0.035, 0.083, 0.026, 1], bark: [0.36, 0.11, 0.06, 1] }],
+  ['0x02000F8E', 'clumpTree', { across: 17.3, tall: 39.5, trunk: 2.0, leaf: [0.035, 0.083, 0.026, 1], bark: [0.36, 0.11, 0.06, 1] }],
 ];
 // Each level: the share of its sides and rows kept, of its leaves kept, and how much those grow.
 const SHAPE_LEVELS = [
@@ -612,30 +631,41 @@ function buildTree(id, options, barkLook, leafLook, flareTall, fit, trunk, seed 
   return files;
 }
 
-// A tube into `wood` from `a` to `b`, tapering from `ra` to `rb`, its bark repeating every 3.4 m.
-function addTube(wood, a, b, ra, rb, sides) {
-  const axis = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
-  const long = Math.hypot(...axis);
-  const d = axis.map((v) => v / long);
-  const side = Math.abs(d[1]) > 0.9 ? [1, 0, 0] : [0, 1, 0];
-  const u = [d[1] * side[2] - d[2] * side[1], d[2] * side[0] - d[0] * side[2], d[0] * side[1] - d[1] * side[0]];
-  const ul = Math.hypot(...u);
-  const e = u.map((v) => v / ul);
-  const f = [d[1] * e[2] - d[2] * e[1], d[2] * e[0] - d[0] * e[2], d[0] * e[1] - d[1] * e[0]];
+// One tube into `wood` along `path`, its radius falling from `from` to `to`: a ring at each point,
+// carried along the path so it never twists, shared by the spans either side, its bark running on.
+function addRun(wood, path, from, to, sides) {
+  const n = path.length;
+  const sub = (p, q) => [p[0] - q[0], p[1] - q[1], p[2] - q[2]];
+  const unit = (v) => { const l = Math.hypot(...v) || 1; return v.map((x) => x / l); };
+  const cross = (p, q) => [p[1] * q[2] - p[2] * q[1], p[2] * q[0] - p[0] * q[2], p[0] * q[1] - p[1] * q[0]];
+  const along = [0];
+  for (let k = 1; k < n; k++) along.push(along[k - 1] + Math.hypot(...sub(path[k], path[k - 1])));
+  const long = along[n - 1];
+  const slope = (to - from) / long;
+  const wraps = Math.max(1, Math.round(from * 4));
+  const d0 = unit(sub(path[1], path[0]));
+  let e = unit(cross(d0, Math.abs(d0[1]) > 0.9 ? [1, 0, 0] : [0, 1, 0]));
   const base = wood.position.length / 3;
-  for (const [end, c, r] of [[0, a, ra], [1, b, rb]]) {
+  for (let k = 0; k < n; k++) {
+    const d = unit(sub(path[Math.min(n - 1, k + 1)], path[Math.max(0, k - 1)]));
+    const dot = e[0] * d[0] + e[1] * d[1] + e[2] * d[2];
+    e = unit([e[0] - d[0] * dot, e[1] - d[1] * dot, e[2] - d[2] * dot]);
+    const f = cross(d, e);
+    const r = from + slope * along[k];
     for (let j = 0; j <= sides; j++) {
       const t = (j / sides) * Math.PI * 2;
-      const n = [0, 1, 2].map((k) => Math.cos(t) * e[k] + Math.sin(t) * f[k]);
-      wood.position.push(c[0] + n[0] * r, c[1] + n[1] * r, c[2] + n[2] * r);
-      wood.normal.push(...n);
-      wood.uv.push((j / sides) * Math.max(1, Math.round(ra * 4)), (end * long) / 3.4);
+      const c = [0, 1, 2].map((i) => Math.cos(t) * e[i] + Math.sin(t) * f[i]);
+      wood.position.push(path[k][0] + c[0] * r, path[k][1] + c[1] * r, path[k][2] + c[2] * r);
+      wood.normal.push(...unit([c[0] - d[0] * slope, c[1] - d[1] * slope, c[2] - d[2] * slope]));
+      wood.uv.push((j / sides) * wraps, along[k] / 3.4);
     }
   }
-  for (let j = 0; j < sides; j++) {
-    const p = base + j;
-    const q = p + sides + 1;
-    wood.index.push(p, p + 1, q, p + 1, q + 1, q);
+  for (let k = 0; k < n - 1; k++) {
+    for (let j = 0; j < sides; j++) {
+      const p = base + k * (sides + 1) + j;
+      const q = p + sides + 1;
+      wood.index.push(p, p + 1, q, p + 1, q + 1, q);
+    }
   }
 }
 
@@ -652,8 +682,8 @@ function banyanParts(across, tall, trunk, seed, level, bark, leaves) {
   };
   const wood = { position: [], normal: [], uv: [], index: [] };
   const crown = { position: [], normal: [], uv: [], index: [] };
-  // A run of tubes along a smooth curve through `points`, its radius falling from `from` to `to`:
-  // a few short tubes a span, so a bend leaves no crease across the wood.
+  // One tube along a smooth curve through `points`, its radius falling from `from` to `to`, with a
+  // few rings a span, so a bend leaves no crease across the wood.
   const run = (points, from, to, sides) => {
     const per = sides >= 7 ? 4 : sides >= 5 ? 3 : 1;
     const path = [];
@@ -665,24 +695,22 @@ function banyanParts(across, tall, trunk, seed, level, bark, leaves) {
       }
     }
     path.push(points[points.length - 1]);
-    const last = path.length - 1;
-    for (let k = 0; k < last; k++) {
-      const r = (t) => from + (to - from) * t;
-      addTube(wood, path[k], path[k + 1], r(k / last), r((k + 1) / last), sides);
-    }
+    addRun(wood, path, from, to, sides);
   };
-  shapes.foot(wood, trunk, level.sides / 10, seed);
+  const stems = level.sides >= 7 ? 9 : level.sides >= 5 ? 5 : 0;
+  // With no stems the inner trunk alone is as wide as the trunk.
+  const core = BANYAN_GIRTH * (stems ? BANYAN_CORE : 0.7);
+  shapes.foot(wood, core, level.sides / 10, seed);
   const fork = tall * 0.5;
   // The stems share the middle's strength, so they lean in and fuse as they rise.
-  run([[0, -1, 0], [0, fork * 0.6, 0], [0, fork, 0], [0, tall * 0.72, 0]], trunk, trunk * 0.45, level.sides);
-  const stems = level.sides >= 7 ? 9 : level.sides >= 5 ? 5 : 0;
+  run([[0, -1, 0], [0, fork * 0.6, 0], [0, fork, 0], [0, tall * 0.72, 0]], core, core * 0.9, level.sides);
   for (let k = 0; k < stems; k++) {
     const a = ((k + random() * 0.6) / Math.max(stems, 1)) * Math.PI * 2;
-    const out = trunk * (1.5 + random() * 0.9);
-    const up = fork * (0.55 + random() * 0.4);
+    const out = BANYAN_GIRTH * (0.58 + random() * 0.2);
+    const up = fork * (0.75 + random() * 0.3);
     const at = (r, y) => [Math.cos(a) * r, y, Math.sin(a) * r];
-    run([at(out, -1), at(out * 0.72, up * 0.3), at(trunk * 0.55, up * 0.7), at(trunk * 0.2, up)],
-      trunk * (0.34 + random() * 0.14), trunk * 0.14, Math.max(4, level.sides - 3));
+    run([at(out * 1.35, -1), at(out * 0.8, up * 0.3), at(core * 1.2, up * 0.7), at(core * 0.8, up)],
+      BANYAN_GIRTH * (0.2 + random() * 0.08), BANYAN_GIRTH * 0.1, Math.max(4, level.sides - 3));
   }
   // The limbs, each rising a little and then running level, with the places roots drop from.
   const anchors = [];
@@ -701,7 +729,7 @@ function banyanParts(across, tall, trunk, seed, level, bark, leaves) {
     const wave = long * 0.05;
     const dip = (p, by) => [p[0], p[1] + wave * by * (random() - 0.3), p[2]];
     const points = [at(0), dip(at(0.25, bend), 1), dip(at(0.5, -bend), 1.4), dip(at(0.75, bend), 1.4), at(1, -bend * 0.5)];
-    run(points, trunk * 0.42, trunk * 0.07, Math.max(4, level.sides - 3));
+    run(points, Math.min(trunk * 0.42, core * 0.55), trunk * 0.07, Math.max(4, level.sides - 3));
     for (const t of [0.35, 0.55, 0.75, 0.95]) anchors.push({ at: at(t, bend * (0.5 - t)), t });
     if (level.sides < 5) continue;
     // Its side boughs, which the crown hides from most views.
@@ -755,6 +783,13 @@ function banyanParts(across, tall, trunk, seed, level, bark, leaves) {
     const cy = tall * 0.97 - (tall * 0.97 - low) * fall * fall * fall + clump + layer;
     if (random() >= level.keep) continue;
     shapes.cards(crown, [x, cy, z], Math.min(across * 0.11, 3.2) * level.grow * (0.75 + random() * 0.5), random);
+  }
+  // The whole tree moved so its trunk stands where retail's does.
+  for (const p of [wood, crown]) {
+    for (let i = 0; i < p.position.length; i += 3) {
+      p.position[i] += BANYAN_AT[0];
+      p.position[i + 2] += BANYAN_AT[1];
+    }
   }
   const part = (p, m) => ({
     material: m,
@@ -934,15 +969,15 @@ if (!only) fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
 let manifest = '[pack]\nname = "Enhanced Environment Models"\nformat = 2\n';
 // How much the wind moves each maker's shapes; rigid things stand still.
-const WIND = { hayPile: 0, emberBed: 0, mushroom: 0, cactus: 0, pod: 0, crystal: 0, snag: 0, deadwood: 0, coral: 0.2, anemone: 0.15, gnarl: 0.3, vine: 0.2 };
-// Models kept as 0.4.4's gen_pack.mjs (141f440b) grew them, with today's foot (Jacob's reviews, 2026-11-21);
+const WIND = { haystack: 0, emberBed: 0, mushroom: 0, cactus: 0, pod: 0, crystal: 0, snag: 0, deadwood: 0, coral: 0.2, anemone: 0.15, gnarl: 0.3, vine: 0.2 };
+// Models kept as 0.4.4's gen_pack.mjs (141f440b) grew them, with today's foot (the developer's reviews, 2026-11-21);
 // their rows here would grow them differently, so they are grown only when named in `--only`.
 const KEPT = ['0x02000240', '0x02000246', '0x02000251', '0x020002D7', '0x020002DC', '0x020007D4', '0x020002F3', '0x02001C36',
   '0x020003A3', '0x020003A4', '0x020003A7', '0x020012FB', '0x020004BE', '0x020002D9'];
 const wanted = (id) => (only ? only.includes(id) : !KEPT.includes(id));
 const treeEntry = (id, files, credit = CREDITS.tree, foliage = true, wind = 1, older = false) => {
   // Every era draws the plants, whatever shape its own files give them, but those made for an
-  // older record alone; `pyreal-art fingerprint` names that record from the older files.
+  // older record or End of Retail's alone; `pyreal-art fingerprint` names that record from its era's files.
   manifest += `\n[[model]]\nid = "${id}"\ndraws_on = "${older ? 'matching' : 'any'}"\nfoliage = ${foliage}\nwind = ${wind}\n${credit}`;
   files.forEach((file, i) => {
     manifest += `\n[[model.lod]]\nfile = "trees/${file}.gltf"\n`;
@@ -970,10 +1005,12 @@ BANYANS.forEach(([id, across, tall, trunk], i) => {
   treeEntry(id, buildBanyan(id, across, tall, trunk, 7013 + 443 * i));
 });
 SHAPED.forEach(([id, maker, size, how = {}], i) => {
-  if (maker === 'retail' || !wanted(id)) return;
+  // An EOR row is grown under `<id>_eor`, so `--only` names it apart from the id's OLDER row.
+  const name = how.eor ? `${id}_eor` : id;
+  if (maker === 'retail' || !wanted(name)) return;
   // Plants small enough to skip the sun lit through them and the distant trees' farther blocks.
-  const small = ['blossom', 'bladed', 'star', 'anemone', 'budStalk', 'webbed', 'tuft', 'frond', 'fern', 'ferns', 'lilies', 'spike', 'hayPile', 'emberBed'].includes(maker) || size.tall < 3;
-  treeEntry(id, buildShaped(id, maker, size, 9001 + 131 * i), CREDITS.shape, !small, WIND[maker] ?? 1, how.older);
+  const small = ['blossom', 'bladed', 'star', 'anemone', 'budStalk', 'webbed', 'tuft', 'frond', 'fern', 'ferns', 'lilies', 'spike', 'haystack', 'emberBed'].includes(maker) || size.tall < 3;
+  treeEntry(id, buildShaped(name, maker, size, how.seed ?? 9001 + 131 * i), CREDITS.shape, !small, WIND[maker] ?? 1, how.older || how.eor);
 });
 COVER.forEach((c, k) => {
   if (only) return;

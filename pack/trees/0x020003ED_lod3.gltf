@@ -15,9 +15,9 @@
   {
    "mesh": 0,
    "translation": [
-    -0.3115096092224121,
-    5.847360849380493,
-    -0.2416820526123047
+    0.08849096298217773,
+    5.847390294075012,
+    -0.8316822052001953
    ],
    "scale": [
     13.902328491210938,
@@ -117,59 +117,59 @@
  "buffers": [
   {
    "uri": "0x020003ED_lod3.bin",
-   "byteLength": 27464
+   "byteLength": 23484
   }
  ],
  "bufferViews": [
   {
    "buffer": 0,
    "byteOffset": 0,
-   "byteLength": 4720,
+   "byteLength": 3128,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 4720,
-   "byteLength": 2360,
+   "byteOffset": 3128,
+   "byteLength": 1564,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 7080,
-   "byteLength": 4720,
+   "byteOffset": 4692,
+   "byteLength": 3128,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 11800,
+   "byteOffset": 7820,
    "byteLength": 3048,
    "target": 34963
   },
   {
    "buffer": 0,
-   "byteOffset": 14848,
+   "byteOffset": 10868,
    "byteLength": 5312,
    "target": 34962,
    "byteStride": 8
   },
   {
    "buffer": 0,
-   "byteOffset": 20160,
+   "byteOffset": 16180,
    "byteLength": 2656,
    "target": 34962,
    "byteStride": 4
   },
   {
    "buffer": 0,
-   "byteOffset": 22816,
+   "byteOffset": 18836,
    "byteLength": 2656,
    "target": 34962
   },
   {
    "buffer": 0,
-   "byteOffset": 25472,
+   "byteOffset": 21492,
    "byteLength": 1992,
    "target": 34963
   }
@@ -178,7 +178,7 @@
   {
    "bufferView": 0,
    "componentType": 5122,
-   "count": 590,
+   "count": 391,
    "type": "VEC3",
    "min": [
     -17354,
@@ -187,22 +187,22 @@
    ],
    "max": [
     20914,
-    7974,
-    22057
+    7971,
+    22058
    ],
    "normalized": true
   },
   {
    "bufferView": 1,
    "componentType": 5120,
-   "count": 590,
+   "count": 391,
    "type": "VEC3",
    "normalized": true
   },
   {
    "bufferView": 2,
    "componentType": 5126,
-   "count": 590,
+   "count": 391,
    "type": "VEC2"
   },
   {

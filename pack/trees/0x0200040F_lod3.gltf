@@ -1,0 +1,263 @@
+{
+ "asset": {
+  "version": "2.0",
+  "generator": "gen_pack.mjs, quantised by quantise.py"
+ },
+ "scene": 0,
+ "scenes": [
+  {
+   "nodes": [
+    0
+   ]
+  }
+ ],
+ "nodes": [
+  {
+   "mesh": 0,
+   "translation": [
+    -0.025623321533203125,
+    1.2839840464293957,
+    -0.006555318832397461
+   ],
+   "scale": [
+    2.8995280265808105,
+    2.8995280265808105,
+    2.8995280265808105
+   ]
+  }
+ ],
+ "meshes": [
+  {
+   "primitives": [
+    {
+     "material": 0,
+     "attributes": {
+      "POSITION": 0,
+      "NORMAL": 1,
+      "TEXCOORD_0": 2
+     },
+     "indices": 3
+    },
+    {
+     "material": 1,
+     "attributes": {
+      "POSITION": 4,
+      "NORMAL": 5,
+      "TEXCOORD_0": 6,
+      "COLOR_0": 7
+     },
+     "indices": 8
+    }
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Heap",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.7656,
+     0.616,
+     0.2024,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   },
+   "normalTexture": {
+    "index": 1,
+    "scale": 1.3
+   }
+  },
+  {
+   "name": "Straw",
+   "doubleSided": true,
+   "pbrMetallicRoughness": {
+    "baseColorTexture": {
+     "index": 0
+    },
+    "baseColorFactor": [
+     0.87,
+     0.7,
+     0.23,
+     1
+    ],
+    "metallicFactor": 0,
+    "roughnessFactor": 1
+   },
+   "normalTexture": {
+    "index": 1,
+    "scale": 1.3
+   }
+  }
+ ],
+ "images": [
+  {
+   "uri": "Gen_Straw.png"
+  },
+  {
+   "uri": "Gen_Grit_Normal.png"
+  }
+ ],
+ "textures": [
+  {
+   "source": 0
+  },
+  {
+   "source": 1
+  }
+ ],
+ "buffers": [
+  {
+   "uri": "0x0200040F_lod3.bin",
+   "byteLength": 523608
+  }
+ ],
+ "bufferViews": [
+  {
+   "buffer": 0,
+   "byteOffset": 0,
+   "byteLength": 672,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 672,
+   "byteLength": 336,
+   "target": 34962,
+   "byteStride": 4
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 1008,
+   "byteLength": 672,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 1680,
+   "byteLength": 792,
+   "target": 34963
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 2472,
+   "byteLength": 99264,
+   "target": 34962,
+   "byteStride": 8
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 101736,
+   "byteLength": 49632,
+   "target": 34962,
+   "byteStride": 4
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 151368,
+   "byteLength": 99264,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 250632,
+   "byteLength": 198528,
+   "target": 34962
+  },
+  {
+   "buffer": 0,
+   "byteOffset": 449160,
+   "byteLength": 74448,
+   "target": 34963
+  }
+ ],
+ "accessors": [
+  {
+   "bufferView": 0,
+   "componentType": 5122,
+   "count": 84,
+   "type": "VEC3",
+   "min": [
+    -22902,
+    -14962,
+    -24399
+   ],
+   "max": [
+    24021,
+    13875,
+    24470
+   ],
+   "normalized": true
+  },
+  {
+   "bufferView": 1,
+   "componentType": 5120,
+   "count": 84,
+   "type": "VEC3",
+   "normalized": true
+  },
+  {
+   "bufferView": 2,
+   "componentType": 5126,
+   "count": 84,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 3,
+   "componentType": 5123,
+   "count": 396,
+   "type": "SCALAR"
+  },
+  {
+   "bufferView": 4,
+   "componentType": 5122,
+   "count": 12408,
+   "type": "VEC3",
+   "min": [
+    -30398,
+    -14645,
+    -32767
+   ],
+   "max": [
+    30398,
+    14962,
+    32767
+   ],
+   "normalized": true
+  },
+  {
+   "bufferView": 5,
+   "componentType": 5120,
+   "count": 12408,
+   "type": "VEC3",
+   "normalized": true
+  },
+  {
+   "bufferView": 6,
+   "componentType": 5126,
+   "count": 12408,
+   "type": "VEC2"
+  },
+  {
+   "bufferView": 7,
+   "componentType": 5126,
+   "count": 12408,
+   "type": "VEC4"
+  },
+  {
+   "bufferView": 8,
+   "componentType": 5123,
+   "count": 37224,
+   "type": "SCALAR"
+  }
+ ],
+ "extensionsUsed": [
+  "KHR_mesh_quantization"
+ ]
+}
