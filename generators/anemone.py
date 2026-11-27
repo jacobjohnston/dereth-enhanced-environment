@@ -13,6 +13,8 @@
 # Needs Python, Node and ImageMagick (`magick`).
 # anemone.py <retail pictures folder> <pack folder>
 import math, os, random, subprocess, sys, tempfile
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import variants
 
 src, pack = sys.argv[1:3]
 SIZE = 512
@@ -147,7 +149,7 @@ main()
 def claim(pack):
     """Points relief.py's material for each picture at ours, and drops its unused fallback."""
     path = os.path.join(pack, "manifest.toml")
-    text = open(path).read()
+    text = variants.flat(open(path).read())
     for pid, _ in ANEMONES:
         head = f'[[material]]\ntexture = "{pid}"\n'
         at = text.index(head)
@@ -165,7 +167,7 @@ def claim(pack):
         fallback = os.path.join(pack, "materials", f"{pid}_fallback.png")
         if os.path.exists(fallback):
             os.remove(fallback)
-    open(path, "w").write(text)
+    open(path, "w").write(variants.settle(text))
 
 
 claim(pack)

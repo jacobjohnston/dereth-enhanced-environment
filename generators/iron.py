@@ -12,6 +12,7 @@ import os, re, subprocess, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import variants
 import relief
 from masonry import blur
 
@@ -124,7 +125,7 @@ def main(args):
     pack, pictures = args[:2]
     rough, brighten = option(args, '--rough', ROUGH), option(args, '--brighten', BRIGHTEN)
     path = os.path.join(pack, 'manifest.toml')
-    blocks = re.split(r'\n(?=\[\[)', open(path).read())
+    blocks = re.split(r'\n(?=\[\[)', variants.flat(open(path).read()))
     texture = lambda b: (re.search(r'^texture = "(0x[0-9A-Fa-f]{8})"$', b, re.M) or [None, None])[1]
     listed = recipes()
     made = 0
@@ -142,7 +143,7 @@ def main(args):
             blocks[i] = new + '\n'
             made += 1
     text = '\n'.join(blocks)
-    open(path, 'w').write(text)
+    open(path, 'w').write(variants.settle(text))
     print(made, 'iron materials of', len(IRON))
 
 

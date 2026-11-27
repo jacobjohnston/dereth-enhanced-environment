@@ -13,6 +13,7 @@ import numpy as np
 from scipy.spatial import cKDTree
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import variants
 import relief
 import grit as GRIT
 from masonry import blur
@@ -393,7 +394,7 @@ def main(args):
     if os.path.exists(at):
         prints = dict(l.rstrip('\n').split('\t')[:2] for l in open(at) if l.strip())
     path = os.path.join(pack, 'manifest.toml')
-    blocks = re.split(r'\n(?=\[\[)', open(path).read())
+    blocks = re.split(r'\n(?=\[\[)', variants.flat(open(path).read()))
     texture = lambda b: (re.search(r'^texture = "(0x[0-9A-Fa-f]{8})"$', b, re.M) or [None, None])[1]
     where = lambda b: re.search(rf'^base_color = "materials/{re.escape(sub)}[^/"]+"$', b, re.M)
     made = 0
@@ -421,7 +422,7 @@ def main(args):
             near = [i for i, b in enumerate(blocks) if b.startswith('[[material]]') and texture(b) in PICTURES[era] and where(b)]
             blocks.insert(near[-1] + 1 if near else len(blocks), new)
         made += 1
-    open(path, 'w').write('\n'.join(blocks))
+    open(path, 'w').write(variants.settle('\n'.join(blocks)))
     print(made, 'chest pictures of', len(PICTURES[era]))
 
 

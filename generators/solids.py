@@ -7,6 +7,8 @@
 import os, re, subprocess, sys
 import numpy as np
 from scipy import ndimage
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import variants
 
 TOOL = 'solids.py'
 N = 512
@@ -104,10 +106,10 @@ def main(pack):
             write(os.path.join(out, f'{name}_{part}.png'), a)
         blocks.append(entry(name, surfaces, colour, size))
     path = os.path.join(pack, 'manifest.toml')
-    text = open(path).read()
+    text = variants.flat(open(path).read())
     # This script's earlier entries go; each runs from its [[solid]] line to the next table.
     text = re.sub(r'\n\[\[solid\]\]\n(?:(?!\n\[).)*?tool = "solids\.py"\n(?:(?!\n\[).)*', '', text, flags=re.S)
-    open(path, 'w').write(text.rstrip('\n') + '\n\n' + '\n'.join(blocks))
+    open(path, 'w').write(variants.settle(text.rstrip('\n') + '\n\n' + '\n'.join(blocks)))
     print(len(blocks), 'solid materials')
 
 

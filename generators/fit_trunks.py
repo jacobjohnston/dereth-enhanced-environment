@@ -5,6 +5,8 @@
 #
 # fit_trunks.py <stage> <out> <retail-trunks.txt>   writes changed trees/ files to <out>/trees/
 import json, math, os, re, shutil, struct, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import variants
 
 stage, out, table = sys.argv[1:4]
 # How much of the band above the ground measures a trunk (metres), and the widest gap in the wood
@@ -105,7 +107,7 @@ def fit_file(path, base, shape, tall, report):
 def main():
     shapes = retail_shapes()
     os.makedirs(os.path.join(out, "trees"), exist_ok=True)
-    manifest = open(os.path.join(stage, "manifest.toml")).read()
+    manifest = variants.flat(open(os.path.join(stage, "manifest.toml")).read())
     for block in re.split(r"(?=^\[\[model\]\])", manifest, flags=re.M)[1:]:
         id_ = re.search(r'id = "(0x\w+)"', block).group(1)
         files = re.findall(r'file = "(trees/[^"]+)"', block)

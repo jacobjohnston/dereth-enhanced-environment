@@ -14,6 +14,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import variants
 import relief
 from masonry import blur
 
@@ -203,7 +204,7 @@ def main(args):
     if os.path.exists(at):
         prints = dict(l.rstrip('\n').split('\t')[:2] for l in open(at) if l.strip())
     path = os.path.join(pack, 'manifest.toml')
-    blocks = re.split(r'\n(?=\[\[)', open(path).read())
+    blocks = re.split(r'\n(?=\[\[)', variants.flat(open(path).read()))
     texture = lambda b: (re.search(r'^texture = "(0x[0-9A-Fa-f]{8})"$', b, re.M) or [None, None])[1]
     # End of Retail's own materials only, directly in materials/.
     where = lambda b: re.search(r'^base_color = "materials/[^/"]+"$', b, re.M)
@@ -224,7 +225,7 @@ def main(args):
                 del blocks[i]
         else:
             blocks.append(new)
-    open(path, 'w').write('\n'.join(blocks))
+    open(path, 'w').write(variants.settle('\n'.join(blocks)))
     print(len(PICTURES), 'champagne pictures')
 
 

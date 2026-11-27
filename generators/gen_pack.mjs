@@ -975,12 +975,16 @@ const WIND = { haystack: 0, emberBed: 0, mushroom: 0, cactus: 0, pod: 0, crystal
 const KEPT = ['0x02000240', '0x02000246', '0x02000251', '0x020002D7', '0x020002DC', '0x020007D4', '0x020002F3', '0x02001C36',
   '0x020003A3', '0x020003A4', '0x020003A7', '0x020012FB', '0x020004BE', '0x020002D9'];
 const wanted = (id) => (only ? only.includes(id) : !KEPT.includes(id));
+// The ids written so far: a later row for one is written under [variant], as variants.py settles it.
+const written = new Set();
 const treeEntry = (id, files, credit = CREDITS.tree, foliage = true, wind = 1, older = false) => {
   // Every era draws the plants, whatever shape its own files give them, but those made for an
   // older record or End of Retail's alone; `pyreal-art fingerprint` names that record from its era's files.
-  manifest += `\n[[model]]\nid = "${id}"\ndraws_on = "${older ? 'matching' : 'any'}"\nfoliage = ${foliage}\nwind = ${wind}\n${credit}`;
+  const table = written.has(id) ? 'variant.model' : 'model';
+  written.add(id);
+  manifest += `\n[[${table}]]\nid = "${id}"\ndraws_on = "${older ? 'matching' : 'any'}"\nfoliage = ${foliage}\nwind = ${wind}\n${credit}`;
   files.forEach((file, i) => {
-    manifest += `\n[[model.lod]]\nfile = "trees/${file}.gltf"\n`;
+    manifest += `\n[[${table}.lod]]\nfile = "trees/${file}.gltf"\n`;
     if (TREE_LEVELS[i].distance) manifest += `distance = ${TREE_LEVELS[i].distance}.0\n`;
   });
 };

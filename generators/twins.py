@@ -7,6 +7,8 @@
 # changes nothing.
 # twins.py <pack folder>
 import json, os, re, shutil, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import variants
 
 # id: (the pack model it is drawn as, its scale, the factor on that model's leaf colour or None).
 TWINS = {
@@ -67,7 +69,7 @@ def copy(trees, src, dst, scale, tone):
 
 def main(pack):
     path = os.path.join(pack, 'manifest.toml')
-    listed, head = blocks(open(path).read())
+    listed, head = blocks(variants.flat(open(path).read()))
     # Drop this script's own entries (each [[model]] with its levels), so a second run writes the same.
     kept, mine, stamped = [], False, {}
     for h, b in listed:
@@ -108,7 +110,7 @@ def main(pack):
     last = max(k for k, (h, _) in enumerate(kept) if h in ('[[model]]', '[[model.lod]]'))
     text = head + ''.join(b for _, b in kept[:last + 1])
     text = text.rstrip('\n') + '\n\n' + '\n'.join(e.rstrip('\n') + '\n' for e in out) + '\n' + ''.join(b for _, b in kept[last + 1:])
-    open(path, 'w').write(text)
+    open(path, 'w').write(variants.settle(text))
 
 
 if __name__ == '__main__':

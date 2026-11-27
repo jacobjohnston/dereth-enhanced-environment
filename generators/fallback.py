@@ -4,6 +4,8 @@
 # fallback.py <pack folder> <the player's pictures, as PNGs named by id>
 import os, re, subprocess, sys
 import numpy as np
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import variants
 
 # The fallback picture's side, in pixels: one colour, so any size draws the same.
 SIZE = 4
@@ -25,7 +27,7 @@ def write(path, colour):
 
 if __name__ == '__main__':
     pack, pictures = sys.argv[1:3]
-    text = open(os.path.join(pack, 'manifest.toml')).read()
+    text = variants.flat(open(os.path.join(pack, 'manifest.toml')).read())
     count = 0
     for block in re.split(r'\n(?=\[\[)', text):
         if not re.search(r'^keep_retail_picture = true$', block, re.M):

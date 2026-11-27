@@ -16,6 +16,7 @@ import numpy as np
 from scipy import ndimage
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import variants
 import relief
 import fallback as FALLBACK
 from masonry import blur
@@ -387,7 +388,7 @@ def main(args):
     prints_at = os.path.join(pictures, 'fingerprints.tsv')
     prints = dict(l.rstrip('\n').split('\t')[:2] for l in open(prints_at) if l.strip()) if os.path.exists(prints_at) else {}
     path = os.path.join(pack, 'manifest.toml')
-    blocks = re.split(r'\n(?=\[\[)', open(path).read())
+    blocks = re.split(r'\n(?=\[\[)', variants.flat(open(path).read()))
     texture = lambda b: (re.search(r'^texture = "(0x[0-9A-Fa-f]{8})"$', b, re.M) or [None, None])[1]
     eor = lambda b: re.search(r'^base_color = "materials/[^/"]+"$', b, re.M)
     made = 0
@@ -413,7 +414,7 @@ def main(args):
         else:
             blocks[at] = new
         made += 1
-    open(path, 'w').write('\n'.join(blocks))
+    open(path, 'w').write(variants.settle('\n'.join(blocks)))
     print(made, 'materials of armour')
 
 
