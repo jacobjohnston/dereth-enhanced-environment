@@ -39,11 +39,18 @@ def clay():
 def metal():
     h = 0.25 * noise(1, 8) + 0.5 * noise(6) - 1.8 * pits(1.6, 0.012)
     return h * 0.6, 0.5 * noise(4) - 1.2 * pits(1.6, 0.012), 0.9 * noise(10)
-TILES = dict(stone=stone, rock=rock, plaster=plaster, fibre=fibre, clay=clay, metal=metal, organic=organic)
+def lava():
+    # Cooled rock over molten cracks: rock's own grain. Pyreal draws a picture with the lava tile as molten, its hot texels glowing.
+    return rock()
+# New tiles go last, so the tiles before them keep their noise.
+TILES = dict(stone=stone, rock=rock, plaster=plaster, fibre=fibre, clay=clay, metal=metal, organic=organic, lava=lava)
 # Which tile each material takes.
 OF = dict(organic='organic', masonry='stone', flagstone='stone', design='stone', carved='stone', rock='rock', plaster='plaster', roof='clay', metal='metal', wood='fibre', thatch='fibre', surface='clay', cutout='fibre', grass='fibre', soil='clay', sand='clay', snow='plaster', stony='rock', books='fibre', pages='fibre', ashlar='stone', pole='fibre', recess='plaster', ledge='stone', flat='plaster', cloth='fibre', weave='fibre')
 def tile_of(recipe, settings):
-    """The tile a picture takes: a mixed picture's is that of the most of it."""
+    """The tile a picture takes: grit=NAME's, else its recipe's; a mixed picture's is that of the most of it."""
+    named = next((s[5:] for s in settings if s.startswith('grit=')), None)
+    if named:
+        return named
     if recipe != 'mixed':
         return OF[recipe]
     area = {}
