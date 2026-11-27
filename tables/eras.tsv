@@ -356,7 +356,7 @@
 2005	0x0500141A	0x0500141A	repainted	recipe
 2005	0x05001426	0x05001426	repainted	recipe
 2005	0x0500145D	0x0500145D	repainted	ground:sand
-2005	0x05001468	0x05001468	repainted	ground:snow
+2005	0x05001468	0x05001468	repainted	ground:snow glaze=0.3
 2005	0x050014A7	0x050014A7	repainted	ground:stony
 2005	0x05001680	0x05001680	repainted	recipe
 2005	0x050016BF	0x05002820	moved	classify
@@ -406,7 +406,7 @@
 2005	0x050018F3	0x050018F3	repainted	recipe
 2005	0x050018F5	0x050018F5	repainted	recipe
 2005	0x050018F6	0x050018F6	repainted	recipe
-2005	0x05001900	0x05001900	repainted	ground:snow
+2005	0x05001900	0x05001900	repainted	ground:snow glaze=0.3
 2005	0x0500191A	0x05002A65	moved	recipe
 2005	0x0500191C	0x05002A67	moved	recipe
 2005	0x0500192E	0x05002A64	moved	recipe
@@ -828,7 +828,7 @@
 1999	0x05000020	0x05002B70	moved	recipe
 1999	0x0500025F	0x0500025F	repainted	recipe
 1999	0x05000ECE	0x05000ECE	repainted	recipe
-1999	0x05001468	0x05001468	repainted	ground:snow
+1999	0x05001468	0x05001468	repainted	ground:snow glaze=0.3
 1999	0x050014B7	0x05001A90	moved	classify
 1999	0x050014B8	0x05001A8E	moved	recipe
 2005	0x0500031F	0x0500031F	room	classify

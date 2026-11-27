@@ -19,3 +19,5 @@
 0x050010F5	mixed	mixed	0	repeat=3.333	repeatv=3.333	like=0x05002725	0,0,1,1,design:flip
 0x05002541	plaster	plaster	0	repeat=3.333	repeatv=3.333
 0x05001004	flagstone	flagstone	0	repeat=2.000	repeatv=2.000	depth=0.6	like=0x05002877
+0x05000C4C	mixed	mixed	0	repeat=10.500	repeatv=3.000	0,0,1,1,plaster:warm=0.35	like=0x050028F4
+0x05000BFA	mixed	mixed	0	repeat=2.280	repeatv=2.500	0,0,1,0.075,wood	0,0.625,1,0.075,wood	0,0.075,0.1,0.55,wood	0.885,0.075,0.115,0.55,wood	0.1,0.075,0.785,0.55,plaster:rough=0.1:at=0.2	0,0.7,1,0.3,wood:at=0.12
