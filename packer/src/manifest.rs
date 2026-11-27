@@ -77,6 +77,17 @@ pub struct ArtPackManifest {
     pub lights: Vec<ManifestLight>,
     /// The moons it draws again, in the order the manifest lists them.
     pub moons: Vec<ManifestMoon>,
+    /// The waterfalls it carries modelled ahead of time, in the order the manifest lists them.
+    pub falls: Vec<ManifestFall>,
+}
+
+/// A place's waterfalls a pack carries modelled ahead of time.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ManifestFall {
+    /// The modelled falls' file.
+    pub file: String,
+    /// Who made it, with what, under which license.
+    pub credit: Credit,
 }
 
 /// A retail moon a pack draws again as a ball.
@@ -201,6 +212,9 @@ pub struct ManifestMaterial {
     /// A picture of where it is a metal, in its red: white metal, black not. A material that names
     /// one is a metal ([`Matter::metal`]) only where the picture says.
     pub metal_map: Option<String>,
+    /// A picture of where a clear material ([`Matter::clear`]) is clear, in its red: white as clear as
+    /// it says, black not clear at all; and in its green, where what is not clear is a metal.
+    pub clear_map: Option<String>,
     /// Whether it is wet on floors too, not only on walls.
     pub damp_floors: bool,
     /// Whether a film of slime lies on it where it is damp.
@@ -422,19 +436,12 @@ impl ArtPackManifest {
             .unwrap_or_default()
             .to_owned();
         let empty = Vec::new();
-        let listed = match table.get("model") {
-            None => &empty,
-            Some(toml::Value::Array(a)) => a,
-            Some(_) => return fail("`model` is not a list of [[model]] tables"),
-        };
+        let listed = with_variants(&table, "model")?;
         // Each entry is checked against the earlier entries of its own id, found through these.
         let mut model_at: HashMap<DataId, Vec<usize>> = HashMap::new();
         let mut models: Vec<ManifestModel> = Vec::with_capacity(listed.len());
-        for (i, m) in listed.iter().enumerate() {
-            let Some(m) = m.as_table() else {
-                return fail(format!("model {} is not a table", i + 1));
-            };
-            let model = model(m).map_err(|e| ManifestError(format!("model {}: {}", i + 1, e.0)))?;
+        for (at, m) in listed {
+            let model = model(m).map_err(|e| ManifestError(format!("{at}: {}", e.0)))?;
             let same = model_at.entry(model.id).or_default();
             if same.iter().any(|&k| {
                 let o = &models[k];
@@ -478,19 +485,11 @@ impl ArtPackManifest {
                 grounds.push(ground);
             }
         }
-        let listed = match table.get("material") {
-            None => &empty,
-            Some(toml::Value::Array(a)) => a,
-            Some(_) => return fail("`material` is not a list of [[material]] tables"),
-        };
+        let listed = with_variants(&table, "material")?;
         let mut material_at: HashMap<DataId, Vec<usize>> = HashMap::new();
         let mut materials: Vec<ManifestMaterial> = Vec::with_capacity(listed.len());
-        for (i, m) in listed.iter().enumerate() {
-            let Some(m) = m.as_table() else {
-                return fail(format!("material {} is not a table", i + 1));
-            };
-            let material =
-                material(m).map_err(|e| ManifestError(format!("material {}: {}", i + 1, e.0)))?;
+        for (at, m) in listed {
+            let material = material(m).map_err(|e| ManifestError(format!("{at}: {}", e.0)))?;
             for (t, print) in material.textures.iter().zip(&material.fingerprints) {
                 let same = material_at.get(t).map_or(&[][..], Vec::as_slice);
                 if same.iter().map(|&j| &materials[j]).any(|o| {
@@ -503,11 +502,7 @@ impl ArtPackManifest {
                             .zip(&o.fingerprints)
                             .any(|(u, p)| u == t && (p.is_none() || p == print))
                 }) {
-                    return fail(format!(
-                        "material {}: {:#010X} has a material already",
-                        i + 1,
-                        t.0
-                    ));
+                    return fail(format!("{at}: {:#010X} has a material already", t.0));
                 }
             }
             for t in &material.textures {
@@ -606,6 +601,22 @@ impl ArtPackManifest {
             }
             moons.push(moon);
         }
+        let listed = match table.get("fall") {
+            None => &empty,
+            Some(toml::Value::Array(a)) => a,
+            Some(_) => return fail("`fall` is not a list of [[fall]] tables"),
+        };
+        let mut falls: Vec<ManifestFall> = Vec::with_capacity(listed.len());
+        for (i, f) in listed.iter().enumerate() {
+            let Some(f) = f.as_table() else {
+                return fail(format!("fall {} is not a table", i + 1));
+            };
+            let one = fall(f).map_err(|e| ManifestError(format!("fall {}: {}", i + 1, e.0)))?;
+            if falls.iter().any(|o| o.file == one.file) {
+                return fail(format!("fall {}: {} is listed twice", i + 1, one.file));
+            }
+            falls.push(one);
+        }
         Ok(Self {
             name,
             models,
@@ -614,8 +625,44 @@ impl ArtPackManifest {
             ground_cover,
             lights,
             moons,
+            falls,
         })
     }
+}
+
+/// The `[[kind]]` tables, then the `[[variant.kind]]` tables, each with what it is called in a
+/// refusal (`model 3`, `variant model 1`).
+fn with_variants<'t>(
+    table: &'t toml::Table,
+    kind: &str,
+) -> Result<Vec<(String, &'t toml::Table)>, ManifestError> {
+    let variants = match table.get("variant") {
+        None => None,
+        Some(toml::Value::Table(v)) => v.get(kind),
+        Some(_) => return fail("`variant` is not a [variant] table"),
+    };
+    let mut out = Vec::new();
+    for (key, called, listed) in [
+        (kind.to_owned(), kind.to_owned(), table.get(kind)),
+        (
+            format!("variant.{kind}"),
+            format!("variant {kind}"),
+            variants,
+        ),
+    ] {
+        let listed = match listed {
+            None => continue,
+            Some(toml::Value::Array(a)) => a,
+            Some(_) => return fail(format!("`{key}` is not a list of [[{key}]] tables")),
+        };
+        for (i, t) in listed.iter().enumerate() {
+            let Some(t) = t.as_table() else {
+                return fail(format!("{called} {} is not a table", i + 1));
+            };
+            out.push((format!("{called} {}", i + 1), t));
+        }
+    }
+    Ok(out)
 }
 
 /// The id in `raw`: `0x` and eight hex digits, of a setup or a graphics object.
@@ -956,6 +1003,7 @@ fn material_with(
         damp,
         damp_map: picture("damp_map")?,
         metal_map: picture("metal_map")?,
+        clear_map: picture("clear_map")?,
         damp_floors: flag("damp_floors")?,
         slime: flag("slime")?,
         ice: flag("ice")?,
@@ -1040,6 +1088,22 @@ fn light(t: &toml::Table) -> Result<ManifestLight, ManifestError> {
         haze: within("haze", 0.0, 4.0, Some(0.0))?,
         presence: within("presence", 0.0, 1.0, Some(0.0))?,
         gather: within("gather", 0.0, 30.0, Some(0.0))?,
+        credit: Credit {
+            author: text(t, "author")?.to_owned(),
+            tool: text(t, "tool")?.to_owned(),
+            license: text(t, "license")?.to_owned(),
+        },
+    })
+}
+
+/// A place's waterfalls modelled ahead of time.
+fn fall(t: &toml::Table) -> Result<ManifestFall, ManifestError> {
+    let file = match t.get("file").and_then(toml::Value::as_str).map(str::trim) {
+        Some(p) if inside_the_pack(p) => p.to_owned(),
+        _ => return fail("file is not a path inside the pack"),
+    };
+    Ok(ManifestFall {
+        file,
         credit: Credit {
             author: text(t, "author")?.to_owned(),
             tool: text(t, "tool")?.to_owned(),

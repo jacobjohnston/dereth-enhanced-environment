@@ -13,8 +13,8 @@ pictures, `0x01..`/`0x02..` models. A range such as `0x0500222A-223A` means ever
 |---|---|---|---|
 | Trees and plants | 102 plant cards (90 still pack models in 0.5, 12 back on retail's model) plus 13 older-era plant models, 4 sway entries, 43 boulder models | 102 of 102 over 10 rounds (all passed by 2026-11-21); older plants over 3 checks | Boulders, ground cover, hay and ember beds never reviewed; older plants' last fix (018f49fe) not re-shown |
 | Armour and clothing | 1,234 rows in `tables/armor.tsv` (1,233 armor.py materials) | Armour rounds 1-4 and clothing rounds 1-4 all good | Clothing round 5 (33 pictures) and the White Rabbit Mask rework: no verdict found |
-| Props and items | Prop texture rounds 1-4: 78 cards, about 80 End of Retail pictures changed; iron doors, books, arms, chest, stone head and boulder, statue, torch pillars | All four prop rounds (round 4: 28 fix, 21 keep, 1 rework done) | Round 5 not started (skull 0x02000305 next) |
-| Room and ground textures | 348 room materials in review set, ground round, dungeon rounds 27-30, sand | Rounds 1-29 all good at the end | Round 30 (40 dungeon pieces) no verdict; 178 dungeon pieces never shown; every other relief.py material is automatic and unreviewed |
+| Props and items | Prop texture rounds 1-12: about 400 cards; relief kept to size, glaze, glass, crystal, metal, clear maps, the champagne painted anew, the hay heaps; iron doors, books, arms, chest, stone head and boulder, statue, torch pillars | All twelve prop rounds and their reworks, the red crystal obelisk's core and the bookshelves | Round 13 not started (after rank 943 in props.tsv) |
+| Room and ground textures | 348 room materials in review set, ground round, dungeon rounds 27-30, sand, wall, floor and ceiling rounds 30-55 | Rounds 1-55 all good at the end: 449 of 667 prop-free End of Retail walls, floors and ceilings (98.5% of their drawn area) | Round 56 next; 106 automatic and 112 with no material; every other relief.py material is automatic and unreviewed |
 
 Legend for verdict columns: `g` looks right, `r` needs work (note given), `u` shown and left unmarked,
 blank not in that round, `s` shown in round 5 (that round was dropped, see below), `back` or `keep` is the developer's
@@ -487,6 +487,18 @@ whatever the prop's size; fixes keep relief to millimetres (`mm=`) and raise iro
 | 3 | 11-21 | 10 | fix 6, keep 4 | 21ab639e |
 | 4 | 11-21 | 50 | fix 28, keep 21, rework 1 (stone bench, done) | 86ea9006 |
 | 0.5 | 11-21 | | squashed into 547c3224 | fbaee071 |
+| 5 | 11-22 | 50 | fix 20, keep 24, rework 6 (all six fixed in reworks 1 and 2) | ea0d87cf, 1e0628a5, e35d8e1a |
+| 6 | 11-22 | 59 | fix 17, keep 31, rework 11 (10 fixed in the rework: glass, glaze, canvas, water, crystal, iron; Thorsten Cragstone's Armor was already metal) | a9d71af0, 8b1b0bc2 |
+| 7 | 11-22 | 35, then 10 rechecked | 35 fix (crystals, gems, pottery, bottles); recheck fix 6, keep 4 | b9b7984b, 27668703 |
+| 8 | 11-22 | 4 crystal, 16 metal, 9 chests | crystals polished, Life Stones clear 0.55; metal fix 16; chests fix 8, rework 1 (done) | 6d80881a, de78a609, 1ee4ee03, 1e261583, 38edef2d, 458b4926 |
+| 9 | 11-22 | 51 | fix 21, keep 28, rework 2 (both fixed) | ccc414ac, bbd1e705, 862bed2f, c2f8acdb |
+| 10 | 11-24 | 6 clear maps, then 2 | clear maps fix 5, rework 1 (the champagne, painted anew as Dom Pyrignon and passed) | 167ec97c, 5e9b7b82, 36a272bb, cb0d2cab |
+| after 10 | 11-24 | | the crystal picture 0x05000E18 clear; both hay piles straw heaps, the large one at retail's height | 1fc96a2a, fe4d22ed, d56c42df |
+| 0.5.4 | 11-24 | | rounds 5-10 and the work after them released | ef5acc26 |
+| 11 | 11-25 | 28 (props.tsv ranks 627-824), then 7 | fix 14, keep 8, rework 6 (all six fixed in the rework, and the dark statues made metal) | fff7dfaf, f7ec5465 |
+| obelisk | 11-25 | 2 options | option A fixed with the clear lowered and the bend raised; option B not taken | 42cec6fd |
+| 12 | 11-25 | 28 (props.tsv ranks 828-943) | fix 14, keep 12, rework 2 (both fixed: the lava floor, and the cabinet shaped by hand) | 25607fa3 |
+| bookshelves | 11-25 | 4 | all four fixed on the third page | 4d8b8c00 |
 
 Round 1, all fixed:
 - Wall torch 0x020001E5, 0x020001EB, 0x0200026D: 0x050010C4 plate, 0x05002A9F handle
@@ -544,13 +556,357 @@ Round 4 fix cards (model: pictures changed):
 Round 4 keep cards (model: pictures, unchanged):
 - Clay jug 0x0200035E/0x0200036E: 0x05000A8C; Rock corner 0x02000AB3: 0x05001D70; Small stone piece 0x02000294: 0x05000E98; Dark arch door 0x020005F2: 0x05002628 0x050027EF; Carved wooden pillar 0x02000D73/0x020003C7/0x02000D72 +1: 0x05002696; Hanging hide 0x02000186: 0x05000B58; Rug 0x01000170: 0x0500268C; Mossy stone block 0x020011F8: 0x05002703 0x05002706; Stone stairs 0x010000D1: 0x05002682; Stone couch 0x02000122/0x02000187/0x020006F7: 0x05000E1F; Earth ramp 0x0200068B/0x020006C9: 0x0500122C; Dark crystal spike 0x02000F36: 0x05001C8E 0x05001C92; Dark rock corner 0x02000205: 0x050026AE; Black stone urn 0x02000452: 0x0500279E; Vase 0x02000293: 0x05000E95; Red timber frame 0x02000CA3: 0x050027ED; Painted screen 0x01000A69: 0x05002690 0x05002691; Wooden gable 0x010000D6: 0x050026B0; Sack 0x02000606: 0x050017A9; Dark spike 0x01002A03: 0x050018A1; Sliding door 0x02000310: 0x05002A87
 
+
+### Prop texture rounds 5-12 (2026-11-22 to 2026-11-25)
+
+Pages: "Prop Texture Review, Round 5" to "Prop Texture Review, Dom Pyrignon" (claude.ai artifacts); card data in
+`pyreal/notes/review/prop-textures/page/r5.json` to `r10c.json`. From round 7 every card also says what the prop is
+made of, and the fix gives it that material (glaze, glass, crystal, metal, canvas, water), not only relief. Dates are
+the dates the verdicts were sent. Models and pictures as in round 4: model, then its pictures.
+
+Outcomes worked out in conversation rather than on a card:
+- Round 5: the Life Stone 0x020002EE was left unchanged at first ("Don't change the Lifestone at all"); round 8 later
+  made its crystal clear.
+- Round 8: both Life Stone cards came back marked fix; the developer chose clear. Glacier ice (de78a609) was "too
+  overdone", so the crystals 0x05002B92 and 0x05001773 became clear 0.55, refraction 1.55 (1ee4ee03). The blue
+  crystal of the Obsidian Plain and the Crystal Shards were polished (6d80881a).
+- Round 8: Jaleh's Finery Chest 0x02000F30 (and the Armor and Magic Chests) lost its relief and keeps only its steel
+  and gold (458b4926).
+- Round 9: the dark stone column 0x0200085E takes the relief of its coloured twin 0x0500275F (862bed2f), and its
+  middle bands 0x0500275C, 0x0500275E the same stone relief (c2f8acdb).
+- Round 10: the wine bottle report (cork drawn as glass) led to clear maps: a clear material's map marks what is
+  clear (red) and what of the rest is metal (green), with Pyreal reading it (feat/clear-map, Pyreal main). The
+  champagne 0x020012B6 was first traced, then, as End of Retail holds its pictures in 32 dark colours and the 2005
+  painting may not be copied, painted anew by champagne.py as "Dom Pyrignon, Vintage P.Y. 10" (Pinyon Script, SIL Open
+  Font License). One material matches both eras' pictures, so the 2005 world draws it too.
+- After round 10: the shared crystal picture 0x05000E18 (palette 0x04000BEF) is clear 0.55, refraction 1.55 in every
+  world, so the 1999 and 2005 Life Stone match End of Retail's; the world crystal clusters share it and turned clear
+  too. Both hay piles are shapes.mjs `haystack` heaps (0x0100069A small, 0x0200040F large at retail's 2.5 m, since
+  the game still walks on retail's mound).
+
+#### Round 5 (11-22)
+Fixed:
+- Octagonal grate 0x0200046A: 0x05000EE2 0x05000EE3 0x0500121B 0x05001777 0x05002635 0x0500265F
+- Pale egg 0x01003450: 0x050024CF 0x050027DB
+- Wooden cart and wall hanging 0x01000E5F: 0x050010C3 0x050010C5 0x050010C6 0x050010C7 0x050010C8 0x0500263D 0x0500268E 0x0500268F 0x0500272A
+- Weapon rack 0x02001287: 0x050026D0 0x050026D1. Note: "Do we have proper materials for this?"
+- Number sign 0x010028F4: 0x05001ED0
+- Crystal lamp post 0x02000719: 0x05000CCA 0x05001401 0x05001891
+- Wooden post 0x0200020E: 0x050026C3 0x0500289F
+- Painted pot 0x02000948: 0x050019FC 0x050019FD
+- Lever 0x0200031F: 0x05000C52
+- Corpse 0x0200037B: 0x05000BFE 0x05000BFF 0x05000C00 0x05000C01 0x05000C02 0x05000C03 0x05000C04 0x05000C05 0x05000C06 0x05000C07 0x05000C08 0x05000C09 0x05000C0A
+- Thorn staff 0x02001136: 0x05002400
+- Antique Platter 0x020001F2: 0x050002AB
+- Bronze Candlestick 0x02000106: 0x050003D2
+- Wall shelf 0x01000ACC: 0x05002850 0x05002851
+- Urn with scattered tools 0x02001050: 0x05000E27 0x05000E28 0x05000E2C 0x05000E35 0x05002359 0x0500235C
+- Broken wheels 0x02000BBD: 0x050018BD 0x050018BE 0x050018C1 0x050018C2 0x050018C3 0x050018C4
+- Carrot 0x020006FC: 0x05000ADD 0x05001871
+- Roast bird 0x02000177: 0x05000AE3
+- Candelabra 0x02000105: 0x05000293
+- Rolled scroll 0x02000182: 0x05000E20
+Sent back:
+- Mossy carved block 0x020011FB: 0x050027CD 0x050027CE. Note: "Something very wrong with relief map on this wall texture"
+- Dark floor mat 0x01004298: 0x05002EAB. Note: "If this is a floor mat and not a dungeon tile, the relief is too high"
+- Emblem rug 0x01000EBB: 0x050010EE. Note: "The depth mapping should almost be inverse, the patterns on the pillow would be raised from the surrounding area, not lowered"
+- Life Stone 0x020002EE: 0x05002B93. Note: "Don't change the Lifestone at all."
+- Well 0x02000180: 0x05000BCE. Note: "Brick could use some extra relief maybe?"
+- Lifestones sign 0x0200062E: 0x050017FA 0x050017FB 0x05001804. Note: "Text on parchment should be raised above surface. Parchment should be raised above brick/stone behind it. Brick/stone can have some moderate texture, and border of brick should be even lower."
+- Kept: Dark sloped awning 0x010009D3: 0x05002929 0x0500292A; Dark rock lump 0x010009C7: 0x05002661; Jewelled rock 0x02000AC9: 0x05001D83; Purple swirled rock 0x02000F42: 0x05001DFD; Guardian door 0x02001056: 0x05002707; Red jewelled rock 0x02000AC7: 0x05001D85; Red crystal obelisk 0x02000BBF: 0x05001E5F 0x05001E62 0x05001E63; Blue crystal 0x020007E1: 0x05002721; Flat mushroom 0x02000AC1: 0x05001D89 0x05001D8A; Dark folded panel 0x0200067F: 0x050026AD; Wooden stairs 0x020003C4: 0x05002695; Campfire 0x020005AE: 0x0500260C; Pale rock slab 0x020004BF: 0x05000FF3; Dark framed painting 0x0200018F: 0x05002684; Mossy column 0x01004191: 0x05002E13; Carved chair 0x02001267: 0x05002801; Brick arch post 0x02000384: 0x0500281D 0x0500281E 0x0500281F 0x05002820; Green spotted crystal 0x020017E8: 0x05002DF6; Pale chair 0x01003585: 0x05002519; Bed 0x0200097F: 0x05001A69; Court painting 0x02000190: 0x0500267E; Grey framed painting 0x0200018E: 0x05002679; Brick stair block 0x01000A2F: 0x05002678 0x050026F1 0x0500280A; Dark horn 0x01004D3A: 0x05003310.
+
+#### Round 5 Rework (11-22)
+Fixed:
+- Dark floor mat 0x01004298: 0x05002EAB
+- Emblem rug 0x01000EBB: 0x050010EE
+- Life Stone 0x020002EE: 0x05002B93
+- Lifestones sign 0x0200062E: 0x050017FB 0x050017FA 0x05001804
+- Weapon rack 0x02001287: 0x050026D1 0x050026D0
+Sent back:
+- Mossy carved block 0x020011FB: 0x050027CD 0x050027CE. Note: "There's still a very strange distortion coming from somewhere in the center - right under the top border"
+- Well 0x02000180: 0x05000BCE. Note: "This brick texture isn't rectangular bricks, it is stone we need to trace around - we have other ways of dealing with more natural stone shapes"
+
+#### Round 5 Rework 2 (11-22)
+Fixed:
+- Mossy carved block 0x020011FB: 0x050027CD 0x050027CE
+- Well 0x02000180: 0x05000BCE
+
+#### Round 6 (11-22)
+Fixed:
+- Beer Keg 0x02000975: 0x050002A2 0x05000B31 0x05000C53 0x05000C55
+- Log 0x02000277: 0x05000E12
+- Striped hide 0x020006D2: 0x05000127 0x050002C4
+- Framed map 0x01002510: 0x05001D2B 0x05001D2C 0x050023DB 0x050026BF
+- Dark arch 0x0200004F: 0x05000378 0x05002789
+- Painted tapestry 0x02000961: 0x05001A02 0x05001A03 0x05001A04 0x05001A05 0x05001A07
+- Gargoyle statue 0x0200042B: 0x0500120C
+- Noble Swordstaff Chest 0x02001149: 0x050024D0 0x050024D1 0x050024D2 0x050024D3
+- Dark jug 0x020000EA: 0x05000BE6
+- Painted urn 0x02000EE7: 0x05000E9A
+- Large book 0x01004959: 0x0500215C 0x0500318D
+- Large Golden Coin 0x02000172: 0x05000AF9
+- Anvil 0x020011BF: 0x05002516 0x05002517 0x0500270D
+- Town name signs 0x01002944: 0x05001EBC 0x05001EBD 0x05001EBE 0x05001EBF 0x05001EC0 0x05001EC1 0x05001EC2 0x05001EC4 0x05001EC5 0x05001EC6
+- Hanging lantern 0x0200032E: 0x05001422
+- Renegade Chest 0x020010A4: 0x050019D2 0x050019D4 0x050019D5 0x050019D6 0x050019D7
+- Number card 9 0x010028F4: 0x05001ED0
+Sent back:
+- Pool with a little tree 0x02000227: 0x050001EE 0x05000280 0x05000ADF 0x05000AE0 0x05000AE1 0x05000AE2 0x05000AE7 0x05000AE8 0x05000AF3 0x05000AF4 0x05000B19 0x05000B30 0x05000FA3 0x050017B2 0x050017B3. Note: "Make the water in this reflective water"
+- Green bottle 0x02001288: 0x050026DA 0x050026DB 0x050026DC. Note: "Make this a translucent glass material"
+- Leather satchel 0x02000150: 0x05000281 0x05000282 0x05000283. Note: "Make this a fabric/canvas material"
+- Cooking pot 0x02000604: 0x050017B5. Note: "Make this a shiny ceramic material"
+- Thorsten Cragstone's Armor 0x02000ADD: 0x05001D9C 0x05001D9D 0x05001E0E. Note: "Ensure this is metal material if it isn't already"
+- Patterned jug 0x0200100A: 0x05000E97. Note: "Make this a shiny ceramic material"
+- Green jar 0x02000602: 0x050017A1. Note: "Make this a shiny ceramic material with wood/metal top"
+- Blue jar 0x020000A6: 0x05000FA0. Note: "Make this a shiny ceramic material with wood top"
+- Iron-framed double door 0x020010A8: 0x05001FEB. Note: "Make sure this is getting appropriate metal and wood materials in right places"
+- White crystals 0x01001BC9: 0x05001912 0x05001913 0x05001914. Note: "Give these a crystal material"
+- Mossy brick pillar 0x02000415: 0x05002693 0x050027A4. Note: "These grout lines are inverse and sticking out above the bricks"
+- Kept: Wall lever 0x02000261: 0x05000A6B 0x05000B08 0x05000B33; Dark wedge 0x02000206: 0x05002663; Long table 0x0200094D: 0x05001A00; Low bookshelf 0x02000BAF: 0x05000B15; Blue pool floor panel 0x02000DBD: 0x05002017; Low wooden crate 0x01000E70: 0x0500295C; Stone pyramid 0x02000989: 0x050026AA; Purple glow floor panel 0x02000DC3: 0x05002014; Green glow floor panel 0x02000DC1: 0x05002016; Clay oven 0x0200033C: 0x05002793; Red banner 0x02001259: 0x050026CE; Stone stair 0x02000621: 0x050026CA; Stone counter 0x01003605: 0x050028DF 0x0500291F; Scholar painting 0x02000191: 0x05002685; Wooden raft 0x02000222: 0x050017F0; Stone column 0x01004192: 0x05002E11 0x05002E14; Stone face 0x01003480: 0x05002361; Spotted shell 0x010033D5: 0x0500196D; Orange glow floor panel 0x02000DBF: 0x05002015; Octagonal floor platform 0x01003F71: 0x050018A0 0x050027AA 0x0500291E; Locked Door 0x0200167D: 0x05001ACA 0x05002A9E; Urn with scattered tools 0x020011C0: 0x050027FA; Tree stump 0x02000E7D: 0x0500209A 0x0500209B; Number card 0 0x010028F6: 0x05001EC7; Number card 2 0x010028F7: 0x05001EC9; Number card 3 0x010028F0: 0x05001ECA; Number card 4 0x010028F2: 0x05001ECB; Number card 5 0x010028F5: 0x05001ECC; Number card 6 0x010028F1: 0x05001ECD; Number card 7 0x010028F8: 0x05001ECE; Number card 8 0x010028F3: 0x05001ECF.
+
+#### Round 6 Rework (11-22)
+Fixed:
+- Pool with a little tree 0x02000227: 0x05000FA3
+- Green bottle 0x02001288: 0x050026DB
+- Leather satchel 0x02000150: 0x05000281 0x05000282 0x05000283
+- Cooking pot 0x02000604: 0x0500179F 0x050017B5
+- Patterned jug 0x0200100A: 0x05000E97
+- Green jar 0x02000602: 0x050017A0 0x050017A1
+- Blue jar 0x020000A6: 0x05000FA0
+- Iron-framed double door 0x020010A8: 0x050021FB 0x05002018 0x05001FEB
+- White crystals 0x01001BC9: 0x05001912 0x05001913 0x05001914
+- Mossy brick pillar 0x02000415: 0x05002693
+
+#### Round 7 (11-22)
+Fixed:
+- Beer stein 0x02000976
+- Blue decanter 0x020000A9
+- Glazed pot 0x02000A0F
+- Ale bottle 0x02001257
+- Crucible 0x020005FE
+- Dye vial 0x0200090F
+- Angree's Angry Ale 0x02001256
+- Tusker Spit Ale 0x02001258
+- Bottle of Crystal Champagne 0x020012B6
+- Stolen Ewer 0x02000173
+- Urn 0x02000293
+- Vase 0x02000294
+- Potion flask 0x020000AB
+- Oil vial 0x020005FD
+- Chalice 0x020000E5
+- Pearl 0x02000EF3
+- Strange Crystal 0x02001A86
+- Hardened Shard 0x02000EB9
+- Aquamarine Prisms 0x0200111C
+- Amethyst Cradle 0x0200111A
+- Jade Dais 0x02001119
+- Adjanite Gem 0x02001118
+- Attunement Crystal 0x02000FA7
+- Scored Shard 0x02000EB6
+- Brilliant Shard 0x02000EB7
+- Solid Shard 0x02000EBC
+- Plated Shard 0x02000EBB
+- Seared Shard 0x02000EB8
+- Chilled Shard 0x02000EB2
+- Charged Shard 0x02000EBA
+- Crystals of Grace 0x02000DD3
+- Eye of the Depths 0x02001116
+- Beholding Adjanite Gem 0x0200111B
+- Decorated Adjanite Gem 0x02001117
+- Entrancing Adjanite Gem 0x02001113
+
+#### Round 7, Signed Off Before (11-22)
+Fixed:
+- Clay jug 0x0200035E
+- Painted urn 0x02000EE7
+- Painted pot 0x02000948
+- Urn with scattered tools 0x02001050
+- Urn with scattered tools (second) 0x020011C0
+- Crystal lamp post 0x02000719
+- Kept: Red crystal obelisk 0x02000BBF; Green spotted crystal 0x020017E8; Jewelled rock 0x02000AC9; Red jewelled rock 0x02000AC7.
+
+#### Round 8 (11-22)
+Fixed:
+- Blue crystal, polished: 0x05000E18
+- Life Stones, polished: 0x05002B92 0x05001773 0x050020B0
+- Life Stones, clear: 0x05002B92 0x05001773 0x050020B0
+Unmarked:
+- Blue crystal, clear: 0x05000E18
+
+#### Round 8 Metal Recheck (11-22)
+Fixed:
+- Street lamp 0x0200071A
+- Riveted stool 0x02000624
+- Legendary Armor Chest 0x02000F34
+- Octagonal grate 0x0200046A
+- Crystal lamp post 0x02000719
+- Lever 0x0200031F
+- Wall lever 0x02000261
+- Bronze Candlestick 0x02000106
+- Candelabra 0x02000105
+- Beer Keg 0x02000975
+- Noble Swordstaff Chest 0x02001149
+- Antique Platter 0x020001F2
+- Gilded altar box 0x0200096A
+- Anvil 0x020011BF
+- Large Golden Coin 0x02000172
+- Renegade Chest 0x020010A4
+
+#### Round 8 Chests and Keys (11-22)
+Fixed:
+- Forbidden Chest 0x0200109D
+- Lunnum's Chest 0x02001268
+- Lock Box 0x02000A7F
+- Trunk of Bones 0x02000F03
+- Puzzle Box 0x02000F33
+- Vault Door 0x020011C5
+- Treasure chest keys 0x02000160
+- Shadow Chest and Vault keys 0x02000907
+Sent back:
+- Jaleh's Finery Chest (and the Armor and Magic Chests) 0x02000F30. Note: "Depth mapping is off - we should dump depth mapping and go more with just materials"
+
+#### Round 9 (11-22)
+Fixed:
+- Bronze Lamp, and the Shrine of the Blood Pearl 0x0200010B: 0x05000278 0x05000285 0x05000E17 0x05000E5A 0x05000ECA 0x050010EB 0x05001A99 0x05001E38 0x050021D7 0x050021D8 0x050021D9 0x050021DA 0x05002357 0x05002358 0x050027D5
+- Purple book 0x02000EF0: 0x05001AE0 0x05001AE1 0x05001AE2
+- Fur bundle 0x02000E5D: 0x05000AE4
+- Dark bottle 0x02000B1F: 0x05001C0B
+- Lever 0x02001207: 0x05002503
+- Gold horn 0x0200127E: 0x05002A12
+- Small wooden stick 0x0200017B: 0x05000B41
+- Rabbit Hutch 0x0200040F: 0x05001305
+- Green jar 0x020005FC: 0x050017BD
+- Blue book 0x02000EEF: 0x05000ACD 0x05000DFB
+- Stone stand with a book 0x020011C2: 0x0500201C 0x05002514 0x05002515 0x0500276A 0x050027D7
+- Treasure pile 0x02000EC4: 0x050003CA 0x050020B1
+- Hooked pole 0x02000A41: 0x05002830
+- Charred Falatacot Journal 0x0200105C: 0x050021D3 0x050021D4 0x050021D5
+- Pale gem block 0x01000D86: 0x05000FA9
+- Stone throne 0x02000931: 0x050019D3
+- Woven column 0x020000E4: 0x05000AFA
+- Plain gravestone 0x020016AE: 0x05002D43
+- Creature remains 0x0200105E: 0x05001E06 0x05001E07 0x05001E08 0x05001E09
+- Cut of meat 0x020000F7: 0x05000AF0 0x05000AF1
+- Name banners 0x01002B49: 0x05001F37 0x05001F3B 0x05001F3C 0x05001F3D 0x05001F3E 0x05001F45 0x05001F48 0x05001FCC 0x05001FCD 0x05001FCE 0x05001FCF 0x05001FD2 0x0500204A 0x0500204B 0x0500204D 0x0500204E 0x05002050 0x05002053 0x05002054
+Sent back:
+- Dark stone column 0x0200085E: 0x0500275D 0x0500275F. Note: "Brick texture / relief map doesn't match the actual grout lines at all"
+- Small dark piece 0x02000D3A: 0x05001F34. Note: "These look like just gray squares?"
+- Kept: Heater shield on a wall 0x010002DB: 0x05000FDD; White crystal rock 0x02000CDA: 0x05001F4F; Dark stone door 0x0200098C: 0x05002733; Ursuin Rug 0x02000A94: 0x05001DFE; Dark floor runner 0x0100473A: 0x0500306B; Landscape banner 0x010036B0: 0x050026E3; Mountain banner 0x01000E76: 0x050026E4; Black stone block 0x02001A61: 0x0500303A; Black Spear Ice Totem 0x020015E5: 0x05002CBE; Brick pillar 0x02000AB0: 0x050027D6; Shard of the Eastern Pedestal 0x02001024: 0x05002819; Burun Mud-packed Chest 0x020010D7: 0x0500278D 0x050027E0; Black obelisk 0x020014FB: 0x05002C2B; Dark slab 0x02001AC8: 0x050030F2; Stone pillar 0x01003628: 0x050028E2 0x050028E9 0x05002912; Carved gravestone 0x020016B4: 0x05002D08; Spiked rail 0x020010A7: 0x0500272B; Dark floor plate 0x01003E68: 0x05002CC6 0x05002CCB; Black pyramid 0x020008E2: 0x05002764; Dark pyramid 0x020008DE: 0x0500269F; Pile of Rocks 0x02000FA2: 0x050027D2; Brick wall pieces 0x010041FD: 0x05002E12 0x05002E38; Wooden plank 0x01000BC9: 0x05002899; Wooden rack 0x02000919: 0x05002814 0x05002815; Arwic road sign 0x02000610: 0x050010EF; Brick wall panel 0x01003449: 0x05002708; Candle ring 0x020019E3: 0x05002F82; Jewelled rock cluster 0x02000AC8: 0x05001D84.
+
+#### Round 9 Rework (11-22)
+Fixed:
+- Spiral 0x02000D3A: 0x05001F34
+Sent back:
+- Dark stone column 0x0200085E: 0x0500275D. Note: "We already have this texture relief mapped - but when it is in color - follow that"
+
+#### Clear Maps (11-24)
+Fixed:
+- Wine bottle 0x02001288: 0x050026DB
+- Bottle A (decanter) 0x020000A9: 0x05000A99
+- Flask 0x020000AB: 0x05000A95
+- Vial 0x020005FD: 0x05000F83
+- Crystal lamp post 0x02000719: 0x05001401
+Sent back:
+- Champagne bottle 0x020012B6: 0x050025C3 0x050025C4. Note: "The label is semi fancy -  we need to do a better job tracing it"
+
+#### Clear Maps Rework (not submitted)
+Unmarked:
+- Champagne bottle 0x020012B6: 0x050025C3 0x050025C4
+
+#### Dom Pyrignon (11-24)
+Fixed:
+- Champagne in End of Retail 0x020012B6: 0x050025C3 0x050025C4
+- Kept: Champagne in the 2005 world 0x020012B6-2005: 0x050025C3 0x050025C4.
+
+#### Round 11 (11-25)
+Fixed:
+- Name banners, the rest 0x01002B44: 0x05001FCA 0x0500204F 0x05001F44 0x05001F38 0x05002051 0x05001FD1 0x05001F4A 0x05001F3F 0x05001FD3 0x05001F41 0x05001F43 0x05001F3A 0x05001FD4 0x05001F40 0x05001F39 0x05001F4B 0x0500204C 0x05001F46 0x05001F4C 0x05001F49 0x05001FD5
+- Bunch of bananas 0x02000E5A: 0x05002068
+- Black cage 0x020018F2: 0x05002EB7 0x05002EB8
+- Green stone shrine 0x020014C3: 0x0500235D 0x0500250B 0x0500250D 0x0500250E 0x0500250F 0x05002511 0x05002513 0x0500250A
+- Attunement Device Spring 0x02000D3D: 0x05001F35
+- Purple swirl 0x0100043C: 0x05000376
+- Lever 0x02001166: 0x0500242F 0x050024E6
+- Steel star 0x02000140: 0x050002AC
+- Green carved panel 0x02001201: 0x05002537 0x05002538 0x05002539
+- Log ram on wheels 0x020010A6: 0x050027E2 0x050027E4
+- Feast table 0x02001666: 0x05000DB7 0x050017AE 0x05001F5A 0x050025C5 0x05002BE0 0x05002BE1
+- Snow drift with a hole 0x0200129C: 0x05002806 0x05002807
+- Hidden Sho Festival Light 0x02000705: 0x050017AE
+- Bloodied book on a stand 0x02000FAB: 0x050021D6
+Sent back:
+- Wine rack with a map 0x0200126A: 0x0500291A. Note: "Relief map is distorting this object."
+- Cove Apple Wine bottle 0x0200016F: 0x05000A9A 0x05000A9B. Note: "Let's actually recreate this texture entirely. Make it a glass bottle with apple-cider color and a silver foil top."
+- Black studded door 0x02001A97: 0x05002EB7 0x0500306C. Note: "Metal dots/studs should actually be raised above background metal"
+- Ice wall 0x01004603: 0x05002FE1. Note: "Make this reflective solid ice material"
+- Archery target 0x02000F31: 0x0500210F. Note: "Target colors are painted on top of wood texture, those, give it one consistent wood texture throughout"
+- Framed painting 0x02000A22: 0x05001C31. Note: "Cracked stone painting - cracks should have relief map"
+- Kept: Broken Menhirn Stone 0x02000C58: 0x050019A9; Portcullis 0x01002D1C: 0x050027F4; Stone bench 0x02001963: 0x05002EDE; Hide canopy 0x02000ABA: 0x05001D7A; Tied sack 0x02000F80: 0x0500216C; Stone arch 0x02000418: 0x05000E80; Snow heap 0x0200176D: 0x0500192D; Dark carved statues 0x0200126E: 0x05002700 (note: "Ensure metallic material").
+
+#### Round 11 Rework (11-25)
+Fixed:
+- Cove Apple Wine bottle 0x0200016F: 0x05000A9A 0x05000A9B (painted anew by cider.py: apple-cider glass, a silver foil cap)
+- Wine rack with a map 0x0200126A: 0x0500291A
+- Black studded door 0x02001A97: 0x0500306C (studs proud, the door steel)
+- Ice wall 0x01004603: 0x05002FE1 (polished, roughness 0.03; glacier ice was too blue)
+- Archery target 0x02000F31: 0x0500210F (relief.py `painted`: the wood runs on under the paint)
+- Framed painting 0x02000A22: 0x05001C31 (relief.py `:cracks`: level face, cracks sunk)
+- Dark carved statues 0x0200126E: 0x05002700 (steel)
+
+#### Red Crystal Obelisk (11-25)
+Fixed:
+- Red crystal obelisk 0x02000BBF: 0x05001E63 (its core seen through the shell's windows: the retail flames as clear crystal, clear 0.35, refraction 1.9, from a report at Darktide 0xA9AC; the developer asked for it less clear and more refractive than the Life Stone's 0.55 and 1.55)
+Sent back:
+- The same core painted anew as an ember crystal (a second option, not taken).
+
+#### Round 12 (11-25)
+Fixed:
+- Attunement Device Gear 0x02000D3B: 0x05001F36
+- Kitchen table 0x02001001: 0x050017A8
+- Pile of armour 0x02001311: 0x0500284F. Note: "Ensure metal material"
+- Green slime pool 0x02000DA9: 0x050029F8. Note: "Looks good, but also make sure any ground tiles of same texture match. Ensure slime-like gloss material"
+- Green stone statue 0x02000D54: 0x05001F75 0x05002A69 0x05002A6B 0x05002A6C 0x05002A6D 0x05002A6E
+- Stone double door 0x02001541: 0x05002AAB. Note: "Ensure metal material"
+- Red bull banner 0x02001519: 0x050022D3 0x050022D4 0x05002C37 0x05002C38
+- Bow 0x01003465: 0x05001F8C 0x050024D5
+- Crossbow 0x01003468: 0x05001F8C 0x0500200B 0x050024D5 0x050024DA
+- Ruschk Totem 0x020012A1: 0x050026EE. Note: "Ensure ice material"
+- Golden drake 0x020011D0: 0x05001955 0x05001956 0x05001957 0x05001958 0x05001959 0x0500195A 0x0500195E
+- Lamp post with a blue lantern 0x02000707: 0x05000E99
+Sent back:
+- Lava floor 0x02000E68: 0x05001824. Note: "We need to make sure this works and glows looks like the landscape lava ground tile"
+- Painted cabinet 0x02000EFE: 0x050020E5 0x050020E6. Note: "Apply heavy relief map to items on shelf to give them some depth."
+- Kept: Arched root 0x01004DA9: 0x05003318; Stone block with a green slab 0x020010A5: 0x050026E6; Snowy rock slab 0x01003909: 0x0500293D; Gnome statue 0x02000A98: 0x0500284D; Grey-blue floor patch 0x02000BF4: 0x05000ABF; Black sack 0x02000F7E: 0x0500216E; Red sack 0x02000F82: 0x0500216A; Low stone wall 0x010000D5: 0x05002794; Stone well 0x010041F7: 0x0500294F; Bone fan 0x0200159E: 0x05002173 0x05002175; Dark octagonal platform 0x020018C5: 0x05002EB0; Broken Fishing Pole 0x01002DE6: 0x050017F8 0x050018DF; Dark red pyramid 0x020005A8: 0x05001210; Bone polearm 0x0200107B: 0x050029FD.
+- Notes applied: the armour pile wholly steel; the slime glaze=0.05 (its picture is on four slime pieces and no floor). The totem was already ice-polished (glaze 0.05) and the door's iron doors already iron.py metal.
+- Left out: the Wheel of Fortune 0x02000C3F (draws nothing) and a snowy fir 0x02000BC9 (plants).
+
+#### Round 12 Rework (11-25)
+Fixed:
+- Lava floor 0x02000E68: 0x05001824 (grit=lava: the clay grit made Pyreal draw it as stone, so its molten cracks did not glow; grit.py gained a lava tile)
+- Painted cabinet 0x02000EFE: 0x050020E5 0x050020E6 (shaped by hand by shelves.py after three tries: light-shaped shelves were "entirely wrong"; the second missed the border behind the chest and the leaning book; the third the middle shelf's leaning books and squat candle)
+
+#### Bookshelves (11-25)
+Fixed:
+- Wooden bookcase 0x02000183 (and 0x02000C56): 0x05000B15
+- Stone-framed bookshelf 0x0200096C: 0x05001A3E (no material before)
+- Stone bookcase 0x02001205: 0x05001A3E
+- Low bookshelf 0x02000BAF: 0x05000B15
+- The two pictures paint the same books, so shelves.py shapes them from one hand-placed list: about 60 uprights, three leaning, two large tomes lying on the top shelf and three books lying across the rows. The wooden frame has its grain, twelve domed bolts and iron corner plates. A search of every shelf-shaped model (375 pictures) found no other bookshelf picture. Three pages: the first had the lying books wrong and no frame relief; the second took the tomes for three books.
+
+#### Red Crystal Obelisk Turn (11-25)
+- Red crystal obelisk 0x02000BBF: 0x05001E63 takes round=45 (relief.py leans its normal 45 degrees at each side of the picture). The developer saw what the clear core shows jump each quarter turn as the obelisk spins: each flat face of the four-sided core bent the world behind it by one fixed amount. Its four identical faces are retail's.
+
+#### Red Crystal Obelisk Points (11-25)
+- Red crystal obelisk 0x02000BBF: its two points 0x05001E5F and 0x05001E62 drawn flat, as retail draws them (the End of Retail materials and 0x05001E62's 2005 one dropped). Its default animation 0x030008E7 turns it 88.5 degrees in 59 steps of 1.5 and loops, relying on four faces that look alike; on its points every other face shows the picture mirrored, and their relief lit each mirrored face from the other side, so the obelisk jumped at every loop. The developer saw the jump in a test build after the round=45 change.
+
 ### Looked at and left alone
 
 - Props with no depth-mapped picture: 895 of the 3,666 placed props (2,771 have one). Only depth-mapped props were put on cards. 516 of the 2,193 prop pictures have no height map.
 - Left out of the prop survey on purpose: plants, armour and clothing, buildings, walls and floors (room review), the Bael'Zharon statue, the iron chest, the stone head and boulder (own threads). Pictures shared with walls or floors were left to the room review; large pictures that already read as grain were kept.
 - Round 2: King's Crown water lily 0x020003D2 (plant). Ferns, flying birds and scenery rocks above round 1 stay with their own threads.
 - Round 4: 0x02000C39 draws nothing visible; eight plants left out (listed under trees).
-- Next in line, never started: round 5 begins with the skull 0x02000305 (pictures 3 to 20 cm with 75 mm relief), then the rest of round4-extra.json: 0x020003F9, 0x0200017D, 0x0200034D, 0x020010E3, 0x020008DF.
+- Next in line: round 13 starts after rank 943 in props.tsv.
+- The scan of every picture for colours End of Retail cut (2026-11-24) found 17 candidates; only the champagne was changed.
 - 2005 pictures that borrow round 1's recipes keep their old materials; iron.py has no era support, so 2005's iron is not metal.
 
 ### What Pyreal draws with End of Retail's art (tables/drawn-as-eor.tsv)
@@ -563,7 +919,7 @@ Pyreal swaps these into 1999 and 2005 worlds, so the pack leaves the older mater
 
 ### Branches (all in archive/combined-before-squash-2026-11-21, content in 0.5)
 
-prop-textures 86ea9006 (rounds 1-4, drawn-as-eor), fix/prop-relief 1c542739 (chest plates, head, boulder), fix/chest-retexture ba8c3feb (chest.py), feat/statue-stone e93132f2. 292e88f2 and its revert dfd70bc3 net to nothing. Worktrees: dereth-enhanced-environment-wt/prop-textures, prop-relief, chest-retexture, statue-stone.
+prop-textures 86ea9006 (rounds 1-4, drawn-as-eor), prop-textures-5 d61b37a1 (rounds 5-6), prop-textures-7 458b4926 (rounds 7-8), prop-textures-9 c2f8acdb (round 9), prop-textures-10 cb0d2cab (round 10), crystal-clear ca109a27, haystack fe4d22ed, haystack-height d56c42df (these seven under refs/archive/branches, content in 0.5.4), fix/prop-relief 1c542739 (chest plates, head, boulder), fix/chest-retexture ba8c3feb (chest.py), feat/statue-stone e93132f2. 292e88f2 and its revert dfd70bc3 net to nothing. Worktrees: dereth-enhanced-environment-wt/prop-textures, prop-relief, chest-retexture, statue-stone.
 
 Older branches, all in archive/pack-history-2026-11-18 and shipped in v0.3 (01eca88f), not unmerged work: feat/iron-door-sheen 9cad3f77, feat/book-relief 5b75e0d0, feat/arms-sheen 5979d0d7, fix/robe-no-sheen b0519de3.
 
@@ -631,27 +987,102 @@ a height. Nothing was marked reviewed. Reviewed materials were kept exactly; 18 
 - R27 (reworked in 35c2b94a): 40 cards. Good: 0x0500262E 0x0500263D 0x05002665 0x050026F5 0x05002729 0x05002730 0x05002732 0x0500273E 0x05002742-2743 0x05002749 0x0500274D 0x05002791 0x050027C1 0x050027D9 0x05002CC6 0x05002CC8 0x05002E12 0x0500305E. Needs work (21): 0x05002652 0x05002654-2655 0x0500266D 0x0500266F 0x050026B9 0x050026E7 0x050026F0 0x05002748 0x05002779 0x0500277C 0x05002798-279B 0x050027A7 0x050027B6-27B7 0x050027DA 0x050027DE 0x050027F7; the 5 2005 pictures that borrow their recipes followed.
 - R28 (three reworked in 8fc664e0): the 21 reworked plus 2005 borrowers, all good except 0x0500277C, 0x0500279B and 2005 0x05000FAE. 2005 good: 0x05000CD6 0x05000D18 0x05001993 0x05001A62.
 - R29: 0x0500277C 0x0500279B and 2005 0x05000FAE, all good.
-- R30 (40 pieces, in 3784f487 and v0.4.0, no verdict found): 0x05002617 0x0500261A 0x0500264B 0x05002674 0x05002697 0x050026AC 0x050026D8-26D9 0x050026EB 0x050026F6 0x050026FE 0x05002711 0x05002714 0x05002725 0x0500272E-272F 0x05002734 0x05002741 0x05002744 0x05002746-2747 0x0500276A 0x0500276E 0x0500277E-2780 0x05002796 0x050027AC 0x050027AE 0x050027B0 0x050027C5 0x050027D3 0x050027F9 0x0500280D 0x0500281A 0x05002825 0x05002E36-2E37 0x0500305F 0x05003061. Six were fixed before review from notes on similar pieces (00df0844): 0x05002E37, 0x05002E36, 0x050026F6, 0x050027F9 (made like 0x050027F7), 0x05002711, 0x05002725; 2005 0x050010F5. Also before review (5daf4c6a): 0x0500305E (R27, good), 0x05002729 (R27, good).
+- R30 (40 pieces, in 3784f487 and v0.4.0, no verdict found): 0x05002617 0x0500261A 0x0500264B 0x05002674 0x05002697 0x050026AC 0x050026D8-26D9 0x050026EB 0x050026F6 0x050026FE 0x05002711 0x05002714 0x05002725 0x0500272E-272F 0x05002734 0x05002741 0x05002744 0x05002746-2747 0x0500276A 0x0500276E 0x0500277E-2780 0x05002796 0x050027AC 0x050027AE 0x050027B0 0x050027C5 0x050027D3 0x050027F9 0x0500280D 0x0500281A 0x05002825 0x05002E36-2E37 0x0500305F 0x05003061. Six were fixed before review from notes on similar pieces (00df0844): 0x05002E37, 0x05002E36, 0x050026F6, 0x050027F9 (made like 0x050027F7), 0x05002711, 0x05002725; 2005 0x050010F5. Also before review (5daf4c6a): 0x0500305E (R27, good), 0x05002729 (R27, good). Verdicts sent 11-22: see the next section.
+
+### Wall, floor and ceiling rounds 30-55 (2026-11-22 to 2026-11-25)
+
+From round 33 the rounds cover dungeon cells, building interiors and building shells, biggest drawn area first, and
+only pictures drawn on no prop: a picture also drawn on a prop is decided with that prop (section 3). From round 38
+each new picture is first matched against every passed one, and a close match takes the passed recipe before review.
+"Cards at" is the commit the round's cards were made from. Rounds 30-37 are in main as 838e3c80 (0.5.3), rounds 38-46
+as 31edb14b (0.5.4), rounds 46-49 on fix/relief-47 (in pack main 8261c2b3), rounds 50-55 on fix/relief-50; the round commits are under `refs/archive/branches/` (fix-relief-rerun, fix/relief-38,
+fix/relief-43, fix/relief-46). Dates are the dates the verdicts were sent; the developer's notes are verbatim.
+
+- R30 (11-22, cards at 00df0844): 41 cards (40 EoR, 1 2005), new dungeon pieces. 21 good, 20 bad, reworked in c1a3a8fd.
+  - Fixed before review: 0x05002725, 0x05002E37, 0x05002E36, 0x050026F6, 0x050027F9 (like 0x050027F7), 0x05002711.
+  - Bad: 0x0500276A "This is small mosaic tile with moss or something growing on top"; 0x05003061 "This could use some mild texture that matches the highlights. Very mild though, it is almost textile"; 0x050027B0 "Too deep and heavy, this is soft/rounded brick"; 0x050026FE "Texture on bottom is too heavy and pitted. It should be smoother rock"; 0x05002617 "This is a 3 level step down texture - we've had them in the past"; 2005 0x050010F5 "Make it match 0x05002725"; 0x050026EB "Give this a mild texture, we've done a similar image in the past"; 0x050026D9 "This is weirdly inverted on the brick part. Grout lines are showing higher than bricks."; 0x050026D8 "Grout lines showing higher than brick - this is 2 tiles on top, 3 tiles on bottom stone bricks"; 0x05002796 "Not matching stone brick layout at all"; 0x05002825 "Too intense/heavy of a relieft"; 0x05002741 "Too heavy of a relief"; 0x0500277E "Bottom section - plaster/stone - is too intense of a relief"; 0x0500277F "This doesn't match the stone pattern at all. This is tiles with cracks"; 0x0500305F "Match 0x05003061"; 0x050027C5 "This is a frame around a deeper center section with stone in it."; 0x05002697 "This is a brick wall with a design element in the middle, but the green is moss covering it - moss should be on top."; 0x05002780 "Rework, this is a wood/plaster top (wood frame over plaster wall), and a brick pattern on the lower half"; 0x050027AC "This is a 3 tier step down brick. Top row is two bricks. Second row is an alternating triangle brick pattern. Third row is also alternating triangle bricks, but much larger triangles."; 0x050027D3 "Brick with inner relief in the middle. Borders top and bottom. Should have some relief".
+- R31 (11-22, cards at c1a3a8fd): 21 cards (19 EoR, 2 2005), round 30's bad ones reworked. 19 good, 2 bad, reworked in bef79f95.
+  - Bad: 0x050026FE "Stone area still way too pitted, it should be soft waves on this particular stone. Also, bolts on top should be elevated above other parts of top border"; 0x050026D9 "Top bar needs work, maybe just make it elevated above everything else".
+- R32 (11-22, cards at bef79f95): 0x050026FE and 0x050026D9, both good.
+- R33 (11-22, cards at 9abefb81): 40 cards (40 EoR: 18 dungeon, 9 interior, 13 building shell), new pictures. 24 good, 16 bad, reworked in 27517edf (with 7 2005 borrowers; four copy a passed near-identical picture).
+  - Fixed before review: 0x050026FA (traced as rock), 0x050027F8 (like 0x050027F7).
+  - Bad: 0x050029BF "This is like shale tile on top and a cement-like border with extra design elements on the bottom"; 0x05002F9D "This is stone with two riveted rails"; 0x0500299F "This is like stacked stone in a shale-like pattern, not straight lines"; 0x050029D5 "Bamboo with grass - we've already done a tile nearly identical to this one"; 0x05001209 "We've already done a tile nearly identical to this one"; 0x05002922 "The grout lines on this are actually grass sticking out from stone, so it should actually be higher than the stone"; 0x05002925 "This is like a cross weaved wicker pattern"; 0x0500285C "We've already done a nearly-identical item, find that"; 0x050026FB "Way too pitted, this should be rolling stone - look for the heaviest cracks"; 0x050027B4 "Too intense of a relief"; 0x05002A70 "Way too pitted. This is moss on top of a realtively smooth stone with a few cracks"; 0x05002777 "Invented extra grout lines, this is a set of 8 bricks in various orientations, some have cracks"; 0x050027D1 "This is nearly-identical to others we have done - too intense of a relief, look for others"; 0x05002A63 "Simple checkerboard pattern, relief too intense, doesn't match near-perfect squares"; 0x05002874 "Top wood is an upside down bracket shape on top."; 0x05000D9B "This is a bamboo frame around a paper door/window".
+- R34 (11-22, cards at 27517edf): 23 cards (16 EoR, 7 2005), round 33's bad ones reworked. 21 good, 2 bad, reworked in 914a662d.
+  - Bad: 0x05002874 and 2005 0x05001005 (its 2005 picture) "Still missing the top border - its a wood upside-down-wide-U shape."
+- R35 (11-22, cards at 914a662d): the bracket wall 0x05002874 and 2005 0x05001005, both bad: "I'm going to give you a hint as to where the wood is". The developer sent two drawings of the wood (a thin upside-down U); reworked in d08af785 (the field below one flat height, the tile strip raised a little with relief.py `:tiles=K`).
+- R36 (11-22, cards at d08af785): both bad, "Almost, bottom bricks are 3 uniform bricks"; reworked in 205fe379.
+- R37 (11-22, cards at 205fe379): both good.
+- R38 (11-22, cards at dc976ac4): the reverse lookup. Every remaining wall, floor and ceiling was matched against the 417 passed, and 31 near-identical ones took a passed recipe (30 EoR shown, with 8 2005 pictures that follow them; 2005's passed 0x05002541 kept as it was). 31 good, 7 bad, reworked in 1a828010.
+  - Copied: 0x05002773 (like 0x05002B5E), 0x05002848 (like 0x050027A7), 0x05002C30 (like 0x0500263B), 0x05002A43 (like 0x0500285C), 0x05002A0C (like 0x05002799), 0x05002A21 (like 0x05002841), 0x05002930, 0x050027C7 (like 0x050027C5), 0x050027B2, 0x0500283E (like 0x0500273E), 0x05002961 (like 0x05002799), 0x05002720 (like 0x05002CC9), 0x05002A0A (like 0x050027DD), 0x05002A51 (like 0x05002693), 0x050028F5 (like 0x0500297A), 0x05002E92 (like 0x05002722), 0x05002669 (like 0x050027DD), 0x05002859 (like 0x05002693), 0x0500120D (like 0x05001209), 0x05000C3A (like 0x0500265B), 0x05002782 (like 0x05002618), 0x050027B5 (like 0x05002639), 0x05002897 (like 0x0500289A), 0x0500290E (like 0x0500277E), 0x050027B9 (like 0x05002791), 0x0500297F (like 0x0500297A), 0x050028C2 (like 0x050028C0), 0x0500283F, 0x05002A1E (like 0x05002A63), 0x050028E8.
+  - Bad: 0x05002A43, 0x05002A51 and their 2005 pictures 0x0500193D, 0x05001943 "I'm confused - the picture is black and white?" (they are grey in retail's files; shown again unchanged with a card saying so); 0x05002897 and 2005 0x05001CF9 "Frame doesn't match actual wood region"; 0x050027B9 "Too rectangular, doesn't match rounded stone bricks".
+- R39 (11-22, cards at 1a828010): 7 cards (4 EoR, 3 2005), all good.
+- R40 (11-22, cards at 117453f6): 40 cards (40 EoR), new pictures. 34 good, 6 bad, reworked in 1723c5f3 (with 2005 0x05001BD6).
+  - Fixed before review: 0x05002A2B and 0x05002723 (slab lines sunk as cracks), 0x050026B6 (traced as rock), 0x0500276D (like 0x0500276A).
+  - Bad: 0x05002A60 "Too pitted / intense relief"; 0x050026B4 "Doesn't match grout lines"; 0x050027E5 "Grout lines don't match actual stone"; 0x05002932 "Way too intense of a relief"; 0x050029D4 "Doesn't match the half bamboo poles"; 0x05002A31 "Way too intense of a relief".
+- R41 (11-22, cards at 1723c5f3): 7 cards (6 EoR, 1 2005), all good.
+- R42 (11-24, cards at 2fd90b33): 40 cards (40 EoR), new pictures. 18 good, 22 bad, reworked in f8cd42e2 (with five 2005 borrowers).
+  - Fixed before review: 0x05002813 (like 0x05002619).
+  - Bad: 0x050029D7 "Doesn't match the bamboo borders/frame"; 0x05002962 "Doesn't match the stone interrior at all"; 0x050026C5 "Doesn't match the rounded brick shape well at all - some bricks are cracked"; 0x050018A3 "Doesn't match the brick / grout line (which is moss filled)"; 0x050027A5 "Too intense of relief - doesn't match bricks"; 0x050027A6 "Grout lines a bit too thick"; 0x05002716 "Top/bottom border should be higher"; 0x05001F6A "Relief map too intense"; 0x050027C9 "Tile in center doesn't match stone shape"; 0x05002877 "Relief map a little too intense"; 0x050026B7 "Needs remapping - the bricks are pretty uniform in the center, bottom tile doesn't match, and top wood with metal should be mapped better."; 0x050028C4 "Wood logs with sign hanging over it."; 0x05002A30 "Relief map way too intense. This one should be mild."; 0x05002965 "Stones are irregularly angled, needs entire remapping"; 0x050028F6 "Weird relief in the middle for no reason"; 0x0500265E "Wooden frame borders a deeper center region."; 0x05002847 "Tile lines don't map"; 0x050027AF "Bottom border doesn't make sense"; 0x05002790 "Needs to trace bricks better, they have odd shapes here"; 0x05002828 "relief too intsnse"; 0x05002658 "Bottom bricks don't match, the brick columns are offset"; 0x05002923 "This is grass that is growing ABOVE the tile line".
+- R43 (11-24, cards at f8cd42e2): 27 cards (22 EoR, 5 2005), round 42's bad ones reworked. 22 good, 5 bad, reworked in 0ce2ab75.
+  - Bad: 0x050027A5 "The grout lines don't line up with the bricks at all"; 0x05002716 "There is a detailed brick pattern in the center that needs to be mapped"; 2005 0x05001004 "Probably needs to match 0x05002877" (now `like=0x05002877`); 0x050026B7 "Beam on top should be above bricks below"; 0x05002658 "There is a raised beam on top that should be higher than everything below.".
+- R44 (11-24, cards at 0ce2ab75): 5 cards (4 EoR, 1 2005). 3 good, 2 bad, reworked in 4e68c247 (each top beam the highest part, its brackets in it).
+  - Bad: 0x050026B7 "Isn't the beam across the top still lower? It looks like it is darker on the height map"; 0x05002658 "OK, the top row is a beamp across the top. We should have minor relief in it for the metal brackets on the sides - but it should all sit taller than the stuff below it. Also, bottom bricks are not tiled correctly - trace the natural stones.".
+- R45 (11-24, cards at 4e68c247): 0x050026B7 and 0x05002658, both good.
+- R46 (11-25, cards at 5236ad89): 40 cards (40 EoR), new pictures. check_relief had rated 0x050027BC, 0x05002829, 0x050028C5, 0x050028ED, 0x0500296D and 0x05002981 poorly; they were shown as they were. 19 good, 21 bad, reworked in 6f7c14ba.
+  - Fixed before review: 0x0500295D (like 0x0500295F).
+  - Bad: 0x050028ED "Bottom needs to have more of the pattern detail"; 0x050027BC "This is a natural stone wall with a bottom baseboard style set of tiles"; 0x050028DB "Relief too intense"; 0x050026B8 "This has two steps of wooden beams at the top on top of a plaster wall cracked at the top. Stone tile baseboard at the bottom"; 0x05002865 "This look to be a single concrete border at the top that sits above the lower rows"; 0x050028F4 "Wood frames on top of plaster wall"; 0x05002970 "Should be roof tile shaped"; 0x05002EA9 "Grout lines do not match brick pattern"; 0x05002EAA "Grout lines do not match brick pattern"; 0x05002949 "Detailed natural stone texture with cloth overlays and detailed borders"; 0x050028EE "Frame relief doesn't match actual frame"; 0x0500295D "Wood border on top of plaster wall with natural stone tiles below"; 0x050027B8 "This added an extra relief line in the top wooden beam part."; 0x05002B99 "Board lines too thick. Drew relief depth through metal side hinges"; 0x05002812 "Looks like this applied wood texture to brick"; 0x0500295E "Doesn't follow natural stone lines"; 0x050028C9 "This is drawings on a stone wall with moss. Moss should be raised, but black/stone drawings should match wall level"; 0x0500296A "Wooden frame relief doesn't match frame size"; 0x05002829 "Wooden frames/beams with hay hanging below on top of stone."; 0x050018A2 "This is moss sticking out from stone brick. Moss should come higher than stone"; 0x050028C5 "This is wood with a metal border on bottom.".
+- R47 (11-25, cards at 6f7c14ba): 27 cards (21 EoR, 6 2005), round 46's bad ones reworked. 24 good, 3 bad, reworked in c4d578dc. Brick walls 0x05002EA9 and 0x05002EAA laid one brick at a time (`ashlar:block` rects at the measured joints); top beams highest with all below set back; frames fitted to the picture's wood; relief.py gained `:red=K` (a red-brown metal band proud, for 0x050028C5) and `:green=K` (moss greener than red proud, so yellow ochre is not taken for moss, for 0x050028C9). The 2005 borrowers 0x05000FED, 0x05001020, 0x05001DE7 and 0x05001C5B follow their recipes; 0x05000C4C takes `like=0x050028F4` (its yellow plaster read as wood) and 0x05000BFA has its own row (boards below the frame where End of Retail has stones).
+  - Bad: 0x05002EA9 "The edge bricks (horizontally) don't seem to get relief appropriately"; 0x05002EAA "The edge bricks (horizontally) don't seem to get relief appropriately. Top brick pattern not represented correctly."; 0x05002829 "Hay relief pattern should follow the strands of the hay". The edge bricks had lost every joint (their halves were `:open`); relief.py gained `:seam`, which drops only the crease along the picture's own edge.
+- R48 (11-25, cards at c4d578dc): the three reworked. 0x05002EAA's ten upright top bricks laid one by one; 0x05002829's hay shaped from its strands (`design:d=2.5`). 2 good, 1 bad, reworked in c83b9439.
+  - Bad: 0x05002829 "Still some vertical line/jump happening about 2/3rds the way down" (where the hay part met the stone part; now one `design` part from the beam down).
+- R49 (11-25, cards at c83b9439): 0x05002829 alone, good.
+
+- R50 (11-25, cards at d05b0109): 40 cards (40 EoR), new pictures. 19 good, 21 bad, reworked in a0e4d1ba.
+  - Fixed before review: 0x05002941 (like 0x050028DB), 0x05002A0D (like 0x050027C9). Shown as glossy ice with no relief (from the ice gloss): 0x0500280E, 0x0500280C, 0x0500280F, 0x05002473, 0x05002476, 0x05002477, 0x05002810, 0x05002478, all good.
+  - Bad: 0x05002A2A "Relief is too intense/heavy"; 0x05002A17 "Relief not following natural stone shape"; 0x05002A32 "Relief is too intense/heavy"; 0x05002960 "This is a plaster wall with a wooden frame"; 0x05002A33 "Relief is too intense/heavy"; 0x05001E74 "This is a tile wall - ignore shadow/dark area for relief as that is like smoke on the wall - we should map to grout lines"; 0x05002A0D "Relief does not map to top beam and lower studded metal panels."; 0x050028CD "This relief map has some weird harsh line divisions"; 0x05002A4A "Relief is too intense/heavy"; 0x0500294A "Plaster wall has detailed design borders that should be mapped better"; 0x05002943 "Outer pillars should be higher than center region"; 0x05002631 "Inconsistent relief mapping on vertical tiles (which are rounded like roof tiles)"; 0x0500290D "Center beam should be higher than other areas"; 0x05002991 "Relief is too intense/heavy. Doesn't map to image well"; 0x050028DC "Relief is too intense/heavy"; 0x05002E3C "Relief is too intense/heavy and pitted"; 0x05002968 "Doesn't map to wood frame over plaster wall"; 0x050027BB "Doesn't map to border tiles"; 0x05002A5D "Don't relief center areas, just make entire thing one consistent textile texture"; 0x050028DA "Doesn't map to beam in center and right side"; 0x05002976 "Doesn't map to wood frame and stone and brick tiles".
+- R51 (11-25, cards at a0e4d1ba): 29 cards (21 EoR, 8 2005), the last round's bad ones reworked. 26 good, 3 bad, reworked in 74283922.
+  - Bad: 0x05002A0D and 2005 0x05000E86 "The bottom two thirds, the very far left and right, are the brick texture, not part of the frame"; 0x05002943 "There is texture and relief on those side columns, and they flute out on the top".
+- R52 (11-25, cards at 74283922): the three reworked: brick at 0x05002A0D's outer edges behind narrower metal posts; 0x05002943's gold columns carved (`design:d=6`) with flared capitals. 2 good, 1 bad, reworked in 139f78ef.
+  - Bad: 0x05002943 "Still not mapping well to the gold columns on the sides".
+- R53 (11-25, cards at 139f78ef): 0x05002943 alone: the columns' carving deepened and their flared bases added. Bad, reworked in e66ef1d4: "Look at the darkest/black edges near the column relief - those don't belong there" (the shadow painted beside each column read as a groove; that strip is now level, a small step below the column, all parts `:open`).
+- R54 (11-25, cards at e66ef1d4): 0x05002943 alone. Bad, remade in 03bba45e: "You're getting worse. Start over, pay actual attention to what is going on here. Stop trying to throw random algorithms at this". Remade from what the wall shows: flat `cloth` (the scale pattern is printed, the shadow beside the columns painted), the carved rail `design:shade` proud of it, the gold columns `design:shade` highest.
+- R55 (11-25, cards at 03bba45e): 0x05002943 alone, good.
+
+Outside the rounds: the large square dungeon floor paver 0x05002629 (cell 0x019E010A) passed review traced as rock
+but looked too heavy in play, so it became a flat paver with a fine grain and narrow joints (11-22, f6b0baa6, in 0.5.3).
 
 ### Sand (2026-11-20, d297e694)
 
 End of Retail's yellow sand 0x0500145D takes the new sand recipe (was auto plaster), grey sand 0x0500145F remade.
 Rendered at the developer's view at Morntide 0x7E62 and the Yaraq desert; merged into pack 0.4.4 (141f440b). 2005's 0x0500145D (128 px) not redone.
 
+### Ice gloss (2026-11-25, fb3931c3)
+
+The ice pictures with no material were drawn matte (ground ice as snow). Ground ice 0x05001468 and 0x05001900, the ice cave's
+0x05002473, 0x05002476, 0x05002477, 0x05002478, 0x0500247B and the ice dungeon's 0x0500280C, 0x0500280E, 0x0500280F,
+0x05002810 take roughness 0.3 with no relief (`glaze=0.3`, the ground still flat as passed); the 2005 and 1999 ground copies
+changed only their roughness. Pyreal's own ice surface kind and reflections are on its branch review/ice-sheen. Shown to the
+developer as renders, not yet as a review round.
+
 ### Not reviewed
 
-- Dungeon pieces after round 30: 178 (about 5% of dungeon-piece drawn area), never shown. Round 30 itself has no verdict.
+- After round 55 (11-25), 667 End of Retail pictures are walls, floors and ceilings drawn on no prop: 449 passed
+  (98.5% of their drawn area), 106 automatic relief.py materials (0.1%) and 112 with no material (1.4%). The order:
+  the automatic ones by area, then the ones with no material. 95 more are also drawn on a prop and go with their prop.
+- 2005's own 0x0500145D sand (128 px) was never redone (see Sand).
 - Every other relief.py material (3,468 in the 0.5 manifest, minus the reviewed set above) is automatic and unreviewed, including what the re-run remade.
 - 2005 and 1999 pictures except the stand-ins named above; the 0.5 squash dropped tables/eras.tsv rows for pictures Pyreal swaps (drawn-as-eor).
-- Pictures with no material at all were next on the developer's order list (after ground, dungeons and the unreviewed list); not started.
 
 ### Branches
 
+All under `refs/archive/branches/` now; no relief branch or worktree is left.
 - fix/room-relief fc2e3227 (also origin/fix/room-relief): rounds 1-24, in main.
 - fix/relief-rerun 1c972a27 (= v0.4.0): re-run, ground, dungeon rounds 27-30; history in archive/relief-rerun-history 00df0844.
+- fix-relief-rerun 205fe379: rounds 30-37 and the bracket, in 0.5.3 (838e3c80); fix-relief-next 838e3c80 is that release.
+- fix/relief-38 2fd90b33 (rounds 38-42), fix/relief-43 4739cb1b (rounds 43-45, round 46's prep), fix/relief-46 0016adf2
+  (the paver and crystal merges): in 0.5.4 (31edb14b).
 - sand-waves d297e694: in archive/pack-history-2026-11-21 and main.
 - fix/flagstone-grid 4a398cef: in archive/pack-history-2026-11-18, shipped in v0.3.
-- Worktree dereth-enhanced-environment-wt/relief-rerun (fix/relief-rerun).
 
 ## 5. Every branch and tag, and where its work is
 
@@ -668,6 +1099,10 @@ Rendered at the developer's view at Morntide 0x7E62 and the Yaraq desert; merged
 | origin/main (as last fetched) | 1c972a27 | 0.4.0 | |
 | origin/fix/room-relief, fix/room-relief | fc2e3227 | room rounds 1-24 | main |
 | fix/relief-rerun | 1c972a27 | as v0.4.0 | main |
+| archive/branches/fix-relief-rerun | 205fe379 | relief rounds 30-37, the bracket | 0.5.3 (838e3c80) |
+| archive/branches/fix/relief-38 | 2fd90b33 | relief rounds 38-42 | 0.5.4 (31edb14b) |
+| archive/branches/fix/relief-43 | 4739cb1b | relief rounds 43-45, round 46's prep | 0.5.4 (31edb14b) |
+| archive/branches/fix/relief-46 | 0016adf2 | paver 0x05002629, crystal and giant tree merges | 0.5.3 and 0.5.4 |
 | fix/armor-relief | a6448419 | armour 3-4, clothing 1-5 | 0.5 |
 | armor-relief-presquash | 420a824a | armour 1-2 unsquashed | same armour files as 6b7ec972 |
 | armor-r3-presquash | 4d26ddbc | armour 3 unsquashed | same tree as 1cf20584 |

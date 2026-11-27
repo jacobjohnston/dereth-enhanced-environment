@@ -3,7 +3,8 @@
 # picture (`keep_retail_picture`), with the picture's average colour as the fallback a client without
 # depth mapping draws (fallback.py). Nothing of the picture's pixels goes into the pack. A picture
 # tables/recipes.tsv does not list is shaped by the recipe it looks to want (recipes.classify). A
-# picture of artwork (a design) or of no relief (flat) has no material: the client draws it as retail does. A
+# picture of artwork (a design) or of no relief (flat) has no material: the client draws it as retail does
+# (a flat one with glaze=K keeps a material for its gloss alone). A
 # picture that can be seen through is shaped over what of it is solid, and takes no height. The
 # materials of an earlier run are replaced, and their pictures removed.
 # relief.py <the player's pictures> <pack folder> [recipes file] [--survey <pictures.tsv>]
@@ -28,6 +29,7 @@ from concurrent.futures import ProcessPoolExecutor
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import variants
 from masonry import blur
 from recipes import RECIPES as SHAPES, classify, slime
 from stones import inside
@@ -80,11 +82,16 @@ def band_edges(rs, w, h, px):
     if len(rs) < 2:
         return None
     e = np.zeros((h, w), bool)
-    for x0, y0, x1, y1, _ in rs:
+    for x0, y0, x1, y1, name in rs:
+        # recipe:seam: a part running on over the picture's left or right edge has no crease there.
+        seam = 'seam' in name.split(':')
         if y1 - y0 < h:
             e[y0, x0:x1] = e[y1 - 1, x0:x1] = True
         if x1 - x0 < w:
-            e[y0:y1, x0] = e[y0:y1, x1 - 1] = True
+            if not (seam and x0 == 0):
+                e[y0:y1, x0] = True
+            if not (seam and x1 == w):
+                e[y0:y1, x1 - 1] = True
     return inside(~e, px) < 0.6 * px
 
 def mixed(settings, Lb, px, rng, L=None, a=None):
@@ -92,7 +99,7 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
     own, its edges where it meets another, and eased into the next. A rectangle named recipe:flip
     takes its own pale lines for mortar, recipe:noflip keeps its own light, whatever the whole
     picture's, :grid lays a flagstone's joints straight, :open makes no crease where it meets
-    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :iron=K raises grey iron on wood (hinges, straps) K proud of it, :tiles=K raises a coloured tile pattern K proud of its tan field, :shade takes its shape from its light, :smooth[=K] drops its pits (blurring K texels), :grassy lays grass where it is green, :sheet=K raises a pale sheet (parchment) K proud of the stone about it and its ink proud of the sheet, :glaze=K makes it smooth (roughness K), :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
+    another rectangle, :even drops shading that runs the whole way across, :rough=K adds its own cracks and grime, :moss lays moss over it flat, :ivy=K raises leaves K proud of it, :bare=K raises what is not green K proud of the green, :course makes ashlar one course, :block makes it one stone, :warm=K raises brown wood K proud of grey, :iron=K raises grey iron on wood (hinges, straps) K proud of it, :red=K raises red-brown metal (a copper or rusted band) K proud of the rest, :green=K raises moss that is greener than red (not yellow ochre) K proud of the rest, :tiles=K raises a coloured tile pattern K proud of its tan field, :shade takes its shape from its light, :smooth[=K] drops its pits (blurring K texels), :grassy lays grass where it is green, :sheet=K raises a pale sheet (parchment) K proud of the stone about it and its ink proud of the sheet, :glaze=K makes it smooth (roughness K), :cracks=K lays it nearly level with its thin dark cracks sunk K, :d=K scales its depth by K, and :at=K sets it K of the picture's range lower."""
     h, w = Lb.shape
     rs = rects(settings, w, h)
     edges = band_edges(rs, w, h, px)
@@ -141,6 +148,16 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
             ink = np.clip(shut - g, 0, None)
             ink = np.clip(blur(ink, 0.4 * px) / max(float(np.percentile(ink[m > 0.5], 98)) if (m > 0.5).any() else 1e-3, 1e-3), 0, 1) * m
             s = s * (1 - sheet) * (1 - m) + (1 - 0.5 * sheet + 0.5 * sheet * ink) * m
+        cracks = next((float(t[7:] or 0.5) for t in turns if t.startswith('cracks')), 0.0)
+        if cracks and L is not None:
+            # recipe:cracks=K: a cracked face (a picture painted on stone) lies nearly level, its thin dark cracks sunk K into it.
+            from scipy.ndimage import grey_closing
+            g = L[y0:y1, x0:x1]
+            k = max(3, round(5 * px)) | 1
+            ink = np.clip(grey_closing(g, size=(k, k)) - g, 0, None)
+            ink = np.clip(blur(ink, 0.4 * px) / max(float(np.percentile(ink, 99)), 1e-3), 0, 1)
+            face = float(np.percentile(s, 70))
+            s = np.clip(face + 0.25 * (s - face) - cracks * ink, 0, 1)
         rough = next((float(t[6:]) for t in turns if t.startswith('rough=')), 0.0)
         if rough:
             # recipe:rough=K lays the picture's own cracks and grime over the recipe's shapes.
@@ -180,6 +197,14 @@ def mixed(settings, Lb, px, rng, L=None, a=None):
             cold = binary_opening(cold, iterations=max(1, round(1.2 * px)))
             m = np.clip(blur(cold.astype(np.float32), 0.6 * px) * 1.4, 0, 1)
             s = np.clip(s - iron, 0, 1) * (1 - m) + m
+        for hue, i, j, lo in (('red=', 0, 1, 0.07), ('green=', 1, 0, 0.03)):
+            k = next((float(t[len(hue):] or 0.3) for t in turns if t.startswith(hue)), 0.0)
+            if k and a is not None:
+                # recipe:red=K: red-brown metal (a copper or rusted band) stands K proud of the rest, level;
+                # recipe:green=K: moss greener than it is red (not yellow ochre) stands K proud of the rest.
+                c = a[y0:y1, x0:x1, :3]
+                m = np.clip(blur(np.clip((c[..., i] - c[..., j] - lo) / 0.04, 0, 1).astype(np.float32), 0.5 * px), 0, 1)
+                s = np.clip(s - k, 0, 1) * (1 - m) + (1.0 if hue == 'red=' else np.clip(s + 0.05, 0, 1)) * m
         tiles = next((float(t[6:] or 0.12) for t in turns if t.startswith('tiles')), 0.0)
         if tiles and a is not None:
             # recipe:tiles=K: a coloured tile pattern (blue, green, purple) stands K proud of its tan field, filled solid.
@@ -245,7 +270,9 @@ def make(job):
     skip = bool(rest and rest[0])
     id = os.path.basename(path)[:-4]
     material, recipe, damp, settings = entry or ('auto', None, 0.0, [])
-    if entry and (recipe == 'none' or material == 'design') and not damp and skip:
+    # A flat picture with glaze=K (polished, ice) keeps a material for its roughness alone.
+    polished = bool(setting(settings, 'glaze=', 0.0))
+    if entry and (recipe == 'none' or material == 'design') and not damp and not polished and skip:
         return id, None, 'flat: drawn as retail draws it'
     if seen:
         if seen['bits'] & CLEAR and entry is None:
@@ -276,6 +303,16 @@ def make(job):
         if not solid.any():
             return id, None, 'wholly see-through'
         a = fill(a, solid, px)
+    if 'painted' in settings:
+        # painted: paint (red, or near black) over wood takes no shape; the wood beside it runs on under it along the grain.
+        from scipy.ndimage import binary_dilation, distance_transform_edt
+        c = a[..., :3]
+        paint = ((c[..., 0] - c[..., 1]) > 0.25) | (c.max(-1) < 0.13)
+        paint = binary_dilation(paint, iterations=max(1, round(px)))
+        if (~paint).any():
+            iy, ix = distance_transform_edt(paint, sampling=(1, 6), return_indices=True)[1]
+            a = a.copy()
+            a[..., :3] = c[iy, ix]
     L = (a[..., :3] * [0.3, 0.59, 0.11]).sum(-1) ** 0.8
     dark = float(np.percentile(L, 99)) < 0.03
     L = L / (blur(L, 24 * px) + 0.04)
@@ -285,7 +322,7 @@ def make(job):
         if seen:
             settings = [f'repeat={seen["repeat"][0]:.3f}', f'repeatv={seen["repeat"][1]:.3f}']
     flat = recipe == 'none' or material == 'design' or dark
-    if flat and not damp and skip:
+    if flat and not damp and not polished and skip:
         # Drawn as retail draws it, so no material; iron.py and arms.py still take flat maps of their own.
         return id, None, 'flat: drawn as retail draws it'
     # Thin pale lines over a dark field are mortar, not ridges: they sink.
@@ -300,7 +337,7 @@ def make(job):
         # No relief: a design's painted shading, or nothing at all. Its roughness and occlusion only.
         hgt, depth = one, 0.0
         soft = blur(L, 2 * px)
-        o = one if dark else 1 - np.clip((blur(soft, 4 * px) - soft) / (soft.std() + 1e-5) * 0.15, 0, 0.35)
+        o = one if dark or polished else 1 - np.clip((blur(soft, 4 * px) - soft) / (soft.std() + 1e-5) * 0.15, 0, 0.35)
         r = np.clip(0.82 + 0.1 * (1 - np.clip(L / (np.percentile(L, 98) + 1e-5), 0, 1)), 0, 1)
     elif recipe == 'mixed':
         hgt, depth, o, r, fine = mixed(settings, Lb, px, rng, L, a)
@@ -349,6 +386,12 @@ def make(job):
         if cut:
             edge = blur(solid.astype(np.float32), 1.0 * px) > 0.98
             nx, ny = nx * edge, ny * edge
+        # round=K: the normal leans across the picture's width, K degrees at each side, as on a round crystal, so a
+        # prism's flat faces bend the world seen through them smoothly from one face to the next.
+        bend_deg = setting(settings, 'round=', 0.0)
+        if bend_deg:
+            u = (np.arange(w, dtype=np.float32) + 0.5) / w
+            nx = nx + np.tan(np.radians(bend_deg) * (2 * u - 1))[None, :]
         l = np.sqrt(nx * nx + ny * ny + 1)
         write(f'{out}/{id}_normal.png', np.dstack([nx / l / 2 + 0.5, ny / l / 2 + 0.5, 1 / l / 2 + 0.5, one]))
     if cut:
@@ -409,7 +452,7 @@ def main(args):
     out = os.path.join(PACK, 'materials', sub); os.makedirs(out, exist_ok=True)
     # An earlier run's materials go, and the pictures they named with them: this era's alone.
     path = os.path.join(PACK, 'manifest.toml')
-    blocks = re.split(r'\n(?=\[\[)', open(path).read())
+    blocks = re.split(r'\n(?=\[\[)', variants.flat(open(path).read()))
     where = rf'^base_color = "materials/{re.escape(sub)}[^/"]+"$'
     mine = lambda b: (b.startswith('[[material]]') and re.search(rf'^tool = "{TOOL}"$', b, re.M)
                       and re.search(where, b, re.M))
@@ -489,7 +532,7 @@ def main(args):
         if not os.path.exists(os.path.join(PACK, 'grit', name + '.png')):
             GRIT.write(os.path.join(PACK, 'grit', name + '.png'), tile)
     head, tail = '\n'.join(kept[:at]).rstrip('\n') + '\n', '\n'.join(kept[at:])
-    open(path, 'w').write(head + tables + ('\n' + tail if tail else ''))
+    open(path, 'w').write(variants.settle(head + tables + ('\n' + tail if tail else '')))
     if '--report' in args:
         open(option(args, '--report', ''), 'w').write('\n'.join(report) + '\n')
     print(tables.count('[[material]]'), 'materials:', ', '.join(f'{v} {k}' for k, v in sorted(counts.items())))

@@ -2,7 +2,8 @@
 
 This repository holds the assets, tools and releases of the Enhanced Environment art pack for the
 [Dereth](https://github.com/dereth-network/dereth) client. The pack adds new models, ground,
-materials and moons. The client draws them in place of the game's own when Enhanced Graphics is on.
+materials, moons and waterfalls. The client draws them in place of the game's own when Enhanced
+Graphics is on.
 
 ![Holtburg with the Enhanced Environment pack: EZ-Tree pines and spruces, ground cover and relief ground](docs/screenshot.webp)
 
@@ -24,12 +25,15 @@ materials and moons. The client draws them in place of the game's own when Enhan
 | The crystal creatures as clear crystal in their own colours: the shards and the cistern pillars | `crystals.py`, after `relief.py` | `pack/materials/` |
 | Iron that shines: the doors' iron leaves and frames, and the iron bands and hinges on wood, each with a metal map where wood and iron share a picture | `iron.py`, with `relief.py` | `pack/materials/` |
 | The Bottle of Crystal Champagne painted anew in place of End of Retail's dark pictures: green glass, silver foil, a black collar with a gold seal, and a gold oval frame round a plaque lettered "Dom Pyrignon, Vintage P.Y. 10", with relief and a clear map (the foil, seal and frame metal) from the same shapes | `champagne.py`, after `relief.py` | `pack/materials/` |
+| The Cove Apple Wine bottle painted anew in place of End of Retail's dark brown pictures: apple-cider glass with soft highlights and a crinkled silver foil over the neck, with relief and a clear map (the foil metal) from the same shapes | `cider.py`, after `relief.py` | `pack/materials/` |
+| The painted cabinet's front and side and the game's two bookshelf pictures (the wooden bookcase and the stone-framed bookshelf, which paint the same books) shaped by hand over the player's own pictures: shelves set back behind the frame, every book rounded and placed where the picture paints it, standing, leaning or lying, and the wooden frame's grain, bolts and iron corner plates | `shelves.py`, after `relief.py` | `pack/materials/` |
 | The iron chest painted anew in each era: its sides, lid and lock plate at four times retail's texels, laid out as retail's so its picture coordinates fit, with bands, rivets, hinge scrolls, lid rings and rust, and relief in millimetres from the same shapes | `chest.py` | `pack/materials/` |
 | Arms and armour that shine: blades, mace heads, gilt guards, grips, the heater shield and the Training Academy's two suits of plate, each with a metal map where steel or gold share a picture with leather | `arms.py`, with `relief.py` | `pack/materials/` |
 | Stone for surfaces with no picture: the Bael'Zharon statues' dark red, chiselled, laid along the world's axes over the surface's own colour | `solids.py` | `pack/materials/solid/` |
 | Fine-detail grit tiles | `grit.py` | `pack/grit/` |
 | Obsidian ground | `obsidian.py` | `pack/ground/` |
 | Moons | `moons.py` | `pack/sky/` |
+| Waterfalls modelled ahead of time: where the water of each fall goes, worked out on the land in the player's own copy of the game | The client's `engine-view --bake-falls` | `pack/falls/` |
 | Lights | By hand | `pack/manifest.toml` |
 
 Every model then goes through `quantise.py`, last of all, after the scripts above. It stores
@@ -46,6 +50,25 @@ a model's part sizes. The plants (`gen_pack.mjs`) say `draws_on = "any"`, so eve
 The few made for 1999 and 2005 plants and trees that end of retail drew another way under the same ids
 say `draws_on = "matching"`, and their fingerprints come from the 2005 files, so end of retail keeps
 its own.
+
+### Variants
+
+The Dereth client reads each id once in `[[model]]` and `[[material]]` and ignores fingerprints, so
+those tables hold one entry for each id, the first listed. For a material that is end of retail's.
+For the six trees end of retail builds another way under the same ids, it is the 1999 and 2005 tree,
+which Pyreal also draws where an era's files hold no record of the id. Every other entry for the same
+id, another era's tree or picture or a golem's or crystal's picture in another palette, goes under
+`[variant]`, as `[[variant.model]]` with its `[[variant.model.lod]]` tables, or `[[variant.material]]`.
+The entries there are written exactly as in the main tables. Dereth doesn't read `[variant]`. Pyreal
+reads the variants after the main tables, as if they were listed after them, so it draws the same
+entry for each record in every era, and an id's entries share the card (the far picture) of the last.
+
+`generators/variants.py` keeps the manifest that way. The Python generators read the manifest
+through its `flat()` and write it through its `settle()`, which moves each repeat under `[variant]`,
+`gen_pack.mjs` writes an id's later rows there itself, and
+`python3 generators/variants.py pack/manifest.toml` settles the manifest after any other edit.
+`build.py` refuses a manifest that lists an id twice in `[[model]]` or `[[material]]`, which
+Dereth would refuse whole.
 
 The materials for the 1999 and 2005 files are in `materials/1999/` and `materials/2005/`. They are
 made from those files' own pictures where no material made from end of retail's pictures matches
@@ -82,20 +105,26 @@ lie on the picture's own lines as well as before, it dips no more where the pict
 it is flat only where the old height was clearly broken. `generators/refit.py` refits the rock and
 masonry rectangles of hand recipes whose maps blotch smooth stone and plaster.
 
+The waterfall models are made by Pyreal's `engine-view --bake-falls <file>`, run at each place on
+End of Retail's files.
+
 Every script is in `generators/`. Each one describes its own use at the top of the file.
 
 ## Copyright
 
 The repository holds no picture, model or sound of the original game. Each asset is made by a
-script in `generators/`, made by hand, or made with the openly licensed work in Credits. Some
+script in `generators/`, made by the client's `engine-view`, made by hand, or made with the openly
+licensed work in Credits. Some
 assets use facts about the original game. These facts are object ids, sizes, collision positions,
 overall shapes and colours. The relief materials are worked out from the player's own copy of each
 original picture. The client draws them over that picture. They are of no use without the player's
-own copy of the game.
+own copy of the game. The waterfall models are worked out from the land in the player's own copy.
+They say where each fall's water goes, and the client draws them only on that land.
 
 `build.py` enforces these rules. It refuses the pack when an entry names no author, tool or
 license. It refuses a license outside CC0-1.0 and MIT, a tool missing from `generators/`, and the
-original game as an author. It also refuses any file in `pack/` that no entry names.
+original game as an author. A waterfall model's tool is the client's `engine-view --bake-falls`.
+It also refuses any file in `pack/` that no entry names.
 
 ## Building
 
@@ -125,11 +154,12 @@ writes them.
 
 | Path | What |
 |---|---|
-| `pack/manifest.toml` | The metadata definition. It says what each asset replaces, lists its levels of detail and credits it. It uses format 1, which the client's `core/assets/src/art_pack.rs` describes. |
+| `pack/manifest.toml` | The metadata definition. It says what each asset replaces, lists its levels of detail and credits it. It uses format 1, which the client's `core/assets/src/art_pack.rs` describes, with era variants under `[variant]` (see Variants). |
 | `pack/trees/` | The models (glTF 2.0) and their pictures. |
 | `pack/ground/` | The ground pictures. |
 | `pack/materials/` | The material pictures. |
 | `pack/sky/` | The moon pictures. |
+| `pack/falls/` | The waterfall models. |
 | `pack/grit/` | The shared fine-detail tiles. |
 | `generators/` | The scripts that make the assets. |
 | `tables/` | The measurements and recipes the generators read. |

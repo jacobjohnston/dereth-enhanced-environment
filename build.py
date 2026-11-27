@@ -13,6 +13,8 @@ OUT = os.path.join(HERE, 'dist', 'enhanced-environment.dat')
 
 # What an entry's tool must name: a generator in generators/, or a hand.
 HAND = 'By hand'
+# The client's own tool a kind of entry is made with instead, from the player's own game files.
+CLIENT = {'fall': 'engine-view --bake-falls'}
 # The licenses an entry may carry: ours, and those of the outside work the README credits.
 LICENSES = {'CC0-1.0', 'MIT'}
 # What an author must not be: the original game's art is the player's, not ours to ship.
@@ -22,18 +24,20 @@ KEPT = ('grit/',)
 
 
 def entries(path):
-    """The manifest's tables, each with its [[model.lod]] tables under `lod`: its plain layout only."""
+    """The manifest's tables, each with its [[model.lod]] tables under `lod` and a variant's kind
+    without `variant.` (marked `variant`): its plain layout only."""
     out, cur, target = [], None, None
     for line in open(path):
         line = line.split(' #')[0].rstrip()
         if not line.strip():
             continue
-        m = re.match(r'^\[\[(\w+)\.lod\]\]$', line) or re.match(r'^\[\[?(\w+)\]\]?$', line)
+        m = re.match(r'^\[\[((?:variant\.)?\w+)\.lod\]\]$', line) or re.match(r'^\[\[?((?:variant\.)?\w+)\]\]?$', line)
         if m and line.endswith('.lod]]'):
             target = {}
             cur.setdefault('lod', []).append(target)
         elif m:
-            cur = target = {'kind': m.group(1)}
+            kind = m.group(1)
+            cur = target = {'kind': kind.removeprefix('variant.'), 'variant': kind.startswith('variant.')}
             out.append(cur)
         else:
             k, _, v = line.partition('=')
@@ -51,19 +55,39 @@ def drawn_as_eor():
     return out
 
 
+def glazed():
+    """End of Retail's flat pictures whose tables/recipes.tsv row gives them a gloss (glaze=K)."""
+    out = set()
+    for line in open(os.path.join(HERE, 'tables', 'recipes.tsv')):
+        f = line.rstrip('\n').split('\t')
+        if line.strip() and not line.startswith('#') and any(x.startswith('glaze=') for x in f[4:]):
+            out.add(f[0])
+    return out
+
+
 def provenance():
     """Why the pack may not be shipped, one line a reason."""
     why = []
     es = entries(os.path.join(PACK, 'manifest.toml'))
     eor = drawn_as_eor()
+    gloss = glazed()
     pack = next((e for e in es if e['kind'] == 'pack'), {})
     if pack.get('format') != '1':
         why.append('manifest: [pack] must be format = 1')
     named = {'manifest.toml'}
+    # Dereth refuses a pack whose [[model]] or [[material]] tables name an id twice.
+    seen = set()
     for e in es:
         if e['kind'] == 'pack':
             continue
-        label = f"{e['kind']} {e.get('id') or e.get('texture') or e.get('surface') or e.get('object') or e.get('ground')}"
+        label = f"{'variant ' if e['variant'] else ''}{e['kind']} {e.get('id') or e.get('texture') or e.get('surface') or e.get('object') or e.get('ground') or e.get('file')}"
+        if e['kind'] in ('model', 'material') and not e['variant']:
+            ids = e.get('id') or e.get('texture')
+            for i in ids if isinstance(ids, list) else [ids]:
+                if (e['kind'], i) in seen:
+                    why.append(f'{e["kind"]} {i}: listed twice in [[{e["kind"]}]], which Dereth refuses; '
+                               f'run generators/variants.py to move the repeat under [[variant.{e["kind"]}]]')
+                seen.add((e['kind'], i))
         tool, author, lic = e.get('tool'), e.get('author'), e.get('license')
         if not (tool and author and lic):
             why.append(f'{label}: no author, tool or license')
@@ -74,7 +98,7 @@ def provenance():
         if not named_licenses or not named_licenses <= LICENSES:
             why.append(f'{label}: license {lic!r}, not one of {sorted(LICENSES)}')
         scripts = re.findall(r'[\w-]+\.(?:py|mjs)', tool)
-        if tool != HAND and (not scripts or not all(
+        if tool not in (HAND, CLIENT.get(e['kind'])) and (not scripts or not all(
                 os.path.isfile(os.path.join(HERE, 'generators', s)) for s in scripts)):
             why.append(f'{label}: its tool {tool!r} names no script in generators/')
         if e['kind'] in ('material', 'solid') and 'base_color' not in e:
@@ -83,10 +107,11 @@ def provenance():
         if e['kind'] == 'material' and era and (era[1], e.get('texture')) in eor:
             why.append(f'{label}: Pyreal draws End of Retail\'s picture for it in {era[1]} (tables/drawn-as-eor.tsv)')
         if (e['kind'] == 'material' and tool == 'relief.py' and not float(e.get('damp') or 0)
-                and not {'normal', 'height', 'metal', 'metal_map', 'damp_map'} & set(e)):
+                and not {'normal', 'height', 'metal', 'metal_map', 'damp_map'} & set(e)
+                and not (not era and e.get('texture') in gloss)):
             why.append(f'{label}: adds nothing to the retail picture, which the client draws as it is')
         for k, v in e.items():
-            if isinstance(v, str) and re.match(r'^[\w./-]+\.(png|gltf|bin)$', v):
+            if isinstance(v, str) and re.match(r'^[\w./-]+\.(png|gltf|bin|fall)$', v):
                 named.add(v)
         for lod in e.get('lod', []):
             named.add(lod['file'])

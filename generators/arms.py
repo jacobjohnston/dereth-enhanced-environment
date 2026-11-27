@@ -18,6 +18,7 @@ import os, re, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import variants
 import relief
 from iron import recipes, size
 from relief import option
@@ -68,6 +69,24 @@ ARMS = {
     '0x05002A12': 'strict gilt',
     '0x050021D3': 'strict steel',
     '0x050021D4': 'strict steel',
+    # Round 12: a banner's spear head, a bow's and a crossbow's fittings, a golden drake and a pile of armour.
+    '0x050022D4': 'steel',
+    '0x050024D5': 'gold',
+    '0x05001F8C': 'gold',
+    '0x0500200B': 'faced',
+    '0x050024DA': 'faced',
+    '0x05001955': 'gold',
+    '0x05001956': 'gold',
+    '0x05001957': 'gold',
+    '0x05001958': 'gold',
+    '0x05001959': 'gold',
+    '0x0500195A': 'gold',
+    '0x0500195E': 'gold',
+    '0x0500284F': 'steel',
+    # Round 11: a steel star, a black studded door and the dark carved statues.
+    '0x050002AC': 'steel',
+    '0x0500306C': 'steel',
+    '0x05002700': 'steel',
     # Chests, keys and a vault door (round 8): the Forbidden and Lunnum's Chests, the Lock Box, the Trunk of Bones, the Puzzle Box, the Vault Door and the chest keys.
     '0x05000B24': 'steel',
     '0x05000B26': 'strict steel',
@@ -205,7 +224,7 @@ def main(args):
         os.makedirs(masks, exist_ok=True)
     seen = relief.survey_of(option(args, '--survey', None))
     path = os.path.join(pack, 'manifest.toml')
-    blocks = re.split(r'\n(?=\[\[)', open(path).read())
+    blocks = re.split(r'\n(?=\[\[)', variants.flat(open(path).read()))
     texture = lambda b: (re.search(r'^texture = "(0x[0-9A-Fa-f]{8})"$', b, re.M) or [None, None])[1]
     # Only this era's materials: those directly in materials/, or in materials/<era>/.
     where = rf'^base_color = "materials/{re.escape(sub)}[^/"]+"$'
@@ -226,7 +245,7 @@ def main(args):
             # Each in its place, so the manifest's other entries keep their order.
             blocks[i] = new + '\n'
             made += 1
-    open(path, 'w').write('\n'.join(blocks))
+    open(path, 'w').write(variants.settle('\n'.join(blocks)))
     print(made, 'materials of arms and armour')
 
 

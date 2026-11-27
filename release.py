@@ -10,6 +10,8 @@
 import hashlib, json, lzma, os, re, shutil, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, 'generators'))
+import variants
 MANIFEST = 'pack/manifest.toml'
 DAT = os.path.join(HERE, 'dist', 'enhanced-environment.dat')
 XZ = DAT + '.xz'
@@ -19,7 +21,7 @@ LISTED = 25
 KINDS = {'model': ('model', 'models'), 'material': ('material', 'materials'),
          'ground_cover': ('ground cover', 'ground covers'), 'light': ('light', 'lights'),
          'moon': ('moon', 'moons'), 'terrain': ('ground material', 'ground materials'),
-         'steep': ('slope material', 'slope materials')}
+         'steep': ('slope material', 'slope materials'), 'fall': ('waterfall model', 'waterfall models')}
 
 
 def git(*args):
@@ -34,16 +36,18 @@ def version():
 
 
 def entries(text):
-    """Each manifest entry by what it stands for (kind and id), with its text and the files it names."""
-    out = {}
-    for block in re.split(r'\n(?=\[(?:\[(?!model\.lod)[a-z_]+\]|pack)\])', text):
+    """Each manifest entry by what it stands for (kind, id and which of the id's entries, its variants
+    after the main tables'), with its text and the files it names."""
+    out, seen = {}, {}
+    for block in re.split(r'\n(?=\[(?:\[(?!model\.lod)[a-z_]+\]|pack)\])', variants.flat(text)):
         head = block.lstrip().split('\n', 1)[0].strip('[]')
         if head == 'pack':
             continue
-        name = re.search(r'^(?:id|texture|object|ground|surface) = (.+)$', block, re.M)
+        name = re.search(r'^(?:id|texture|object|ground|surface|file) = (.+)$', block, re.M)
         lod = re.search(r'^file = "([^"]+)"', block, re.M)
         key = (head, (name[1] if head != 'ground_cover' else os.path.basename(lod[1]).split('_lod')[0] if lod else '?').strip('"'))
-        out[key] = (block.strip(), set(re.findall(r'= "([^"]+\.(?:png|gltf|bin))"', block)))
+        seen[key] = n = seen.get(key, -1) + 1
+        out[key + (n,)] = (block.strip(), set(re.findall(r'= "([^"]+\.(?:png|gltf|bin|fall))"', block)))
     return out
 
 
