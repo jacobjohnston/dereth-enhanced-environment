@@ -297,6 +297,12 @@ pub fn metal_key(path: &str) -> String {
     format!("metal:{path}")
 }
 
+/// What a packed pack keeps a material's clear map under, whichever materials share it.
+#[must_use]
+pub fn clear_key(path: &str) -> String {
+    format!("clear:{path}")
+}
+
 /// What a packed pack keeps a grit picture under, whichever materials share it.
 #[must_use]
 pub fn grit_key(path: &str) -> String {

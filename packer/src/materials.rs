@@ -83,6 +83,23 @@ pub(super) fn metal(bytes: &[u8], path: &str) -> Result<Image, String> {
     ))
 }
 
+/// A clear map from its file: where it is clear in red and where what is not clear is a metal in
+/// green, with its levels, in BC5.
+pub(super) fn clear(bytes: &[u8], path: &str) -> Result<Image, String> {
+    let (w, h, mut rgba) = images::decode_png(bytes).map_err(|e| format!("{path}: {e}"))?;
+    if w == 0 || h == 0 {
+        return Err(format!("{path}: an empty picture"));
+    }
+    for px in rgba.as_chunks_mut::<4>().0 {
+        *px = [px[0], px[1], 0, 255];
+    }
+    let (w, h, rgba) = images::to_whole_blocks(w, h, rgba);
+    Ok(images::compressed(
+        images::with_levels(w, h, rgba, false, None),
+        BlockFormat::Bc5,
+    ))
+}
+
 /// A grit picture from its file, with its levels, in BC7: its smaller levels average to no bend and
 /// no speckle, so it fades with distance rather than shimmers.
 pub(super) fn grit(bytes: &[u8], path: &str) -> Result<Image, String> {

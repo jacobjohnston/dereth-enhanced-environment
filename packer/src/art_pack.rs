@@ -68,7 +68,7 @@ pub struct Opened {
     pub name: String,
     /// The hash of its manifest and every file it read.
     pub hash: String,
-    /// Every file read for itself (the manifest, the models and their buffers), by path.
+    /// Every file read for itself (the manifest, the models and their buffers, the falls), by path.
     pub files: BTreeMap<String, Vec<u8>>,
     /// Every picture made, by what a packed pack keeps it under.
     pub pictures: BTreeMap<String, Vec<Image>>,
@@ -570,6 +570,21 @@ pub fn open(
             Err(e) => problems.push(format!("metal map {path}: {e}")),
         }
     }
+    // The clear maps, read for each material that names one, as the client reads them.
+    for entry in &named {
+        let Some(path) = entry.clear_map.as_deref() else {
+            continue;
+        };
+        let made = reader
+            .for_picture(path)
+            .and_then(|bytes| materials::clear(&bytes, path));
+        match made {
+            Ok(image) => {
+                recorded.insert(packed::clear_key(path), vec![image]);
+            }
+            Err(e) => problems.push(format!("clear map {path}: {e}")),
+        }
+    }
     // The grit pictures, one each however many materials share it.
     let mut grit_seen: HashSet<&str> = HashSet::new();
     for entry in named {
@@ -605,6 +620,12 @@ pub fn open(
         });
         if let Err(e) = moon {
             problems.push(format!("moon {:#010X}: {e}", entry.object.0));
+        }
+    }
+    // The waterfalls modelled ahead of time, as they are.
+    for entry in &manifest.falls {
+        if let Err(e) = reader.file(&entry.file) {
+            problems.push(format!("fall {}: {e}", entry.file));
         }
     }
     Ok(Opened {

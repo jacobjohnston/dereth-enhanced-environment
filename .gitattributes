@@ -5,3 +5,5 @@
 # The text the packer reads byte for byte: the same on every checkout, whatever its line endings.
 pack/manifest.toml -text
 *.gltf -text
+# The waterfall models, as they are.
+*.fall binary
